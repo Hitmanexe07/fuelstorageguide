@@ -19,6 +19,16 @@ def src(url, label):
     return f'(<a href="{url}" rel="noopener">{label}</a>)'
 
 
+AMAZON_TAG = "fuelstoragegu-20"
+def amz(query, label):
+    from urllib.parse import quote_plus
+    url = f"https://www.amazon.com/s?k={quote_plus(query)}&tag={AMAZON_TAG}"
+    return f'<a href="{url}" rel="sponsored nofollow noopener" target="_blank">{label}</a>'
+
+AFF_NOTE = ('<p class="aff-note">This guide has affiliate links. As an Amazon Associate, FuelStorageGuide earns from qualifying purchases, '
+            'at no extra cost to you. <a href="/affiliate-disclosure/">How we pick products</a>.</p>')
+
+
 NAV = [("/", "Guides"), ("/about/", "About"), ("/contact/", "Contact")]
 
 
@@ -67,7 +77,7 @@ def page(path, title, description, body, current=None, schema=None, og_type="web
 </main>
 <footer class="site-footer">
   <div class="footer-inner">
-    <span>FuelStorageGuide. Practical guidance on stored fuel, written by a working fuel-system technician.</span>
+    <span>FuelStorageGuide. Practical guidance on stored fuel, written by a working fuel-system technician. As an Amazon Associate, we earn from qualifying purchases.</span>
     <nav aria-label="Footer">
       <a href="/about/">About</a>
       <a href="/contact/">Contact</a>
@@ -111,6 +121,7 @@ gel_body = f"""
 <article class="wrap">
   <h1>Diesel gelling: when it happens and how to prevent it</h1>
   <p class="meta">Written by a fuel-system technician. Updated {UPDATED_HUMAN}.</p>
+  {AFF_NOTE}
 
   <div class="answer">
     <p><strong>Untreated #2 diesel starts to cloud around 14°F and can plug a fuel filter within a few degrees of that.</strong> It doesn't need to freeze solid to stop you. Wax crystals catch on the filter long before the fuel stops pouring.</p>
@@ -168,6 +179,14 @@ gel_body = f"""
     <li><strong>Warm safely.</strong> Use a heated building, a tank or filter heater, or heat tracing. Never use an open flame or torch on a tank, pump, or fuel line.</li>
     <li><strong>Let the tank come back above the cloud point before trusting it.</strong> Wax that settled to the bottom leaves the fuel uneven until it redissolves {src(CRC, 'CRC')}.</li>
     <li><strong>Then fix the cause.</strong> Once it's flowing, treat or blend the fuel so it doesn't happen on the next cold night.</li>
+  </ul>
+
+  <h2>What to keep on hand</h2>
+  <ul>
+    <li>Anti-gel additive for diesel, added before the cold: {amz("diesel anti gel additive", "anti-gel on Amazon")}</li>
+    <li>An emergency re-liquefier for fuel that already gelled: {amz("Power Service Diesel 9-1-1", "Power Service Diesel 9-1-1 on Amazon")}</li>
+    <li>A spare dispenser filter: {amz("Fill-Rite 10 micron fuel filter", "Fill-Rite filters on Amazon")}</li>
+    <li>Water-finding paste, to check for water before winter: {amz("Kolor Kut water finding paste", "Kolor Kut paste on Amazon")}</li>
   </ul>
 
   <h2>Winter checklist for tank owners</h2>
@@ -544,6 +563,7 @@ water_body = f"""
 <article class="wrap">
   <h1>Water in your diesel tank: how it gets there and how to get it out</h1>
   <p class="meta">Written by a fuel-system technician. Updated {UPDATED_HUMAN}.</p>
+  {AFF_NOTE}
 
   <div class="answer">
     <p><strong>Water is heavier than diesel, so it sinks and collects at the bottom of the tank, right where most pickups and drains are.</strong> The industry guide for diesel storage puts it simply: "No detectable water is desirable," and any water you find should come out as soon as possible {src(CRC672, 'CRC Report 672')}.</p>
@@ -611,6 +631,15 @@ water_body = f"""
   </table>
   </div>
   <p><strong>Use a water-blocking filter on the dispenser.</strong> Filters that absorb or detect water stop it before it reaches your equipment and warn you something is wrong. Fill-Rite, for example, sells 10-micron water-detecting and Hydrosorb filters for transfer pumps {src(FILLRITE, 'Fill-Rite')}.</p>
+
+  <h2>What you'll need</h2>
+  <ul>
+    <li>Water-finding paste and a clean gauge stick: {amz("Kolor Kut water finding paste", "Kolor Kut paste on Amazon")}</li>
+    <li>A water-blocking or water-detecting dispenser filter: {amz("Fill-Rite Hydrosorb water filter", "Fill-Rite water filters on Amazon")}</li>
+    <li>A clear sample jar for checking fuel: {amz("fuel sample bottle clear", "sample bottles on Amazon")}</li>
+    <li>A desiccant vent breather, if your vent fits one: {amz("fuel tank desiccant breather", "desiccant breathers on Amazon")}</li>
+    <li>A diesel biocide, only if you've confirmed microbes: {amz("diesel fuel biocide", "diesel biocides on Amazon")}</li>
+  </ul>
 
   <h2>Water checklist for tank owners</h2>
   <ul class="checklist">
@@ -698,6 +727,7 @@ pump_body = f"""
 <article class="wrap">
   <h1>How to choose a 12V fuel transfer pump</h1>
   <p class="meta">Written by a fuel-system technician. Updated {UPDATED_HUMAN}.</p>
+  {AFF_NOTE}
 
   <div class="answer">
     <p><strong>For a pickup transfer tank or a small farm tank, a 15 GPM pump is the usual fit. Step up to 20 GPM for bigger tanks and frequent fueling, and drop to about 8 GPM for drums and occasional use.</strong> Then check three things before you buy: the duty cycle, the fuels it's rated for, and whether your truck or battery can feed its amp draw.</p>
@@ -727,12 +757,12 @@ pump_body = f"""
   <table class="compare">
     <thead><tr><th scope="col">Pump</th><th scope="col">Flow</th><th scope="col">Duty cycle</th><th scope="col">Electrical</th><th scope="col">Warranty</th><th scope="col">Time for 100 gal</th></tr></thead>
     <tbody>
-      <tr><td><a href="{EZ8}" rel="noopener">GPI EZ8</a></td><td>8 GPM</td><td>15 on / 30 off</td><td>20 A fuse</td><td>2 years</td><td>12.5 min</td></tr>
-      <tr><td><a href="{FR1210}" rel="noopener">Fill-Rite FR1200 series</a> (e.g., FR1210)</td><td>15 GPM</td><td>30 on / 30 off</td><td>20 A max draw</td><td>Limited lifetime</td><td>6.7 min</td></tr>
-      <tr><td><a href="{M150}" rel="noopener">GPI M-150S</a></td><td>15 GPM</td><td>30 on / 30 off</td><td>25 A fuse</td><td>2 years</td><td>6.7 min</td></tr>
-      <tr><td><a href="{FR4210}" rel="noopener">Fill-Rite FR4200 series</a> (e.g., FR4210)</td><td>20 GPM</td><td>30 on / 30 off</td><td>19 A max draw</td><td>Limited lifetime</td><td>5 min</td></tr>
-      <tr><td><a href="{G20}" rel="noopener">GPI G20</a></td><td>20 GPM</td><td>30 on / 30 off</td><td>40 A fuse</td><td>Not listed</td><td>5 min</td></tr>
-      <tr><td><a href="{FRSHEET}" rel="noopener">Fill-Rite FR3200 series</a> (e.g., FR3210)</td><td>25 GPM</td><td>30 min rated</td><td>About 50 A</td><td>Not listed</td><td>4 min</td></tr>
+      <tr><td><a href="{EZ8}" rel="noopener">GPI EZ8</a><br><span class="shop">{amz("GPI EZ8 12V fuel transfer pump", "Check price on Amazon")}</span></td><td>8 GPM</td><td>15 on / 30 off</td><td>20 A fuse</td><td>2 years</td><td>12.5 min</td></tr>
+      <tr><td><a href="{FR1210}" rel="noopener">Fill-Rite FR1200 series</a> (e.g., FR1210)<br><span class="shop">{amz("Fill-Rite FR1210 12V fuel pump", "Check price on Amazon")}</span></td><td>15 GPM</td><td>30 on / 30 off</td><td>20 A max draw</td><td>Limited lifetime</td><td>6.7 min</td></tr>
+      <tr><td><a href="{M150}" rel="noopener">GPI M-150S</a><br><span class="shop">{amz("GPI M-150S 12V fuel transfer pump", "Check price on Amazon")}</span></td><td>15 GPM</td><td>30 on / 30 off</td><td>25 A fuse</td><td>2 years</td><td>6.7 min</td></tr>
+      <tr><td><a href="{FR4210}" rel="noopener">Fill-Rite FR4200 series</a> (e.g., FR4210)<br><span class="shop">{amz("Fill-Rite FR4210 12V fuel pump", "Check price on Amazon")}</span></td><td>20 GPM</td><td>30 on / 30 off</td><td>19 A max draw</td><td>Limited lifetime</td><td>5 min</td></tr>
+      <tr><td><a href="{G20}" rel="noopener">GPI G20</a><br><span class="shop">{amz("GPI G20 12V fuel transfer pump", "Check price on Amazon")}</span></td><td>20 GPM</td><td>30 on / 30 off</td><td>40 A fuse</td><td>Not listed</td><td>5 min</td></tr>
+      <tr><td><a href="{FRSHEET}" rel="noopener">Fill-Rite FR3200 series</a> (e.g., FR3210)<br><span class="shop">{amz("Fill-Rite FR3210 12V fuel pump", "Check price on Amazon")}</span></td><td>25 GPM</td><td>30 min rated</td><td>About 50 A</td><td>Not listed</td><td>4 min</td></tr>
     </tbody>
   </table>
   </div>
@@ -851,6 +881,7 @@ tt_body = f"""
 <article class="wrap">
   <h1>Diesel transfer tanks: sizing, legal limits, and setup</h1>
   <p class="meta">Written by a fuel-system technician. Updated {UPDATED_HUMAN}.</p>
+  {AFF_NOTE}
 
   <div class="answer">
     <p><strong>A transfer tank is a fuel tank mounted in a pickup bed or on a trailer that you pump from to fuel equipment in the field. For diesel, keeping the tank at 119 gallons or less keeps it out of most federal hazmat rules.</strong> Over 119 gallons counts as "bulk" packaging, and diesel in bulk packaging needs placards {src(JJK, 'J.J. Keller')}.</p>
@@ -900,6 +931,7 @@ tt_body = f"""
   </div>
   <p><strong>Material:</strong> Aluminum tanks don't rust and weigh less {src(RDS95, 'RDS 95-gallon L combo')}. Steel tanks usually cost less but add weight and can rust if the coating is damaged.</p>
   <p><strong>Features worth having:</strong> internal baffles to keep fuel from sloshing, a lockable fill cap, a rollover vent, a drain plug at the bottom, and a level gauge {src(RDS60, 'RDS 60-gallon combo')}. The drain plug matters more than people think: it's the easiest way to get water out (see <a href="{WATER_PATH}">water in your diesel tank</a>).</p>
+  <p><strong>Shopping:</strong> {amz("RDS transfer tank toolbox combo", "RDS combo tanks on Amazon")}, {amz("aluminum L shaped diesel transfer tank", "L-shaped transfer tanks on Amazon")}, and {amz("Fill-Rite 12V transfer tank pump kit", "Fill-Rite pump kits on Amazon")}. Check that the tank is labeled for the fuel you'll carry.</p>
 
   <h2>Setting it up</h2>
   <p><strong>Bolt the tank down, put a filter after the pump, bond the pump to the tank, and cut power to the pump when you drive.</strong></p>
@@ -1036,7 +1068,7 @@ privacy_body = f"""
   <h2>Fonts</h2>
   <p>Pages load fonts from Google Fonts, which receives your IP address when the fonts are downloaded. See <a href="https://policies.google.com/privacy" rel="noopener">Google's privacy policy</a>.</p>
   <h2>Affiliate links</h2>
-  <p>Some pages may link to products through affiliate programs. If you click one, the retailer may set its own cookies to credit the referral. Their privacy policies apply on their sites. See the <a href="/affiliate-disclosure/">affiliate disclosure</a>.</p>
+  <p>Some pages link to products through affiliate programs, including Amazon Associates. If you click one, the retailer may set its own cookies to credit the referral. Their privacy policies apply on their sites. See the <a href="/affiliate-disclosure/">affiliate disclosure</a>.</p>
   <h2>Changes and questions</h2>
   <p>If this policy changes, the date above will change. Questions: <a href="mailto:contact@fuelstorageguide.com">contact@fuelstorageguide.com</a>.</p>
 </div>
@@ -1050,9 +1082,10 @@ aff_body = f"""
 <div class="wrap">
   <h1>Affiliate disclosure</h1>
   <p class="meta">Last updated {UPDATED_HUMAN}</p>
-  <p>Some links on FuelStorageGuide may be affiliate links. If you buy something through one, the site may earn a commission at no extra cost to you.</p>
+  <p>Some links on FuelStorageGuide are affiliate links. If you buy something through one, the site may earn a commission at no extra cost to you.</p>
+  <p><strong>As an Amazon Associate, FuelStorageGuide earns from qualifying purchases.</strong></p>
   <p>Affiliate relationships don't decide what gets recommended. Products are mentioned because they fit the job, and guides say when a cheaper or simpler option works just as well. No company pays to be included or reviewed.</p>
-  <p>Pages with affiliate links say so near the top. Questions: <a href="mailto:contact@fuelstorageguide.com">contact@fuelstorageguide.com</a>.</p>
+  <p>Product links go to Amazon search results rather than a single listing, so you can compare sellers and kits. Pages with affiliate links say so near the top. Questions: <a href="mailto:contact@fuelstorageguide.com">contact@fuelstorageguide.com</a>.</p>
 </div>
 """
 page("/affiliate-disclosure/", "Affiliate Disclosure | FuelStorageGuide",
