@@ -210,3 +210,8 @@ table.compare td { white-space: normal; }
 
 .aff-note { font-size: 0.95rem; color: var(--muted); border-left: 3px solid var(--rule); padding-left: 0.75rem; margin: -1rem 0 1.5rem; }
 .shop { font-size: 0.9rem; font-weight: 400; }
+
+/* Diagrams */
+.diagram { margin: 1.5rem 0 2rem; background: var(--surface); border: 1px solid var(--rule); padding: 0.75rem; }
+.diagram svg { display: block; width: 100%; height: auto; }
+.diagram figcaption { font-size: 0.95rem; color: var(--muted); margin-top: 0.5rem; }

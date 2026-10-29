@@ -1,5 +1,8 @@
 """Builds the FuelStorageGuide.com static site into ./site"""
 import json
+import sys
+sys.path.insert(0, str(__import__("pathlib").Path(__file__).parent / "tools"))
+from diagrams import WATER_TANK_SVG, TRANSFER_RULE_SVG
 from pathlib import Path
 
 SITE = Path(__file__).parent / "site"
@@ -34,6 +37,9 @@ NAV = [("/", "Guides"), ("/about/", "About"), ("/contact/", "Contact")]
 
 def page(path, title, description, body, current=None, schema=None, og_type="website"):
     canonical = DOMAIN + path
+    slug = path.strip("/").replace(".html", "") or "home"
+    og_file = SITE / "og" / f"{slug}.png"
+    og_image = f"{DOMAIN}/og/{slug}.png" if og_file.exists() else f"{DOMAIN}/og/home.png"
     nav = "".join(
         f'<a href="{href}"{" aria-current=\"page\"" if href == current else ""}>{label}</a>'
         for href, label in NAV
@@ -57,6 +63,11 @@ def page(path, title, description, body, current=None, schema=None, og_type="web
 <meta property="og:description" content="{description}">
 <meta property="og:url" content="{canonical}">
 <meta property="og:site_name" content="FuelStorageGuide">
+<meta property="og:image" content="{og_image}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="{og_image}">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -580,6 +591,8 @@ water_body = f"""
     <li><strong>Deliveries.</strong> Water can come in with the load, and a delivery can stir up water already sitting on the bottom, especially when the fuel level is low or the outlet sits close to the bottom {src(CRC, 'CRC Report 671')}.</li>
   </ul>
 
+  {WATER_TANK_SVG}
+
   <h2>Why a little water matters</h2>
   <p><strong>Water is where the trouble starts: microbes grow in it, it rusts the tank, and it freezes in winter.</strong></p>
   <ul>
@@ -891,6 +904,7 @@ tt_body = f"""
 
   <h2>The rules for hauling fuel in a pickup</h2>
   <p><strong>Under federal hazmat rules, what matters is the fuel and the tank's capacity, not how much is in it.</strong> A 120-gallon tank with 20 gallons in it is still a bulk package {src(JJK, 'J.J. Keller')}.</p>
+  {TRANSFER_RULE_SVG}
   <div class="table-wrap">
   <table>
     <thead><tr><th scope="col">Situation</th><th scope="col">What the federal rules say</th></tr></thead>
