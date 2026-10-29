@@ -667,6 +667,159 @@ water_schema = [
 ]
 page(WATER_PATH, WATER_TITLE, WATER_DESC, water_body, schema=water_schema, og_type="article")
 
+# ---------------- Article: 12V transfer pumps ----------------
+FRMAN = "https://goind.com.au/cdn/shop/files/GO_Manual_Fill-Rite_DC_Pumps.pdf"
+FRSHEET = "https://images.oreillyauto.com/parts/img/documents/fil/fillritedcpumpsalessheet.pdf"
+FR1210 = "https://www.fillrite.com/catalog/product/view/id/18304"
+FR4210 = "https://www.fillrite.com/12v-dc-20-gpm-fuel-transfer-pump-with-nozzle-fr4210h"
+EZ8 = "https://www.toolsid.com/gpi/ez8-8-gpm-12-v-dc-fuel-transfer-pump-mpn-137100-01.html"
+M150 = "https://toolsid.com/gpi/gpi-m-150s-series-fuel-transfer-pump-2114015016.html"
+G20 = "https://toolsid.com/gpi/20-gpm-12-v-dc-fuel-transfer-pump-mpn-162000-03.html"
+
+PUMP_PATH = "/12v-fuel-transfer-pump/"
+PUMP_TITLE = "How to Choose a 12V Fuel Transfer Pump (Fill-Rite and GPI Compared)"
+PUMP_DESC = ("How to pick a 12V fuel transfer pump: flow rate, duty cycle, wiring, and which size fits a "
+             "pickup transfer tank, drums, or a farm tank. Fill-Rite and GPI models compared.")
+
+pump_faq = [
+    ("What size wire does a 12V transfer pump need?",
+     f"At least 12 gauge, with a fuse near the battery. Fill-Rite specifies a 30-amp fuse for its 12V pumps, and heavier wire for runs over 20 feet {src(FRMAN, 'Fill-Rite manual')}."),
+    ("Can I run a 12V pump continuously?",
+     f"Most can't. The common 15 and 20 GPM pumps are rated 30 minutes on, 30 minutes off (<a href=\"{FR4210}\" rel=\"noopener\">Fill-Rite FR4210H</a>; <a href=\"{M150}\" rel=\"noopener\">GPI M-150S</a>)."),
+    ("Can I use the same pump for gasoline and diesel?",
+     f"The models here are rated for both, but don't switch back and forth on the same tank. Mixing gasoline into diesel lowers the flash point and creates a fire hazard {src(EPRI, 'EPRI')}."),
+    ("Does a bigger pump mean faster fueling?",
+     "Up to a point. Your hose, filter, meter, and nozzle all limit flow, and a bigger pump draws more current from your battery."),
+]
+pump_faq_html = "\n".join(f"<h3>{q}</h3>\n<p>{a}</p>" for q, a in pump_faq)
+
+pump_body = f"""
+<article class="wrap">
+  <h1>How to choose a 12V fuel transfer pump</h1>
+  <p class="meta">Written by a fuel-system technician. Updated {UPDATED_HUMAN}.</p>
+
+  <div class="answer">
+    <p><strong>For a pickup transfer tank or a small farm tank, a 15 GPM pump is the usual fit. Step up to 20 GPM for bigger tanks and frequent fueling, and drop to about 8 GPM for drums and occasional use.</strong> Then check three things before you buy: the duty cycle, the fuels it's rated for, and whether your truck or battery can feed its amp draw.</p>
+  </div>
+
+  <p>Most 12-volt pumps can't run all day. The common Fill-Rite and GPI models are rated for 30 minutes on, then 30 minutes off (<a href="{FR4210}" rel="noopener">Fill-Rite FR4210H</a>; <a href="{M150}" rel="noopener">GPI M-150S</a>). That's plenty for fueling equipment, but it rules them out for long, continuous transfers.</p>
+
+  <h2>What the specs mean</h2>
+  <p><strong>Five numbers on the box decide whether a pump fits your job.</strong></p>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th scope="col">Spec</th><th scope="col">What it tells you</th><th scope="col">What to look for</th></tr></thead>
+    <tbody>
+      <tr><td>Flow rate (GPM)</td><td>Maximum gallons per minute with nothing slowing it down</td><td>Real flow is lower once you add a filter, meter, long hose, or auto nozzle</td></tr>
+      <tr><td>Duty cycle</td><td>How long it can run before it needs to cool</td><td>"30 on / 30 off" is typical; some small pumps are 15 on / 30 off {src(EZ8, 'GPI EZ8')}. If it overheats, a thermal switch shuts it off {src(FRMAN, 'Fill-Rite manual')}</td></tr>
+      <tr><td>Amp draw and fuse</td><td>How much current it pulls from the battery</td><td>15 to 20 GPM pumps draw about 19 to 20 amps (<a href="{FR1210}" rel="noopener">Fill-Rite FR1210HN</a>; <a href="{FR4210}" rel="noopener">FR4210H</a>). Bigger pumps need heavier wiring</td></tr>
+      <tr><td>Approved fuels</td><td>What it's built to pump</td><td>Most pumps in this class are rated for diesel up to B20, gasoline up to E15, and kerosene. Check before pumping anything else</td></tr>
+      <tr><td>Motor listing</td><td>Whether the motor is certified for use around fuel vapor</td><td>Look for a UL or cULus motor listing for hazardous locations (<a href="{M150}" rel="noopener">GPI M-150S</a>; <a href="{FRSHEET}" rel="noopener">Fill-Rite sales sheet</a>)</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><strong>About thermal shutoff:</strong> On Fill-Rite's 1200 and 4200 series, once the motor overheats and shuts off, you have to let it cool and then turn the switch off to reset it. Some other series reset on their own {src(FRMAN, 'Fill-Rite manual')}. If your pump quits mid-fill and won't restart, that's often why.</p>
+
+  <h2>Common 12V pumps compared</h2>
+  <p><strong>Fill-Rite and GPI make most of the 12V transfer pumps you'll find at farm stores, and their lineups line up closely by flow rate.</strong> Specs below come from each manufacturer's listing. Model numbers vary by kit (hose, nozzle, meter), so match the series.</p>
+  <div class="table-wrap">
+  <table class="compare">
+    <thead><tr><th scope="col">Pump</th><th scope="col">Flow</th><th scope="col">Duty cycle</th><th scope="col">Electrical</th><th scope="col">Warranty</th><th scope="col">Time for 100 gal</th></tr></thead>
+    <tbody>
+      <tr><td><a href="{EZ8}" rel="noopener">GPI EZ8</a></td><td>8 GPM</td><td>15 on / 30 off</td><td>20 A fuse</td><td>2 years</td><td>12.5 min</td></tr>
+      <tr><td><a href="{FR1210}" rel="noopener">Fill-Rite FR1200 series</a> (e.g., FR1210)</td><td>15 GPM</td><td>30 on / 30 off</td><td>20 A max draw</td><td>Limited lifetime</td><td>6.7 min</td></tr>
+      <tr><td><a href="{M150}" rel="noopener">GPI M-150S</a></td><td>15 GPM</td><td>30 on / 30 off</td><td>25 A fuse</td><td>2 years</td><td>6.7 min</td></tr>
+      <tr><td><a href="{FR4210}" rel="noopener">Fill-Rite FR4200 series</a> (e.g., FR4210)</td><td>20 GPM</td><td>30 on / 30 off</td><td>19 A max draw</td><td>Limited lifetime</td><td>5 min</td></tr>
+      <tr><td><a href="{G20}" rel="noopener">GPI G20</a></td><td>20 GPM</td><td>30 on / 30 off</td><td>40 A fuse</td><td>Not listed</td><td>5 min</td></tr>
+      <tr><td><a href="{FRSHEET}" rel="noopener">Fill-Rite FR3200 series</a> (e.g., FR3210)</td><td>25 GPM</td><td>30 min rated</td><td>About 50 A</td><td>Not listed</td><td>4 min</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>All six are listed for diesel up to B20, gasoline up to E15, and kerosene. The fill times are the best case. Real-world times run longer once you add a filter, meter, and long hose.</p>
+  <ul>
+    <li><strong>Fill-Rite's FR4200 series moves a third more fuel than the FR1200 at about the same amp draw</strong> {src(FRSHEET, 'Fill-Rite sales sheet')}, so it's often worth the step up for a farm tank.</li>
+    <li><strong>25 GPM pumps pull about two and a half times the current</strong> of a 15 to 20 GPM pump {src(FRSHEET, 'Fill-Rite sales sheet')}. Plan for heavy wiring and a strong charging system.</li>
+    <li><strong>Fill-Rite's longer warranty</strong> is a real difference from GPI's 2 years on these models.</li>
+  </ul>
+
+  <h2>Which pump for which job</h2>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th scope="col">Job</th><th scope="col">Size to start with</th><th scope="col">Why</th></tr></thead>
+    <tbody>
+      <tr><td>Drums and occasional small fills</td><td>About 8 GPM</td><td>Cheaper and lighter, and a 15-minute run is enough for a drum or two</td></tr>
+      <tr><td>Pickup transfer tank (roughly 50 to 120 gallons)</td><td>15 GPM</td><td>Fills equipment fast enough, and draws about 20 amps the truck can handle</td></tr>
+      <tr><td>Farm skid tank or yard tank fueling big equipment</td><td>20 GPM</td><td>Shorter fill times for large tractor and truck tanks, at about the same amp draw as 15 GPM in Fill-Rite's lineup</td></tr>
+      <tr><td>High-volume fueling or long transfers</td><td>25 GPM, or an AC pump</td><td>A 12V pump's 30-minute duty cycle becomes the limit; a 120V pump may fit better if power is available</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><strong>Gasoline needs extra care.</strong> The pumps above are rated for gasoline up to E15, but pumping gasoline means more vapor and more fire risk. Use a pump with a hazardous-location motor listing, an unleaded nozzle, a grounded hose, and bond the pump to the tank or frame (<a href="{FRMAN}" rel="noopener">Fill-Rite manual</a>; <a href="{M150}" rel="noopener">GPI M-150S</a>).</p>
+
+  <h2>Installing and wiring it</h2>
+  <p><strong>Wire it straight to the battery with a fuse near the battery, use at least 12-gauge wire, and bond the pump to the tank.</strong> These come from Fill-Rite's manual for its 1200, 2400, 4200, and 4400 series {src(FRMAN, 'Fill-Rite manual')}; check your own pump's manual for its numbers.</p>
+  <ol>
+    <li><strong>Power from the battery.</strong> Red to positive, black to negative. Put the fuse holder as close to the battery as you can. Fill-Rite calls for a 30-amp fuse on 12V installs, 20 amps on 24V.</li>
+    <li><strong>Wire size.</strong> Nothing smaller than 12 gauge. For runs longer than 20 feet, size the wire to your electrical code. Longer runs need heavier wire to avoid voltage drop.</li>
+    <li><strong>Bond the pump.</strong> Use the green bonding screw and wire to connect the pump to the tank or vehicle frame. Never connect power wires to the green screw.</li>
+    <li><strong>Keep the suction tube off the bottom.</strong> Fill-Rite says at least 3 inches up from the tank bottom. That keeps the pump from pulling water and sludge that settle there. See <a href="{WATER_PATH}">water in your diesel tank</a>.</li>
+    <li><strong>Put a filter on the outlet.</strong> It keeps dirt and water out of the equipment you're fueling {src(FRMAN, 'Fill-Rite manual')}. Fill-Rite's standard transfer filters are 10 micron, with water-detecting versions available {src(FILLRITE, 'Fill-Rite filters')}.</li>
+    <li><strong>Skip extra check or foot valves</strong> unless they have a built-in pressure relief. They can cut flow {src(FRMAN, 'Fill-Rite manual')}.</li>
+  </ol>
+
+  <h2>Common problems and fixes</h2>
+  <p>From Fill-Rite's troubleshooting guide {src(FRMAN, 'Fill-Rite manual')}:</p>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th scope="col">Problem</th><th scope="col">Check, in this order</th></tr></thead>
+    <tbody>
+      <tr><td>Slow flow</td><td>Dirty inlet screen; leaks or kinks in the suction line; a sticking bypass valve; a plugged filter, hose, or nozzle; worn rotor and vanes; low fuel in the tank</td></tr>
+      <tr><td>Won't prime</td><td>Leaks or blockage in the suction line; bypass valve stuck open; nicked or worn vanes. For vapor lock, shorten the distance from pump to fuel and remove the automatic nozzle to test</td></tr>
+      <tr><td>Motor won't run</td><td>Power at the pump; a failed switch; loose or wrong wiring. If the motor or thermal protector has failed, return it; don't open the motor</td></tr>
+      <tr><td>Quit mid-fill</td><td>Likely the thermal shutoff after running past the duty cycle. Let it cool; on Fill-Rite 1200 and 4200 series, turn the switch off to reset</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><strong>A plugged filter is one of the most common causes of slow flow at farm tanks,</strong> and it often means water or microbes in the tank.</p>
+
+  <section class="faq">
+  <h2>FAQ</h2>
+  {pump_faq_html}
+  </section>
+
+  <h2>Sources</h2>
+  <ul class="sources">
+    <li><a href="{FRMAN}" rel="noopener">Fill-Rite: DC pump owner's manual (FR1200, FR2400, FR4200, FR4400 series)</a></li>
+    <li><a href="{FRSHEET}" rel="noopener">Fill-Rite: DC pump sales sheet</a></li>
+    <li><a href="{FR1210}" rel="noopener">Fill-Rite: FR1210HN 12V 15 GPM pump</a></li>
+    <li><a href="{FR4210}" rel="noopener">Fill-Rite: FR4210H 12V 20 GPM pump</a></li>
+    <li><a href="{FILLRITE}" rel="noopener">Fill-Rite: Fuel transfer filters</a></li>
+    <li><a href="{EZ8}" rel="noopener">GPI EZ8 8 GPM 12V pump (Tools ID listing)</a></li>
+    <li><a href="{M150}" rel="noopener">GPI M-150S 15 GPM 12V pump (Tools ID listing)</a></li>
+    <li><a href="{G20}" rel="noopener">GPI G20 20 GPM 12V pump (Tools ID listing)</a></li>
+    <li><a href="{EPRI}" rel="noopener">EPRI / Southwest Research Institute: Winterizing Diesel Fuel</a></li>
+  </ul>
+  <p class="note">This guide is general information. Follow your pump's manual and local electrical and fire codes when installing.</p>
+</article>
+"""
+
+pump_schema = [
+    {
+        "@context": "https://schema.org", "@type": "Article",
+        "headline": PUMP_TITLE, "description": PUMP_DESC,
+        "datePublished": UPDATED, "dateModified": UPDATED,
+        "author": {"@type": "Person", "name": "FuelStorageGuide", "jobTitle": "Fuel-system technician"},
+        "publisher": {"@type": "Organization", "name": "FuelStorageGuide", "url": DOMAIN},
+        "mainEntityOfPage": DOMAIN + PUMP_PATH,
+    },
+    {
+        "@context": "https://schema.org", "@type": "FAQPage",
+        "mainEntity": [{"@type": "Question", "name": q,
+                        "acceptedAnswer": {"@type": "Answer", "text": strip_tags(a)}} for q, a in pump_faq],
+    },
+]
+page(PUMP_PATH, PUMP_TITLE, PUMP_DESC, pump_body, schema=pump_schema, og_type="article")
+
 # ---------------- Home ----------------
 home_body = f"""
 <div class="wide">
@@ -680,6 +833,7 @@ home_body = f"""
   <ul class="guide-list">
     <li><a class="guide" href="{SPCC_PATH}"><span class="card-title">Do I need an SPCC plan?</span><p>The 1,320-gallon rule, the farm thresholds, which plan type you need, and a one-minute checker for your site.</p></a></li>
     <li><a class="guide" href="{WATER_PATH}"><span class="card-title">Water in your diesel tank</span><p>How water gets in, how to check for it with paste or a clear jar, how to get it out, and how to keep it out.</p></a></li>
+    <li><a class="guide" href="{PUMP_PATH}"><span class="card-title">How to choose a 12V fuel transfer pump</span><p>Flow rate, duty cycle, and wiring explained, Fill-Rite and GPI models compared, and which size fits your tank.</p></a></li>
     <li><a class="guide" href="{GEL_PATH}"><span class="card-title">Diesel gelling: when it happens and how to prevent it</span><p>Cloud point, CFPP, and pour point explained, why bulk tanks gel first, and a winter checklist for tank owners.</p></a></li>
   </ul>
 </div>
@@ -773,7 +927,7 @@ nf_body = """
 page("/404.html", "Page not found | FuelStorageGuide", "Page not found.", nf_body)
 
 # ---------------- sitemap, robots, favicon ----------------
-urls = ["/", SPCC_PATH, WATER_PATH, GEL_PATH,"/about/", "/contact/", "/privacy/", "/affiliate-disclosure/"]
+urls = ["/", SPCC_PATH, WATER_PATH, PUMP_PATH, GEL_PATH,"/about/", "/contact/", "/privacy/", "/affiliate-disclosure/"]
 sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
 for u in urls:
     sitemap += f"  <url><loc>{DOMAIN}{u}</loc><lastmod>{UPDATED}</lastmod></url>\n"

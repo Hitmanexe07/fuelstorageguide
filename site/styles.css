@@ -202,3 +202,8 @@ table.even td:first-child, table.even td:last-child { width: 50%; font-weight: 4
 .result.plan { border-left-color: var(--yellow); background: var(--yellow-wash); }
 .result.pe { border-left-color: #b4462d; }
 .result.warn { border-left-color: #9fb0ad; }
+
+/* Wide comparison tables */
+table.compare td:first-child { width: auto; min-width: 9rem; }
+table.compare td:last-child { width: auto; }
+table.compare td { white-space: normal; }
