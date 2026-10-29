@@ -96,6 +96,7 @@ def page(path, title, description, body, current=None, schema=None, og_type="web
 
 # ---------------- Article: diesel gelling ----------------
 GEL_PATH = "/diesel-gelling-temperature/"
+ADD_PATH = "/winter-diesel-additive/"
 GEL_TITLE = "Diesel Gelling Temperature: When It Happens and How to Prevent It"
 GEL_DESC = ("#2 diesel starts clouding around 10–20°F. Here's when it gels, why bulk tanks "
             "are at higher risk, and how to keep your stored diesel flowing all winter.")
@@ -164,7 +165,7 @@ gel_body = f"""
   <p><strong>Treat or blend the fuel before it gets cold, and keep water out of the tank.</strong> Additives can't undo wax that has already formed, so timing matters more than which brand you buy.</p>
   <ol>
     <li><strong>Order winter fuel for winter.</strong> Ask your supplier whether deliveries from late fall on are winterized or blended, and what cloud point they're treated to. If you still have summer fuel in the tank, plan to treat it.</li>
-    <li><strong>Add anti-gel while the fuel is still warm.</strong> Anti-gel has to be in the fuel before wax starts forming, because part of the additive works by joining the first wax crystals as they form {src(CRC, 'CRC')}. Additive makers say the same: add it before the fuel reaches its cloud point {src(GOLD, 'Gold Eagle')}. The easiest way is to pour it in right before a delivery so the incoming fuel mixes it. Cenex puts the typical limit of these additives at about 0°F {src(CENEX, 'Cenex')}.</li>
+    <li><strong>Add anti-gel while the fuel is still warm</strong> (more in <a href="{ADD_PATH}">winter diesel additives</a>). Anti-gel has to be in the fuel before wax starts forming, because part of the additive works by joining the first wax crystals as they form {src(CRC, 'CRC')}. Additive makers say the same: add it before the fuel reaches its cloud point {src(GOLD, 'Gold Eagle')}. The easiest way is to pour it in right before a delivery so the incoming fuel mixes it. Cenex puts the typical limit of these additives at about 0°F {src(CENEX, 'Cenex')}.</li>
     <li><strong>Blend in #1 diesel as it gets colder.</strong> Cenex's schedule: below 35°F, about 70% #2 and 30% #1 plus an anti-gel; deeper into winter, 30% #2 and 70% #1; below −30°F, straight #1 {src(CENEX, 'Cenex')}.</li>
     <li><strong>Get the water out before winter.</strong> Check the tank bottom with water-finding paste, drain or pump off any water, and change the dispenser filter in the fall. Routinely draining water bottoms is the best defense against ice {src(CRC, 'CRC')}. A desiccant breather on the vent cuts down on condensation.</li>
     <li><strong>Protect the filter and short lines.</strong> Insulation and heat tracing work well on short runs of ¼″ to 1″ line, and a filter heater protects the weakest point {src(CRC, 'CRC')}. Never bypass or remove the filter to keep fuel moving; that sends dirt straight to your engines.</li>
@@ -994,6 +995,137 @@ tt_schema = [
 ]
 page(TT_PATH, TT_TITLE, TT_DESC, tt_body, schema=tt_schema, og_type="article")
 
+# ---------------- Article: winter diesel additives ----------------
+PSDFS = "https://powerservice.com/psp_product/diesel-fuel-supplement-cetane-boost/"
+PSDIST = "https://petroleumservicecompany.com/power-service-diesel-fuel-supplement-cetane"
+HOWES = "https://petroleumservicecompany.com/howes-diesel-treat/"
+PS911LBL = "https://agrotradeparts.com/c89xnrotls-powerservice911dieselfuelsupplementwithslickdiesel"
+BELLPOD = "https://www.bellperformance.com/fuel-pulse-show/039"
+NHTSA = "https://static.nhtsa.gov/odi/tsbs/2020/MC-10170955-0001.pdf"
+CENEXWIN = "https://www.cenex.com/our-products/fuels/premium-diesel-fuels/winterized-premium-diesel"
+
+ADD_PATH = "/winter-diesel-additive/"
+ADD_TITLE = "Winter Diesel Additives: What Anti-Gel Does, When to Add It, and How Much"
+ADD_DESC = ("Anti-gel only works if it's in the fuel before it clouds. When to add winter diesel additive to a bulk tank, "
+            "how much, and when treated or blended fuel is the better buy.")
+
+add_faq = [
+    ("Can I add anti-gel after the fuel is already cold?",
+     f"It has to go in before the fuel reaches its cloud point. Once wax has formed, a preventive anti-gel won't fix it; use an emergency product like Diesel 9-1-1 (<a href=\"{HOWES}\" rel=\"noopener\">Howes</a>; <a href=\"{POWER}\" rel=\"noopener\">Power Service</a>)."),
+    ("Can I use too much?",
+     f"More isn't always better. Flow improvers give smaller gains as the dose goes up {src(EPRI, 'EPRI')}, and some engine makers say to follow the additive maker's mixing directions exactly and not over-concentrate {src(NHTSA, 'NHTSA service bulletin')}."),
+    ("Does winter diesel from my supplier already have anti-gel?",
+     f"Often. Refiners and terminals blend and treat fuel to meet the cold-weather needs of the region where it's sold {src(CRC, 'CRC Report 671')}, and suppliers sell winterized blends with flow improvers already added {src(CENEX, 'Cenex')}. Ask your supplier what yours has, and to what temperature it's treated."),
+    ("Should I add gasoline or kerosene to keep diesel from gelling?",
+     f"Never gasoline: it lowers the flash point and creates a fire hazard. Kerosene-type fuel or #1 diesel is the safe way to blend {src(EPRI, 'EPRI')}."),
+]
+add_faq_html = "\n".join(f"<h3>{q}</h3>\n<p>{a}</p>" for q, a in add_faq)
+
+add_body = f"""
+<article class="wrap">
+  <h1>Winter diesel additives: what anti-gel does, when to add it, and how much</h1>
+  <p class="meta">Written by a fuel-system technician. Updated {UPDATED_HUMAN}.</p>
+  {AFF_NOTE}
+
+  <div class="answer">
+    <p><strong>An anti-gel additive lets #2 diesel keep flowing through filters below its cloud point, but only if it's mixed into the fuel before the fuel gets cold.</strong> Once wax crystals have formed, a regular anti-gel can't undo them (<a href="{HOWES}" rel="noopener">Howes</a>; <a href="{GOLD}" rel="noopener">Gold Eagle</a>).</p>
+  </div>
+  <p>Most of these additives are rated to protect fuel down to around 0&deg;F {src(CENEX, 'Cenex')}. Colder than that, you need #1 diesel blended in. This guide covers what the additives actually do, how to treat a bulk tank, and when buying treated fuel is the smarter move.</p>
+
+  <h2>What winter additives actually do</h2>
+  <p><strong>"Anti-gel" on the bottle usually means a cold flow improver: it changes the size and shape of wax crystals so they don't lock together on the filter.</strong> It doesn't stop wax from forming {src(CRC, 'CRC Report 671')}.</p>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th scope="col">Ingredient type</th><th scope="col">What it does</th><th scope="col">What it can't do</th></tr></thead>
+    <tbody>
+      <tr><td>Cold flow improver (the main "anti-gel")</td><td>Keeps wax crystals small and needle-shaped so a porous wax layer forms on the filter instead of a solid wall</td><td>Barely changes the cloud point; most lower it only 1&ndash;3&deg;C {src(CRC, 'CRC Report 671')}</td></tr>
+      <tr><td>Wax anti-settling additive</td><td>Keeps small wax crystals suspended so they don't settle into a waxy layer at the bottom of a cold tank {src(CRC, 'CRC Report 671')}</td><td>Doesn't replace a flow improver</td></tr>
+      <tr><td>Pour point depressant</td><td>Lowers the temperature where fuel stops pouring, which helps pumping in bulk</td><td>Often does little for filter plugging above the pour point {src(CRC, 'CRC Report 671')}</td></tr>
+      <tr><td>De-icer</td><td>Keeps small amounts of water from freezing in filters {src(PSDFS, 'Power Service')}</td><td>Doesn't get rid of free water on the tank bottom; drain that (see <a href="{WATER_PATH}">water in your diesel tank</a>)</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><strong>Two things the bottle won't tell you:</strong></p>
+  <ul>
+    <li><strong>Results depend on your fuel.</strong> Some fuels respond well to flow improvers and some barely respond, depending on how the refinery blended them {src(CRC, 'CRC Report 671')}. The same bottle can work great one winter and poorly the next.</li>
+    <li><strong>Biodiesel blends are harder to treat.</strong> Biodiesel generally makes fuel more difficult to treat with cold flow improvers {src(CRC, 'CRC Report 671')}, which is why labels raise the dose for biodiesel blends {src(PSDFS, 'Power Service')}.</li>
+  </ul>
+
+  <h2>Treating a bulk tank</h2>
+  <p><strong>Pour the additive in right before a delivery so the incoming fuel mixes it, and do it while the fuel is still well above its cloud point.</strong></p>
+  <ol>
+    <li><strong>Treat early.</strong> If you don't know your fuel's cloud point, start treating when lows are forecast below about 30&deg;F (<a href="{BELLPOD}" rel="noopener">Bell Performance</a>; <a href="{PSDFS}" rel="noopener">Power Service</a>). Some fuels cloud as high as +20&deg;F {src(GOLD, 'Gold Eagle')}.</li>
+    <li><strong>Add it before the fuel goes in.</strong> Power Service's directions say to add the product before filling the tank {src(PSDIST, 'Power Service')}. The rush of the delivery does the mixing. An additive poured on top of a full, still tank won't spread through it well.</li>
+    <li><strong>Dose for the fuel you'll have, not the fuel you have now.</strong> Figure the dose on the gallons in the tank after the delivery. If old untreated fuel is already in the tank, the dose has to cover it too.</li>
+    <li><strong>Follow the label for cold snaps.</strong> Labels typically increase the dose below 0&deg;F or for biodiesel blends. Power Service, for example, doubles its rate in those conditions {src(PSDFS, 'Power Service')}.</li>
+    <li><strong>Treat again with each delivery.</strong> New fuel dilutes the treatment already in the tank {src(EPRI, 'EPRI')}.</li>
+  </ol>
+  <p><strong>Consider buying treated fuel instead.</strong> For a big tank, it's hard to get the additive mixed evenly yourself. EPRI's guidance for large standby tanks found that adding enough additive to treat a big storage tank and making sure it's mixed often isn't worth the cost or uncertainty compared with buying fuel already made for winter {src(EPRI, 'EPRI')}. Many fuel suppliers deliver winterized or blended diesel; ask what cloud point and operability it's treated to.</p>
+
+  <h2>What the labels say</h2>
+  <p><strong>Treat rates vary a lot from brand to brand and even between bottle sizes of the same brand, so dose from the bottle in your hand.</strong> Here's what two of the most common farm-store brands publish:</p>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th scope="col">Product</th><th scope="col">What it is</th><th scope="col">Treat rate on the maker's or distributor's page</th></tr></thead>
+    <tbody>
+      <tr><td>Power Service Diesel Fuel Supplement + Cetane Boost (white bottle)<br><span class="shop">{amz("Power Service Diesel Fuel Supplement Cetane Boost", "Check price on Amazon")}</span></td><td>Anti-gel with cetane improver, lubricity additive, and de-icer; meant for use below +30&deg;F</td><td>16 oz bottle treats 40 gallons above 0&deg;F, 20 gallons below 0&deg;F. Drums and totes: 1 gallon per 1,500 gallons {src(PSDFS, 'Power Service')}</td></tr>
+      <tr><td>Howes Diesel Treat<br><span class="shop">{amz("Howes Diesel Treat", "Check price on Amazon")}</span></td><td>Anti-gel and conditioner, alcohol-free; lowers the fuel's cold filter plugging point</td><td>1 oz per 5 gallons above 0&deg;F, 1 oz per 2.5 gallons below 0&deg;F, doubled for cars and pickups {src(HOWES, 'distributor page')}</td></tr>
+      <tr><td>Power Service Diesel 9-1-1 (gray bottle)<br><span class="shop">{amz("Power Service Diesel 9-1-1", "Check price on Amazon")}</span></td><td>Emergency product for fuel that has already gelled or filters that have iced; not a preventive</td><td>80 oz per 100 gallons to reliquefy gelled fuel, then treat with an anti-gel (<a href="{PS911LBL}" rel="noopener">label directions</a>; <a href="{POWER}" rel="noopener">Power Service</a>)</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><strong>Don't mix up the white and gray bottles.</strong> The white bottle prevents gelling; the gray 9-1-1 bottle rescues fuel that's already gelled {src(POWER, 'Power Service')}. Keep one of each on hand through the winter.</p>
+  <p>These are the makers' own claims, not independent tests.</p>
+
+  <h2>Anti-gel, #1 blending, or heat?</h2>
+  <p><strong>Anti-gel covers most northern winters down to about 0&deg;F. Below that, blend in #1 diesel. Heat protects the one spot that fails first: the filter.</strong></p>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th scope="col">Option</th><th scope="col">Best for</th><th scope="col">Limits</th></tr></thead>
+    <tbody>
+      <tr><td>Anti-gel additive</td><td>Typical winters; tanks you can treat at each delivery</td><td>Typically effective to about 0&deg;F {src(CENEX, 'Cenex')}; must go in before the fuel clouds</td></tr>
+      <tr><td>#1 diesel blend</td><td>Deep cold. Cenex suggests 70/30 #2/#1 below 35&deg;F, 30/70 deeper into winter, and straight #1 below &minus;30&deg;F {src(CENEX, 'Cenex')}</td><td>Costs more per gallon; actually lowers the cloud point, unlike additives</td></tr>
+      <tr><td>Filter heater, heat tracing, insulation</td><td>Exposed dispenser filters and short runs of line, which gel before the tank does {src(CRC, 'CRC Report 671')}</td><td>Needs power at the tank</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>For the full picture on cloud point, CFPP, and what to do if fuel already gelled, see <a href="{GEL_PATH}">diesel gelling: when it happens and how to prevent it</a>.</p>
+
+  <section class="faq">
+  <h2>FAQ</h2>
+  {add_faq_html}
+  </section>
+
+  <h2>Sources</h2>
+  <ul class="sources">
+    <li><a href="{CRC}" rel="noopener">Coordinating Research Council: Diesel Fuel Low Temperature Operability Guide (CRC Report 671, 2016)</a></li>
+    <li><a href="{EPRI}" rel="noopener">EPRI / Southwest Research Institute: Winterizing Diesel Fuel (1994)</a></li>
+    <li><a href="{CENEX}" rel="noopener">Cenex: Diesel gelling and how to stop it this winter</a></li>
+    <li><a href="{CENEXWIN}" rel="noopener">Cenex: Winterized premium diesel</a></li>
+    <li><a href="{PSDFS}" rel="noopener">Power Service: Diesel Fuel Supplement + Cetane Boost</a></li>
+    <li><a href="{POWER}" rel="noopener">Power Service: Diesel 9-1-1</a></li>
+    <li><a href="{PSDIST}" rel="noopener">Petroleum Service Company: Power Service product page</a></li>
+    <li><a href="{HOWES}" rel="noopener">Petroleum Service Company: Howes Diesel Treat</a></li>
+    <li><a href="{PS911LBL}" rel="noopener">Diesel 9-1-1 label directions (Agro Trade Parts listing)</a></li>
+    <li><a href="{BELLPOD}" rel="noopener">Bell Performance: Fuel Pulse Show episode 39</a></li>
+    <li><a href="{GOLD}" rel="noopener">Gold Eagle: Five things to be aware of with diesel fuel tanks</a></li>
+    <li><a href="{NHTSA}" rel="noopener">NHTSA: Manufacturer service bulletin on anti-gel and de-icer use</a></li>
+  </ul>
+  <p class="note">This guide is general information. Always follow the additive maker's label and your engine manufacturer's recommendations.</p>
+</article>
+"""
+
+add_schema = [
+    {"@context": "https://schema.org", "@type": "Article", "headline": ADD_TITLE, "description": ADD_DESC,
+     "datePublished": UPDATED, "dateModified": UPDATED,
+     "author": {"@type": "Person", "name": "FuelStorageGuide", "jobTitle": "Fuel-system technician"},
+     "publisher": {"@type": "Organization", "name": "FuelStorageGuide", "url": DOMAIN},
+     "mainEntityOfPage": DOMAIN + ADD_PATH},
+    {"@context": "https://schema.org", "@type": "FAQPage",
+     "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": strip_tags(a)}} for q, a in add_faq]},
+]
+page(ADD_PATH, ADD_TITLE, ADD_DESC, add_body, schema=add_schema, og_type="article")
+
 # ---------------- Home ----------------
 home_body = f"""
 <div class="wide">
@@ -1007,6 +1139,7 @@ home_body = f"""
   <ul class="guide-list">
     <li><a class="guide" href="{SPCC_PATH}"><span class="card-title">Do I need an SPCC plan?</span><p>The 1,320-gallon rule, the farm thresholds, which plan type you need, and a one-minute checker for your site.</p></a></li>
     <li><a class="guide" href="{WATER_PATH}"><span class="card-title">Water in your diesel tank</span><p>How water gets in, how to check for it with paste or a clear jar, how to get it out, and how to keep it out.</p></a></li>
+    <li><a class="guide" href="{ADD_PATH}"><span class="card-title">Winter diesel additives: what anti-gel does and when to add it</span><p>How anti-gel works, how to treat a bulk tank before the cold, label treat rates, and when blending or heat makes more sense.</p></a></li>
     <li><a class="guide" href="{TT_PATH}"><span class="card-title">Diesel transfer tanks: sizing, legal limits, and setup</span><p>Why 119 gallons matters, the rules for gasoline, payload math for your pickup, and how to set one up.</p></a></li>
     <li><a class="guide" href="{PUMP_PATH}"><span class="card-title">How to choose a 12V fuel transfer pump</span><p>Flow rate, duty cycle, and wiring explained, Fill-Rite and GPI models compared, and which size fits your tank.</p></a></li>
     <li><a class="guide" href="{GEL_PATH}"><span class="card-title">Diesel gelling: when it happens and how to prevent it</span><p>Cloud point, CFPP, and pour point explained, why bulk tanks gel first, and a winter checklist for tank owners.</p></a></li>
@@ -1103,7 +1236,7 @@ nf_body = """
 page("/404.html", "Page not found | FuelStorageGuide", "Page not found.", nf_body)
 
 # ---------------- sitemap, robots, favicon ----------------
-urls = ["/", SPCC_PATH, WATER_PATH, TT_PATH, PUMP_PATH, GEL_PATH,"/about/", "/contact/", "/privacy/", "/affiliate-disclosure/"]
+urls = ["/", SPCC_PATH, ADD_PATH, WATER_PATH, TT_PATH, PUMP_PATH, GEL_PATH,"/about/", "/contact/", "/privacy/", "/affiliate-disclosure/"]
 sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
 for u in urls:
     sitemap += f"  <url><loc>{DOMAIN}{u}</loc><lastmod>{UPDATED}</lastmod></url>\n"
