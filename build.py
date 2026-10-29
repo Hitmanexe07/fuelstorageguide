@@ -677,6 +677,7 @@ M150 = "https://toolsid.com/gpi/gpi-m-150s-series-fuel-transfer-pump-2114015016.
 G20 = "https://toolsid.com/gpi/20-gpm-12-v-dc-fuel-transfer-pump-mpn-162000-03.html"
 
 PUMP_PATH = "/12v-fuel-transfer-pump/"
+TT_PATH = "/diesel-transfer-tank/"
 PUMP_TITLE = "How to Choose a 12V Fuel Transfer Pump (Fill-Rite and GPI Compared)"
 PUMP_DESC = ("How to pick a 12V fuel transfer pump: flow rate, duty cycle, wiring, and which size fits a "
              "pickup transfer tank, drums, or a farm tank. Fill-Rite and GPI models compared.")
@@ -748,7 +749,7 @@ pump_body = f"""
     <thead><tr><th scope="col">Job</th><th scope="col">Size to start with</th><th scope="col">Why</th></tr></thead>
     <tbody>
       <tr><td>Drums and occasional small fills</td><td>About 8 GPM</td><td>Cheaper and lighter, and a 15-minute run is enough for a drum or two</td></tr>
-      <tr><td>Pickup transfer tank (roughly 50 to 120 gallons)</td><td>15 GPM</td><td>Fills equipment fast enough, and draws about 20 amps the truck can handle</td></tr>
+      <tr><td>Pickup <a href="{TT_PATH}">transfer tank</a> (roughly 50 to 119 gallons)</td><td>15 GPM</td><td>Fills equipment fast enough, and draws about 20 amps the truck can handle</td></tr>
       <tr><td>Farm skid tank or yard tank fueling big equipment</td><td>20 GPM</td><td>Shorter fill times for large tractor and truck tanks, at about the same amp draw as 15 GPM in Fill-Rite's lineup</td></tr>
       <tr><td>High-volume fueling or long transfers</td><td>25 GPM, or an AC pump</td><td>A 12V pump's 30-minute duty cycle becomes the limit; a 120V pump may fit better if power is available</td></tr>
     </tbody>
@@ -820,6 +821,147 @@ pump_schema = [
 ]
 page(PUMP_PATH, PUMP_TITLE, PUMP_DESC, pump_body, schema=pump_schema, og_type="article")
 
+# ---------------- Article: transfer tanks ----------------
+JJK = "https://jjkellercompliancenetwork.com/news/knowing-the-ins-and-outs-when-transporting-diesel"
+PH21 = "https://www.phmsa.dot.gov/sites/phmsa.dot.gov/files/docs/standards-rulemaking/hazmat/interpretations/75041/210001.pdf"
+MOT = "https://www.ecfr.gov/current/title-49/subtitle-B/chapter-I/subchapter-C/part-173/subpart-A/section-173.6"
+SP11911 = "https://www.phmsa.dot.gov/hazmat/documents/offer/SP11911.pdf/offerserver/SP11911"
+AGB = "https://www.phmsa.dot.gov/sites/phmsa.dot.gov/files/2023-08/Agricultural-Products-brochure-0203-0823.pdf"
+RDS95 = "https://www.tractorsupply.com/tsc/product/rds-95-gal-l-transfer-fuel-tank-combo-diamond-plate-71799"
+RDS60 = "https://www.tractorsupply.com/tsc/product/rds-60-gal-transfer-fuel-tank-combo-diamond-plate-72548-2431065"
+
+TT_PATH = "/diesel-transfer-tank/"
+TT_TITLE = "Diesel Transfer Tanks: Sizing, Legal Limits, and Setup"
+TT_DESC = ("Diesel transfer tanks up to 119 gallons are lightly regulated; gasoline tanks and bigger setups are not. "
+           "Sizing, payload, legal limits, and setup for pickup transfer tanks.")
+
+tt_faq = [
+    ("Do I need placards for a 100-gallon diesel transfer tank?",
+     f"Under federal hazmat rules, diesel in a tank of 119 gallons or less doesn't need placards {src(JJK, 'J.J. Keller')}. Whether you need a CDL depends on your truck's weight rating and use, not just the tank. Check your state's rules."),
+    ("Can I put two 100-gallon tanks in my truck?",
+     f"If they're connected so fuel can flow between them, PHMSA treats them as one bulk package, which brings placards. Keep the valves between them closed in transit {src(PH21, 'PHMSA letter 21-0001')}."),
+    ("Can I haul gasoline in my transfer tank?",
+     f"Only if the tank is approved for gasoline. Bed-mounted gasoline tanks are built under DOT special permits with conditions such as no connecting tanks together and cutting power to the pump in transit {src(SP11911, 'DOT-SP 11911')}."),
+    ("Does a half-full 150-gallon tank count as 75 gallons?",
+     f"No. The rules go by the tank's capacity, not what's in it {src(JJK, 'J.J. Keller')}."),
+]
+tt_faq_html = "\n".join(f"<h3>{q}</h3>\n<p>{a}</p>" for q, a in tt_faq)
+
+tt_body = f"""
+<article class="wrap">
+  <h1>Diesel transfer tanks: sizing, legal limits, and setup</h1>
+  <p class="meta">Written by a fuel-system technician. Updated {UPDATED_HUMAN}.</p>
+
+  <div class="answer">
+    <p><strong>A transfer tank is a fuel tank mounted in a pickup bed or on a trailer that you pump from to fuel equipment in the field. For diesel, keeping the tank at 119 gallons or less keeps it out of most federal hazmat rules.</strong> Over 119 gallons counts as "bulk" packaging, and diesel in bulk packaging needs placards {src(JJK, 'J.J. Keller')}.</p>
+  </div>
+  <p>Gasoline is a different story: it's regulated much more tightly, even in small tanks. This guide covers the rules, choosing a size your truck can carry, and setting it up right.</p>
+
+  <h2>The rules for hauling fuel in a pickup</h2>
+  <p><strong>Under federal hazmat rules, what matters is the fuel and the tank's capacity, not how much is in it.</strong> A 120-gallon tank with 20 gallons in it is still a bulk package {src(JJK, 'J.J. Keller')}.</p>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th scope="col">Situation</th><th scope="col">What the federal rules say</th></tr></thead>
+    <tbody>
+      <tr><td>Diesel in a tank of 119 gallons or less</td><td>Diesel with a flash point of 100&deg;F or higher can be treated as a combustible liquid, and the hazmat rules don't apply to combustible liquids in non-bulk packaging. No placards, labels, or shipping papers (<a href="{JJK}" rel="noopener">J.J. Keller</a>; <a href="{PH21}" rel="noopener">PHMSA letter 21-0001</a>)</td></tr>
+      <tr><td>Diesel in a tank over 119 gallons</td><td>Bulk packaging. Placards are always required for diesel in bulk packaging {src(JJK, 'J.J. Keller')}</td></tr>
+      <tr><td>Two or more diesel tanks connected together</td><td>If fuel can flow between them, PHMSA treats them as one bulk package. Keep the valves between them closed during transport {src(PH21, 'PHMSA letter 21-0001')}</td></tr>
+      <tr><td>Gasoline in small containers</td><td>As "materials of trade" used in your business, up to 8 gallons per container and 440 pounds total on the vehicle {src(MOT, '49 CFR 173.6')}</td></tr>
+      <tr><td>Gasoline in a bed-mounted tank</td><td>Generally needs a tank built and used under a DOT special permit. For example, Transfer Flow's permit covers tanks up to 119 gallons, requires the pump to be disconnected from power in transit, and bans connecting tanks together {src(SP11911, 'DOT-SP 11911')}</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><strong>Farms get an extra exception.</strong> Farmers hauling fuel to or from the farm within 150 miles, intrastate, can carry up to 502 gallons of liquid agricultural products per vehicle, including diesel and gasoline, with relief from some packaging, training, and emergency response rules {src(AGB, 'PHMSA agricultural brochure')}. Your state's rules still apply.</p>
+  <p><strong>Check the label before you buy a tank for gasoline.</strong> Some tanks are sold as approved for diesel, gasoline, and aviation fuel {src(RDS60, 'RDS 60-gallon combo')}. A tank sold for diesel only shouldn't carry gasoline.</p>
+
+  <h2>Choosing a tank</h2>
+  <p><strong>Start with your truck's payload, not the biggest tank that fits.</strong> Diesel weighs about 6.9 pounds per gallon {src(EPRI, 'EPRI')}, so fuel adds up fast:</p>
+  <div class="table-wrap">
+  <table class="even">
+    <thead><tr><th scope="col">Tank size</th><th scope="col">Weight of the fuel alone, full</th></tr></thead>
+    <tbody>
+      <tr><td>50 gallons</td><td>About 350 lb</td></tr>
+      <tr><td>75 gallons</td><td>About 520 lb</td></tr>
+      <tr><td>100 gallons</td><td>About 690 lb</td></tr>
+      <tr><td>119 gallons</td><td>About 830 lb</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>Add the empty tank, pump, toolbox contents, and anything else in the bed, and compare the total to the payload on your door sticker. A half-ton pickup can run out of payload before it runs out of bed space.</p>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th scope="col">Style</th><th scope="col">Good for</th><th scope="col">Trade-off</th></tr></thead>
+    <tbody>
+      <tr><td>Rectangular, against the cab</td><td>Most capacity for the footprint</td><td>Uses bed space you might want for cargo</td></tr>
+      <tr><td>L-shaped</td><td>Leaves more open bed floor beside the tank</td><td>Less capacity for the same bed length</td></tr>
+      <tr><td>Combo tank with built-in toolbox</td><td>Fuel and tool storage in one unit, often with a lockable fill cap and level gauge {src(RDS95, 'RDS 95-gallon L combo')}</td><td>Heavier and costs more than a plain tank</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><strong>Material:</strong> Aluminum tanks don't rust and weigh less {src(RDS95, 'RDS 95-gallon L combo')}. Steel tanks usually cost less but add weight and can rust if the coating is damaged.</p>
+  <p><strong>Features worth having:</strong> internal baffles to keep fuel from sloshing, a lockable fill cap, a rollover vent, a drain plug at the bottom, and a level gauge {src(RDS60, 'RDS 60-gallon combo')}. The drain plug matters more than people think: it's the easiest way to get water out (see <a href="{WATER_PATH}">water in your diesel tank</a>).</p>
+
+  <h2>Setting it up</h2>
+  <p><strong>Bolt the tank down, put a filter after the pump, bond the pump to the tank, and cut power to the pump when you drive.</strong></p>
+  <ol>
+    <li><strong>Mount it solid.</strong> Use the manufacturer's mounting hardware and bolt through the bed, or use tie-downs rated for the full weight. A loose tank full of fuel is a hazard in a hard stop.</li>
+    <li><strong>Pick a pump that fits.</strong> For most pickup transfer tanks, a 15 GPM 12V pump is the usual fit. See <a href="{PUMP_PATH}">how to choose a 12V fuel transfer pump</a> for sizing and wiring.</li>
+    <li><strong>Wire it to the battery with a fuse.</strong> Fill-Rite calls for at least 12-gauge wire and a 30-amp fuse near the battery on its 12V pumps {src(FRMAN, 'Fill-Rite manual')}.</li>
+    <li><strong>Bond and ground.</strong> Connect the pump to the tank or truck frame with its bonding wire, and use a hose with a static wire (<a href="{FRMAN}" rel="noopener">Fill-Rite manual</a>; <a href="{FR4210}" rel="noopener">Fill-Rite FR4210H</a>).</li>
+    <li><strong>Add a filter after the pump.</strong> It keeps dirt and water out of the equipment you fuel. A 10-micron water-detecting filter is a good default {src(FILLRITE, 'Fill-Rite filters')}.</li>
+    <li><strong>Keep the suction tube off the bottom.</strong> At least 3 inches up, so it doesn't pull water and sediment {src(FRMAN, 'Fill-Rite manual')}.</li>
+    <li><strong>Shut it down for the road.</strong> Turn off the pump, secure the nozzle, and for a gasoline tank under a special permit, disconnect power and keep the hose and nozzle below the permit's "safe zone" {src(SP11911, 'DOT-SP 11911')}. It's a good habit for diesel too.</li>
+  </ol>
+
+  <h2>Keeping the fuel clean</h2>
+  <p><strong>Transfer tanks spend a lot of time half empty and out in the weather, which is exactly how water gets into fuel.</strong> Long stretches at a low level cause condensation, and caps, gaskets, and vents that don't seal let in rain and snow {src(CRC672, 'CRC Report 672')}.</p>
+  <ul>
+    <li>Check the bottom with water-finding paste every month or so, and drain any water from the bottom plug.</li>
+    <li>Keep the fill cap locked and the gasket in good shape.</li>
+    <li>Refill before the tank sits low for weeks, especially going into winter.</li>
+    <li>In cold weather, a pickup tank is as exposed as any aboveground tank. Treat or blend the fuel early (see <a href="{GEL_PATH}">diesel gelling</a>).</li>
+  </ul>
+
+  <section class="faq">
+  <h2>FAQ</h2>
+  {tt_faq_html}
+  </section>
+
+  <h2>Sources</h2>
+  <ul class="sources">
+    <li><a href="{JJK}" rel="noopener">J.J. Keller: Knowing the ins and outs when transporting diesel</a></li>
+    <li><a href="{PH21}" rel="noopener">PHMSA interpretation letter 21-0001 (2021)</a></li>
+    <li><a href="{MOT}" rel="noopener">49 CFR 173.6, materials of trade (eCFR)</a></li>
+    <li><a href="{SP11911}" rel="noopener">PHMSA: DOT-SP 11911, Transfer Flow special permit (2025)</a></li>
+    <li><a href="{AGB}" rel="noopener">PHMSA: Transporting agricultural products brochure</a></li>
+    <li><a href="{EPRI}" rel="noopener">EPRI / Southwest Research Institute: Winterizing Diesel Fuel (diesel density)</a></li>
+    <li><a href="{RDS95}" rel="noopener">RDS 95-gallon L transfer tank combo (Tractor Supply)</a></li>
+    <li><a href="{RDS60}" rel="noopener">RDS 60-gallon transfer tank combo (Tractor Supply)</a></li>
+    <li><a href="{FRMAN}" rel="noopener">Fill-Rite: DC pump owner's manual</a></li>
+    <li><a href="{FILLRITE}" rel="noopener">Fill-Rite: Fuel transfer filters</a></li>
+    <li><a href="{CRC672}" rel="noopener">Coordinating Research Council: CRC Report 672 (2016)</a></li>
+  </ul>
+  <p class="note">This guide is general information, not legal advice. Hazmat and vehicle rules vary by state and by how the truck is used; check with your state DOT for your situation.</p>
+</article>
+"""
+
+tt_schema = [
+    {
+        "@context": "https://schema.org", "@type": "Article",
+        "headline": TT_TITLE, "description": TT_DESC,
+        "datePublished": UPDATED, "dateModified": UPDATED,
+        "author": {"@type": "Person", "name": "FuelStorageGuide", "jobTitle": "Fuel-system technician"},
+        "publisher": {"@type": "Organization", "name": "FuelStorageGuide", "url": DOMAIN},
+        "mainEntityOfPage": DOMAIN + TT_PATH,
+    },
+    {
+        "@context": "https://schema.org", "@type": "FAQPage",
+        "mainEntity": [{"@type": "Question", "name": q,
+                        "acceptedAnswer": {"@type": "Answer", "text": strip_tags(a)}} for q, a in tt_faq],
+    },
+]
+page(TT_PATH, TT_TITLE, TT_DESC, tt_body, schema=tt_schema, og_type="article")
+
 # ---------------- Home ----------------
 home_body = f"""
 <div class="wide">
@@ -833,6 +975,7 @@ home_body = f"""
   <ul class="guide-list">
     <li><a class="guide" href="{SPCC_PATH}"><span class="card-title">Do I need an SPCC plan?</span><p>The 1,320-gallon rule, the farm thresholds, which plan type you need, and a one-minute checker for your site.</p></a></li>
     <li><a class="guide" href="{WATER_PATH}"><span class="card-title">Water in your diesel tank</span><p>How water gets in, how to check for it with paste or a clear jar, how to get it out, and how to keep it out.</p></a></li>
+    <li><a class="guide" href="{TT_PATH}"><span class="card-title">Diesel transfer tanks: sizing, legal limits, and setup</span><p>Why 119 gallons matters, the rules for gasoline, payload math for your pickup, and how to set one up.</p></a></li>
     <li><a class="guide" href="{PUMP_PATH}"><span class="card-title">How to choose a 12V fuel transfer pump</span><p>Flow rate, duty cycle, and wiring explained, Fill-Rite and GPI models compared, and which size fits your tank.</p></a></li>
     <li><a class="guide" href="{GEL_PATH}"><span class="card-title">Diesel gelling: when it happens and how to prevent it</span><p>Cloud point, CFPP, and pour point explained, why bulk tanks gel first, and a winter checklist for tank owners.</p></a></li>
   </ul>
@@ -927,7 +1070,7 @@ nf_body = """
 page("/404.html", "Page not found | FuelStorageGuide", "Page not found.", nf_body)
 
 # ---------------- sitemap, robots, favicon ----------------
-urls = ["/", SPCC_PATH, WATER_PATH, PUMP_PATH, GEL_PATH,"/about/", "/contact/", "/privacy/", "/affiliate-disclosure/"]
+urls = ["/", SPCC_PATH, WATER_PATH, TT_PATH, PUMP_PATH, GEL_PATH,"/about/", "/contact/", "/privacy/", "/affiliate-disclosure/"]
 sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
 for u in urls:
     sitemap += f"  <url><loc>{DOMAIN}{u}</loc><lastmod>{UPDATED}</lastmod></url>\n"
