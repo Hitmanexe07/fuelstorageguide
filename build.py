@@ -509,6 +509,164 @@ spcc_schema = [
 ]
 page(SPCC_PATH, SPCC_TITLE, SPCC_DESC, spcc_body, schema=spcc_schema, og_type="article")
 
+# ---------------- Article: water in diesel ----------------
+CRC672 = "https://www.cdfa.ca.gov/dms/programs/petroleum/CRC_DieselStorageSystem.pdf"
+CENEXW = "https://www.cenex.com/expert-advice-and-insights/water-contaminated-diesel"
+GILBERT = "https://neiwpcc.org/wp-content/uploads/2018/10/Gilbert.pdf"
+EPA16 = "https://www.epa.gov/archive/epa/newsreleases/epa-research-shows-moderate-or-severe-corrosion-majority-diesel-fuel-underground.html"
+DNET = "https://dieselnet.com/news/2016/07epa3.php"
+STI = "https://sandiegocounty.gov/content/dam/sdc/deh/hmd/pdf/STI-SP001-Monthly-Inspection-Checklist-7th-Edition.pdf"
+BELL = "https://www.bellperformance.com/hubfs/External%20Documents/Bell_Performs/Fuel_storage_tank_treatment_recs_and_procs_periodic_052014.pdf"
+PSAIL = "https://www.practical-sailor.com/boat-maintenance/diesel-biocides-take-on-contaminated-boat-fuel"
+VEEDER = "https://www.veeder.com/us/blog/why-does-water-need-be-removed-continuously"
+FDUMP = "https://fueldump.co.uk/product/water-finding-paste/"
+OTW = "https://oiltankwarehouse.co.uk/product/water-finding-paste/"
+MODNR = "https://dnr.mo.gov/document-search/management-petroleum-storage-tank-wastes-pub2040/pub2040"
+
+WATER_PATH = "/water-in-diesel-tank/"
+WATER_TITLE = "Water in Your Diesel Tank: How It Gets There and How to Get It Out"
+WATER_DESC = ("Water sinks to the bottom of a diesel tank, feeds microbes, and causes corrosion and "
+              "plugged filters. How to check for it, get it out, and keep it from coming back.")
+
+water_faq = [
+    ("How much water is too much?",
+     f"Any water you can detect. Industry guidance says \"no detectable water is desirable\" {src(CRC672, 'CRC Report 672')}. The diesel spec, ASTM D975, allows only 0.05% water and sediment in the fuel itself {src(GILBERT, 'Gilbert')}."),
+    ("Can an additive take care of water instead of draining it?",
+     f"No additive replaces getting free water off the bottom. Water you can measure with paste should be removed as soon as possible {src(CRC672, 'CRC Report 672')}. Water treatments and biocides are for what's left after you drain."),
+    ("Is \"diesel algae\" really algae?",
+     f"Not usually. The growth people call algae is microbes, such as bacteria and fungi, living in the water layer and feeding on the fuel (<a href=\"{CENEXW}\" rel=\"noopener\">Cenex</a>; <a href=\"{GILBERT}\" rel=\"noopener\">Gilbert</a>). Without water, they can't grow."),
+    ("Where does water in a new tank come from?",
+     f"Usually condensation and the top of the tank: vents, caps, and gaskets. It can also arrive with a delivery (<a href=\"{CRC}\" rel=\"noopener\">CRC Report 671</a>; <a href=\"{CRC672}\" rel=\"noopener\">CRC Report 672</a>)."),
+]
+water_faq_html = "\n".join(f"<h3>{q}</h3>\n<p>{a}</p>" for q, a in water_faq)
+
+water_body = f"""
+<article class="wrap">
+  <h1>Water in your diesel tank: how it gets there and how to get it out</h1>
+  <p class="meta">Written by a fuel-system technician. Updated {UPDATED_HUMAN}.</p>
+
+  <div class="answer">
+    <p><strong>Water is heavier than diesel, so it sinks and collects at the bottom of the tank, right where most pickups and drains are.</strong> The industry guide for diesel storage puts it simply: "No detectable water is desirable," and any water you find should come out as soon as possible {src(CRC672, 'CRC Report 672')}.</p>
+  </div>
+
+  <p>A little water rarely shows up as a sudden problem. It sits on the bottom, grows microbes, rusts the tank, and slowly plugs filters until equipment starts running rough. This guide covers how water gets in, how to check for it, how to get it out, and how to keep it out.</p>
+
+  <h2>How water gets in</h2>
+  <p><strong>Most water gets in through the top of the tank, or forms inside it as condensation.</strong> Very little comes from the refinery. Fuel picks up water the farther it travels through terminals, trucks, and storage {src(CRC, 'CRC Report 671')}.</p>
+  <ul>
+    <li><strong>Condensation.</strong> Tanks "breathe." As the air space inside warms during the day it pushes air out, and as it cools at night it pulls humid air in. Moisture condenses on the tank walls and runs down into the fuel {src(CRC, 'CRC Report 671')}. Long stretches with a low fuel level make it worse {src(CRC672, 'CRC Report 672')}.</li>
+    <li><strong>Rain and snow.</strong> Water gets in through vent caps that don't seal, loose bungs and fill caps, broken gaskets, and snow or standing water around the fill {src(CRC672, 'CRC Report 672')}.</li>
+    <li><strong>Deliveries.</strong> Water can come in with the load, and a delivery can stir up water already sitting on the bottom, especially when the fuel level is low or the outlet sits close to the bottom {src(CRC, 'CRC Report 671')}.</li>
+  </ul>
+
+  <h2>Why a little water matters</h2>
+  <p><strong>Water is where the trouble starts: microbes grow in it, it rusts the tank, and it freezes in winter.</strong></p>
+  <ul>
+    <li><strong>Microbes.</strong> Bacteria and fungi live in the water layer and feed on the diesel above it. They form slime, plug filters, and produce acids that corrode the tank (<a href="{CENEXW}" rel="noopener">Cenex</a>; <a href="{GILBERT}" rel="noopener">Gilbert, National Tanks Conference 2018</a>). One 2018 analysis of 3,855 tank bottom samples from across the lower 48 states found microbes in about 20% of them {src(GILBERT, 'Gilbert')}.</li>
+    <li><strong>Corrosion.</strong> In a 2016 EPA study, 35 of 42 diesel tanks (83%) had moderate or severe internal corrosion, and fewer than a quarter of the owners knew it beforehand. EPA suspects microbes are a large part of the cause (<a href="{EPA16}" rel="noopener">EPA</a>; <a href="{DNET}" rel="noopener">DieselNet</a>). That study looked at underground tanks, but the same water and microbes live in aboveground tanks.</li>
+    <li><strong>Ice.</strong> In cold weather, water can freeze and block a tank outlet or a dispenser filter. Aboveground tanks are especially exposed {src(CRC, 'CRC Report 671')}.</li>
+    <li><strong>Equipment problems.</strong> Water that gets through shows up as rough starting, rough idle, hesitation, power loss, and white exhaust smoke {src(CENEXW, 'Cenex')}.</li>
+  </ul>
+
+  <h2>How to check for water</h2>
+  <p><strong>Put water-finding paste on a gauge stick, lower it to the very bottom of the tank, and look for a color change.</strong> It's the fastest check and costs a few dollars.</p>
+  <ol>
+    <li><strong>Coat the bottom few inches of a clean gauge stick</strong> with a thin layer of paste. A weighted string works if you have no stick {src(FDUMP, 'Fuel Dump')}.</li>
+    <li><strong>Lower it straight down until it touches bottom.</strong> Hold it there for about 30 seconds {src(BELL, 'Bell Performance')}.</li>
+    <li><strong>Pull it up and read it.</strong> The paste turns from brown to bright red where it touched water. The height of the red band is the depth of the water layer {src(OTW, 'Oil Tank Warehouse')}.</li>
+    <li><strong>Check the low end of the tank.</strong> Many tanks sit slightly tilted, so water collects at one end. Gauge as close to that end as your openings allow. Slope and fittings in the tank can affect the reading {src(CRC672, 'CRC Report 672')}.</li>
+  </ol>
+  <p><strong>Two other quick checks:</strong></p>
+  <ul>
+    <li><strong>Pull a sample in a clear jar</strong> from the dispenser nozzle or a bottom drain. Good fuel is "clear and bright," with no haze, particles, or layer of water on the bottom {src(CRC672, 'CRC Report 672')}. If you can't tell right away, let it sit overnight; water settles to the bottom {src(CENEXW, 'Cenex')}.</li>
+    <li><strong>Look at your dispenser filter.</strong> Filters that plug quickly, slow flow, or rust or slime on a removed filter all point to water and microbes {src(CRC672, 'CRC Report 672')}.</li>
+  </ul>
+  <p><strong>How often?</strong> The industry's standard monthly inspection for aboveground tanks asks whether the tank is free of water {src(STI, 'STI SP001 monthly checklist')}. Guidance for busy fueling sites goes further: check with paste weekly and before and after deliveries {src(CRC672, 'CRC Report 672')}. For a farm or yard tank, monthly plus after every delivery is a reasonable minimum.</p>
+  <p><strong>Seeing slime or dark sludge?</strong> That points to microbes. Inexpensive test kits can confirm it, and you should test water you remove from the tank {src(CRC672, 'CRC Report 672')}.</p>
+
+  <h2>How to get the water out</h2>
+  <p><strong>Pull it off the bottom, check again, and repeat until the paste stays brown.</strong> Then deal with any microbes and change the filter.</p>
+  <ol>
+    <li><strong>Drain or pump from the lowest point.</strong> If your tank has a bottom drain valve, open it into a clean container until fuel runs clear. Otherwise, pump from the bottom through a pipe or wand that reaches the low end. A self-priming pump suited to fuel and water handles the bulk of it {src(FDUMP, 'Fuel Dump')}.</li>
+    <li><strong>Re-check with paste.</strong> Keep pumping and re-checking until there's too little water left to pump {src(FDUMP, 'Fuel Dump')}.</li>
+    <li><strong>Test for microbes if you see slime or sludge.</strong> If the water tests positive, the usual sequence is: remove the water, add a biocide, let it work, remove the water bottom again, and retest over the following weeks {src(GILBERT, 'Gilbert')}. Biocides are EPA-registered pesticides, so follow the label exactly {src(PSAIL, 'Practical Sailor')}.</li>
+    <li><strong>Expect filters to plug for a while after a biocide treatment.</strong> Dead microbes come loose from the tank walls and get caught in filters (<a href="{PSAIL}" rel="noopener">Practical Sailor</a>; <a href="{CRC672}" rel="noopener">CRC Report 672</a>). Keep spares on hand.</li>
+    <li><strong>Change the dispenser filter</strong> when you're done, and look at the old one for rust or slime.</li>
+  </ol>
+  <p><strong>Call for a tank cleaning when</strong> there's heavy sludge, the water keeps coming back, or filters keep plugging after treatment. A badly infected tank usually needs the bottom material removed mechanically, not just treated {src(PSAIL, 'Practical Sailor')}. Your fuel supplier can often pump the tank out {src(CENEXW, 'Cenex')}.</p>
+  <p><strong>Don't dump the water on the ground.</strong> Water from a fuel tank bottom is petroleum-contaminated and can count as hazardous waste. Don't pour it on soil, into surface water, or down a storm drain or septic system. Keep it in a closed, labeled container and ask your state environmental agency or a waste hauler how to dispose of it {src(MODNR, 'Missouri DNR')}.</p>
+
+  <h2>How to keep water out</h2>
+  <p><strong>Seal the top of the tank, keep it from sitting half empty, and drain the bottom on a schedule.</strong> Removing water once doesn't fix the problem. The tank goes right back to growing microbes as soon as water returns {src(VEEDER, 'Veeder-Root')}, so routine draining is the best defense {src(CRC, 'CRC Report 671')}.</p>
+  <div class="table-wrap">
+  <table class="even">
+    <thead><tr><th scope="col">Where water gets in</th><th scope="col">What to do</th></tr></thead>
+    <tbody>
+      <tr><td>Fill cap and bungs</td><td>Make sure caps close tight and gaskets aren't cracked; replace worn ones {src(CRC672, 'CRC Report 672')}</td></tr>
+      <tr><td>Vent</td><td>Check that the vent cap seals against rain and blowing snow, and inspect vents after storms {src(STI, 'STI SP001 checklist')}. A desiccant vent cap dries the air the tank breathes in {src(GILBERT, 'Gilbert')}</td></tr>
+      <tr><td>Condensation</td><td>Avoid letting the tank sit low for long stretches, especially going into fall and winter {src(CRC672, 'CRC Report 672')}</td></tr>
+      <tr><td>Around the fill</td><td>Keep snow, ice, and standing water away from the fill opening {src(CRC672, 'CRC Report 672')}</td></tr>
+      <tr><td>Deliveries</td><td>Check for water before and after each delivery {src(CRC672, 'CRC Report 672')}, and ask your supplier what they do about water in their own tanks and trucks</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><strong>Use a water-blocking filter on the dispenser.</strong> Filters that absorb or detect water stop it before it reaches your equipment and warn you something is wrong. Fill-Rite, for example, sells 10-micron water-detecting and Hydrosorb filters for transfer pumps {src(FILLRITE, 'Fill-Rite')}.</p>
+
+  <h2>Water checklist for tank owners</h2>
+  <ul class="checklist">
+    <li>Check the tank bottom with water-finding paste at least monthly and after every delivery</li>
+    <li>Pull a clear-jar sample now and then; it should be clear and bright</li>
+    <li>Pump or drain any water from the low end, and re-check until the paste stays brown</li>
+    <li>Store removed water in a closed, labeled container for proper disposal</li>
+    <li>Check fill cap, bungs, gaskets, and vent cap for a tight seal, especially after storms</li>
+    <li>Don't let the tank sit nearly empty for long stretches</li>
+    <li>Use a water-blocking or water-detecting dispenser filter, and look at old filters for rust or slime</li>
+  </ul>
+  <p>Heading into winter? Water in the tank turns to ice, and cold also brings wax problems. See <a href="{GEL_PATH}">diesel gelling: when it happens and how to prevent it</a>.</p>
+
+  <section class="faq">
+  <h2>FAQ</h2>
+  {water_faq_html}
+  </section>
+
+  <h2>Sources</h2>
+  <ul class="sources">
+    <li><a href="{CRC672}" rel="noopener">Coordinating Research Council: Preventive Maintenance Guide for Diesel Storage and Dispensing Systems (CRC Report 672, 2016)</a></li>
+    <li><a href="{CRC}" rel="noopener">Coordinating Research Council: Diesel Fuel Low Temperature Operability Guide (CRC Report 671, 2016)</a></li>
+    <li><a href="{EPA16}" rel="noopener">EPA: Research shows corrosion in most diesel underground storage tanks (2016)</a></li>
+    <li><a href="{DNET}" rel="noopener">DieselNet: EPA finds corrosion in ULSD storage tanks (2016)</a></li>
+    <li><a href="{GILBERT}" rel="noopener">Riley Gilbert, Underground Storage Tank Corrosion: Problems and Solutions, National Tanks Conference (2018)</a></li>
+    <li><a href="{STI}" rel="noopener">Steel Tank Institute: SP001 monthly inspection checklist, 7th edition</a></li>
+    <li><a href="{CENEXW}" rel="noopener">Cenex: Warning signs your diesel is water-contaminated</a></li>
+    <li><a href="{BELL}" rel="noopener">Bell Performance: Fuel storage tank treatment procedures</a></li>
+    <li><a href="{PSAIL}" rel="noopener">Practical Sailor: Diesel biocides take on contaminated fuel</a></li>
+    <li><a href="{VEEDER}" rel="noopener">Veeder-Root: Why water needs to be removed continuously</a></li>
+    <li><a href="{FILLRITE}" rel="noopener">Fill-Rite: Fuel transfer filters</a></li>
+    <li><a href="{FDUMP}" rel="noopener">Fuel Dump: Kolor Kut water finding paste</a></li>
+    <li><a href="{OTW}" rel="noopener">Oil Tank Warehouse: Water finding paste</a></li>
+    <li><a href="{MODNR}" rel="noopener">Missouri DNR: Management of petroleum storage tank wastes</a></li>
+  </ul>
+  <p class="note">This guide is general information. Follow product labels, your equipment manufacturer's instructions, and your state's rules for disposing of tank water.</p>
+</article>
+"""
+
+water_schema = [
+    {
+        "@context": "https://schema.org", "@type": "Article",
+        "headline": WATER_TITLE, "description": WATER_DESC,
+        "datePublished": UPDATED, "dateModified": UPDATED,
+        "author": {"@type": "Person", "name": "FuelStorageGuide", "jobTitle": "Fuel-system technician"},
+        "publisher": {"@type": "Organization", "name": "FuelStorageGuide", "url": DOMAIN},
+        "mainEntityOfPage": DOMAIN + WATER_PATH,
+    },
+    {
+        "@context": "https://schema.org", "@type": "FAQPage",
+        "mainEntity": [{"@type": "Question", "name": q,
+                        "acceptedAnswer": {"@type": "Answer", "text": strip_tags(a)}} for q, a in water_faq],
+    },
+]
+page(WATER_PATH, WATER_TITLE, WATER_DESC, water_body, schema=water_schema, og_type="article")
+
 # ---------------- Home ----------------
 home_body = f"""
 <div class="wide">
@@ -521,6 +679,7 @@ home_body = f"""
   <h2>Guides</h2>
   <ul class="guide-list">
     <li><a class="guide" href="{SPCC_PATH}"><span class="card-title">Do I need an SPCC plan?</span><p>The 1,320-gallon rule, the farm thresholds, which plan type you need, and a one-minute checker for your site.</p></a></li>
+    <li><a class="guide" href="{WATER_PATH}"><span class="card-title">Water in your diesel tank</span><p>How water gets in, how to check for it with paste or a clear jar, how to get it out, and how to keep it out.</p></a></li>
     <li><a class="guide" href="{GEL_PATH}"><span class="card-title">Diesel gelling: when it happens and how to prevent it</span><p>Cloud point, CFPP, and pour point explained, why bulk tanks gel first, and a winter checklist for tank owners.</p></a></li>
   </ul>
 </div>
@@ -614,7 +773,7 @@ nf_body = """
 page("/404.html", "Page not found | FuelStorageGuide", "Page not found.", nf_body)
 
 # ---------------- sitemap, robots, favicon ----------------
-urls = ["/", SPCC_PATH, GEL_PATH,"/about/", "/contact/", "/privacy/", "/affiliate-disclosure/"]
+urls = ["/", SPCC_PATH, WATER_PATH, GEL_PATH,"/about/", "/contact/", "/privacy/", "/affiliate-disclosure/"]
 sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
 for u in urls:
     sitemap += f"  <url><loc>{DOMAIN}{u}</loc><lastmod>{UPDATED}</lastmod></url>\n"
