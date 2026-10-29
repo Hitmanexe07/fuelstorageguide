@@ -10,6 +10,7 @@ CARDS = [
     ("home", "Straight answers about the fuel in your tank", "Practical guides for farm, fleet, and small-business fuel storage"),
     ("do-i-need-an-spcc-plan", "Do I need an SPCC plan?", "The 1,320-gallon rule, farm thresholds, and a one-minute checker"),
     ("winter-diesel-additive", "Winter diesel additives", "What anti-gel does, when to add it, and how much"),
+    ("diesel-biocide", "Diesel bugs and biocides", "How to spot microbial growth and treat it, step by step"),
     ("water-in-diesel-tank", "Water in your diesel tank", "How it gets in, how to check, and how to get it out"),
     ("diesel-transfer-tank", "Diesel transfer tanks", "Sizing, the 119-gallon rule, and setup"),
     ("12v-fuel-transfer-pump", "Choosing a 12V fuel transfer pump", "Flow, duty cycle, and wiring, with Fill-Rite and GPI compared"),

@@ -108,6 +108,7 @@ def page(path, title, description, body, current=None, schema=None, og_type="web
 # ---------------- Article: diesel gelling ----------------
 GEL_PATH = "/diesel-gelling-temperature/"
 ADD_PATH = "/winter-diesel-additive/"
+BIO_PATH = "/diesel-biocide/"
 GEL_TITLE = "Diesel Gelling Temperature: When It Happens and How to Prevent It"
 GEL_DESC = ("#2 diesel starts clouding around 10–20°F. Here's when it gels, why bulk tanks "
             "are at higher risk, and how to keep your stored diesel flowing all winter.")
@@ -623,7 +624,7 @@ water_body = f"""
   <ol>
     <li><strong>Drain or pump from the lowest point.</strong> If your tank has a bottom drain valve, open it into a clean container until fuel runs clear. Otherwise, pump from the bottom through a pipe or wand that reaches the low end. A self-priming pump suited to fuel and water handles the bulk of it {src(FDUMP, 'Fuel Dump')}.</li>
     <li><strong>Re-check with paste.</strong> Keep pumping and re-checking until there's too little water left to pump {src(FDUMP, 'Fuel Dump')}.</li>
-    <li><strong>Test for microbes if you see slime or sludge.</strong> If the water tests positive, the usual sequence is: remove the water, add a biocide, let it work, remove the water bottom again, and retest over the following weeks {src(GILBERT, 'Gilbert')}. Biocides are EPA-registered pesticides, so follow the label exactly {src(PSAIL, 'Practical Sailor')}.</li>
+    <li><strong>Test for microbes if you see slime or sludge.</strong> If the water tests positive, the usual sequence is: remove the water, add a biocide, let it work, remove the water bottom again, and retest over the following weeks {src(GILBERT, 'Gilbert')}. See <a href="{BIO_PATH}">diesel bugs and biocides</a> for the full process. Biocides are EPA-registered pesticides, so follow the label exactly {src(PSAIL, 'Practical Sailor')}.</li>
     <li><strong>Expect filters to plug for a while after a biocide treatment.</strong> Dead microbes come loose from the tank walls and get caught in filters (<a href="{PSAIL}" rel="noopener">Practical Sailor</a>; <a href="{CRC672}" rel="noopener">CRC Report 672</a>). Keep spares on hand.</li>
     <li><strong>Change the dispenser filter</strong> when you're done, and look at the old one for rust or slime.</li>
   </ol>
@@ -1140,6 +1141,137 @@ add_schema = [
 ]
 page(ADD_PATH, ADD_TITLE, ADD_DESC, add_body, schema=add_schema, og_type="article")
 
+# ---------------- Article: diesel biocides ----------------
+BIOKLEEN = "https://powerservice.com/psp_product/bio-kleen-diesel-fuel-biocide/"
+BIOBOR = "https://www3.epa.gov/pesticides/chem_search/ppls/065217-00001-20140319.pdf"
+BELLTEST = "https://www.bellperformance.com/bell-performs-blog/fuel-tests-that-actually-predict-failure-understanding-astm-d6469-and-microbial-testing"
+
+BIO_TITLE = "Diesel Bugs and Biocides: How to Spot Microbial Growth and Treat It"
+BIO_DESC = ("Diesel \"algae\" is bacteria and fungi living in water at the bottom of the tank. How to spot it, test for it, "
+            "and treat it with a biocide, step by step, without plugging every filter you own.")
+
+bio_faq = [
+    ("Is diesel algae really algae?",
+     f"No. It's bacteria and fungi living in the water layer and feeding on the fuel (<a href=\"{CENEXW}\" rel=\"noopener\">Cenex</a>; <a href=\"{GILBERT}\" rel=\"noopener\">Gilbert</a>)."),
+    ("Can I just add biocide and skip draining the water?",
+     f"The biocide may kill what's there, but the water stays, and growth comes back once the biocide is used up. Removing water is standard practice (<a href=\"{BIOBOR}\" rel=\"noopener\">Biobor JF label</a>; <a href=\"{VEEDER}\" rel=\"noopener\">Veeder-Root</a>)."),
+    ("Why are my filters plugging worse after I treated?",
+     f"That's dead growth coming loose from the tank walls. Change filters as needed, drain the bottom after the product settles, and it should clear up (<a href=\"{PSAIL}\" rel=\"noopener\">Practical Sailor</a>; <a href=\"{CRC672}\" rel=\"noopener\">CRC Report 672</a>)."),
+    ("Is a fuel additive the same as a biocide?",
+     f"Not unless it has an EPA registration number. Only registered products can claim to kill microbes {src(PSAIL, 'Practical Sailor')}."),
+]
+bio_faq_html = "\n".join(f"<h3>{q}</h3>\n<p>{a}</p>" for q, a in bio_faq)
+
+bio_body = f"""
+<article class="wrap">
+  <h1>Diesel bugs and biocides: how to spot microbial growth and treat it</h1>
+  <p class="meta">Written by a fuel-system technician. Updated {UPDATED_HUMAN}.</p>
+  {AFF_NOTE}
+
+  <div class="answer">
+    <p><strong>"Diesel bugs" are bacteria and fungi that live in the water at the bottom of a fuel tank and feed on the fuel. Get the water out first, then use a biocide to kill what's left, then expect to change filters as the dead growth comes loose.</strong> Microbes concentrate where fuel meets water {src(BELLTEST, 'Bell Performance')}, so without water they can't take hold.</p>
+  </div>
+  <p>It's more common than most owners think. In one 2018 analysis of 3,855 tank-bottom samples, about 20% tested positive for microbes {src(GILBERT, 'Gilbert, National Tanks Conference')}.</p>
+
+  <h2>Signs you have a microbe problem</h2>
+  <p><strong>The first sign is usually the filter, not the tank.</strong> Slimy or mucous-like buildup on fuel filters and needing to change them more often are the earliest warnings {src(BIOKLEEN, 'Power Service')}.</p>
+  <ul>
+    <li><strong>Filters plugging early,</strong> with dark slime or sludge on the old filter {src(CRC672, 'CRC Report 672')}</li>
+    <li><strong>Water on the tank bottom,</strong> confirmed with water-finding paste (see <a href="{WATER_PATH}">water in your diesel tank</a>)</li>
+    <li><strong>Dark, hazy fuel</strong> or visible stringy material in a clear-jar sample {src(BELL, 'Bell Performance procedures')}</li>
+    <li><strong>Rust and corrosion</strong> in the tank and fittings; microbes produce acids that eat metal {src(GILBERT, 'Gilbert')}</li>
+  </ul>
+
+  <h2>How to test for it</h2>
+  <p><strong>Sample from the bottom of the tank, not the top.</strong> A sample from the top can look clean while the water layer is full of growth. Pull from about 3 to 6 inches off the bottom, plus any water layer {src(BELLTEST, 'Bell Performance')}.</p>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th scope="col">Test</th><th scope="col">Speed</th><th scope="col">Good for</th><th scope="col">Limits</th></tr></thead>
+    <tbody>
+      <tr><td>Culture test (dip slide or petri dish)</td><td>48 to 72 hours or more</td><td>Cheap; shows whether growth is present</td><td>Only detects organisms that grow on that medium</td></tr>
+      <tr><td>Quick yes/no test (immunoassay)</td><td>Minutes</td><td>Fast check in the field</td><td>Tells you if a threshold is passed, not how bad it is</td></tr>
+      <tr><td>ATP test</td><td>About 5 minutes</td><td>Gives a number you can track over time</td><td>Misses dormant spores</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="source-line">Source: <a href="{BELLTEST}" rel="noopener">Bell Performance, citing ASTM D6469</a>. Test kits: {amz("diesel fuel microbial test kit", "fuel microbe test kits on Amazon")}.</p>
+  <p><strong>How often?</strong> Quarterly testing is a reasonable baseline for stored fuel, and more often after you've had a problem {src(BELLTEST, 'Bell Performance')}. For most farm tanks, a test whenever you find water or slime is the practical minimum.</p>
+
+  <h2>How biocides work</h2>
+  <p><strong>A biocide kills the microbes. It doesn't remove the water they live in, the sludge they've made, or the bodies they leave behind.</strong></p>
+  <ul>
+    <li><strong>They're pesticides.</strong> Any product sold as a biocide has to be registered with EPA, and using it differently from the label is a violation of federal law (<a href="{PSAIL}" rel="noopener">Practical Sailor</a>; <a href="{BIOBOR}" rel="noopener">Biobor JF label</a>). Look for the EPA registration number on the bottle. A "fuel treatment" with no registration number isn't a biocide.</li>
+    <li><strong>Water-soluble vs. fuel-soluble.</strong> Water-soluble products reach the water layer where microbes live and give a faster kill. Fuel-soluble products blend more easily through the fuel and are often better for maintenance dosing {src(PSAIL, 'Practical Sailor')}. Labels differ on where to add them: Biobor JF says to blend it into the fuel only, not the water bottom {src(BIOBOR, 'Biobor JF label')}.</li>
+    <li><strong>Two doses.</strong> Most labels give a higher "shock" dose for a contaminated tank and a lower maintenance dose for a clean one (<a href="{BIOKLEEN}" rel="noopener">Power Service Bio Kleen</a>; <a href="{BIOBOR}" rel="noopener">Biobor JF label</a>).</li>
+    <li><strong>Dead growth still causes trouble.</strong> Killing the microbes releases slime and dead cells from the tank walls, and that surge can plug filters {src(PSAIL, 'Practical Sailor')}. A badly fouled tank usually needs the bottom cleaned out mechanically, not just treated.</li>
+  </ul>
+
+  <h2>Treating a contaminated tank, step by step</h2>
+  <p><strong>Drain, dose, let it settle, drain again, then watch your filters and retest.</strong> This follows the sequence industry presenters recommend for a positive test {src(GILBERT, 'Gilbert')}.</p>
+  <ol>
+    <li><strong>Remove the water bottom.</strong> Pump or drain from the low end until water-finding paste stays brown. Removing excess water is standard practice before treating {src(BIOBOR, 'Biobor JF label')}. Keep the water in a closed, labeled container; don't dump it {src(MODNR, 'Missouri DNR')}.</li>
+    <li><strong>Add the shock dose for the whole tank.</strong> Follow the label for a contaminated tank. Some makers say to figure the dose on a full tank even if it's partly filled {src(BELL, 'Bell Performance procedures')}. Biobor's label says to start when the tank is at least half full, never empty {src(BIOBOR, 'Biobor JF label')}.</li>
+    <li><strong>Mix it in.</strong> Add it just before a delivery, or circulate the tank, so it reaches all the fuel {src(BELL, 'Bell Performance procedures')}.</li>
+    <li><strong>Let it settle.</strong> Bell's procedure calls for at least 8 hours so dead microbes fall to the bottom {src(BELL, 'Bell Performance procedures')}. Follow your label's wait time.</li>
+    <li><strong>Drain the bottom again.</strong> Pull off the dead material and any water that settled out {src(GILBERT, 'Gilbert')}.</li>
+    <li><strong>Change filters, and keep spares.</strong> Expect more frequent filter changes for a while after treatment {src(CRC672, 'CRC Report 672')}. {amz("Fill-Rite 10 micron fuel filter", "Fill-Rite filters on Amazon")}.</li>
+    <li><strong>Retest.</strong> Test again over the following weeks to confirm it worked {src(GILBERT, 'Gilbert')}. If growth comes back fast or sludge is heavy, have the tank cleaned.</li>
+  </ol>
+
+  <h2>What the labels say</h2>
+  <p><strong>Dose from the label on your bottle; these are what two common biocides publish.</strong></p>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th scope="col">Product</th><th scope="col">Shock dose (contaminated tank)</th><th scope="col">Maintenance dose (clean tank)</th><th scope="col">Notes</th></tr></thead>
+    <tbody>
+      <tr><td>Power Service Bio Kleen<br><span class="shop">{amz("Power Service Bio Kleen diesel biocide", "Check price on Amazon")}</span></td><td>1 oz per 20 gallons; 1 gallon per 2,500 gallons</td><td>1 oz per 55 gallons; 1 gallon per 7,000 gallons</td><td>Sold as a quick-kill biocide {src(BIOKLEEN, 'Power Service')}</td></tr>
+      <tr><td>Biobor JF<br><span class="shop">{amz("Biobor JF diesel biocide", "Check price on Amazon")}</span></td><td>270 ppm (2.6 oz per 100 gallons)</td><td>135 ppm (1.3 oz per 100 gallons)</td><td>EPA Reg. No. 65217-1; blend into the fuel, not the water bottom; never exceed 1,000 ppm {src(BIOBOR, 'Biobor JF label')}</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h2>Keeping microbes from coming back</h2>
+  <p><strong>Keep water out, and they can't grow.</strong> Everything in <a href="{WATER_PATH}">water in your diesel tank</a> applies:</p>
+  <ul>
+    <li>Check for and drain water monthly and after deliveries.</li>
+    <li>Keep caps, gaskets, and vents sealed, and don't let the tank sit low for long.</li>
+    <li>Use a water-blocking dispenser filter and look at old filters for slime.</li>
+    <li>Consider a maintenance dose of biocide if you've had a problem before. Bell's procedure for ultra-low sulfur diesel tanks calls for a maintenance dose every 90 to 120 days {src(BELL, 'Bell Performance procedures')}.</li>
+  </ul>
+
+  <section class="faq">
+  <h2>FAQ</h2>
+  {bio_faq_html}
+  </section>
+
+  <h2>Sources</h2>
+  <ul class="sources">
+    <li><a href="{BIOBOR}" rel="noopener">Biobor JF, EPA-accepted label (EPA Reg. No. 65217-1)</a></li>
+    <li><a href="{BIOKLEEN}" rel="noopener">Power Service: Bio Kleen diesel fuel biocide</a></li>
+    <li><a href="{BELLTEST}" rel="noopener">Bell Performance: Fuel tests that predict failure (ASTM D6469 and microbial testing), 2026</a></li>
+    <li><a href="{BELL}" rel="noopener">Bell Performance: Fuel storage tank treatment procedures</a></li>
+    <li><a href="{GILBERT}" rel="noopener">Riley Gilbert, Underground Storage Tank Corrosion: Problems and Solutions, National Tanks Conference (2018)</a></li>
+    <li><a href="{CRC672}" rel="noopener">Coordinating Research Council: CRC Report 672 (2016)</a></li>
+    <li><a href="{PSAIL}" rel="noopener">Practical Sailor: Diesel biocides take on contaminated fuel</a></li>
+    <li><a href="{VEEDER}" rel="noopener">Veeder-Root: Why water needs to be removed continuously</a></li>
+    <li><a href="{CENEXW}" rel="noopener">Cenex: Warning signs your diesel is water-contaminated</a></li>
+    <li><a href="{MODNR}" rel="noopener">Missouri DNR: Management of petroleum storage tank wastes</a></li>
+  </ul>
+  <p class="note">This guide is general information. Biocides are pesticides: read and follow the label, and wear the protection it calls for.</p>
+</article>
+"""
+
+bio_schema = [
+    {"@context": "https://schema.org", "@type": "Article", "headline": BIO_TITLE, "description": BIO_DESC,
+     "datePublished": UPDATED, "dateModified": UPDATED,
+     "author": {"@type": "Person", "name": "FuelStorageGuide", "jobTitle": "Fuel-system technician"},
+     "publisher": {"@type": "Organization", "name": "FuelStorageGuide", "url": DOMAIN},
+     "mainEntityOfPage": DOMAIN + BIO_PATH},
+    {"@context": "https://schema.org", "@type": "FAQPage",
+     "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": strip_tags(a)}} for q, a in bio_faq]},
+]
+page(BIO_PATH, BIO_TITLE, BIO_DESC, bio_body, schema=bio_schema, og_type="article")
+
 # ---------------- Home ----------------
 home_body = f"""
 <div class="wide">
@@ -1152,6 +1284,7 @@ home_body = f"""
   <h2>Guides</h2>
   <ul class="guide-list">
     <li><a class="guide" href="{SPCC_PATH}"><span class="card-title">Do I need an SPCC plan?</span><p>The 1,320-gallon rule, the farm thresholds, which plan type you need, and a one-minute checker for your site.</p></a></li>
+    <li><a class="guide" href="{BIO_PATH}"><span class="card-title">Diesel bugs and biocides</span><p>How to spot microbial growth, test for it, and treat a tank step by step without plugging every filter.</p></a></li>
     <li><a class="guide" href="{WATER_PATH}"><span class="card-title">Water in your diesel tank</span><p>How water gets in, how to check for it with paste or a clear jar, how to get it out, and how to keep it out.</p></a></li>
     <li><a class="guide" href="{ADD_PATH}"><span class="card-title">Winter diesel additives: what anti-gel does and when to add it</span><p>How anti-gel works, how to treat a bulk tank before the cold, label treat rates, and when blending or heat makes more sense.</p></a></li>
     <li><a class="guide" href="{TT_PATH}"><span class="card-title">Diesel transfer tanks: sizing, legal limits, and setup</span><p>Why 119 gallons matters, the rules for gasoline, payload math for your pickup, and how to set one up.</p></a></li>
@@ -1250,7 +1383,7 @@ nf_body = """
 page("/404.html", "Page not found | FuelStorageGuide", "Page not found.", nf_body)
 
 # ---------------- sitemap, robots, favicon ----------------
-urls = ["/", SPCC_PATH, ADD_PATH, WATER_PATH, TT_PATH, PUMP_PATH, GEL_PATH,"/about/", "/contact/", "/privacy/", "/affiliate-disclosure/"]
+urls = ["/", SPCC_PATH, ADD_PATH, WATER_PATH, BIO_PATH, TT_PATH, PUMP_PATH, GEL_PATH,"/about/", "/contact/", "/privacy/", "/affiliate-disclosure/"]
 sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
 for u in urls:
     sitemap += f"  <url><loc>{DOMAIN}{u}</loc><lastmod>{UPDATED}</lastmod></url>\n"
