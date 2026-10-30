@@ -375,6 +375,7 @@ checker = """
 
 spcc_body = f"""
 <article class="wrap">
+  <p class="crumbs"><a href="/aboveground-fuel-tanks/">Aboveground tanks</a></p>
   <h1>Do I need an SPCC plan?</h1>
   <p class="meta">Written by a fuel-system technician. Updated {UPDATED_HUMAN}.</p>
 
@@ -742,6 +743,7 @@ pump_faq_html = "\n".join(f"<h3>{q}</h3>\n<p>{a}</p>" for q, a in pump_faq)
 
 pump_body = f"""
 <article class="wrap">
+  <p class="crumbs"><a href="/aboveground-fuel-tanks/">Aboveground tanks</a></p>
   <h1>How to choose a 12V fuel transfer pump</h1>
   <p class="meta">Written by a fuel-system technician. Updated {UPDATED_HUMAN}.</p>
   {AFF_NOTE}
@@ -896,6 +898,7 @@ tt_faq_html = "\n".join(f"<h3>{q}</h3>\n<p>{a}</p>" for q, a in tt_faq)
 
 tt_body = f"""
 <article class="wrap">
+  <p class="crumbs"><a href="/aboveground-fuel-tanks/">Aboveground tanks</a></p>
   <h1>Diesel transfer tanks: sizing, legal limits, and setup</h1>
   <p class="meta">Written by a fuel-system technician. Updated {UPDATED_HUMAN}.</p>
   {AFF_NOTE}
@@ -1470,6 +1473,7 @@ asv_faq_html = "\n".join(f"<h3>{q}</h3>\n<p>{a}</p>" for q, a in asv_faq)
 
 asv_body = f"""
 <article class="wrap">
+  <p class="crumbs"><a href="/aboveground-fuel-tanks/">Aboveground tanks</a></p>
   <h1>Anti-siphon valves for fuel tanks: how they work and when you need one</h1>
   <p class="meta">Written by a fuel-system technician. Updated {UPDATED_HUMAN}.</p>
   {AFF_NOTE}
@@ -1577,6 +1581,91 @@ asv_schema = [
 page(ASV_PATH, ASV_TITLE, ASV_DESC, asv_body, schema=asv_schema, og_type="article")
 
 
+
+# ---------------- Aboveground tanks hub ----------------
+AST_PATH = "/aboveground-fuel-tanks/"
+WGUL = "https://western-global.com/us/support/insights/knowing-the-approvals-ul142-vs-ul2085/"
+NCUL = "https://www.ncosfm.gov/fire-prevention/220623-listing-and-labeling-above-ground-fuel-dispensing-tanks/open"
+AST_TITLE = "Aboveground Fuel Tanks: Types, Rules, and Equipment"
+AST_DESC = ("A guide to aboveground fuel tanks for farms, fleets, and small businesses: tank types, "
+            "the rules that apply, the equipment on top, and links to every detailed guide.")
+AST_GUIDES = [
+    (SPCC_PATH, "Do I need an SPCC plan?", "The 1,320-gallon rule, the farm thresholds, which plan type you need, and a one-minute checker."),
+    (ASV_PATH, "Anti-siphon valves", "Why elevated tanks siphon, what the fire code requires, picking the head setting, and pump troubleshooting."),
+    (TT_PATH, "Diesel transfer tanks", "Why 119 gallons matters, the rules for gasoline, payload math for your pickup, and setup."),
+    (PUMP_PATH, "How to choose a 12V fuel transfer pump", "Flow rate, duty cycle, and wiring explained, and Fill-Rite and GPI models compared."),
+]
+ast_cards = "\n".join(
+    f'    <li><a class="guide" href="{p}"><span class="card-title">{t}</span><p>{d}</p></a></li>' for p, t, d in AST_GUIDES)
+ast_body = f"""
+<div class="wrap">
+  <h1>Aboveground fuel tanks</h1>
+  <p class="lede">An aboveground storage tank (AST) is any fuel tank that sits on or above the ground instead of buried: a farm tank on a stand, a skid tank at a job site, a generator's base tank, or a fleet's fueling tank. Here's how they're built, the rules that apply, and the equipment that goes on them.</p>
+
+  <h2>Types of aboveground tanks</h2>
+  <p><strong>Most steel aboveground fuel tanks are built to UL 142. Protected tanks are built to UL 2085, which adds insulation between the walls for fire protection</strong> {src(WGUL, 'Western Global')}.</p>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th scope="col">Type</th><th scope="col">What it is</th><th scope="col">Typical use</th></tr></thead>
+    <tbody>
+      <tr><td>Single-wall (UL 142)</td><td>One steel wall</td><td>Needs a separate dike or containment area to meet spill rules {src(ECFR, '40 CFR 112.8(c)(2)')}</td></tr>
+      <tr><td>Double-wall (UL 142)</td><td>A tank inside a tank; the outer wall catches a leak from the inner one</td><td>Can help meet the containment requirement, but still counts toward your SPCC capacity (see <a href="{SPCC_PATH}">the SPCC guide</a>)</td></tr>
+      <tr><td>Protected (UL 2085)</td><td>Double-wall with insulation between the walls, built to limit heat to the inner tank during a 2-hour fire; can also be tested for ballistics and vehicle impact {src(WGUL, 'Western Global')}</td><td>Permanent installations with higher fire risk, such as gasoline dispensing; some states require it for aboveground gasoline dispensing tanks {src(NCUL, 'NC State Fire Marshal')}</td></tr>
+      <tr><td>Transfer and auxiliary tanks</td><td>Small tanks in a pickup bed</td><td>See <a href="{TT_PATH}">diesel transfer tanks</a></td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><strong>Field note:</strong> On the farm and fleet sites I service, most tanks are UL 142, and double-wall tanks are more common than single-wall tanks in a dike. Protected tanks are heavier and harder to move than standard tanks {src(WGUL, 'Western Global')}.</p>
+
+  <h2>The rules at a glance</h2>
+  <p><strong>Three sets of rules can apply to an aboveground tank: the federal SPCC rule, your fire code, and your state's tank rules.</strong></p>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th scope="col">Rule</th><th scope="col">Who it covers</th><th scope="col">Guide</th></tr></thead>
+    <tbody>
+      <tr><td>SPCC (40 CFR 112)</td><td>Sites with more than 1,320 gallons of aboveground oil storage that could spill to water; farms have higher thresholds</td><td><a href="{SPCC_PATH}">Do I need an SPCC plan?</a></td></tr>
+      <tr><td>Fire code (IFC or NFPA 30/30A, as adopted locally)</td><td>Tank construction, spacing, and equipment such as anti-siphon valves</td><td><a href="{ASV_PATH}">Anti-siphon valves</a></td></tr>
+      <tr><td>State tank rules</td><td>Varies by state; some register or inspect aboveground tanks</td><td>Check with your state fire marshal or environmental agency</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h2>Equipment on an aboveground tank</h2>
+  <p><strong>The fittings on top of the tank keep it filled safely, vented, and from leaking out through the piping.</strong> Guides for the rest are in the works.</p>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th scope="col">Equipment</th><th scope="col">What it does</th><th scope="col">Guide</th></tr></thead>
+    <tbody>
+      <tr><td>Anti-siphon valve</td><td>Keeps fuel from draining out if a line breaks</td><td><a href="{ASV_PATH}">Anti-siphon valves</a></td></tr>
+      <tr><td>Transfer pump</td><td>Moves fuel from the tank to equipment</td><td><a href="{PUMP_PATH}">12V transfer pumps</a></td></tr>
+      <tr><td>Vents (normal and emergency)</td><td>Let air in and out as fuel moves; relieve pressure in a fire</td><td>Coming soon</td></tr>
+      <tr><td>Fill and spill containment</td><td>Catch drips at the fill when the delivery hose comes off</td><td>Coming soon</td></tr>
+      <tr><td>Overfill prevention</td><td>Stops or warns before the tank is overfilled</td><td>Coming soon</td></tr>
+      <tr><td>Gauges</td><td>Show how much fuel is in the tank</td><td>Coming soon</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h2>All aboveground tank guides</h2>
+  <ul class="guide-list">
+{ast_cards}
+  </ul>
+  <p>For the fuel inside the tank, see the <a href="{FQ_PATH}">fuel quality guides</a>.</p>
+
+  <h2>Sources</h2>
+  <ul class="sources">
+    <li><a href="{WGUL}" rel="noopener">Western Global: UL 142 vs. UL 2085</a></li>
+    <li><a href="{NCUL}" rel="noopener">NC Office of State Fire Marshal: Listing and labeling of aboveground fuel dispensing tanks (2011)</a></li>
+    <li><a href="{ECFR}" rel="noopener">eCFR: 40 CFR Part 112</a></li>
+  </ul>
+</div>
+"""
+ast_schema = [{"@context": "https://schema.org", "@type": "CollectionPage", "name": AST_TITLE, "description": AST_DESC,
+               "url": DOMAIN + AST_PATH,
+               "hasPart": [{"@type": "Article", "name": t, "url": DOMAIN + p} for p, t, _ in AST_GUIDES]}]
+page(AST_PATH, AST_TITLE, AST_DESC, ast_body, schema=ast_schema)
+
+
 # ---------------- Home ----------------
 home_body = f"""
 <div class="wide">
@@ -1589,6 +1678,7 @@ home_body = f"""
   <h2>Guides</h2>
   <ul class="guide-list">
     <li><a class="guide" href="{FQ_PATH}"><span class="card-title">Fuel quality: start here</span><p>Water, microbes, gelling, and old fuel. Find the guide for what you're seeing in your tank.</p></a></li>
+    <li><a class="guide" href="{AST_PATH}"><span class="card-title">Aboveground tanks: start here</span><p>Tank types, the rules that apply, and the equipment on top, with links to every tank guide.</p></a></li>
     <li><a class="guide" href="{SPCC_PATH}"><span class="card-title">Do I need an SPCC plan?</span><p>The 1,320-gallon rule, the farm thresholds, which plan type you need, and a one-minute checker for your site.</p></a></li>
     <li><a class="guide" href="{BIO_PATH}"><span class="card-title">Diesel bugs and biocides</span><p>How to spot microbial growth, test for it, and treat a tank step by step without plugging every filter.</p></a></li>
     <li><a class="guide" href="{STORE_PATH}"><span class="card-title">How long does diesel last in storage?</span><p>Shelf life, what makes stored fuel go bad, how to tell if it's still good, and how to make it last.</p></a></li>
@@ -1691,7 +1781,7 @@ nf_body = """
 page("/404.html", "Page not found | FuelStorageGuide", "Page not found.", nf_body)
 
 # ---------------- sitemap, robots, favicon ----------------
-urls = ["/", FQ_PATH, STORE_PATH, ASV_PATH, SPCC_PATH, ADD_PATH, WATER_PATH, BIO_PATH, TT_PATH, PUMP_PATH, GEL_PATH,"/about/", "/contact/", "/privacy/", "/affiliate-disclosure/"]
+urls = ["/", AST_PATH, FQ_PATH, STORE_PATH, ASV_PATH, SPCC_PATH, ADD_PATH, WATER_PATH, BIO_PATH, TT_PATH, PUMP_PATH, GEL_PATH,"/about/", "/contact/", "/privacy/", "/affiliate-disclosure/"]
 sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
 for u in urls:
     sitemap += f"  <url><loc>{DOMAIN}{u}</loc><lastmod>{UPDATED}</lastmod></url>\n"
