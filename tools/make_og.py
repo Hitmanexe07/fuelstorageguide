@@ -12,6 +12,7 @@ CARDS = [
     ("winter-diesel-additive", "Winter diesel additives", "What anti-gel does, when to add it, and how much"),
     ("how-long-does-diesel-last", "How long does diesel last?", "Shelf life, testing, and how to make stored fuel last"),
     ("fuel-quality", "Fuel quality guides", "Water, microbes, gelling, and old fuel: start with what you're seeing"),
+    ("anti-siphon-valve", "Anti-siphon valves", "How they work, when codes require one, and picking the head setting"),
     ("diesel-biocide", "Diesel bugs and biocides", "How to spot microbial growth and treat it, step by step"),
     ("water-in-diesel-tank", "Water in your diesel tank", "How it gets in, how to check, and how to get it out"),
     ("diesel-transfer-tank", "Diesel transfer tanks", "Sizing, the 119-gallon rule, and setup"),
