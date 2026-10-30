@@ -1783,6 +1783,114 @@ sb_schema = [
 page(SB_PATH, SB_TITLE, SB_DESC, sb_body, schema=sb_schema, og_type="article")
 
 
+
+# ---------------- Line leak detectors ----------------
+LLD_PATH = "/line-leak-detector/"
+STOT = "https://www.epa.gov/sites/default/files/2016-05/documents/stot_5-2-16_final_508.pdf"
+MSLLD = "https://deq.ms.gov/wp-content/uploads/2012/02/LineLeakDetectorTest-1.pdf"
+SCELLD = "https://des.sc.gov/sites/des/files/Documents/BLWM/UST/Electronic_Line_Leak_Detection.pdf"
+VRFXV = "https://www.veeder.com/us/fuel-leak-detection/mechanical-line-leak-detection"
+EPAIM = "https://www.epa.gov/ust/release-detection-underground-storage-tanks-usts-interstitial-method"
+
+LLD_TITLE = "Line Leak Detectors: How They Work, the Annual Test, and Slow Flow"
+LLD_DESC = ("Every pressurized UST line needs an automatic line leak detector that catches a 3 gallon-per-hour leak, "
+            "tested every year. How mechanical and electronic detectors work, how the test is done, and why your dispenser runs slow.")
+
+lld_faq = [
+    ("Does a line leak detector replace the annual line tightness test?",
+     f"No. The detector covers big leaks. You still need a second method for small ones, such as an annual 0.1 gph tightness test or monthly monitoring {src(STOT, 'EPA')}."),
+    ("Does an electronic detector's self-test count as the annual test?",
+     f"Only if it runs a simulated leak. A self-diagnostic alone doesn't meet the requirement {src(STOT, 'EPA')}."),
+    ("Is a diesel leak detector different from a gasoline one?",
+     f"Yes. Veeder-Root sells separate mechanical models for gasoline (FX1V) and diesel (FX1DV), plus versions for higher ethanol and biodiesel blends {src(VRFXV, 'Veeder-Root')}."),
+]
+lld_faq_html = "\n".join(f"<h3>{q}</h3>\n<p>{a}</p>" for q, a in lld_faq)
+
+lld_body = f"""
+<article class="wrap">
+  <h1>Line leak detectors: how they work, the annual test, and slow flow</h1>
+  <p class="meta">Written by a fuel-system technician. Updated {UPDATED_HUMAN}.</p>
+
+  <div class="answer">
+    <p><strong>A line leak detector watches the pressure in the pipe between an underground tank's submersible pump and the dispenser. If the line can't hold pressure, it slows the flow, shuts off the pump, or sounds an alarm. Federal rules require one on all pressurized UST piping, able to catch a 3 gallon-per-hour leak at 10 psi within an hour, and it has to be tested every year</strong> {src(STOT, 'EPA, Straight Talk on Tanks')}.</p>
+  </div>
+  <p>Suction systems, where the dispenser pulls fuel up from the tank, don't use one. This guide is about pressurized systems, the setup at most gas stations and many fleet sites.</p>
+
+  <h2>What the federal rule requires</h2>
+  <p><strong>Pressurized piping needs two kinds of leak detection: an automatic line leak detector for big leaks, plus a second method for small ones</strong> {src(STOT, 'EPA')}.</p>
+  <div class="table-wrap">
+  <table class="even">
+    <thead><tr><th scope="col">Requirement</th><th scope="col">Standard</th></tr></thead>
+    <tbody>
+      <tr><td>Automatic line leak detector</td><td>Detects 3 gallons per hour at 10 psi within 1 hour, and shuts off flow, restricts flow, or triggers an alarm</td></tr>
+      <tr><td>Annual test of the detector</td><td>Simulate a leak at or below 3 gph; follow the manufacturer, a code of practice, or your state's method. A self-diagnostic alone doesn't count unless it runs a simulated leak</td></tr>
+      <tr><td>Second method (pick one)</td><td>Annual line tightness test (0.1 gph at 1.5 times operating pressure), or monthly interstitial, vapor, groundwater, or statistical inventory monitoring, or continuous in-tank detection that covers the lines</td></tr>
+      <tr><td>Records</td><td>Keep test records for 3 years</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="source-line">Source: <a href="{STOT}" rel="noopener">EPA, Straight Talk on Tanks (2016)</a>.</p>
+  <p>UST systems installed or replaced after April 11, 2016 must be secondarily contained and use interstitial monitoring {src(EPAIM, 'EPA')}. In practice that means double-wall piping, and monitoring between the walls becomes the second method on newer sites.</p>
+
+  <h2>Mechanical vs. electronic leak detectors</h2>
+  <p><strong>Both watch line pressure. A mechanical detector screws into the pump head and slows the flow if it senses a leak; an electronic one uses a pressure sensor tied to a tank monitor or controller that can shut the pump off and log results</strong> (<a href="{STOT}" rel="noopener">EPA</a>; <a href="{SCELLD}" rel="noopener">SC DES</a>).</p>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th scope="col"></th><th scope="col">Mechanical</th><th scope="col">Electronic</th></tr></thead>
+    <tbody>
+      <tr><td>How it checks</td><td>Each time the pump turns on, it holds the line at a low "metering" pressure for a few seconds. If the line holds, it opens to full flow {src(MSLLD, 'Mississippi DEQ')}</td><td>Pressurizes the line with the pump and times how fast the pressure decays {src(SCELLD, 'SC DES')}</td></tr>
+      <tr><td>What happens with a leak</td><td>Stays in the leak position and restricts flow to the dispenser {src(VRFXV, 'Veeder-Root')}</td><td>Shuts off or restricts flow, or alarms {src(SCELLD, 'SC DES')}</td></tr>
+      <tr><td>Small-leak testing</td><td>No</td><td>Many can also run 0.2 gph monthly or 0.1 gph annual tests, which can count as the second method {src(SCELLD, 'SC DES')}</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><strong>Field note:</strong> The mechanical detectors I see most are FE Petro and Red Jacket. Red Jacket makes separate gasoline (FX1V) and diesel (FX1DV) models {src(VRFXV, 'Veeder-Root')}.</p>
+
+  <h2>How the annual test works</h2>
+  <p><strong>The tester connects a test rig at the dispenser end of the line, opens a calibrated leak of 3 gph at 10 psi, and turns on the pump to see whether the detector catches it</strong> {src(MSLLD, 'Mississippi DEQ')}.</p>
+  <p>For a mechanical detector, Mississippi's procedure works like this:</p>
+  <ol>
+    <li>Set the test orifice to 189 mL per minute, which equals 3 gph.</li>
+    <li>Turn on the pump with no leak open. Pressure should rise, pause for about 2 to 5 seconds at the metering pressure, then build to full pump pressure. Record the metering pressure and the opening time.</li>
+    <li>Bleed the line to zero so the detector resets, open the simulated leak, and turn the pump on again for at least 60 seconds.</li>
+    <li><strong>Pass:</strong> the line pressure never climbs above the metering pressure while the leak is open. <strong>Fail:</strong> it reaches full pump pressure, or the detector doesn't reset when the line is bled to zero.</li>
+  </ol>
+  <p>An electronic detector passes if it alarms or shuts the pump down during the simulated leak. Mississippi says to repeat the test before calling a first failure final {src(MSLLD, 'Mississippi DEQ')}.</p>
+
+  <h2>"My dispenser is slow"</h2>
+  <p><strong>A dispenser that pumps at a trickle usually means a mechanical leak detector is sitting in its restricted-flow position.</strong> It couldn't confirm the line was tight when the pump came on (<a href="{STOT}" rel="noopener">EPA</a>; <a href="{VRFXV}" rel="noopener">Veeder-Root</a>).</p>
+  <p><strong>Field note:</strong> The most common cause I see isn't a leak. It's someone squeezing the nozzle before the dispenser is ready. Fuel flows out while the detector is still checking the line, so it reads that as a leak and stays tripped. Hang up the nozzle, wait for the dispenser to reset, and let it come up to pressure before you start pumping.</p>
+  <p>If it's still slow after a clean restart, treat it as a possible leak and have the line and detector checked. Some states have reporting deadlines for a suspected release; South Carolina, for example, asks for a call within 24 hours when an electronic detector reports anything other than a pass {src(SCELLD, 'SC DES')}.</p>
+
+  <section class="faq">
+  <h2>FAQ</h2>
+  {lld_faq_html}
+  </section>
+
+  <h2>Sources</h2>
+  <ul class="sources">
+    <li><a href="{STOT}" rel="noopener">EPA: Release Detection for USTs and Piping, Straight Talk on Tanks (EPA 510-K-16-003, May 2016)</a></li>
+    <li><a href="{EPAIM}" rel="noopener">EPA: Release detection, interstitial method</a></li>
+    <li><a href="{MSLLD}" rel="noopener">Mississippi DEQ: Line leak detector test procedure</a></li>
+    <li><a href="{SCELLD}" rel="noopener">South Carolina DES: Electronic line leak detection</a></li>
+    <li><a href="{VRFXV}" rel="noopener">Veeder-Root: Red Jacket FXV mechanical line leak detectors</a></li>
+  </ul>
+  <p class="note">This guide is general information. Your state UST program decides what's required at your site.</p>
+</article>
+"""
+
+lld_schema = [
+    {"@context": "https://schema.org", "@type": "Article", "headline": LLD_TITLE, "description": LLD_DESC,
+     "datePublished": UPDATED, "dateModified": UPDATED,
+     "author": {"@type": "Person", "name": "FuelStorageGuide", "jobTitle": "Fuel-system technician"},
+     "publisher": {"@type": "Organization", "name": "FuelStorageGuide", "url": DOMAIN},
+     "mainEntityOfPage": DOMAIN + LLD_PATH},
+    {"@context": "https://schema.org", "@type": "FAQPage",
+     "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": strip_tags(a)}} for q, a in lld_faq]},
+]
+page(LLD_PATH, LLD_TITLE, LLD_DESC, lld_body, schema=lld_schema, og_type="article")
+
+
 # ---------------- Home ----------------
 home_body = f"""
 <div class="wide">
@@ -1803,6 +1911,7 @@ home_body = f"""
     <li><a class="guide" href="{ADD_PATH}"><span class="card-title">Winter diesel additives: what anti-gel does and when to add it</span><p>How anti-gel works, how to treat a bulk tank before the cold, label treat rates, and when blending or heat makes more sense.</p></a></li>
     <li><a class="guide" href="{ASV_PATH}"><span class="card-title">Anti-siphon valves: how they work and when you need one</span><p>Why elevated tanks siphon, what the fire code requires, picking the head setting, and pump troubleshooting.</p></a></li>
     <li><a class="guide" href="{SB_PATH}"><span class="card-title">Spill bucket testing for underground tanks</span><p>The 30-day walkthrough, the 3-year test, how the water and vacuum tests work, and what fails.</p></a></li>
+    <li><a class="guide" href="{LLD_PATH}"><span class="card-title">Line leak detectors: the annual test and slow flow</span><p>How mechanical and electronic detectors work, what the yearly test checks, and why a dispenser drops to a trickle.</p></a></li>
     <li><a class="guide" href="{TT_PATH}"><span class="card-title">Diesel transfer tanks: sizing, legal limits, and setup</span><p>Why 119 gallons matters, the rules for gasoline, payload math for your pickup, and how to set one up.</p></a></li>
     <li><a class="guide" href="{PUMP_PATH}"><span class="card-title">How to choose a 12V fuel transfer pump</span><p>Flow rate, duty cycle, and wiring explained, Fill-Rite and GPI models compared, and which size fits your tank.</p></a></li>
     <li><a class="guide" href="{GEL_PATH}"><span class="card-title">Diesel gelling: when it happens and how to prevent it</span><p>Cloud point, CFPP, and pour point explained, why bulk tanks gel first, and a winter checklist for tank owners.</p></a></li>
@@ -1899,7 +2008,7 @@ nf_body = """
 page("/404.html", "Page not found | FuelStorageGuide", "Page not found.", nf_body)
 
 # ---------------- sitemap, robots, favicon ----------------
-urls = ["/", AST_PATH, SB_PATH, FQ_PATH, STORE_PATH, ASV_PATH, SPCC_PATH, ADD_PATH, WATER_PATH, BIO_PATH, TT_PATH, PUMP_PATH, GEL_PATH,"/about/", "/contact/", "/privacy/", "/affiliate-disclosure/"]
+urls = ["/", AST_PATH, SB_PATH, LLD_PATH, FQ_PATH, STORE_PATH, ASV_PATH, SPCC_PATH, ADD_PATH, WATER_PATH, BIO_PATH, TT_PATH, PUMP_PATH, GEL_PATH,"/about/", "/contact/", "/privacy/", "/affiliate-disclosure/"]
 sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
 for u in urls:
     sitemap += f"  <url><loc>{DOMAIN}{u}</loc><lastmod>{UPDATED}</lastmod></url>\n"

@@ -15,6 +15,7 @@ CARDS = [
     ("anti-siphon-valve", "Anti-siphon valves", "How they work, when codes require one, and picking the head setting"),
     ("aboveground-fuel-tanks", "Aboveground fuel tanks", "Tank types, the rules that apply, and the equipment on top"),
     ("spill-bucket-testing", "Spill bucket testing", "The 30-day check, the 3-year test, and what fails"),
+    ("line-leak-detector", "Line leak detectors", "How they work, the annual test, and why a dispenser runs slow"),
     ("diesel-biocide", "Diesel bugs and biocides", "How to spot microbial growth and treat it, step by step"),
     ("water-in-diesel-tank", "Water in your diesel tank", "How it gets in, how to check, and how to get it out"),
     ("diesel-transfer-tank", "Diesel transfer tanks", "Sizing, the 119-gallon rule, and setup"),
