@@ -132,6 +132,7 @@ def strip_tags(s):
 
 gel_body = f"""
 <article class="wrap">
+  <p class="crumbs"><a href="/fuel-quality/">Fuel quality</a></p>
   <h1>Diesel gelling: when it happens and how to prevent it</h1>
   <p class="meta">Written by a fuel-system technician. Updated {UPDATED_HUMAN}.</p>
   {AFF_NOTE}
@@ -574,6 +575,7 @@ water_faq_html = "\n".join(f"<h3>{q}</h3>\n<p>{a}</p>" for q, a in water_faq)
 
 water_body = f"""
 <article class="wrap">
+  <p class="crumbs"><a href="/fuel-quality/">Fuel quality</a></p>
   <h1>Water in your diesel tank: how it gets there and how to get it out</h1>
   <p class="meta">Written by a fuel-system technician. Updated {UPDATED_HUMAN}.</p>
   {AFF_NOTE}
@@ -1038,6 +1040,7 @@ add_faq_html = "\n".join(f"<h3>{q}</h3>\n<p>{a}</p>" for q, a in add_faq)
 
 add_body = f"""
 <article class="wrap">
+  <p class="crumbs"><a href="/fuel-quality/">Fuel quality</a></p>
   <h1>Winter diesel additives: what anti-gel does, when to add it, and how much</h1>
   <p class="meta">Written by a fuel-system technician. Updated {UPDATED_HUMAN}.</p>
   {AFF_NOTE}
@@ -1164,6 +1167,7 @@ bio_faq_html = "\n".join(f"<h3>{q}</h3>\n<p>{a}</p>" for q, a in bio_faq)
 
 bio_body = f"""
 <article class="wrap">
+  <p class="crumbs"><a href="/fuel-quality/">Fuel quality</a></p>
   <h1>Diesel bugs and biocides: how to spot microbial growth and treat it</h1>
   <p class="meta">Written by a fuel-system technician. Updated {UPDATED_HUMAN}.</p>
   {AFF_NOTE}
@@ -1272,6 +1276,169 @@ bio_schema = [
 ]
 page(BIO_PATH, BIO_TITLE, BIO_DESC, bio_body, schema=bio_schema, og_type="article")
 
+
+# ---------------- How long diesel lasts ----------------
+STORE_PATH = "/how-long-does-diesel-last/"
+ALBERTA = "https://www1.agric.gov.ab.ca/$Department/deptdocs.nsf/all/agdex12374"
+CHEVRON = "https://www.trucknews.com/products/fuels-question-answer-2/"
+NRELBIO = "https://www.nrel.gov/docs/fy23osti/86939.pdf"
+NFPA110 = "https://www.bellperformance.com/bell-performs-blog/what-nfpa-110-requires-for-stored-generator-fuel"
+MA527 = "https://www.mass.gov/doc/117512-testing-of-diesel-fuel/download"
+
+STORE_TITLE = "How Long Does Diesel Last in Storage? Shelf Life, Testing, and Tips"
+STORE_DESC = ("Diesel kept clean, cool, and dry generally lasts 6 to 12 months, and longer with treatment and testing. "
+              "What shortens it, how to tell if stored fuel is still good, and how to make it last.")
+
+store_faq = [
+    ("Is 2-year-old diesel still usable?",
+     "It might be, if it was stored well. Test it first: check a bottom sample for water, haze, and growth, and have a lab test it if it matters. Don't run it in critical equipment untested."),
+    ("Does off-road (red) diesel last longer than on-road diesel?",
+     "The dye doesn't change how it ages. Storage conditions, water, and biodiesel content matter much more."),
+    ("Can I mix old diesel with new?",
+     "Small amounts of good old fuel can be blended into fresh fuel and burned. Fuel with water, slime, or sludge should be cleaned up or removed first, or it will contaminate the fresh fuel."),
+    ("Do fuel stabilizers really work?",
+     f"Antioxidant stabilizers slow aging but can't reverse it, so add them while the fuel is fresh {src(NRELBIO, 'NREL')}."),
+]
+store_faq_html = "\n".join(f"<h3>{q}</h3>\n<p>{a}</p>" for q, a in store_faq)
+
+store_body = f"""
+<article class="wrap">
+  <p class="crumbs"><a href="/fuel-quality/">Fuel quality</a></p>
+  <h1>How long does diesel last in storage?</h1>
+  <p class="meta">Written by a fuel-system technician. Updated {UPDATED_HUMAN}.</p>
+  {AFF_NOTE}
+
+  <div class="answer">
+    <p><strong>Diesel kept clean, cool, and dry can generally be expected to last 6 to 12 months</strong> {src(ALBERTA, 'Alberta Agriculture')}. <strong>Chevron's guidance for emergency fuel is to use it within a year and replace it with fresh fuel, unless special precautions are taken</strong> {src(CHEVRON, 'Chevron, via Truck News')}.</p>
+  </div>
+  <p>That's a rule of thumb, not an expiration date. Well-kept fuel with a stabilizer and regular testing can go much longer, and fuel sitting on a water bottom in a half-empty tank can go bad faster. The diesel spec itself, ASTM D975, has no storage-stability test for #1 or #2 diesel {src(NRELBIO, 'NREL')}, so testing is how you know for sure.</p>
+
+  <h2>What happens to diesel as it sits</h2>
+  <p><strong>Stored diesel breaks down in four ways, and most of them start with water or air.</strong></p>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th scope="col">Problem</th><th scope="col">What it does</th><th scope="col">What speeds it up</th></tr></thead>
+    <tbody>
+      <tr><td>Oxidation</td><td>Fuel reacts with air and forms gums, sludge, and acids that plug filters</td><td>Heat, air in a half-empty tank, and metals like copper, brass, and zinc {src(NRELBIO, 'NREL')}</td></tr>
+      <tr><td>Water</td><td>Collects on the tank bottom from condensation and leaks</td><td>A low fuel level and caps or vents that don't seal {src(CRC672, 'CRC Report 672')}</td></tr>
+      <tr><td>Microbes</td><td>Bacteria and fungi grow in the water layer, make slime, and plug filters {src(GILBERT, 'Gilbert')}</td><td>Water on the bottom and warm weather</td></tr>
+      <tr><td>Wax settling</td><td>In cold weather, wax can settle into a layer on the bottom</td><td>Fuel stored below its cloud point {src(CRC, 'CRC Report 671')}</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><strong>Biodiesel blends need more attention.</strong> Most diesel sold today can contain up to 5% biodiesel. A B20 blend meeting the minimum spec is expected to keep its quality for up to a year in clean, dry storage, and fuels with better stability or added antioxidants lasted much longer in testing {src(NRELBIO, 'NREL')}. Antioxidants only slow aging; they can't reverse it, so they work best added when the fuel is fresh {src(NRELBIO, 'NREL')}.</p>
+
+  <h2>How to tell if stored diesel is still good</h2>
+  <p><strong>Pull a sample from the bottom of the tank into a clear jar and look at it, then check the bottom for water.</strong> Good diesel is "clear and bright" with no haze, particles, or water layer {src(CRC672, 'CRC Report 672')}. Sample jars: {amz("fuel sample bottle clear", "clear fuel sample bottles on Amazon")}.</p>
+  <div class="table-wrap">
+  <table class="even">
+    <thead><tr><th scope="col">What you see</th><th scope="col">What it likely means</th></tr></thead>
+    <tbody>
+      <tr><td>Clear and bright, no water</td><td>Fuel is fine to use</td></tr>
+      <tr><td>Hazy or cloudy at room temperature</td><td>Water suspended in the fuel</td></tr>
+      <tr><td>Water layer at the bottom of the jar</td><td>Free water in the tank; drain it (see <a href="{WATER_PATH}">water in your diesel tank</a>)</td></tr>
+      <tr><td>Dark color, slime, or stringy material</td><td>Microbial growth (see <a href="{BIO_PATH}">diesel bugs and biocides</a>)</td></tr>
+      <tr><td>Sediment or dark particles</td><td>Sludge from aging fuel or rust; expect filter plugging</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>Sample from near the bottom, not the top. Water, microbes, and sediment all collect at the bottom, so a top sample can look fine while the bottom isn't {src(BELLTEST, 'Bell Performance')}. Check for a water layer in the tank itself with water-finding paste on a gauge stick: {amz("water finding paste fuel", "water-finding paste on Amazon")}.</p>
+  <p><strong>For fuel that has to work, test it.</strong> Standby generators are the clearest case: NFPA 110 requires a fuel quality test at least once a year using ASTM methods, and says tanks should be sized so fuel is used within its storage life {src(NFPA110, 'Bell Performance on NFPA 110')}. A fuel lab can test water and sediment, stability, and microbes. If fuel fails, the usual fix is to recondition or replace it, clean the tank, and change filters {src(MA527, 'Massachusetts fire code excerpt')}.</p>
+
+  <h2>How to make stored diesel last</h2>
+  <p><strong>Keep it full, cool, dry, and treated, and use the oldest fuel first.</strong></p>
+  <ol>
+    <li><strong>Keep the tank nearly full.</strong> Less air space means less condensation and less oxidation {src(ALBERTA, 'Alberta Agriculture')}.</li>
+    <li><strong>Keep it cool and out of the sun where you can.</strong> Heat speeds up aging {src(ALBERTA, 'Alberta Agriculture')}.</li>
+    <li><strong>Drain water off the bottom on a schedule,</strong> at least monthly and after deliveries (see <a href="{WATER_PATH}">water in your diesel tank</a>).</li>
+    <li><strong>Add a stabilizer when the fuel is fresh,</strong> and a biocide if microbes have been a problem. Filtering the fuel periodically and adding stabilizers and biocides help store diesel longer {src(ALBERTA, 'Alberta Agriculture')}. {amz("diesel fuel stabilizer", "Diesel stabilizers on Amazon")}.</li>
+    <li><strong>Avoid copper, brass, and zinc in the fuel system.</strong> These metals speed up fuel breakdown, especially with biodiesel blends; carbon steel, aluminum, and stainless are better {src(NRELBIO, 'NREL')}.</li>
+    <li><strong>Size the tank to what you use.</strong> A tank you empty a few times a year stays fresher than one that holds a two-year supply. For standby generators, that's an NFPA 110 requirement, not just good advice {src(NFPA110, 'Bell Performance on NFPA 110')}.</li>
+    <li><strong>Rotate it.</strong> Burn the old fuel before adding a big load of new fuel to it, so old fuel doesn't keep getting mixed into fresh.</li>
+  </ol>
+
+  <h2>What about gasoline?</h2>
+  <p><strong>Gasoline goes bad much faster.</strong> Alberta Agriculture recommends using gasoline within about a month of purchase, and expects it to stay good for at least 6 months under good storage conditions {src(ALBERTA, 'Alberta Agriculture')}. A gasoline stabilizer helps.</p>
+
+  <p>More on keeping fuel clean: <a href="/fuel-quality/">all fuel quality guides</a>.</p>
+
+  <section class="faq">
+  <h2>FAQ</h2>
+  {store_faq_html}
+  </section>
+
+  <h2>Sources</h2>
+  <ul class="sources">
+    <li><a href="{ALBERTA}" rel="noopener">Government of Alberta: Farm Fuel Storage and Handling, frequently asked questions (2008)</a></li>
+    <li><a href="{CHEVRON}" rel="noopener">Chevron, via Truck News: Fuels question and answer (2014)</a></li>
+    <li><a href="{NRELBIO}" rel="noopener">NREL: Biodiesel Handling and Use Guide, Sixth Edition</a></li>
+    <li><a href="{CRC672}" rel="noopener">Coordinating Research Council: CRC Report 672 (2016)</a></li>
+    <li><a href="{CRC}" rel="noopener">Coordinating Research Council: CRC Report 671 (2016)</a></li>
+    <li><a href="{NFPA110}" rel="noopener">Bell Performance: What NFPA 110 requires for stored generator fuel (2026)</a></li>
+    <li><a href="{BELLTEST}" rel="noopener">Bell Performance: Fuel tests that predict failure (2026)</a></li>
+    <li><a href="{MA527}" rel="noopener">Massachusetts 527 CMR fire code excerpt: Testing of diesel fuel</a></li>
+    <li><a href="{GILBERT}" rel="noopener">Riley Gilbert, National Tanks Conference (2018)</a></li>
+  </ul>
+  <p class="note">This guide is general information. For standby generators and other critical systems, follow NFPA 110, your fire code, and the equipment maker's fuel requirements.</p>
+</article>
+"""
+
+store_schema = [
+    {"@context": "https://schema.org", "@type": "Article", "headline": STORE_TITLE, "description": STORE_DESC,
+     "datePublished": UPDATED, "dateModified": UPDATED,
+     "author": {"@type": "Person", "name": "FuelStorageGuide", "jobTitle": "Fuel-system technician"},
+     "publisher": {"@type": "Organization", "name": "FuelStorageGuide", "url": DOMAIN},
+     "mainEntityOfPage": DOMAIN + STORE_PATH},
+    {"@context": "https://schema.org", "@type": "FAQPage",
+     "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": strip_tags(a)}} for q, a in store_faq]},
+]
+page(STORE_PATH, STORE_TITLE, STORE_DESC, store_body, schema=store_schema, og_type="article")
+
+# ---------------- Fuel quality hub ----------------
+FQ_PATH = "/fuel-quality/"
+FQ_TITLE = "Fuel Quality Guides: Keeping Stored Diesel Clean, Dry, and Usable"
+FQ_DESC = ("Guides to the problems that ruin stored diesel: water, microbes, cold-weather gelling, and old fuel. "
+           "Start with the symptom you're seeing.")
+FQ_GUIDES = [
+    (WATER_PATH, "Water in your diesel tank", "How water gets in, how to check for it with paste or a clear jar, how to get it out, and how to keep it out."),
+    (BIO_PATH, "Diesel bugs and biocides", "How to spot microbial growth, test for it, and treat a tank step by step without plugging every filter."),
+    (STORE_PATH, "How long does diesel last in storage?", "Shelf life, what makes fuel go bad, how to tell if it's still good, and how to make it last."),
+    (GEL_PATH, "Diesel gelling: when it happens and how to prevent it", "Cloud point, CFPP, and pour point explained, why bulk tanks gel first, and a winter checklist."),
+    (ADD_PATH, "Winter diesel additives", "How anti-gel works, how to treat a bulk tank before the cold, label treat rates, and when blending makes more sense."),
+]
+fq_cards = "\n".join(
+    f'    <li><a class="guide" href="{p}"><span class="card-title">{t}</span><p>{d}</p></a></li>' for p, t, d in FQ_GUIDES)
+fq_body = f"""
+<div class="wrap">
+  <h1>Fuel quality</h1>
+  <p class="lede">Most stored-fuel problems come down to four things: water, microbes, cold, and time. These guides cover how to spot each one in your tank and what to do about it.</p>
+
+  <h2>Start with what you're seeing</h2>
+  <div class="table-wrap">
+  <table class="even">
+    <thead><tr><th scope="col">What you're seeing</th><th scope="col">Where to start</th></tr></thead>
+    <tbody>
+      <tr><td>Water on the gauge stick or in a sample jar</td><td><a href="{WATER_PATH}">Water in your diesel tank</a></td></tr>
+      <tr><td>Slime on filters, or filters plugging early</td><td><a href="{BIO_PATH}">Diesel bugs and biocides</a></td></tr>
+      <tr><td>Fuel that's been sitting for months</td><td><a href="{STORE_PATH}">How long diesel lasts in storage</a></td></tr>
+      <tr><td>Cloudy fuel or plugged filters in cold weather</td><td><a href="{GEL_PATH}">Diesel gelling</a></td></tr>
+      <tr><td>Getting a tank ready for winter</td><td><a href="{ADD_PATH}">Winter diesel additives</a></td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h2>All fuel quality guides</h2>
+  <ul class="guide-list">
+{fq_cards}
+  </ul>
+</div>
+"""
+fq_schema = [{"@context": "https://schema.org", "@type": "CollectionPage", "name": FQ_TITLE, "description": FQ_DESC,
+              "url": DOMAIN + FQ_PATH,
+              "hasPart": [{"@type": "Article", "name": t, "url": DOMAIN + p} for p, t, _ in FQ_GUIDES]}]
+page(FQ_PATH, FQ_TITLE, FQ_DESC, fq_body, schema=fq_schema)
+
+
 # ---------------- Home ----------------
 home_body = f"""
 <div class="wide">
@@ -1283,8 +1450,10 @@ home_body = f"""
 
   <h2>Guides</h2>
   <ul class="guide-list">
+    <li><a class="guide" href="{FQ_PATH}"><span class="card-title">Fuel quality: start here</span><p>Water, microbes, gelling, and old fuel. Find the guide for what you're seeing in your tank.</p></a></li>
     <li><a class="guide" href="{SPCC_PATH}"><span class="card-title">Do I need an SPCC plan?</span><p>The 1,320-gallon rule, the farm thresholds, which plan type you need, and a one-minute checker for your site.</p></a></li>
     <li><a class="guide" href="{BIO_PATH}"><span class="card-title">Diesel bugs and biocides</span><p>How to spot microbial growth, test for it, and treat a tank step by step without plugging every filter.</p></a></li>
+    <li><a class="guide" href="{STORE_PATH}"><span class="card-title">How long does diesel last in storage?</span><p>Shelf life, what makes stored fuel go bad, how to tell if it's still good, and how to make it last.</p></a></li>
     <li><a class="guide" href="{WATER_PATH}"><span class="card-title">Water in your diesel tank</span><p>How water gets in, how to check for it with paste or a clear jar, how to get it out, and how to keep it out.</p></a></li>
     <li><a class="guide" href="{ADD_PATH}"><span class="card-title">Winter diesel additives: what anti-gel does and when to add it</span><p>How anti-gel works, how to treat a bulk tank before the cold, label treat rates, and when blending or heat makes more sense.</p></a></li>
     <li><a class="guide" href="{TT_PATH}"><span class="card-title">Diesel transfer tanks: sizing, legal limits, and setup</span><p>Why 119 gallons matters, the rules for gasoline, payload math for your pickup, and how to set one up.</p></a></li>
@@ -1383,7 +1552,7 @@ nf_body = """
 page("/404.html", "Page not found | FuelStorageGuide", "Page not found.", nf_body)
 
 # ---------------- sitemap, robots, favicon ----------------
-urls = ["/", SPCC_PATH, ADD_PATH, WATER_PATH, BIO_PATH, TT_PATH, PUMP_PATH, GEL_PATH,"/about/", "/contact/", "/privacy/", "/affiliate-disclosure/"]
+urls = ["/", FQ_PATH, STORE_PATH, SPCC_PATH, ADD_PATH, WATER_PATH, BIO_PATH, TT_PATH, PUMP_PATH, GEL_PATH,"/about/", "/contact/", "/privacy/", "/affiliate-disclosure/"]
 sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
 for u in urls:
     sitemap += f"  <url><loc>{DOMAIN}{u}</loc><lastmod>{UPDATED}</lastmod></url>\n"

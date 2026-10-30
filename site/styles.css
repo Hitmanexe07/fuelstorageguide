@@ -215,3 +215,9 @@ table.compare td { white-space: normal; }
 .diagram { margin: 1.5rem 0 2rem; background: var(--surface); border: 1px solid var(--rule); padding: 0.75rem; }
 .diagram svg { display: block; width: 100%; height: auto; }
 .diagram figcaption { font-size: 0.95rem; color: var(--muted); margin-top: 0.5rem; }
+
+/* Breadcrumb back to topic hub */
+.crumbs { font-family: "Barlow Condensed", "Arial Narrow", Arial, sans-serif; font-size: 1.05rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; margin: 0 0 0.4rem; }
+.crumbs a { text-decoration: none; }
+.crumbs a::before { content: "\2190\00a0"; }
+table.even td a { white-space: normal; }

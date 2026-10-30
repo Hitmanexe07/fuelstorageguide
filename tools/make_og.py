@@ -10,6 +10,8 @@ CARDS = [
     ("home", "Straight answers about the fuel in your tank", "Practical guides for farm, fleet, and small-business fuel storage"),
     ("do-i-need-an-spcc-plan", "Do I need an SPCC plan?", "The 1,320-gallon rule, farm thresholds, and a one-minute checker"),
     ("winter-diesel-additive", "Winter diesel additives", "What anti-gel does, when to add it, and how much"),
+    ("how-long-does-diesel-last", "How long does diesel last?", "Shelf life, testing, and how to make stored fuel last"),
+    ("fuel-quality", "Fuel quality guides", "Water, microbes, gelling, and old fuel: start with what you're seeing"),
     ("diesel-biocide", "Diesel bugs and biocides", "How to spot microbial growth and treat it, step by step"),
     ("water-in-diesel-tank", "Water in your diesel tank", "How it gets in, how to check, and how to get it out"),
     ("diesel-transfer-tank", "Diesel transfer tanks", "Sizing, the 119-gallon rule, and setup"),
