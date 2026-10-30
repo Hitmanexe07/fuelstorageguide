@@ -1695,6 +1695,7 @@ sb_faq_html = "\n".join(f"<h3>{q}</h3>\n<p>{a}</p>" for q, a in sb_faq)
 
 sb_body = f"""
 <article class="wrap">
+  <p class="crumbs"><a href="/underground-storage-tanks/">Underground tanks</a></p>
   <h1>Spill bucket testing: what the UST rule requires and how the test works</h1>
   <p class="meta">Written by a fuel-system technician. Updated {UPDATED_HUMAN}.</p>
 
@@ -1808,6 +1809,7 @@ lld_faq_html = "\n".join(f"<h3>{q}</h3>\n<p>{a}</p>" for q, a in lld_faq)
 
 lld_body = f"""
 <article class="wrap">
+  <p class="crumbs"><a href="/underground-storage-tanks/">Underground tanks</a></p>
   <h1>Line leak detectors: how they work, the annual test, and slow flow</h1>
   <p class="meta">Written by a fuel-system technician. Updated {UPDATED_HUMAN}.</p>
 
@@ -1891,6 +1893,136 @@ lld_schema = [
 page(LLD_PATH, LLD_TITLE, LLD_DESC, lld_body, schema=lld_schema, og_type="article")
 
 
+
+# ---------------- Overfill prevention ----------------
+OFP_PATH = "/ust-overfill-prevention/"
+MUSTS = "https://www.epa.gov/sites/default/files/2015-12/documents/musts_for_usts.pdf"
+NEIOFP = "https://neiwpcc.org/wp-content/uploads/2021/12/FINAL_UST-Overfill-Prevention_12.15.21.pdf"
+
+OFP_TITLE = "UST Overfill Prevention: Shutoff Valves, Alarms, and Ball Floats"
+OFP_DESC = ("Underground tanks need overfill prevention: a drop-tube shutoff valve, an alarm, or (on older tanks) a ball float. "
+            "The activation levels, the 3-year inspection, and how to order fuel so it never gets close.")
+
+ofp_faq = [
+    ("Can I still use my ball float?",
+     f"Under the federal rule, an existing ball float installed on or before October 13, 2015 can stay if it works properly. Once you replace your overfill prevention, the replacement can't be a ball float {src(EPASO, 'EPA')}. Check your state's rule too."),
+    ("Where does the overfill alarm have to be?",
+     f"Where the delivery driver can easily see or hear it {src(EPASO, 'EPA')}."),
+    ("Does a spill bucket count as overfill prevention?",
+     f"No. A spill bucket catches drips at the fill when the hose comes off; overfill prevention stops the tank itself from overfilling. You need both. See <a href=\"{SB_PATH}\">spill bucket testing</a>."),
+]
+ofp_faq_html = "\n".join(f"<h3>{q}</h3>\n<p>{a}</p>" for q, a in ofp_faq)
+
+ofp_body = f"""
+<article class="wrap">
+  <p class="crumbs"><a href="/underground-storage-tanks/">Underground tanks</a></p>
+  <h1>UST overfill prevention: shutoff valves, alarms, and ball floats</h1>
+  <p class="meta">Written by a fuel-system technician. Updated {UPDATED_HUMAN}.</p>
+
+  <div class="answer">
+    <p><strong>Overfill prevention stops or warns before a delivery overfills an underground tank. The federal rule allows three devices: an automatic shutoff valve in the drop tube, an overfill alarm, or a ball float valve, and each has to be inspected at least every 3 years</strong> {src(MUSTS, 'EPA, Musts for USTs')}.</p>
+  </div>
+  <p>A tank that never receives more than 25 gallons at a time doesn't need it {src(MUSTS, 'EPA')}.</p>
+
+  <h2>The three types</h2>
+  <p><strong>Each device has a level it has to act by.</strong></p>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th scope="col">Device</th><th scope="col">What it does</th><th scope="col">Must act by</th></tr></thead>
+    <tbody>
+      <tr><td>Automatic shutoff valve (flapper in the drop tube)</td><td>Closes and stops the delivery</td><td>95% full, and before the fittings on top of the tank are covered</td></tr>
+      <tr><td>Overfill alarm</td><td>Warns the driver with a horn or light they can see or hear at the fill</td><td>90% full, or 1 minute before overfilling</td></tr>
+      <tr><td>Ball float valve (vent line)</td><td>Blocks vapor from leaving, which slows the delivery</td><td>90% full, or 30 minutes before overfilling</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="source-line">Sources: <a href="{MUSTS}" rel="noopener">EPA, Musts for USTs</a>; <a href="{EPASO}" rel="noopener">EPA, Spill and Overfill Prevention (2024)</a>.</p>
+  <p><strong>Ball floats are on their way out.</strong> They can't be used when overfill prevention is installed or replaced after October 13, 2015 {src(MUSTS, 'EPA')}. They also only work with tight-fill gravity deliveries, not pressurized (pumped) deliveries or tanks with suction pumps or coaxial drop tubes {src(NEIOFP, 'NEIWPCC inspector training, 2021')}.</p>
+  <p><strong>Field note:</strong> On the sites I work on, overfill prevention is alarms and drop-tube shutoff valves. Ball floats aren't an option for new or replacement equipment.</p>
+
+  <h2>The 3-year inspection</h2>
+  <p><strong>The inspection has to confirm the device is set to act at the right level and will actually act when fuel gets there</strong> {src(MI2120, 'Mich. Admin. Code R 29.2120, adopting 40 CFR 280.35')}. It follows the manufacturer's instructions or a code of practice {src(MUSTS, 'EPA')}.</p>
+  <p>For a drop-tube valve, that usually means pulling the drop tube. Testing in place misses many problems {src(NEIOFP, 'NEIWPCC')}. The inspector measures the tube and the tank's manway height to confirm where the valve will shut off, and accounts for tank tilt.</p>
+  <p><strong>What fails.</strong> At one first round of inspections, half the devices were installed wrong or didn't work. Failures included corroded parts, missing gaskets, loose adapters, valves set at the wrong height (one at 97% instead of 93% because the tank was tilted), and tampering {src(NEIOFP, 'NEIWPCC')}. EPA also says to check that a shutoff hasn't been tampered with, disabled, or removed {src(EPASO, 'EPA')}.</p>
+
+  <h2>How to order fuel so it never gets close</h2>
+  <p><strong>The device is a backup. The real overfill prevention is ordering the right amount.</strong> The rule says to make sure the delivery will fit in the empty space in the tank and to watch the delivery the whole time {src(MUSTS, 'EPA')}.</p>
+  <p>EPA's formula: order no more than (tank capacity × 0.90) − fuel already in the tank {src(MUSTS, 'EPA')}.</p>
+  <p><strong>Example:</strong> A 10,000-gallon tank holding 3,500 gallons can take 10,000 × 0.90 − 3,500 = <strong>5,500 gallons</strong>.</p>
+
+  <section class="faq">
+  <h2>FAQ</h2>
+  {ofp_faq_html}
+  </section>
+
+  <h2>Sources</h2>
+  <ul class="sources">
+    <li><a href="{MUSTS}" rel="noopener">EPA: Musts for USTs (EPA 510-K-15-001, Nov. 2015)</a></li>
+    <li><a href="{EPASO}" rel="noopener">EPA: UST Spill and Overfill Prevention (EPA 510-F-24-006, July 2024)</a></li>
+    <li><a href="{NEIOFP}" rel="noopener">NEIWPCC: UST inspector training, overfill prevention (Dec. 2021)</a></li>
+    <li><a href="{MI2120}" rel="noopener">Michigan Admin. Code R 29.2120</a></li>
+  </ul>
+  <p class="note">This guide is general information. Your state UST program decides what's required at your site.</p>
+</article>
+"""
+
+ofp_schema = [
+    {"@context": "https://schema.org", "@type": "Article", "headline": OFP_TITLE, "description": OFP_DESC,
+     "datePublished": UPDATED, "dateModified": UPDATED,
+     "author": {"@type": "Person", "name": "FuelStorageGuide", "jobTitle": "Fuel-system technician"},
+     "publisher": {"@type": "Organization", "name": "FuelStorageGuide", "url": DOMAIN},
+     "mainEntityOfPage": DOMAIN + OFP_PATH},
+    {"@context": "https://schema.org", "@type": "FAQPage",
+     "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": strip_tags(a)}} for q, a in ofp_faq]},
+]
+page(OFP_PATH, OFP_TITLE, OFP_DESC, ofp_body, schema=ofp_schema, og_type="article")
+
+# ---------------- Underground tanks hub ----------------
+UST_PATH = "/underground-storage-tanks/"
+UST_TITLE = "Underground Storage Tanks: Inspections, Testing, and Equipment"
+UST_DESC = ("A guide to underground fuel tank (UST) compliance for gas stations, fleets, airports, and small businesses: "
+            "what gets checked monthly, yearly, and every 3 years, and a detailed guide for each piece of equipment.")
+UST_GUIDES = [
+    (SB_PATH, "Spill bucket testing", "The 30-day walkthrough, the 3-year test, how the water and vacuum tests work, and what fails."),
+    (LLD_PATH, "Line leak detectors", "How mechanical and electronic detectors work, what the yearly test checks, and why a dispenser drops to a trickle."),
+    (OFP_PATH, "Overfill prevention", "Shutoff valves, alarms, and ball floats, the 3-year inspection, and how to order fuel so it never gets close."),
+]
+ust_cards = "\n".join(
+    f'    <li><a class="guide" href="{p}"><span class="card-title">{t}</span><p>{d}</p></a></li>' for p, t, d in UST_GUIDES)
+ust_body = f"""
+<div class="wrap">
+  <h1>Underground storage tanks</h1>
+  <p class="lede">Underground storage tanks (USTs) sit at gas stations, fleet yards, airports, and plenty of small businesses. The federal UST rule (40 CFR Part 280) sets what has to be checked and how often, and your state program enforces it. These guides cover each piece of equipment.</p>
+
+  <h2>What gets checked, and how often</h2>
+  <p><strong>Most UST compliance runs on three clocks: every 30 days, every year, and every 3 years.</strong></p>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th scope="col">How often</th><th scope="col">What</th><th scope="col">Guide</th></tr></thead>
+    <tbody>
+      <tr><td>Every 30 days</td><td>Walkthrough inspection, including spill buckets {src(EPAOM, 'EPA')}</td><td><a href="{SB_PATH}">Spill buckets</a></td></tr>
+      <tr><td>Every year</td><td>Line leak detector test on pressurized piping, plus a line tightness test unless you monitor monthly {src(STOT, 'EPA')}</td><td><a href="{LLD_PATH}">Line leak detectors</a></td></tr>
+      <tr><td>Every 3 years</td><td>Spill bucket tightness test (single-wall) {src(C28035, '40 CFR 280.35')}</td><td><a href="{SB_PATH}">Spill buckets</a></td></tr>
+      <tr><td>Every 3 years</td><td>Overfill prevention inspection {src(MUSTS, 'EPA')}</td><td><a href="{OFP_PATH}">Overfill prevention</a></td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>The federal rule also covers release detection for the tanks themselves, containment sumps, corrosion protection, and operator training. Guides on those are coming.</p>
+  <p><strong>Your state runs the program.</strong> Most states adopted the federal rule and inspect against it, sometimes with their own forms and extra requirements. Michigan, for example, adopted the federal testing schedule {src(MI2120, 'Mich. Admin. Code R 29.2120')}. Check with your state UST program.</p>
+
+  <h2>All underground tank guides</h2>
+  <ul class="guide-list">
+{ust_cards}
+  </ul>
+  <p>Have aboveground tanks too? See the <a href="{AST_PATH}">aboveground fuel tanks guide</a>. For the fuel inside, see the <a href="{FQ_PATH}">fuel quality guides</a>.</p>
+</div>
+"""
+ust_schema = [{"@context": "https://schema.org", "@type": "CollectionPage", "name": UST_TITLE, "description": UST_DESC,
+               "url": DOMAIN + UST_PATH,
+               "hasPart": [{"@type": "Article", "name": t, "url": DOMAIN + p} for p, t, _ in UST_GUIDES]}]
+page(UST_PATH, UST_TITLE, UST_DESC, ust_body, schema=ust_schema)
+
+
 # ---------------- Home ----------------
 home_body = f"""
 <div class="wide">
@@ -1904,6 +2036,7 @@ home_body = f"""
   <ul class="guide-list">
     <li><a class="guide" href="{FQ_PATH}"><span class="card-title">Fuel quality: start here</span><p>Water, microbes, gelling, and old fuel. Find the guide for what you're seeing in your tank.</p></a></li>
     <li><a class="guide" href="{AST_PATH}"><span class="card-title">Aboveground tanks: start here</span><p>Tank types, the rules that apply, and the equipment on top, with links to every tank guide.</p></a></li>
+    <li><a class="guide" href="{UST_PATH}"><span class="card-title">Underground tanks: start here</span><p>What gets checked every 30 days, every year, and every 3 years, with a guide for each piece of equipment.</p></a></li>
     <li><a class="guide" href="{SPCC_PATH}"><span class="card-title">Do I need an SPCC plan?</span><p>The 1,320-gallon rule, the farm thresholds, which plan type you need, and a one-minute checker for your site.</p></a></li>
     <li><a class="guide" href="{BIO_PATH}"><span class="card-title">Diesel bugs and biocides</span><p>How to spot microbial growth, test for it, and treat a tank step by step without plugging every filter.</p></a></li>
     <li><a class="guide" href="{STORE_PATH}"><span class="card-title">How long does diesel last in storage?</span><p>Shelf life, what makes stored fuel go bad, how to tell if it's still good, and how to make it last.</p></a></li>
@@ -1912,6 +2045,7 @@ home_body = f"""
     <li><a class="guide" href="{ASV_PATH}"><span class="card-title">Anti-siphon valves: how they work and when you need one</span><p>Why elevated tanks siphon, what the fire code requires, picking the head setting, and pump troubleshooting.</p></a></li>
     <li><a class="guide" href="{SB_PATH}"><span class="card-title">Spill bucket testing for underground tanks</span><p>The 30-day walkthrough, the 3-year test, how the water and vacuum tests work, and what fails.</p></a></li>
     <li><a class="guide" href="{LLD_PATH}"><span class="card-title">Line leak detectors: the annual test and slow flow</span><p>How mechanical and electronic detectors work, what the yearly test checks, and why a dispenser drops to a trickle.</p></a></li>
+    <li><a class="guide" href="{OFP_PATH}"><span class="card-title">UST overfill prevention</span><p>Shutoff valves, alarms, and ball floats, the 3-year inspection, and how to order fuel so it never gets close.</p></a></li>
     <li><a class="guide" href="{TT_PATH}"><span class="card-title">Diesel transfer tanks: sizing, legal limits, and setup</span><p>Why 119 gallons matters, the rules for gasoline, payload math for your pickup, and how to set one up.</p></a></li>
     <li><a class="guide" href="{PUMP_PATH}"><span class="card-title">How to choose a 12V fuel transfer pump</span><p>Flow rate, duty cycle, and wiring explained, Fill-Rite and GPI models compared, and which size fits your tank.</p></a></li>
     <li><a class="guide" href="{GEL_PATH}"><span class="card-title">Diesel gelling: when it happens and how to prevent it</span><p>Cloud point, CFPP, and pour point explained, why bulk tanks gel first, and a winter checklist for tank owners.</p></a></li>
@@ -2008,7 +2142,7 @@ nf_body = """
 page("/404.html", "Page not found | FuelStorageGuide", "Page not found.", nf_body)
 
 # ---------------- sitemap, robots, favicon ----------------
-urls = ["/", AST_PATH, SB_PATH, LLD_PATH, FQ_PATH, STORE_PATH, ASV_PATH, SPCC_PATH, ADD_PATH, WATER_PATH, BIO_PATH, TT_PATH, PUMP_PATH, GEL_PATH,"/about/", "/contact/", "/privacy/", "/affiliate-disclosure/"]
+urls = ["/", UST_PATH, OFP_PATH, AST_PATH, SB_PATH, LLD_PATH, FQ_PATH, STORE_PATH, ASV_PATH, SPCC_PATH, ADD_PATH, WATER_PATH, BIO_PATH, TT_PATH, PUMP_PATH, GEL_PATH,"/about/", "/contact/", "/privacy/", "/affiliate-disclosure/"]
 sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
 for u in urls:
     sitemap += f"  <url><loc>{DOMAIN}{u}</loc><lastmod>{UPDATED}</lastmod></url>\n"
