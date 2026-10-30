@@ -1666,6 +1666,123 @@ ast_schema = [{"@context": "https://schema.org", "@type": "CollectionPage", "nam
 page(AST_PATH, AST_TITLE, AST_DESC, ast_body, schema=ast_schema)
 
 
+
+# ---------------- Spill buckets ----------------
+SB_PATH = "/spill-bucket-testing/"
+C28035 = "https://www.law.cornell.edu/cfr/text/40/280.35"
+EPASO = "https://www.epa.gov/system/files/documents/2024-08/spill-overfill-2024-07-11.pdf"
+EPASB = "https://www.epa.gov/sites/default/files/2017-06/documents/spill-bucket-2017_0.pdf"
+EPAOM = "https://www.epa.gov/ust/operating-and-maintaining-ust-systems-2015-requirements"
+KUBIN = "https://neiwpcc.org/wp-content/uploads/2022/09/Kubinsky_UST-Testing_9-13-22.pdf"
+GAEPD = "https://epd.georgia.gov/sites/epd.georgia.gov/files/GA_EPD_UST_3_Yr_Spill_Bucket_Test.pdf"
+MI2120 = "https://www.law.cornell.edu/regulations/michigan/Mich-Admin-Code-R-29-2120"
+
+SB_TITLE = "Spill Bucket Testing: What the UST Rule Requires and How the Test Works"
+SB_DESC = ("Spill buckets on underground tanks must be checked every 30 days and tested every 3 years, unless they're "
+           "double-walled and monitored. What the federal rule requires, how the test works, and what fails.")
+
+sb_faq = [
+    ("Can I just drain the fuel in my spill bucket back into the tank?",
+     f"Many buckets have a drain valve for that, but water and debris go in with it. EPA's advice is to empty the bucket right away and dispose of the contents properly {src(EPASB, 'EPA')}."),
+    ("Does a double-walled spill bucket ever need testing?",
+     f"Not while you check between the walls at least as often as your walkthroughs. If you stop monitoring, you have 30 days to test it {src(C28035, '40 CFR 280.35')}."),
+    ("Who can test a spill bucket?",
+     "The federal rule sets the method, not who does it. Some states require a certified tester and others don't, so check with your state UST program."),
+    ("Do aboveground tanks need spill buckets?",
+     f"The federal UST rule covers underground tanks. For aboveground tanks, see the <a href=\"{AST_PATH}\">aboveground fuel tanks guide</a> and your fire code."),
+]
+sb_faq_html = "\n".join(f"<h3>{q}</h3>\n<p>{a}</p>" for q, a in sb_faq)
+
+sb_body = f"""
+<article class="wrap">
+  <h1>Spill bucket testing: what the UST rule requires and how the test works</h1>
+  <p class="meta">Written by a fuel-system technician. Updated {UPDATED_HUMAN}.</p>
+
+  <div class="answer">
+    <p><strong>A spill bucket is the container around an underground tank's fill pipe that catches fuel that drips when the delivery hose comes off. Under the federal UST rule, you check it every 30 days and test it for tightness at least every 3 years, unless it's double-walled and you check between the walls instead</strong> (<a href="{EPASO}" rel="noopener">EPA</a>; <a href="{C28035}" rel="noopener">40 CFR 280.35</a>).</p>
+  </div>
+  <p>Spill buckets are meant to hold small spills for a short time, not to store fuel. EPA says to empty them right away and dispose of what's inside properly {src(EPASB, 'EPA')}.</p>
+
+  <h2>What the federal rule requires</h2>
+  <p><strong>Any UST filled with more than 25 gallons at a time needs spill and overfill prevention</strong> {src(EPASO, 'EPA')}. For spill buckets, that means three ongoing jobs:</p>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th scope="col">Requirement</th><th scope="col">How often</th><th scope="col">Details</th></tr></thead>
+    <tbody>
+      <tr><td>Walkthrough inspection</td><td>Every 30 days, or before each delivery if deliveries are less frequent</td><td>Check for damage, remove liquid or debris, clear any obstruction in the fill pipe, make sure the fill cap is secure, and on double-walled buckets check between the walls for a leak {src(EPAOM, 'EPA')}</td></tr>
+      <tr><td>Tightness test (single-wall)</td><td>At least every 3 years</td><td>Vacuum, pressure, or liquid test to show it's liquid tight {src(C28035, '40 CFR 280.35')}</td></tr>
+      <tr><td>Interstitial monitoring (double-wall)</td><td>At least as often as walkthroughs</td><td>Replaces the 3-year test. Stop monitoring and you have to test within 30 days {src(C28035, '40 CFR 280.35')}</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><strong>Keep the records.</strong> Test records are kept for 3 years. If you skip testing because the bucket is double-walled, keep proof that it's double-walled for as long as you monitor it {src(C28035, '40 CFR 280.35')}. Keep the most recent year of walkthrough records {src(EPAOM, 'EPA')}.</p>
+  <p><strong>Deadlines.</strong> Tanks in use on or before October 13, 2015 needed their first test by October 13, 2018. Newer tanks have to comply from installation {src(C28035, '40 CFR 280.35')}.</p>
+  <p>EPA also recommends checking the bucket before and right after each delivery, and after rain or snowmelt {src(EPASO, 'EPA')}.</p>
+
+  <h2>How a spill bucket test works</h2>
+  <p><strong>The test has to follow the manufacturer's procedure, a recognized code of practice such as PEI RP1200, or your state's method</strong> (<a href="{C28035}" rel="noopener">40 CFR 280.35</a>; <a href="{GAEPD}" rel="noopener">Georgia EPD</a>). Either way, a bucket with a visible crack or hole fails without testing {src(GAEPD, 'Georgia EPD form')}.</p>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th scope="col">Method</th><th scope="col">How it's done</th><th scope="col">Passes if</th></tr></thead>
+    <tbody>
+      <tr><td>Hydrostatic (water)</td><td>Fill the bucket with water to within 1.5 inches of the top and hold it at least an hour</td><td>The level drops less than 1/8 inch (<a href="{KUBIN}" rel="noopener">Kubinsky, National Tanks Conference 2022</a>; <a href="{GAEPD}" rel="noopener">Georgia EPD</a>)</td></tr>
+      <tr><td>Vacuum</td><td>Seal a test lid on top and pull 30 inches of water column vacuum</td><td>Vacuum holds at 26 inches or more {src(KUBIN, 'Kubinsky')}</td></tr>
+      <tr><td>Vacuum on the interstitial space (double-wall)</td><td>Pull 15 inches of water column between the walls</td><td>Holds at 12 inches or more {src(KUBIN, 'Kubinsky')}</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><strong>Field note:</strong> I test with water. While the bucket is open, I always check the drop tube gasket and the fill gasket, and replace them if they're bad or stretched.</p>
+  <p>The water from a hydrostatic test has been in contact with fuel residue, so handle and dispose of it properly.</p>
+
+  <h2>What fails, and what to do about it</h2>
+  <p><strong>Cracks, bad seals, leaking drain valves, and broken lids are the usual problems. EPA says to repair or replace any of them right away</strong> {src(EPASB, 'EPA')}.</p>
+  <div class="table-wrap">
+  <table class="even">
+    <thead><tr><th scope="col">Problem</th><th scope="col">Why it matters</th></tr></thead>
+    <tbody>
+      <tr><td>Cracked, damaged, or corroded bucket</td><td>Not liquid tight; it won't hold a spill {src(EPASB, 'EPA')}</td></tr>
+      <tr><td>Worn seals or gaskets, including around the fill riser</td><td>The bucket leaks even if the body is fine {src(EPASB, 'EPA')}</td></tr>
+      <tr><td>Damaged drain valve</td><td>Lets fuel or water into the tank, or out of the bucket {src(EPASB, 'EPA')}</td></tr>
+      <tr><td>Damaged, missing, or loose lid</td><td>Lets water and debris collect in the bucket and get into the tank {src(EPASB, 'EPA')}</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><strong>Keep it clean and dry.</strong> Water left sitting in the bucket can get dumped into the tank through the drain valve. That's one of the ways water gets into stored fuel (see <a href="{WATER_PATH}">water in your diesel tank</a>).</p>
+
+  <h2>State rules</h2>
+  <p><strong>States run most UST programs, so your state's rules are the ones you're inspected on.</strong> Michigan, for example, adopted the same 3-year test for spill prevention equipment, with the same double-walled option {src(MI2120, 'Mich. Admin. Code R 29.2120')}. Some states publish their own test forms {src(GAEPD, 'Georgia EPD')}.</p>
+
+  <section class="faq">
+  <h2>FAQ</h2>
+  {sb_faq_html}
+  </section>
+
+  <h2>Sources</h2>
+  <ul class="sources">
+    <li><a href="{C28035}" rel="noopener">Cornell LII: 40 CFR 280.35</a></li>
+    <li><a href="{EPASO}" rel="noopener">EPA: UST Spill and Overfill Prevention (EPA 510-F-24-006, July 2024)</a></li>
+    <li><a href="{EPASB}" rel="noopener">EPA: Spill Buckets (EPA 510-F-17-004, May 2017)</a></li>
+    <li><a href="{EPAOM}" rel="noopener">EPA: Operating and maintaining UST systems, 2015 requirements</a></li>
+    <li><a href="{KUBIN}" rel="noopener">Edward Kubinsky, CROMPCO: UST testing, National Tanks Conference (2022)</a></li>
+    <li><a href="{GAEPD}" rel="noopener">Georgia EPD: 3-year spill bucket test form</a></li>
+    <li><a href="{MI2120}" rel="noopener">Michigan Admin. Code R 29.2120</a></li>
+  </ul>
+  <p class="note">This guide is general information. Your state UST program decides what's required at your site.</p>
+</article>
+"""
+
+sb_schema = [
+    {"@context": "https://schema.org", "@type": "Article", "headline": SB_TITLE, "description": SB_DESC,
+     "datePublished": UPDATED, "dateModified": UPDATED,
+     "author": {"@type": "Person", "name": "FuelStorageGuide", "jobTitle": "Fuel-system technician"},
+     "publisher": {"@type": "Organization", "name": "FuelStorageGuide", "url": DOMAIN},
+     "mainEntityOfPage": DOMAIN + SB_PATH},
+    {"@context": "https://schema.org", "@type": "FAQPage",
+     "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": strip_tags(a)}} for q, a in sb_faq]},
+]
+page(SB_PATH, SB_TITLE, SB_DESC, sb_body, schema=sb_schema, og_type="article")
+
+
 # ---------------- Home ----------------
 home_body = f"""
 <div class="wide">
@@ -1685,6 +1802,7 @@ home_body = f"""
     <li><a class="guide" href="{WATER_PATH}"><span class="card-title">Water in your diesel tank</span><p>How water gets in, how to check for it with paste or a clear jar, how to get it out, and how to keep it out.</p></a></li>
     <li><a class="guide" href="{ADD_PATH}"><span class="card-title">Winter diesel additives: what anti-gel does and when to add it</span><p>How anti-gel works, how to treat a bulk tank before the cold, label treat rates, and when blending or heat makes more sense.</p></a></li>
     <li><a class="guide" href="{ASV_PATH}"><span class="card-title">Anti-siphon valves: how they work and when you need one</span><p>Why elevated tanks siphon, what the fire code requires, picking the head setting, and pump troubleshooting.</p></a></li>
+    <li><a class="guide" href="{SB_PATH}"><span class="card-title">Spill bucket testing for underground tanks</span><p>The 30-day walkthrough, the 3-year test, how the water and vacuum tests work, and what fails.</p></a></li>
     <li><a class="guide" href="{TT_PATH}"><span class="card-title">Diesel transfer tanks: sizing, legal limits, and setup</span><p>Why 119 gallons matters, the rules for gasoline, payload math for your pickup, and how to set one up.</p></a></li>
     <li><a class="guide" href="{PUMP_PATH}"><span class="card-title">How to choose a 12V fuel transfer pump</span><p>Flow rate, duty cycle, and wiring explained, Fill-Rite and GPI models compared, and which size fits your tank.</p></a></li>
     <li><a class="guide" href="{GEL_PATH}"><span class="card-title">Diesel gelling: when it happens and how to prevent it</span><p>Cloud point, CFPP, and pour point explained, why bulk tanks gel first, and a winter checklist for tank owners.</p></a></li>
@@ -1781,7 +1899,7 @@ nf_body = """
 page("/404.html", "Page not found | FuelStorageGuide", "Page not found.", nf_body)
 
 # ---------------- sitemap, robots, favicon ----------------
-urls = ["/", AST_PATH, FQ_PATH, STORE_PATH, ASV_PATH, SPCC_PATH, ADD_PATH, WATER_PATH, BIO_PATH, TT_PATH, PUMP_PATH, GEL_PATH,"/about/", "/contact/", "/privacy/", "/affiliate-disclosure/"]
+urls = ["/", AST_PATH, SB_PATH, FQ_PATH, STORE_PATH, ASV_PATH, SPCC_PATH, ADD_PATH, WATER_PATH, BIO_PATH, TT_PATH, PUMP_PATH, GEL_PATH,"/about/", "/contact/", "/privacy/", "/affiliate-disclosure/"]
 sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
 for u in urls:
     sitemap += f"  <url><loc>{DOMAIN}{u}</loc><lastmod>{UPDATED}</lastmod></url>\n"
