@@ -17,9 +17,8 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://fuelstorageguide.com/og/diesel-gelling-temperature.png">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+<link rel="preload" href="/fonts/barlow-condensed-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/source-serif-4-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/styles.css">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Diesel Gelling Temperature: When It Happens and How to Prevent It", "description": "#2 diesel starts clouding around 10–20°F. Here's when it gels, why bulk tanks are at higher risk, and how to keep your stored diesel flowing all winter.", "datePublished": "2026-10-28", "dateModified": "2026-10-28", "author": {"@type": "Person", "name": "FuelStorageGuide", "jobTitle": "Fuel-system technician"}, "publisher": {"@type": "Organization", "name": "FuelStorageGuide", "url": "https://fuelstorageguide.com"}, "mainEntityOfPage": "https://fuelstorageguide.com/diesel-gelling-temperature/"}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "At what temperature does diesel gel?", "acceptedAnswer": {"@type": "Answer", "text": "Untreated #2 diesel usually starts clouding somewhere around 10–20°F, depending on the batch; some fuels cloud as high as +20°F (Gold Eagle). Without additives, filters can plug close to that temperature, long before the fuel stops pouring."}}, {"@type": "Question", "name": "Does #1 diesel gel?", "acceptedAnswer": {"@type": "Answer", "text": "Much later. #1 has very little wax. In one EPRI example, a #1 fuel had a cloud point of −26°F, compared with +12°F for the #2 it was blended with (EPRI)."}}, {"@type": "Question", "name": "Can I add anti-gel after the fuel has gelled?", "acceptedAnswer": {"@type": "Answer", "text": "Not regular anti-gel. It only works when mixed in above the cloud point. Use a product made for gelled fuel, and warm the filter and lines."}}, {"@type": "Question", "name": "Does red (off-road) diesel gel differently?", "acceptedAnswer": {"@type": "Answer", "text": "The red dye marks fuel for tax purposes (EPRI). Cold behavior comes from the grade and whether the fuel was winterized or blended, so ask your supplier the same questions for off-road fuel."}}]}</script>
@@ -28,26 +27,28 @@
 <body>
 <a class="skip" href="#content">Skip to content</a>
 <header class="site-header">
+  <div class="hazard" aria-hidden="true"></div>
   <div class="header-inner">
     <a class="wordmark" href="/" aria-label="FuelStorageGuide home"><span class="wm-fuel">Fuel</span><span>StorageGuide</span></a>
-    <nav class="site-nav" aria-label="Main"><a href="/">Guides</a><a href="/about/">About</a><a href="/contact/">Contact</a></nav>
+    <nav class="site-nav" aria-label="Main"><a href="/fuel-quality/" aria-current="page">Fuel quality</a><a href="/aboveground-fuel-tanks/">Aboveground tanks</a><a href="/underground-storage-tanks/">Underground tanks</a><a href="/about/">About</a></nav>
   </div>
 </header>
 <main id="content">
-
+<div class="article-layout">
 <article class="wrap">
   <p class="crumbs"><a href="/fuel-quality/">Fuel quality</a></p>
   <h1>Diesel gelling: when it happens and how to prevent it</h1>
-  <p class="meta">Written by a fuel-system technician. Updated October 28, 2026.</p>
+  <p class="meta byline"><span class="byline-who">By a fuel-system technician</span><span class="byline-sep" aria-hidden="true">/</span><span>8 years in the trade</span><span class="byline-sep" aria-hidden="true">/</span><span>Updated October 28, 2026.</span></p>
   <p class="aff-note">This guide has affiliate links. As an Amazon Associate, FuelStorageGuide earns from qualifying purchases, at no extra cost to you. <a href="/affiliate-disclosure/">How we pick products</a>.</p>
 
   <div class="answer">
     <p><strong>Untreated #2 diesel starts to cloud around 14°F and can plug a fuel filter within a few degrees of that.</strong> It doesn't need to freeze solid to stop you. Wax crystals catch on the filter long before the fuel stops pouring.</p>
   </div>
+  <details class="toc toc-inline"><summary>On this page</summary><ol><li><a href="#cloud-point-cfpp-and-pour-point">Cloud point, CFPP, and pour point</a></li><li><a href="#why-bulk-tanks-gel-before-vehicles-do">Why bulk tanks gel before vehicles do</a></li><li><a href="#how-to-keep-stored-diesel-from-gelling">How to keep stored diesel from gelling</a></li><li><a href="#if-your-fuel-already-gelled">If your fuel already gelled</a></li><li><a href="#what-to-keep-on-hand">What to keep on hand</a></li><li><a href="#winter-checklist-for-tank-owners">Winter checklist for tank owners</a></li><li><a href="#faq">FAQ</a></li><li><a href="#sources">Sources</a></li></ol></details>
 
   <p>If you store diesel in a farm tank, skid tank, or transfer tank, you're at more risk than someone fueling at a truck stop. The fuel in your tank is whatever was delivered, and a load bought in September is usually summer-grade #2 with no winter treatment. This guide covers when gelling happens, why bulk tanks are different, and what to do before the first cold snap.</p>
 
-  <h2>Cloud point, CFPP, and pour point</h2>
+  <h2 id="cloud-point-cfpp-and-pour-point">Cloud point, CFPP, and pour point</h2>
   <p><strong>The number that matters for a fuel tank is the cloud point, not the "freezing" point.</strong> #2 diesel contains paraffin wax. As it cools, the wax forms crystals, and three temperatures describe how bad it gets.</p>
 
   <div class="table-wrap">
@@ -67,7 +68,7 @@
     <li><strong>You can't change the cloud point with a bottle.</strong> Most anti-gel additives lower the cloud point only 1–3°C, if at all. They work by changing the size and shape of the wax crystals so fuel keeps passing through the filter (<a href="https://crcao.org/wp-content/uploads/2019/05/CRC-671.pdf" rel="noopener">CRC</a>). Blending in #1 diesel, which has much less wax, is what actually lowers the cloud point.</li>
   </ul>
 
-  <h2>Why bulk tanks gel before vehicles do</h2>
+  <h2 id="why-bulk-tanks-gel-before-vehicles-do">Why bulk tanks gel before vehicles do</h2>
   <p><strong>A storage tank sits outside, holds fuel bought months ago, and pushes it through a cold filter with nothing warming it up.</strong> A running engine recirculates warm fuel; a farm tank doesn't.</p>
   <ul>
     <li><strong>Small tanks cool down fast.</strong> Industry guidance says tanks under 30,000 gallons can produce a lot of wax just from normal day-night temperature swings. For aboveground farm tanks, it recommends blending and additives that bring the cloud point below your expected lows (<a href="https://crcao.org/wp-content/uploads/2019/05/CRC-671.pdf" rel="noopener">CRC</a>).</li>
@@ -78,7 +79,7 @@
     <li><strong>Topping off changes the mix.</strong> Adding winter fuel to a half-full tank of summer fuel gives you something in between, and dilutes any additive (<a href="https://restservice.epri.com/publicdownload/TR-104843/0/Product" rel="noopener">EPRI</a>).</li>
   </ul>
 
-  <h2>How to keep stored diesel from gelling</h2>
+  <h2 id="how-to-keep-stored-diesel-from-gelling">How to keep stored diesel from gelling</h2>
   <p><strong>Treat or blend the fuel before it gets cold, and keep water out of the tank.</strong> Additives can't undo wax that has already formed, so timing matters more than which brand you buy.</p>
   <ol>
     <li><strong>Order winter fuel for winter.</strong> Ask your supplier whether deliveries from late fall on are winterized or blended, and what cloud point they're treated to. If you still have summer fuel in the tank, plan to treat it.</li>
@@ -89,7 +90,7 @@
     <li><strong>Don't add gasoline.</strong> It lowers the flash point and creates a fire hazard in the tank. Use #1 diesel or a kerosene-type fuel for blending instead (<a href="https://restservice.epri.com/publicdownload/TR-104843/0/Product" rel="noopener">EPRI</a>).</li>
   </ol>
 
-  <h2>If your fuel already gelled</h2>
+  <h2 id="if-your-fuel-already-gelled">If your fuel already gelled</h2>
   <p><strong>Start with the filter, warm what you can safely, and don't count on a regular anti-gel to fix it.</strong> Most of the time the tank is cloudy but the filter is what's actually blocked.</p>
   <ul>
     <li><strong>Swap the dispenser filter first.</strong> A plugged filter is often packed with wax or ice. Replace it with a fresh one and watch whether it plugs again (<a href="https://crcao.org/wp-content/uploads/2019/05/CRC-671.pdf" rel="noopener">CRC</a>). Don't run without a filter.</li>
@@ -99,7 +100,7 @@
     <li><strong>Then fix the cause.</strong> Once it's flowing, treat or blend the fuel so it doesn't happen on the next cold night.</li>
   </ul>
 
-  <h2>What to keep on hand</h2>
+  <h2 id="what-to-keep-on-hand">What to keep on hand</h2>
   <ul>
     <li>Anti-gel additive for diesel, added before the cold: <a href="https://www.amazon.com/s?k=diesel+anti+gel+additive&tag=fuelstoragegu-20" rel="sponsored nofollow noopener" target="_blank">anti-gel on Amazon</a></li>
     <li>An emergency re-liquefier for fuel that already gelled: <a href="https://www.amazon.com/s?k=Power+Service+Diesel+9-1-1&tag=fuelstoragegu-20" rel="sponsored nofollow noopener" target="_blank">Power Service Diesel 9-1-1 on Amazon</a></li>
@@ -107,7 +108,7 @@
     <li>Water-finding paste, to check for water before winter: <a href="https://www.amazon.com/s?k=Kolor+Kut+water+finding+paste&tag=fuelstoragegu-20" rel="sponsored nofollow noopener" target="_blank">Kolor Kut paste on Amazon</a></li>
   </ul>
 
-  <h2>Winter checklist for tank owners</h2>
+  <h2 id="winter-checklist-for-tank-owners">Winter checklist for tank owners</h2>
   <p>Do these before overnight lows reach the mid-30s:</p>
   <ul class="checklist">
     <li>Check the tank bottom for water with water-finding paste and remove any you find</li>
@@ -120,7 +121,7 @@
   </ul>
 
   <section class="faq">
-  <h2>FAQ</h2>
+  <h2 id="faq">FAQ</h2>
   <h3>At what temperature does diesel gel?</h3>
 <p>Untreated #2 diesel usually starts clouding somewhere around 10–20°F, depending on the batch; some fuels cloud as high as +20°F (<a href="https://www.goldeagle.com/tips-tools/signs-winter-fuel-trouble-five-things-be-aware-diesel-tanks/" rel="noopener">Gold Eagle</a>). Without additives, filters can plug close to that temperature, long before the fuel stops pouring.</p>
 <h3>Does #1 diesel gel?</h3>
@@ -131,7 +132,16 @@
 <p>The red dye marks fuel for tax purposes (<a href="https://restservice.epri.com/publicdownload/TR-104843/0/Product" rel="noopener">EPRI</a>). Cold behavior comes from the grade and whether the fuel was winterized or blended, so ask your supplier the same questions for off-road fuel.</p>
   </section>
 
-  <h2>Sources</h2>
+  
+  <aside class="author-box" aria-label="About the author">
+    <div class="author-badge" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="19" fill="#1d6a48"/><path d="M25.5 10.5a5.5 5.5 0 0 0-6.9 6.9l-7.4 7.4a2.1 2.1 0 0 0 3 3l7.4-7.4a5.5 5.5 0 0 0 6.9-6.9l-3.2 3.2-2.9-.6-.6-2.9z" fill="#f0c02b"/></svg></div>
+    <div>
+      <p class="label">Who writes these guides</p>
+      <p>A working fuel-system technician with eight years in the trade: inspecting and servicing underground and aboveground tanks, dispensers, piping, valves, leak detectors, and aviation fuel systems. Every number on this page links to its source, and anything that differs in the field gets called out. <a href="/about/">More about the site</a>.</p>
+    </div>
+  </aside>
+
+  <h2 id="sources">Sources</h2>
   <ul class="sources">
     <li><a href="https://crcao.org/wp-content/uploads/2019/05/CRC-671.pdf" rel="noopener">Coordinating Research Council: Diesel Fuel Low Temperature Operability Guide (CRC Report 671, 2016)</a></li>
     <li><a href="https://www.cenex.com/expert-advice-and-insights/Diesel-Gelling-and-How-to-Stop-It-This-Winter" rel="noopener">Cenex: Diesel gelling and how to stop it this winter</a></li>
@@ -142,12 +152,18 @@
   </ul>
   <p class="note">This guide is general information. Follow your equipment manufacturer's instructions and product labels, and check with your fuel supplier about the fuel you actually have.</p>
 </article>
-
+<aside class="toc-side" aria-label="On this page"><nav class="toc"><p class="label">On this page</p><ol><li><a href="#cloud-point-cfpp-and-pour-point">Cloud point, CFPP, and pour point</a></li><li><a href="#why-bulk-tanks-gel-before-vehicles-do">Why bulk tanks gel before vehicles do</a></li><li><a href="#how-to-keep-stored-diesel-from-gelling">How to keep stored diesel from gelling</a></li><li><a href="#if-your-fuel-already-gelled">If your fuel already gelled</a></li><li><a href="#what-to-keep-on-hand">What to keep on hand</a></li><li><a href="#winter-checklist-for-tank-owners">Winter checklist for tank owners</a></li><li><a href="#faq">FAQ</a></li><li><a href="#sources">Sources</a></li></ol></nav></aside></div><section class="related" aria-labelledby="related-title"><div class="related-inner"><p class="label">Keep reading</p><h2 id="related-title">More fuel quality guides</h2><ul class="guide-list related-list"><li><a class="guide" href="/water-in-diesel-tank/"><span class="card-title">Water in your diesel tank</span><p>How water gets in, how to check for it with paste or a clear jar, how to get it out, and how to keep it out.</p></a></li><li><a class="guide" href="/diesel-biocide/"><span class="card-title">Diesel bugs and biocides</span><p>How to spot microbial growth, test for it, and treat a tank step by step without plugging every filter.</p></a></li><li><a class="guide" href="/how-long-does-diesel-last/"><span class="card-title">How long does diesel last in storage?</span><p>Shelf life, what makes fuel go bad, how to tell if it's still good, and how to make it last.</p></a></li></ul><p><a class="more-link" href="/fuel-quality/">All fuel quality guides</a></p></div></section>
 </main>
 <footer class="site-footer">
   <div class="footer-inner">
-    <span>FuelStorageGuide. Practical guidance on stored fuel, written by a working fuel-system technician. As an Amazon Associate, we earn from qualifying purchases.</span>
+    <div class="footer-brand">
+      <a class="wordmark" href="/" aria-label="FuelStorageGuide home"><span class="wm-fuel">Fuel</span><span>StorageGuide</span></a>
+      <p>Practical guidance on stored fuel, written by a working fuel-system technician. As an Amazon Associate, we earn from qualifying purchases.</p>
+    </div>
     <nav aria-label="Footer">
+      <a href="/fuel-quality/">Fuel quality</a>
+      <a href="/aboveground-fuel-tanks/">Aboveground tanks</a>
+      <a href="/underground-storage-tanks/">Underground tanks</a>
       <a href="/about/">About</a>
       <a href="/contact/">Contact</a>
       <a href="/privacy/">Privacy</a>

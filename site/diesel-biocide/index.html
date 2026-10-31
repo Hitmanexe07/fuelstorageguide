@@ -17,9 +17,8 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://fuelstorageguide.com/og/diesel-biocide.png">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+<link rel="preload" href="/fonts/barlow-condensed-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/source-serif-4-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/styles.css">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Diesel Bugs and Biocides: How to Spot Microbial Growth and Treat It", "description": "Diesel \"algae\" is bacteria and fungi living in water at the bottom of the tank. How to spot it, test for it, and treat it with a biocide, step by step, without plugging every filter you own.", "datePublished": "2026-10-28", "dateModified": "2026-10-28", "author": {"@type": "Person", "name": "FuelStorageGuide", "jobTitle": "Fuel-system technician"}, "publisher": {"@type": "Organization", "name": "FuelStorageGuide", "url": "https://fuelstorageguide.com"}, "mainEntityOfPage": "https://fuelstorageguide.com/diesel-biocide/"}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Is diesel algae really algae?", "acceptedAnswer": {"@type": "Answer", "text": "No. It's bacteria and fungi living in the water layer and feeding on the fuel (Cenex; Gilbert)."}}, {"@type": "Question", "name": "Can I just add biocide and skip draining the water?", "acceptedAnswer": {"@type": "Answer", "text": "The biocide may kill what's there, but the water stays, and growth comes back once the biocide is used up. Removing water is standard practice (Biobor JF label; Veeder-Root)."}}, {"@type": "Question", "name": "Why are my filters plugging worse after I treated?", "acceptedAnswer": {"@type": "Answer", "text": "That's dead growth coming loose from the tank walls. Change filters as needed, drain the bottom after the product settles, and it should clear up (Practical Sailor; CRC Report 672)."}}, {"@type": "Question", "name": "Is a fuel additive the same as a biocide?", "acceptedAnswer": {"@type": "Answer", "text": "Not unless it has an EPA registration number. Only registered products can claim to kill microbes (Practical Sailor)."}}]}</script>
@@ -28,25 +27,27 @@
 <body>
 <a class="skip" href="#content">Skip to content</a>
 <header class="site-header">
+  <div class="hazard" aria-hidden="true"></div>
   <div class="header-inner">
     <a class="wordmark" href="/" aria-label="FuelStorageGuide home"><span class="wm-fuel">Fuel</span><span>StorageGuide</span></a>
-    <nav class="site-nav" aria-label="Main"><a href="/">Guides</a><a href="/about/">About</a><a href="/contact/">Contact</a></nav>
+    <nav class="site-nav" aria-label="Main"><a href="/fuel-quality/" aria-current="page">Fuel quality</a><a href="/aboveground-fuel-tanks/">Aboveground tanks</a><a href="/underground-storage-tanks/">Underground tanks</a><a href="/about/">About</a></nav>
   </div>
 </header>
 <main id="content">
-
+<div class="article-layout">
 <article class="wrap">
   <p class="crumbs"><a href="/fuel-quality/">Fuel quality</a></p>
   <h1>Diesel bugs and biocides: how to spot microbial growth and treat it</h1>
-  <p class="meta">Written by a fuel-system technician. Updated October 28, 2026.</p>
+  <p class="meta byline"><span class="byline-who">By a fuel-system technician</span><span class="byline-sep" aria-hidden="true">/</span><span>8 years in the trade</span><span class="byline-sep" aria-hidden="true">/</span><span>Updated October 28, 2026.</span></p>
   <p class="aff-note">This guide has affiliate links. As an Amazon Associate, FuelStorageGuide earns from qualifying purchases, at no extra cost to you. <a href="/affiliate-disclosure/">How we pick products</a>.</p>
 
   <div class="answer">
     <p><strong>"Diesel bugs" are bacteria and fungi that live in the water at the bottom of a fuel tank and feed on the fuel. Get the water out first, then use a biocide to kill what's left, then expect to change filters as the dead growth comes loose.</strong> Microbes concentrate where fuel meets water (<a href="https://www.bellperformance.com/bell-performs-blog/fuel-tests-that-actually-predict-failure-understanding-astm-d6469-and-microbial-testing" rel="noopener">Bell Performance</a>), so without water they can't take hold.</p>
   </div>
+  <details class="toc toc-inline"><summary>On this page</summary><ol><li><a href="#signs-you-have-a-microbe-problem">Signs you have a microbe problem</a></li><li><a href="#how-to-test-for-it">How to test for it</a></li><li><a href="#how-biocides-work">How biocides work</a></li><li><a href="#treating-a-contaminated-tank-step-by-step">Treating a contaminated tank, step by step</a></li><li><a href="#what-the-labels-say">What the labels say</a></li><li><a href="#keeping-microbes-from-coming-back">Keeping microbes from coming back</a></li><li><a href="#faq">FAQ</a></li><li><a href="#sources">Sources</a></li></ol></details>
   <p>It's more common than most owners think. In one 2018 analysis of 3,855 tank-bottom samples, about 20% tested positive for microbes (<a href="https://neiwpcc.org/wp-content/uploads/2018/10/Gilbert.pdf" rel="noopener">Gilbert, National Tanks Conference</a>).</p>
 
-  <h2>Signs you have a microbe problem</h2>
+  <h2 id="signs-you-have-a-microbe-problem">Signs you have a microbe problem</h2>
   <p><strong>The first sign is usually the filter, not the tank.</strong> Slimy or mucous-like buildup on fuel filters and needing to change them more often are the earliest warnings (<a href="https://powerservice.com/psp_product/bio-kleen-diesel-fuel-biocide/" rel="noopener">Power Service</a>).</p>
   <ul>
     <li><strong>Filters plugging early,</strong> with dark slime or sludge on the old filter (<a href="https://www.cdfa.ca.gov/dms/programs/petroleum/CRC_DieselStorageSystem.pdf" rel="noopener">CRC Report 672</a>)</li>
@@ -55,7 +56,7 @@
     <li><strong>Rust and corrosion</strong> in the tank and fittings; microbes produce acids that eat metal (<a href="https://neiwpcc.org/wp-content/uploads/2018/10/Gilbert.pdf" rel="noopener">Gilbert</a>)</li>
   </ul>
 
-  <h2>How to test for it</h2>
+  <h2 id="how-to-test-for-it">How to test for it</h2>
   <p><strong>Sample from the bottom of the tank, not the top.</strong> A sample from the top can look clean while the water layer is full of growth. Pull from about 3 to 6 inches off the bottom, plus any water layer (<a href="https://www.bellperformance.com/bell-performs-blog/fuel-tests-that-actually-predict-failure-understanding-astm-d6469-and-microbial-testing" rel="noopener">Bell Performance</a>).</p>
   <div class="table-wrap">
   <table>
@@ -70,7 +71,7 @@
   <p class="source-line">Source: <a href="https://www.bellperformance.com/bell-performs-blog/fuel-tests-that-actually-predict-failure-understanding-astm-d6469-and-microbial-testing" rel="noopener">Bell Performance, citing ASTM D6469</a>. Test kits: <a href="https://www.amazon.com/s?k=diesel+fuel+microbial+test+kit&tag=fuelstoragegu-20" rel="sponsored nofollow noopener" target="_blank">fuel microbe test kits on Amazon</a>.</p>
   <p><strong>How often?</strong> Quarterly testing is a reasonable baseline for stored fuel, and more often after you've had a problem (<a href="https://www.bellperformance.com/bell-performs-blog/fuel-tests-that-actually-predict-failure-understanding-astm-d6469-and-microbial-testing" rel="noopener">Bell Performance</a>). For most farm tanks, a test whenever you find water or slime is the practical minimum.</p>
 
-  <h2>How biocides work</h2>
+  <h2 id="how-biocides-work">How biocides work</h2>
   <p><strong>A biocide kills the microbes. It doesn't remove the water they live in, the sludge they've made, or the bodies they leave behind.</strong></p>
   <ul>
     <li><strong>They're pesticides.</strong> Any product sold as a biocide has to be registered with EPA, and using it differently from the label is a violation of federal law (<a href="https://www.practical-sailor.com/boat-maintenance/diesel-biocides-take-on-contaminated-boat-fuel" rel="noopener">Practical Sailor</a>; <a href="https://www3.epa.gov/pesticides/chem_search/ppls/065217-00001-20140319.pdf" rel="noopener">Biobor JF label</a>). Look for the EPA registration number on the bottle. A "fuel treatment" with no registration number isn't a biocide.</li>
@@ -79,7 +80,7 @@
     <li><strong>Dead growth still causes trouble.</strong> Killing the microbes releases slime and dead cells from the tank walls, and that surge can plug filters (<a href="https://www.practical-sailor.com/boat-maintenance/diesel-biocides-take-on-contaminated-boat-fuel" rel="noopener">Practical Sailor</a>). A badly fouled tank usually needs the bottom cleaned out mechanically, not just treated.</li>
   </ul>
 
-  <h2>Treating a contaminated tank, step by step</h2>
+  <h2 id="treating-a-contaminated-tank-step-by-step">Treating a contaminated tank, step by step</h2>
   <p><strong>Drain, dose, let it settle, drain again, then watch your filters and retest.</strong> This follows the sequence industry presenters recommend for a positive test (<a href="https://neiwpcc.org/wp-content/uploads/2018/10/Gilbert.pdf" rel="noopener">Gilbert</a>).</p>
   <ol>
     <li><strong>Remove the water bottom.</strong> Pump or drain from the low end until water-finding paste stays brown. Removing excess water is standard practice before treating (<a href="https://www3.epa.gov/pesticides/chem_search/ppls/065217-00001-20140319.pdf" rel="noopener">Biobor JF label</a>). Keep the water in a closed, labeled container; don't dump it (<a href="https://dnr.mo.gov/document-search/management-petroleum-storage-tank-wastes-pub2040/pub2040" rel="noopener">Missouri DNR</a>).</li>
@@ -91,7 +92,7 @@
     <li><strong>Retest.</strong> Test again over the following weeks to confirm it worked (<a href="https://neiwpcc.org/wp-content/uploads/2018/10/Gilbert.pdf" rel="noopener">Gilbert</a>). If growth comes back fast or sludge is heavy, have the tank cleaned.</li>
   </ol>
 
-  <h2>What the labels say</h2>
+  <h2 id="what-the-labels-say">What the labels say</h2>
   <p><strong>Dose from the label on your bottle; these are what two common biocides publish.</strong></p>
   <div class="table-wrap">
   <table>
@@ -103,7 +104,7 @@
   </table>
   </div>
 
-  <h2>Keeping microbes from coming back</h2>
+  <h2 id="keeping-microbes-from-coming-back">Keeping microbes from coming back</h2>
   <p><strong>Keep water out, and they can't grow.</strong> Everything in <a href="/water-in-diesel-tank/">water in your diesel tank</a> applies:</p>
   <ul>
     <li>Check for and drain water monthly and after deliveries.</li>
@@ -113,7 +114,7 @@
   </ul>
 
   <section class="faq">
-  <h2>FAQ</h2>
+  <h2 id="faq">FAQ</h2>
   <h3>Is diesel algae really algae?</h3>
 <p>No. It's bacteria and fungi living in the water layer and feeding on the fuel (<a href="https://www.cenex.com/expert-advice-and-insights/water-contaminated-diesel" rel="noopener">Cenex</a>; <a href="https://neiwpcc.org/wp-content/uploads/2018/10/Gilbert.pdf" rel="noopener">Gilbert</a>).</p>
 <h3>Can I just add biocide and skip draining the water?</h3>
@@ -124,7 +125,16 @@
 <p>Not unless it has an EPA registration number. Only registered products can claim to kill microbes (<a href="https://www.practical-sailor.com/boat-maintenance/diesel-biocides-take-on-contaminated-boat-fuel" rel="noopener">Practical Sailor</a>).</p>
   </section>
 
-  <h2>Sources</h2>
+  
+  <aside class="author-box" aria-label="About the author">
+    <div class="author-badge" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="19" fill="#1d6a48"/><path d="M25.5 10.5a5.5 5.5 0 0 0-6.9 6.9l-7.4 7.4a2.1 2.1 0 0 0 3 3l7.4-7.4a5.5 5.5 0 0 0 6.9-6.9l-3.2 3.2-2.9-.6-.6-2.9z" fill="#f0c02b"/></svg></div>
+    <div>
+      <p class="label">Who writes these guides</p>
+      <p>A working fuel-system technician with eight years in the trade: inspecting and servicing underground and aboveground tanks, dispensers, piping, valves, leak detectors, and aviation fuel systems. Every number on this page links to its source, and anything that differs in the field gets called out. <a href="/about/">More about the site</a>.</p>
+    </div>
+  </aside>
+
+  <h2 id="sources">Sources</h2>
   <ul class="sources">
     <li><a href="https://www3.epa.gov/pesticides/chem_search/ppls/065217-00001-20140319.pdf" rel="noopener">Biobor JF, EPA-accepted label (EPA Reg. No. 65217-1)</a></li>
     <li><a href="https://powerservice.com/psp_product/bio-kleen-diesel-fuel-biocide/" rel="noopener">Power Service: Bio Kleen diesel fuel biocide</a></li>
@@ -139,12 +149,18 @@
   </ul>
   <p class="note">This guide is general information. Biocides are pesticides: read and follow the label, and wear the protection it calls for.</p>
 </article>
-
+<aside class="toc-side" aria-label="On this page"><nav class="toc"><p class="label">On this page</p><ol><li><a href="#signs-you-have-a-microbe-problem">Signs you have a microbe problem</a></li><li><a href="#how-to-test-for-it">How to test for it</a></li><li><a href="#how-biocides-work">How biocides work</a></li><li><a href="#treating-a-contaminated-tank-step-by-step">Treating a contaminated tank, step by step</a></li><li><a href="#what-the-labels-say">What the labels say</a></li><li><a href="#keeping-microbes-from-coming-back">Keeping microbes from coming back</a></li><li><a href="#faq">FAQ</a></li><li><a href="#sources">Sources</a></li></ol></nav></aside></div><section class="related" aria-labelledby="related-title"><div class="related-inner"><p class="label">Keep reading</p><h2 id="related-title">More fuel quality guides</h2><ul class="guide-list related-list"><li><a class="guide" href="/water-in-diesel-tank/"><span class="card-title">Water in your diesel tank</span><p>How water gets in, how to check for it with paste or a clear jar, how to get it out, and how to keep it out.</p></a></li><li><a class="guide" href="/how-long-does-diesel-last/"><span class="card-title">How long does diesel last in storage?</span><p>Shelf life, what makes fuel go bad, how to tell if it's still good, and how to make it last.</p></a></li><li><a class="guide" href="/diesel-gelling-temperature/"><span class="card-title">Diesel gelling: when it happens and how to prevent it</span><p>Cloud point, CFPP, and pour point explained, why bulk tanks gel first, and a winter checklist.</p></a></li></ul><p><a class="more-link" href="/fuel-quality/">All fuel quality guides</a></p></div></section>
 </main>
 <footer class="site-footer">
   <div class="footer-inner">
-    <span>FuelStorageGuide. Practical guidance on stored fuel, written by a working fuel-system technician. As an Amazon Associate, we earn from qualifying purchases.</span>
+    <div class="footer-brand">
+      <a class="wordmark" href="/" aria-label="FuelStorageGuide home"><span class="wm-fuel">Fuel</span><span>StorageGuide</span></a>
+      <p>Practical guidance on stored fuel, written by a working fuel-system technician. As an Amazon Associate, we earn from qualifying purchases.</p>
+    </div>
     <nav aria-label="Footer">
+      <a href="/fuel-quality/">Fuel quality</a>
+      <a href="/aboveground-fuel-tanks/">Aboveground tanks</a>
+      <a href="/underground-storage-tanks/">Underground tanks</a>
       <a href="/about/">About</a>
       <a href="/contact/">Contact</a>
       <a href="/privacy/">Privacy</a>

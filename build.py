@@ -45,11 +45,90 @@ AFF_NOTE = ('<p class="aff-note">This guide has affiliate links. As an Amazon As
             'at no extra cost to you. <a href="/affiliate-disclosure/">How we pick products</a>.</p>')
 
 
-NAV = [("/", "Guides"), ("/about/", "About"), ("/contact/", "Contact")]
+NAV = [("/fuel-quality/", "Fuel quality"), ("/aboveground-fuel-tanks/", "Aboveground tanks"),
+       ("/underground-storage-tanks/", "Underground tanks"), ("/about/", "About")]
+
+# Pages are collected here and written at the end of the build, once every topic hub's
+# guide list exists (articles use those lists for their "related guides" box).
+PAGES = []
 
 
 def page(path, title, description, body, current=None, schema=None, og_type="website"):
+    PAGES.append((path, title, description, body, current, schema, og_type))
+
+
+def slugify(text):
+    return re.sub(r"[^a-z0-9]+", "-", strip_tags(text).lower()).strip("-")
+
+
+AUTHOR_BOX = """
+  <aside class="author-box" aria-label="About the author">
+    <div class="author-badge" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="19" fill="#1d6a48"/><path d="M25.5 10.5a5.5 5.5 0 0 0-6.9 6.9l-7.4 7.4a2.1 2.1 0 0 0 3 3l7.4-7.4a5.5 5.5 0 0 0 6.9-6.9l-3.2 3.2-2.9-.6-.6-2.9z" fill="#f0c02b"/></svg></div>
+    <div>
+      <p class="label">Who writes these guides</p>
+      <p>A working fuel-system technician with eight years in the trade: inspecting and servicing underground and aboveground tanks, dispensers, piping, valves, leak detectors, and aviation fuel systems. Every number on this page links to its source, and anything that differs in the field gets called out. <a href="/about/">More about the site</a>.</p>
+    </div>
+  </aside>
+"""
+
+
+def enhance_article(body, path):
+    """Adds heading anchors, an on-this-page list, the author box, and related guides to an article."""
+    hubs = {FQ_PATH: ("Fuel quality", FQ_GUIDES), AST_PATH: ("Aboveground tanks", AST_GUIDES),
+            UST_PATH: ("Underground tanks", UST_GUIDES)}
+    toc = []
+
+    def anchor(m):
+        attrs, text = m.group(1), m.group(2)
+        if "id=" in attrs:
+            hid = re.search(r'id="([^"]+)"', attrs).group(1)
+        else:
+            hid = slugify(text)
+            attrs += f' id="{hid}"'
+        toc.append((hid, strip_tags(text)))
+        return f"<h2{attrs}>{text}</h2>"
+
+    body = re.sub(r"<h2([^>]*)>(.*?)</h2>", anchor, body)
+    links = "".join(f'<li><a href="#{h}">{t}</a></li>' for h, t in toc)
+    toc_inline = f'<details class="toc toc-inline"><summary>On this page</summary><ol>{links}</ol></details>'
+    # Inline list goes right after the answer box (or the opening paragraph when there isn't one).
+    if '<div class="answer">' in body:
+        i = body.index("</div>", body.index('<div class="answer">')) + len("</div>")
+    else:
+        i = body.index("</p>", body.index('class="meta"')) + len("</p>")
+    body = body[:i] + "\n  " + toc_inline + body[i:]
+    # Byline
+    body = re.sub(r'<p class="meta">Written by a fuel-system technician\. (Updated [^<]+)</p>',
+                  r'<p class="meta byline"><span class="byline-who">By a fuel-system technician</span>'
+                  r'<span class="byline-sep" aria-hidden="true">/</span><span>8 years in the trade</span>'
+                  r'<span class="byline-sep" aria-hidden="true">/</span><span>\1</span></p>', body)
+    # Author box before the sources list
+    body = body.replace("<h2 id=\"sources\">Sources</h2>", AUTHOR_BOX + "\n  <h2 id=\"sources\">Sources</h2>", 1)
+    if AUTHOR_BOX not in body:
+        body = body.replace("</article>", AUTHOR_BOX + "</article>", 1)
+    # Related guides from the same topic hub
+    related = ""
+    m = re.search(r'<p class="crumbs"><a href="([^"]+)">', body)
+    if m and m.group(1) in hubs:
+        hub_path = m.group(1)
+        name, guides = hubs[hub_path]
+        picks = [g for g in guides if g[0] != path][:3]
+        cards = "".join(f'<li><a class="guide" href="{p}"><span class="card-title">{t}</span><p>{d}</p></a></li>'
+                        for p, t, d in picks)
+        related = (f'<section class="related" aria-labelledby="related-title"><div class="related-inner">'
+                   f'<p class="label">Keep reading</p><h2 id="related-title">More {name.lower()} guides</h2>'
+                   f'<ul class="guide-list related-list">{cards}</ul>'
+                   f'<p><a class="more-link" href="{hub_path}">All {name.lower()} guides</a></p></div></section>')
+    aside = f'<aside class="toc-side" aria-label="On this page"><nav class="toc"><p class="label">On this page</p><ol>{links}</ol></nav></aside>'
+    return f'<div class="article-layout">{body}{aside}</div>{related}'
+
+
+def render(path, title, description, body, current=None, schema=None, og_type="website"):
     canonical = DOMAIN + path
+    if body.lstrip().startswith("<article"):
+        body = enhance_article(body, path)
+        hub = re.search(r'<p class="crumbs"><a href="([^"]+)">', body)
+        current = current or (hub.group(1) if hub else None)
     if path in DATES:
         iso, human = DATES[path]
         body = body.replace(f"Updated {UPDATED_HUMAN}.", f"Updated {human}.")
@@ -66,6 +145,8 @@ def page(path, title, description, body, current=None, schema=None, og_type="web
     slug = path.strip("/").replace(".html", "") or "home"
     og_file = SITE / "og" / f"{slug}.png"
     og_image = f"{DOMAIN}/og/{slug}.png" if og_file.exists() else f"{DOMAIN}/og/home.png"
+    if current is None and any(path == h for h, _ in NAV):
+        current = path
     nav = "".join(
         f'<a href="{href}"{" aria-current=\"page\"" if href == current else ""}>{label}</a>'
         for href, label in NAV
@@ -95,15 +176,15 @@ def page(path, title, description, body, current=None, schema=None, og_type="web
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="{og_image}">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+<link rel="preload" href="/fonts/barlow-condensed-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/source-serif-4-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/styles.css">
 {schema_tag}
 </head>
 <body>
 <a class="skip" href="#content">Skip to content</a>
 <header class="site-header">
+  <div class="hazard" aria-hidden="true"></div>
   <div class="header-inner">
     <a class="wordmark" href="/" aria-label="FuelStorageGuide home"><span class="wm-fuel">Fuel</span><span>StorageGuide</span></a>
     <nav class="site-nav" aria-label="Main">{nav}</nav>
@@ -114,8 +195,14 @@ def page(path, title, description, body, current=None, schema=None, og_type="web
 </main>
 <footer class="site-footer">
   <div class="footer-inner">
-    <span>FuelStorageGuide. Practical guidance on stored fuel, written by a working fuel-system technician. As an Amazon Associate, we earn from qualifying purchases.</span>
+    <div class="footer-brand">
+      <a class="wordmark" href="/" aria-label="FuelStorageGuide home"><span class="wm-fuel">Fuel</span><span>StorageGuide</span></a>
+      <p>Practical guidance on stored fuel, written by a working fuel-system technician. As an Amazon Associate, we earn from qualifying purchases.</p>
+    </div>
     <nav aria-label="Footer">
+      <a href="/fuel-quality/">Fuel quality</a>
+      <a href="/aboveground-fuel-tanks/">Aboveground tanks</a>
+      <a href="/underground-storage-tanks/">Underground tanks</a>
       <a href="/about/">About</a>
       <a href="/contact/">Contact</a>
       <a href="/privacy/">Privacy</a>
@@ -2177,33 +2264,137 @@ page(UST_PATH, UST_TITLE, UST_DESC, ust_body, schema=ust_schema)
 
 
 # ---------------- Home ----------------
-home_body = f"""
-<div class="wide">
-  <section class="intro">
-    <h1>Straight answers about the fuel in your tank</h1>
-    <p class="lede">Practical guides for farms, contractors, and fleets that store their own diesel and gasoline: keeping fuel clean and flowing, choosing equipment, and understanding the rules for aboveground tanks.</p>
-    <p>Every guide is written by a fuel-system technician who inspects and services tanks, pumps, and dispensers for a living, and every fact links to its source.</p>
-  </section>
+def hotspot(href, x, y, lx, ly, text, anchor="start"):
+    """A labeled callout on the hero tank that links to a guide."""
+    w = len(text) * 7.4 + 18
+    rx = lx if anchor == "start" else lx - w
+    return (f'<a href="{href}" class="hotspot"><line x1="{x}" y1="{y}" x2="{lx}" y2="{ly}"/>'
+            f'<circle cx="{x}" cy="{y}" r="5"/>'
+            f'<rect x="{rx}" y="{ly - 13}" width="{w}" height="26" rx="13"/>'
+            f'<text x="{rx + w / 2}" y="{ly + 4.5}" text-anchor="middle">{text}</text></a>')
 
-  <h2>Guides</h2>
-  <ul class="guide-list">
-    <li><a class="guide" href="{FQ_PATH}"><span class="card-title">Fuel quality: start here</span><p>Water, microbes, gelling, and old fuel. Find the guide for what you're seeing in your tank.</p></a></li>
-    <li><a class="guide" href="{AST_PATH}"><span class="card-title">Aboveground tanks: start here</span><p>Tank types, the rules that apply, and the equipment on top, with links to every tank guide.</p></a></li>
-    <li><a class="guide" href="{UST_PATH}"><span class="card-title">Underground tanks: start here</span><p>What gets checked every 30 days, every year, and every 3 years, with a guide for each piece of equipment.</p></a></li>
-    <li><a class="guide" href="{SPCC_PATH}"><span class="card-title">Do I need an SPCC plan?</span><p>The 1,320-gallon rule, the farm thresholds, which plan type you need, and a one-minute checker for your site.</p></a></li>
-    <li><a class="guide" href="{BIO_PATH}"><span class="card-title">Diesel bugs and biocides</span><p>How to spot microbial growth, test for it, and treat a tank step by step without plugging every filter.</p></a></li>
-    <li><a class="guide" href="{STORE_PATH}"><span class="card-title">How long does diesel last in storage?</span><p>Shelf life, what makes stored fuel go bad, how to tell if it's still good, and how to make it last.</p></a></li>
-    <li><a class="guide" href="{WATER_PATH}"><span class="card-title">Water in your diesel tank</span><p>How water gets in, how to check for it with paste or a clear jar, how to get it out, and how to keep it out.</p></a></li>
-    <li><a class="guide" href="{ADD_PATH}"><span class="card-title">Winter diesel additives: what anti-gel does and when to add it</span><p>How anti-gel works, how to treat a bulk tank before the cold, label treat rates, and when blending or heat makes more sense.</p></a></li>
-    <li><a class="guide" href="{ASV_PATH}"><span class="card-title">Anti-siphon valves: how they work and when you need one</span><p>Why elevated tanks siphon, what the fire code requires, picking the head setting, and pump troubleshooting.</p></a></li>
-    <li><a class="guide" href="{SB_PATH}"><span class="card-title">Spill bucket testing for underground tanks</span><p>The 30-day walkthrough, the 3-year test, how the water and vacuum tests work, and what fails.</p></a></li>
-    <li><a class="guide" href="{LLD_PATH}"><span class="card-title">Line leak detectors: the annual test and slow flow</span><p>How mechanical and electronic detectors work, what the yearly test checks, and why a dispenser drops to a trickle.</p></a></li>
-    <li><a class="guide" href="{OFP_PATH}"><span class="card-title">UST overfill prevention</span><p>Shutoff valves, alarms, and ball floats, the 3-year inspection, and how to order fuel so it never gets close.</p></a></li>
-    <li><a class="guide" href="{TT_PATH}"><span class="card-title">Diesel transfer tanks: sizing, legal limits, and setup</span><p>Why 119 gallons matters, the rules for gasoline, payload math for your pickup, and how to set one up.</p></a></li>
-    <li><a class="guide" href="{NOZ_PATH}"><span class="card-title">Fuel nozzles: automatic vs. manual</span><p>How the auto shutoff works, 3/4 vs 1 inch, gas vs diesel spouts, and which nozzle fits your pump.</p></a></li>
-    <li><a class="guide" href="{PUMP_PATH}"><span class="card-title">How to choose a 12V fuel transfer pump</span><p>Flow rate, duty cycle, and wiring explained, Fill-Rite and GPI models compared, and which size fits your tank.</p></a></li>
-    <li><a class="guide" href="{GEL_PATH}"><span class="card-title">Diesel gelling: when it happens and how to prevent it</span><p>Cloud point, CFPP, and pour point explained, why bulk tanks gel first, and a winter checklist for tank owners.</p></a></li>
+HERO_TANK_SVG = f"""<svg class="hero-tank" viewBox="0 0 560 380" role="img" aria-labelledby="tank-title">
+  <title id="tank-title">Cutaway of an aboveground diesel tank. Each label links to a guide.</title>
+  <defs>
+    <clipPath id="tank-clip"><rect x="60" y="120" width="380" height="150" rx="75"/></clipPath>
+    <pattern id="bugs" width="14" height="8" patternUnits="userSpaceOnUse"><circle cx="3" cy="4" r="1.6" fill="#9fd3a9"/><circle cx="10" cy="2.5" r="1.1" fill="#9fd3a9"/></pattern>
+  </defs>
+  <!-- saddles -->
+  <path d="M120 262 L104 318 H186 L170 262Z M330 262 L314 318 H396 L380 262Z" fill="#33454e"/>
+  <rect x="40" y="318" width="420" height="6" rx="3" fill="#33454e"/>
+  <!-- tank contents -->
+  <g clip-path="url(#tank-clip)">
+    <rect x="60" y="120" width="380" height="150" fill="#22323a"/>
+    <rect x="60" y="160" width="380" height="110" fill="#c79f2a" opacity=".9"/>
+    <rect x="60" y="160" width="380" height="3" fill="#f0c02b"/>
+    <rect x="60" y="246" width="380" height="24" fill="#3b7ea1"/>
+    <rect x="60" y="240" width="380" height="8" fill="url(#bugs)"/>
+    <path d="M60 150 Q 110 140 160 150 T 260 150 T 360 150 T 440 150" stroke="#5f737c" stroke-width="1.5" fill="none" stroke-dasharray="3 5"/>
+  </g>
+  <rect x="60" y="120" width="380" height="150" rx="75" fill="none" stroke="#d9e2df" stroke-width="3"/>
+  <!-- vent -->
+  <path d="M120 120 V78" stroke="#d9e2df" stroke-width="6"/>
+  <path d="M104 80 Q120 60 136 80Z" fill="#d9e2df"/>
+  <!-- fill -->
+  <rect x="200" y="104" width="26" height="16" fill="#d9e2df"/><rect x="196" y="98" width="34" height="8" rx="2" fill="#f0c02b"/>
+  <!-- pump, valve, hose, nozzle -->
+  <rect x="320" y="84" width="44" height="36" rx="4" fill="#1d6a48" stroke="#d9e2df" stroke-width="2"/>
+  <path d="M364 102 H404 V112" stroke="#d9e2df" stroke-width="5" fill="none"/>
+  <rect x="396" y="112" width="16" height="16" rx="2" fill="#f0c02b"/>
+  <path d="M404 128 C 404 230, 480 210, 486 286" stroke="#0e171c" stroke-width="7" fill="none"/>
+  <path d="M404 128 C 404 230, 480 210, 486 286" stroke="#4d5f67" stroke-width="4" fill="none"/>
+  <path d="M478 282 h18 l4 26 h-8 l-3 14 h-6z" fill="#d9e2df"/>
+  <g class="hotspots">
+    {hotspot(STORE_PATH, 250, 200, 18, 210, "Old fuel")}
+    {hotspot(WATER_PATH, 150, 258, 18, 352, "Water on the bottom")}
+    {hotspot(BIO_PATH, 300, 243, 250, 352, "Diesel bugs")}
+    {hotspot(GEL_PATH, 180, 175, 18, 168, "Gelling")}
+    {hotspot(PUMP_PATH, 342, 90, 300, 32, "12V pump")}
+    {hotspot(ASV_PATH, 412, 120, 548, 72, "Anti-siphon valve", "end")}
+    {hotspot(NOZ_PATH, 492, 300, 548, 352, "Nozzle", "end")}
+    {hotspot(WATER_PATH, 120, 70, 18, 32, "Vent")}
+  </g>
+</svg>"""
+
+def topic_card(num, path, name, blurb, guides, icon):
+    items = "".join(f'<li><a href="{p}">{t}</a></li>' for p, t, _ in guides)
+    return f"""
+    <section class="topic" aria-labelledby="topic-{num}">
+      <span class="rivet tl"></span><span class="rivet tr"></span><span class="rivet bl"></span><span class="rivet br"></span>
+      <div class="topic-head">
+        <span class="topic-icon" aria-hidden="true">{icon}</span>
+        <div><p class="label">{num:02d} / {len(guides)} guides</p><h3 id="topic-{num}"><a href="{path}">{name}</a></h3></div>
+      </div>
+      <p class="topic-blurb">{blurb}</p>
+      <ol class="topic-list">{items}</ol>
+      <a class="topic-cta" href="{path}">Start here: {name.lower()}</a>
+    </section>"""
+
+ICON_DROP = '<svg viewBox="0 0 32 32"><path d="M16 3 C 16 3, 6 15, 6 21 a10 10 0 0 0 20 0 C 26 15, 16 3, 16 3Z" fill="#f0c02b"/><path d="M8 22 h16" stroke="#15212a" stroke-width="2"/></svg>'
+ICON_AST = '<svg viewBox="0 0 32 32"><rect x="3" y="9" width="26" height="14" rx="7" fill="#f0c02b"/><path d="M9 23 l-2 6 M23 23 l2 6 M10 9 V5" stroke="#f0c02b" stroke-width="2.5"/></svg>'
+ICON_UST = '<svg viewBox="0 0 32 32"><path d="M2 12 H30" stroke="#f0c02b" stroke-width="2.5" stroke-dasharray="3 2"/><rect x="5" y="16" width="22" height="12" rx="6" fill="#f0c02b"/><path d="M12 16 V4 M20 16 V8" stroke="#f0c02b" stroke-width="2.5"/></svg>'
+
+QUICK = [
+    (SPCC_PATH, "Do I need an SPCC plan?"),
+    (STORE_PATH, "How long does diesel last?"),
+    (GEL_PATH, "At what temperature does diesel gel?"),
+    (WATER_PATH, "How do I get water out of my tank?"),
+    (TT_PATH, "Is a 119-gallon transfer tank legal?"),
+    (LLD_PATH, "Why is my dispenser so slow?"),
+]
+HERO_CHIPS = [(WATER_PATH, "Water on the bottom"), (BIO_PATH, "Diesel bugs"), (GEL_PATH, "Gelling"), (STORE_PATH, "Old fuel"),
+              (PUMP_PATH, "12V pump"), (ASV_PATH, "Anti-siphon valve"), (NOZ_PATH, "Nozzle")]
+hero_chips = "".join(f'<li><a href="{p}">{t}</a></li>' for p, t in HERO_CHIPS)
+quick_links = "".join(f'<li><a href="{p}">{q}</a></li>' for p, q in QUICK)
+
+home_body = f"""
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <p class="label label-light">Fuel storage guides from the field</p>
+      <h1>Straight answers about the fuel in your tank</h1>
+      <p class="lede">Practical guides for farms, contractors, fleets, and anyone who owns a fuel tank: keeping fuel clean and flowing, choosing equipment, and understanding the rules for aboveground and underground tanks.</p>
+      <div class="hero-actions">
+        <a class="btn btn-yellow" href="#topics">Find your guide</a>
+        <a class="btn btn-ghost" href="{SPCC_PATH}#checker-title">Check if you need an SPCC plan</a>
+      </div>
+    </div>
+    <figure class="hero-figure">
+      {HERO_TANK_SVG}
+      <figcaption>Tap a part of the tank to jump to its guide.</figcaption>
+      <ul class="hero-chips">{hero_chips}</ul>
+    </figure>
+  </div>
+</section>
+
+<section class="proof" aria-label="Why trust these guides">
+  <ul class="proof-inner">
+    <li><span class="proof-num">8 yrs</span><span>servicing tanks, pumps, dispensers, and leak detectors</span></li>
+    <li><span class="proof-num">Sourced</span><span>every number links to the regulation, study, or manufacturer it came from</span></li>
+    <li><span class="proof-num">Independent</span><span>no fuel supplier, additive maker, or equipment brand owns this site</span></li>
   </ul>
+</section>
+
+<div class="wide home-body">
+  <div class="section-head" id="topics">
+    <p class="label">Pick a topic</p>
+    <h2>What kind of tank problem do you have?</h2>
+  </div>
+  <div class="topics">
+    {topic_card(1, FQ_PATH, "Fuel quality", "Water, microbes, gelling, and old fuel. Start with what you're seeing in the tank.", FQ_GUIDES, ICON_DROP)}
+    {topic_card(2, AST_PATH, "Aboveground tanks", "Farm and fleet tanks: the spill rules, transfer tanks, and the equipment on top.", AST_GUIDES, ICON_AST)}
+    {topic_card(3, UST_PATH, "Underground tanks", "What gets tested every 30 days, every year, and every 3 years, piece by piece.", UST_GUIDES, ICON_UST)}
+  </div>
+
+  <div class="quick">
+    <div class="section-head">
+      <p class="label">Common questions</p>
+      <h2>Quick answers people come here for</h2>
+    </div>
+    <ul class="quick-list">{quick_links}</ul>
+  </div>
+
+  {AUTHOR_BOX}
 </div>
 """
 page("/", "FuelStorageGuide: Practical Guides for Farm and Fleet Fuel Tanks",
@@ -2259,7 +2450,7 @@ privacy_body = f"""
     <li><strong>Email.</strong> If you email us, your message and address are used only to reply.</li>
   </ul>
   <h2>Fonts</h2>
-  <p>Pages load fonts from Google Fonts, which receives your IP address when the fonts are downloaded. See <a href="https://policies.google.com/privacy" rel="noopener">Google's privacy policy</a>.</p>
+  <p>Fonts are served from this site. No third-party font service sees your visit.</p>
   <h2>Affiliate links</h2>
   <p>Some pages link to products through affiliate programs, including Amazon Associates. If you click one, the retailer may set its own cookies to credit the referral. Their privacy policies apply on their sites. See the <a href="/affiliate-disclosure/">affiliate disclosure</a>.</p>
   <h2>Changes and questions</h2>
@@ -2294,6 +2485,9 @@ nf_body = """
 </div>
 """
 page("/404.html", "Page not found | FuelStorageGuide", "Page not found.", nf_body)
+
+for _args in PAGES:
+    render(*_args)
 
 # ---------------- sitemap, robots, favicon ----------------
 urls = ["/", NOZ_PATH, UST_PATH, OFP_PATH, AST_PATH, SB_PATH, LLD_PATH, FQ_PATH, STORE_PATH, ASV_PATH, SPCC_PATH, ADD_PATH, WATER_PATH, BIO_PATH, TT_PATH, PUMP_PATH, GEL_PATH,"/about/", "/contact/", "/privacy/", "/affiliate-disclosure/"]

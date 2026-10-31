@@ -17,18 +17,18 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://fuelstorageguide.com/og/home.png">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+<link rel="preload" href="/fonts/barlow-condensed-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/source-serif-4-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/styles.css">
 
 </head>
 <body>
 <a class="skip" href="#content">Skip to content</a>
 <header class="site-header">
+  <div class="hazard" aria-hidden="true"></div>
   <div class="header-inner">
     <a class="wordmark" href="/" aria-label="FuelStorageGuide home"><span class="wm-fuel">Fuel</span><span>StorageGuide</span></a>
-    <nav class="site-nav" aria-label="Main"><a href="/">Guides</a><a href="/about/">About</a><a href="/contact/">Contact</a></nav>
+    <nav class="site-nav" aria-label="Main"><a href="/fuel-quality/">Fuel quality</a><a href="/aboveground-fuel-tanks/">Aboveground tanks</a><a href="/underground-storage-tanks/">Underground tanks</a><a href="/about/">About</a></nav>
   </div>
 </header>
 <main id="content">
@@ -44,7 +44,7 @@
     <li><strong>Email.</strong> If you email us, your message and address are used only to reply.</li>
   </ul>
   <h2>Fonts</h2>
-  <p>Pages load fonts from Google Fonts, which receives your IP address when the fonts are downloaded. See <a href="https://policies.google.com/privacy" rel="noopener">Google's privacy policy</a>.</p>
+  <p>Fonts are served from this site. No third-party font service sees your visit.</p>
   <h2>Affiliate links</h2>
   <p>Some pages link to products through affiliate programs, including Amazon Associates. If you click one, the retailer may set its own cookies to credit the referral. Their privacy policies apply on their sites. See the <a href="/affiliate-disclosure/">affiliate disclosure</a>.</p>
   <h2>Changes and questions</h2>
@@ -54,8 +54,14 @@
 </main>
 <footer class="site-footer">
   <div class="footer-inner">
-    <span>FuelStorageGuide. Practical guidance on stored fuel, written by a working fuel-system technician. As an Amazon Associate, we earn from qualifying purchases.</span>
+    <div class="footer-brand">
+      <a class="wordmark" href="/" aria-label="FuelStorageGuide home"><span class="wm-fuel">Fuel</span><span>StorageGuide</span></a>
+      <p>Practical guidance on stored fuel, written by a working fuel-system technician. As an Amazon Associate, we earn from qualifying purchases.</p>
+    </div>
     <nav aria-label="Footer">
+      <a href="/fuel-quality/">Fuel quality</a>
+      <a href="/aboveground-fuel-tanks/">Aboveground tanks</a>
+      <a href="/underground-storage-tanks/">Underground tanks</a>
       <a href="/about/">About</a>
       <a href="/contact/">Contact</a>
       <a href="/privacy/">Privacy</a>

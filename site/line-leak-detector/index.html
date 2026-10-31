@@ -17,9 +17,8 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://fuelstorageguide.com/og/line-leak-detector.png">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+<link rel="preload" href="/fonts/barlow-condensed-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/source-serif-4-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/styles.css">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Line Leak Detectors: How They Work, the Annual Test, and Slow Flow", "description": "Every pressurized UST line needs an automatic line leak detector that catches a 3 gallon-per-hour leak, tested every year. How mechanical and electronic detectors work, how the test is done, and why your dispenser runs slow.", "datePublished": "2026-10-30", "dateModified": "2026-10-30", "author": {"@type": "Person", "name": "FuelStorageGuide", "jobTitle": "Fuel-system technician"}, "publisher": {"@type": "Organization", "name": "FuelStorageGuide", "url": "https://fuelstorageguide.com"}, "mainEntityOfPage": "https://fuelstorageguide.com/line-leak-detector/"}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Does a line leak detector replace the annual line tightness test?", "acceptedAnswer": {"@type": "Answer", "text": "No. The detector covers big leaks. You still need a second method for small ones, such as an annual 0.1 gph tightness test or monthly monitoring (EPA)."}}, {"@type": "Question", "name": "Does an electronic detector's self-test count as the annual test?", "acceptedAnswer": {"@type": "Answer", "text": "Only if it runs a simulated leak. A self-diagnostic alone doesn't meet the requirement (EPA)."}}, {"@type": "Question", "name": "Is a diesel leak detector different from a gasoline one?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Veeder-Root sells separate mechanical models for gasoline (FX1V) and diesel (FX1DV), plus versions for higher ethanol and biodiesel blends (Veeder-Root)."}}]}</script>
@@ -28,24 +27,26 @@
 <body>
 <a class="skip" href="#content">Skip to content</a>
 <header class="site-header">
+  <div class="hazard" aria-hidden="true"></div>
   <div class="header-inner">
     <a class="wordmark" href="/" aria-label="FuelStorageGuide home"><span class="wm-fuel">Fuel</span><span>StorageGuide</span></a>
-    <nav class="site-nav" aria-label="Main"><a href="/">Guides</a><a href="/about/">About</a><a href="/contact/">Contact</a></nav>
+    <nav class="site-nav" aria-label="Main"><a href="/fuel-quality/">Fuel quality</a><a href="/aboveground-fuel-tanks/">Aboveground tanks</a><a href="/underground-storage-tanks/" aria-current="page">Underground tanks</a><a href="/about/">About</a></nav>
   </div>
 </header>
 <main id="content">
-
+<div class="article-layout">
 <article class="wrap">
   <p class="crumbs"><a href="/underground-storage-tanks/">Underground tanks</a></p>
   <h1>Line leak detectors: how they work, the annual test, and slow flow</h1>
-  <p class="meta">Written by a fuel-system technician. Updated October 30, 2026.</p>
+  <p class="meta byline"><span class="byline-who">By a fuel-system technician</span><span class="byline-sep" aria-hidden="true">/</span><span>8 years in the trade</span><span class="byline-sep" aria-hidden="true">/</span><span>Updated October 30, 2026.</span></p>
 
   <div class="answer">
     <p><strong>A line leak detector watches the pressure in the pipe between an underground tank's submersible pump and the dispenser. If the line can't hold pressure, it slows the flow, shuts off the pump, or sounds an alarm. Federal rules require one on all pressurized UST piping, able to catch a 3 gallon-per-hour leak at 10 psi within an hour, and it has to be tested every year</strong> (<a href="https://www.epa.gov/sites/default/files/2016-05/documents/stot_5-2-16_final_508.pdf" rel="noopener">EPA, Straight Talk on Tanks</a>).</p>
   </div>
+  <details class="toc toc-inline"><summary>On this page</summary><ol><li><a href="#what-the-federal-rule-requires">What the federal rule requires</a></li><li><a href="#mechanical-vs-electronic-leak-detectors">Mechanical vs. electronic leak detectors</a></li><li><a href="#how-the-annual-test-works">How the annual test works</a></li><li><a href="#my-dispenser-is-slow">"My dispenser is slow"</a></li><li><a href="#faq">FAQ</a></li><li><a href="#sources">Sources</a></li></ol></details>
   <p>Suction systems, where the dispenser pulls fuel up from the tank, don't use one. This guide is about pressurized systems, the setup at most gas stations and many fleet sites.</p>
 
-  <h2>What the federal rule requires</h2>
+  <h2 id="what-the-federal-rule-requires">What the federal rule requires</h2>
   <p><strong>Pressurized piping needs two kinds of leak detection: an automatic line leak detector for big leaks, plus a second method for small ones</strong> (<a href="https://www.epa.gov/sites/default/files/2016-05/documents/stot_5-2-16_final_508.pdf" rel="noopener">EPA</a>).</p>
   <div class="table-wrap">
   <table class="even">
@@ -61,7 +62,7 @@
   <p class="source-line">Source: <a href="https://www.epa.gov/sites/default/files/2016-05/documents/stot_5-2-16_final_508.pdf" rel="noopener">EPA, Straight Talk on Tanks (2016)</a>.</p>
   <p>UST systems installed or replaced after April 11, 2016 must be secondarily contained and use interstitial monitoring (<a href="https://www.epa.gov/ust/release-detection-underground-storage-tanks-usts-interstitial-method" rel="noopener">EPA</a>). In practice that means double-wall piping, and monitoring between the walls becomes the second method on newer sites.</p>
 
-  <h2>Mechanical vs. electronic leak detectors</h2>
+  <h2 id="mechanical-vs-electronic-leak-detectors">Mechanical vs. electronic leak detectors</h2>
   <p><strong>Both watch line pressure. A mechanical detector screws into the pump head and slows the flow if it senses a leak; an electronic one uses a pressure sensor tied to a tank monitor or controller that can shut the pump off and log results</strong> (<a href="https://www.epa.gov/sites/default/files/2016-05/documents/stot_5-2-16_final_508.pdf" rel="noopener">EPA</a>; <a href="https://des.sc.gov/sites/des/files/Documents/BLWM/UST/Electronic_Line_Leak_Detection.pdf" rel="noopener">SC DES</a>).</p>
   <div class="table-wrap">
   <table>
@@ -75,7 +76,7 @@
   </div>
   <p><strong>Field note:</strong> The mechanical detectors I see most are FE Petro and Red Jacket. Red Jacket makes separate gasoline (FX1V) and diesel (FX1DV) models (<a href="https://www.veeder.com/us/fuel-leak-detection/mechanical-line-leak-detection" rel="noopener">Veeder-Root</a>).</p>
 
-  <h2>How the annual test works</h2>
+  <h2 id="how-the-annual-test-works">How the annual test works</h2>
   <p><strong>The tester connects a test rig at the dispenser end of the line, opens a calibrated leak of 3 gph at 10 psi, and turns on the pump to see whether the detector catches it</strong> (<a href="https://deq.ms.gov/wp-content/uploads/2012/02/LineLeakDetectorTest-1.pdf" rel="noopener">Mississippi DEQ</a>).</p>
   <p>For a mechanical detector, Mississippi's procedure works like this:</p>
   <ol>
@@ -116,13 +117,13 @@
 </figure>
   <p>An electronic detector passes if it alarms or shuts the pump down during the simulated leak. Mississippi says to repeat the test before calling a first failure final (<a href="https://deq.ms.gov/wp-content/uploads/2012/02/LineLeakDetectorTest-1.pdf" rel="noopener">Mississippi DEQ</a>).</p>
 
-  <h2>"My dispenser is slow"</h2>
+  <h2 id="my-dispenser-is-slow">"My dispenser is slow"</h2>
   <p><strong>A dispenser that pumps at a trickle usually means a mechanical leak detector is sitting in its restricted-flow position.</strong> It couldn't confirm the line was tight when the pump came on (<a href="https://www.epa.gov/sites/default/files/2016-05/documents/stot_5-2-16_final_508.pdf" rel="noopener">EPA</a>; <a href="https://www.veeder.com/us/fuel-leak-detection/mechanical-line-leak-detection" rel="noopener">Veeder-Root</a>).</p>
   <p><strong>Field note:</strong> The most common cause I see isn't a leak. It's someone squeezing the nozzle before the dispenser is ready. Fuel flows out while the detector is still checking the line, so it reads that as a leak and stays tripped. Hang up the nozzle, wait for the dispenser to reset, and let it come up to pressure before you start pumping.</p>
   <p>If it's still slow after a clean restart, treat it as a possible leak and have the line and detector checked. Some states have reporting deadlines for a suspected release; South Carolina, for example, asks for a call within 24 hours when an electronic detector reports anything other than a pass (<a href="https://des.sc.gov/sites/des/files/Documents/BLWM/UST/Electronic_Line_Leak_Detection.pdf" rel="noopener">SC DES</a>).</p>
 
   <section class="faq">
-  <h2>FAQ</h2>
+  <h2 id="faq">FAQ</h2>
   <h3>Does a line leak detector replace the annual line tightness test?</h3>
 <p>No. The detector covers big leaks. You still need a second method for small ones, such as an annual 0.1 gph tightness test or monthly monitoring (<a href="https://www.epa.gov/sites/default/files/2016-05/documents/stot_5-2-16_final_508.pdf" rel="noopener">EPA</a>).</p>
 <h3>Does an electronic detector's self-test count as the annual test?</h3>
@@ -131,7 +132,16 @@
 <p>Yes. Veeder-Root sells separate mechanical models for gasoline (FX1V) and diesel (FX1DV), plus versions for higher ethanol and biodiesel blends (<a href="https://www.veeder.com/us/fuel-leak-detection/mechanical-line-leak-detection" rel="noopener">Veeder-Root</a>).</p>
   </section>
 
-  <h2>Sources</h2>
+  
+  <aside class="author-box" aria-label="About the author">
+    <div class="author-badge" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="19" fill="#1d6a48"/><path d="M25.5 10.5a5.5 5.5 0 0 0-6.9 6.9l-7.4 7.4a2.1 2.1 0 0 0 3 3l7.4-7.4a5.5 5.5 0 0 0 6.9-6.9l-3.2 3.2-2.9-.6-.6-2.9z" fill="#f0c02b"/></svg></div>
+    <div>
+      <p class="label">Who writes these guides</p>
+      <p>A working fuel-system technician with eight years in the trade: inspecting and servicing underground and aboveground tanks, dispensers, piping, valves, leak detectors, and aviation fuel systems. Every number on this page links to its source, and anything that differs in the field gets called out. <a href="/about/">More about the site</a>.</p>
+    </div>
+  </aside>
+
+  <h2 id="sources">Sources</h2>
   <ul class="sources">
     <li><a href="https://www.epa.gov/sites/default/files/2016-05/documents/stot_5-2-16_final_508.pdf" rel="noopener">EPA: Release Detection for USTs and Piping, Straight Talk on Tanks (EPA 510-K-16-003, May 2016)</a></li>
     <li><a href="https://www.epa.gov/ust/release-detection-underground-storage-tanks-usts-interstitial-method" rel="noopener">EPA: Release detection, interstitial method</a></li>
@@ -141,12 +151,18 @@
   </ul>
   <p class="note">This guide is general information. Your state UST program decides what's required at your site.</p>
 </article>
-
+<aside class="toc-side" aria-label="On this page"><nav class="toc"><p class="label">On this page</p><ol><li><a href="#what-the-federal-rule-requires">What the federal rule requires</a></li><li><a href="#mechanical-vs-electronic-leak-detectors">Mechanical vs. electronic leak detectors</a></li><li><a href="#how-the-annual-test-works">How the annual test works</a></li><li><a href="#my-dispenser-is-slow">"My dispenser is slow"</a></li><li><a href="#faq">FAQ</a></li><li><a href="#sources">Sources</a></li></ol></nav></aside></div><section class="related" aria-labelledby="related-title"><div class="related-inner"><p class="label">Keep reading</p><h2 id="related-title">More underground tanks guides</h2><ul class="guide-list related-list"><li><a class="guide" href="/spill-bucket-testing/"><span class="card-title">Spill bucket testing</span><p>The 30-day walkthrough, the 3-year test, how the water and vacuum tests work, and what fails.</p></a></li><li><a class="guide" href="/ust-overfill-prevention/"><span class="card-title">Overfill prevention</span><p>Shutoff valves, alarms, and ball floats, the 3-year inspection, and how to order fuel so it never gets close.</p></a></li></ul><p><a class="more-link" href="/underground-storage-tanks/">All underground tanks guides</a></p></div></section>
 </main>
 <footer class="site-footer">
   <div class="footer-inner">
-    <span>FuelStorageGuide. Practical guidance on stored fuel, written by a working fuel-system technician. As an Amazon Associate, we earn from qualifying purchases.</span>
+    <div class="footer-brand">
+      <a class="wordmark" href="/" aria-label="FuelStorageGuide home"><span class="wm-fuel">Fuel</span><span>StorageGuide</span></a>
+      <p>Practical guidance on stored fuel, written by a working fuel-system technician. As an Amazon Associate, we earn from qualifying purchases.</p>
+    </div>
     <nav aria-label="Footer">
+      <a href="/fuel-quality/">Fuel quality</a>
+      <a href="/aboveground-fuel-tanks/">Aboveground tanks</a>
+      <a href="/underground-storage-tanks/">Underground tanks</a>
       <a href="/about/">About</a>
       <a href="/contact/">Contact</a>
       <a href="/privacy/">Privacy</a>

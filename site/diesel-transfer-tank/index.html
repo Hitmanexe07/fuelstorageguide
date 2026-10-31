@@ -17,9 +17,8 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://fuelstorageguide.com/og/diesel-transfer-tank.png">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+<link rel="preload" href="/fonts/barlow-condensed-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/source-serif-4-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/styles.css">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Diesel Transfer Tanks: Sizing, Legal Limits, and Setup", "description": "Diesel transfer tanks up to 119 gallons are lightly regulated; gasoline tanks and bigger setups are not. Sizing, payload, legal limits, and setup for pickup transfer tanks.", "datePublished": "2026-10-28", "dateModified": "2026-10-28", "author": {"@type": "Person", "name": "FuelStorageGuide", "jobTitle": "Fuel-system technician"}, "publisher": {"@type": "Organization", "name": "FuelStorageGuide", "url": "https://fuelstorageguide.com"}, "mainEntityOfPage": "https://fuelstorageguide.com/diesel-transfer-tank/"}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Do I need placards for a 100-gallon diesel transfer tank?", "acceptedAnswer": {"@type": "Answer", "text": "Under federal hazmat rules, diesel in a tank of 119 gallons or less doesn't need placards (J.J. Keller). Whether you need a CDL depends on your truck's weight rating and use, not just the tank. Check your state's rules."}}, {"@type": "Question", "name": "Can I put two 100-gallon tanks in my truck?", "acceptedAnswer": {"@type": "Answer", "text": "If they're connected so fuel can flow between them, PHMSA treats them as one bulk package, which brings placards. Keep the valves between them closed in transit (PHMSA letter 21-0001)."}}, {"@type": "Question", "name": "Can I haul gasoline in my transfer tank?", "acceptedAnswer": {"@type": "Answer", "text": "Only if the tank is approved for gasoline. Bed-mounted gasoline tanks are built under DOT special permits with conditions such as no connecting tanks together and cutting power to the pump in transit (DOT-SP 11911)."}}, {"@type": "Question", "name": "Does a half-full 150-gallon tank count as 75 gallons?", "acceptedAnswer": {"@type": "Answer", "text": "No. The rules go by the tank's capacity, not what's in it (J.J. Keller)."}}]}</script>
@@ -28,25 +27,27 @@
 <body>
 <a class="skip" href="#content">Skip to content</a>
 <header class="site-header">
+  <div class="hazard" aria-hidden="true"></div>
   <div class="header-inner">
     <a class="wordmark" href="/" aria-label="FuelStorageGuide home"><span class="wm-fuel">Fuel</span><span>StorageGuide</span></a>
-    <nav class="site-nav" aria-label="Main"><a href="/">Guides</a><a href="/about/">About</a><a href="/contact/">Contact</a></nav>
+    <nav class="site-nav" aria-label="Main"><a href="/fuel-quality/">Fuel quality</a><a href="/aboveground-fuel-tanks/" aria-current="page">Aboveground tanks</a><a href="/underground-storage-tanks/">Underground tanks</a><a href="/about/">About</a></nav>
   </div>
 </header>
 <main id="content">
-
+<div class="article-layout">
 <article class="wrap">
   <p class="crumbs"><a href="/aboveground-fuel-tanks/">Aboveground tanks</a></p>
   <h1>Diesel transfer tanks: sizing, legal limits, and setup</h1>
-  <p class="meta">Written by a fuel-system technician. Updated October 28, 2026.</p>
+  <p class="meta byline"><span class="byline-who">By a fuel-system technician</span><span class="byline-sep" aria-hidden="true">/</span><span>8 years in the trade</span><span class="byline-sep" aria-hidden="true">/</span><span>Updated October 28, 2026.</span></p>
   <p class="aff-note">This guide has affiliate links. As an Amazon Associate, FuelStorageGuide earns from qualifying purchases, at no extra cost to you. <a href="/affiliate-disclosure/">How we pick products</a>.</p>
 
   <div class="answer">
     <p><strong>A transfer tank is a fuel tank mounted in a pickup bed or on a trailer that you pump from to fuel equipment in the field. For diesel, keeping the tank at 119 gallons or less keeps it out of most federal hazmat rules.</strong> Over 119 gallons counts as "bulk" packaging, and diesel in bulk packaging needs placards (<a href="https://jjkellercompliancenetwork.com/news/knowing-the-ins-and-outs-when-transporting-diesel" rel="noopener">J.J. Keller</a>).</p>
   </div>
+  <details class="toc toc-inline"><summary>On this page</summary><ol><li><a href="#the-rules-for-hauling-fuel-in-a-pickup">The rules for hauling fuel in a pickup</a></li><li><a href="#choosing-a-tank">Choosing a tank</a></li><li><a href="#setting-it-up">Setting it up</a></li><li><a href="#keeping-the-fuel-clean">Keeping the fuel clean</a></li><li><a href="#faq">FAQ</a></li><li><a href="#sources">Sources</a></li></ol></details>
   <p>Gasoline is a different story: it's regulated much more tightly, even in small tanks. This guide covers the rules, choosing a size your truck can carry, and setting it up right.</p>
 
-  <h2>The rules for hauling fuel in a pickup</h2>
+  <h2 id="the-rules-for-hauling-fuel-in-a-pickup">The rules for hauling fuel in a pickup</h2>
   <p><strong>Under federal hazmat rules, what matters is the fuel and the tank's capacity, not how much is in it.</strong> A 120-gallon tank with 20 gallons in it is still a bulk package (<a href="https://jjkellercompliancenetwork.com/news/knowing-the-ins-and-outs-when-transporting-diesel" rel="noopener">J.J. Keller</a>).</p>
   <figure class="diagram">
 <svg viewBox="0 0 680 300" role="img" aria-labelledby="tr-title tr-desc" xmlns="http://www.w3.org/2000/svg" font-family="Barlow Condensed, Arial Narrow, Arial, sans-serif">
@@ -95,7 +96,7 @@
   <p><strong>Farms get an extra exception.</strong> Farmers hauling fuel to or from the farm within 150 miles, intrastate, can carry up to 502 gallons of liquid agricultural products per vehicle, including diesel and gasoline, with relief from some packaging, training, and emergency response rules (<a href="https://www.phmsa.dot.gov/sites/phmsa.dot.gov/files/2023-08/Agricultural-Products-brochure-0203-0823.pdf" rel="noopener">PHMSA agricultural brochure</a>). Your state's rules still apply.</p>
   <p><strong>Check the label before you buy a tank for gasoline.</strong> Some tanks are sold as approved for diesel, gasoline, and aviation fuel (<a href="https://www.tractorsupply.com/tsc/product/rds-60-gal-transfer-fuel-tank-combo-diamond-plate-72548-2431065" rel="noopener">RDS 60-gallon combo</a>). A tank sold for diesel only shouldn't carry gasoline.</p>
 
-  <h2>Choosing a tank</h2>
+  <h2 id="choosing-a-tank">Choosing a tank</h2>
   <p><strong>Start with your truck's payload, not the biggest tank that fits.</strong> Diesel weighs about 6.9 pounds per gallon (<a href="https://restservice.epri.com/publicdownload/TR-104843/0/Product" rel="noopener">EPRI</a>), so fuel adds up fast:</p>
   <div class="table-wrap">
   <table class="even">
@@ -123,7 +124,7 @@
   <p><strong>Features worth having:</strong> internal baffles to keep fuel from sloshing, a lockable fill cap, a rollover vent, a drain plug at the bottom, and a level gauge (<a href="https://www.tractorsupply.com/tsc/product/rds-60-gal-transfer-fuel-tank-combo-diamond-plate-72548-2431065" rel="noopener">RDS 60-gallon combo</a>). The drain plug matters more than people think: it's the easiest way to get water out (see <a href="/water-in-diesel-tank/">water in your diesel tank</a>).</p>
   <p><strong>Shopping:</strong> <a href="https://www.amazon.com/s?k=RDS+transfer+tank+toolbox+combo&tag=fuelstoragegu-20" rel="sponsored nofollow noopener" target="_blank">RDS combo tanks on Amazon</a>, <a href="https://www.amazon.com/s?k=aluminum+L+shaped+diesel+transfer+tank&tag=fuelstoragegu-20" rel="sponsored nofollow noopener" target="_blank">L-shaped transfer tanks on Amazon</a>, and <a href="https://www.amazon.com/s?k=Fill-Rite+12V+transfer+tank+pump+kit&tag=fuelstoragegu-20" rel="sponsored nofollow noopener" target="_blank">Fill-Rite pump kits on Amazon</a>. Check that the tank is labeled for the fuel you'll carry.</p>
 
-  <h2>Setting it up</h2>
+  <h2 id="setting-it-up">Setting it up</h2>
   <p><strong>Bolt the tank down, put a filter after the pump, bond the pump to the tank, and cut power to the pump when you drive.</strong></p>
   <ol>
     <li><strong>Mount it solid.</strong> Use the manufacturer's mounting hardware and bolt through the bed, or use tie-downs rated for the full weight. A loose tank full of fuel is a hazard in a hard stop.</li>
@@ -135,7 +136,7 @@
     <li><strong>Shut it down for the road.</strong> Turn off the pump, secure the nozzle, and for a gasoline tank under a special permit, disconnect power and keep the hose and nozzle below the permit's "safe zone" (<a href="https://www.phmsa.dot.gov/hazmat/documents/offer/SP11911.pdf/offerserver/SP11911" rel="noopener">DOT-SP 11911</a>). It's a good habit for diesel too.</li>
   </ol>
 
-  <h2>Keeping the fuel clean</h2>
+  <h2 id="keeping-the-fuel-clean">Keeping the fuel clean</h2>
   <p><strong>Transfer tanks spend a lot of time half empty and out in the weather, which is exactly how water gets into fuel.</strong> Long stretches at a low level cause condensation, and caps, gaskets, and vents that don't seal let in rain and snow (<a href="https://www.cdfa.ca.gov/dms/programs/petroleum/CRC_DieselStorageSystem.pdf" rel="noopener">CRC Report 672</a>).</p>
   <ul>
     <li>Check the bottom with water-finding paste every month or so, and drain any water from the bottom plug.</li>
@@ -145,7 +146,7 @@
   </ul>
 
   <section class="faq">
-  <h2>FAQ</h2>
+  <h2 id="faq">FAQ</h2>
   <h3>Do I need placards for a 100-gallon diesel transfer tank?</h3>
 <p>Under federal hazmat rules, diesel in a tank of 119 gallons or less doesn't need placards (<a href="https://jjkellercompliancenetwork.com/news/knowing-the-ins-and-outs-when-transporting-diesel" rel="noopener">J.J. Keller</a>). Whether you need a CDL depends on your truck's weight rating and use, not just the tank. Check your state's rules.</p>
 <h3>Can I put two 100-gallon tanks in my truck?</h3>
@@ -156,7 +157,16 @@
 <p>No. The rules go by the tank's capacity, not what's in it (<a href="https://jjkellercompliancenetwork.com/news/knowing-the-ins-and-outs-when-transporting-diesel" rel="noopener">J.J. Keller</a>).</p>
   </section>
 
-  <h2>Sources</h2>
+  
+  <aside class="author-box" aria-label="About the author">
+    <div class="author-badge" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="19" fill="#1d6a48"/><path d="M25.5 10.5a5.5 5.5 0 0 0-6.9 6.9l-7.4 7.4a2.1 2.1 0 0 0 3 3l7.4-7.4a5.5 5.5 0 0 0 6.9-6.9l-3.2 3.2-2.9-.6-.6-2.9z" fill="#f0c02b"/></svg></div>
+    <div>
+      <p class="label">Who writes these guides</p>
+      <p>A working fuel-system technician with eight years in the trade: inspecting and servicing underground and aboveground tanks, dispensers, piping, valves, leak detectors, and aviation fuel systems. Every number on this page links to its source, and anything that differs in the field gets called out. <a href="/about/">More about the site</a>.</p>
+    </div>
+  </aside>
+
+  <h2 id="sources">Sources</h2>
   <ul class="sources">
     <li><a href="https://jjkellercompliancenetwork.com/news/knowing-the-ins-and-outs-when-transporting-diesel" rel="noopener">J.J. Keller: Knowing the ins and outs when transporting diesel</a></li>
     <li><a href="https://www.phmsa.dot.gov/sites/phmsa.dot.gov/files/docs/standards-rulemaking/hazmat/interpretations/75041/210001.pdf" rel="noopener">PHMSA interpretation letter 21-0001 (2021)</a></li>
@@ -172,12 +182,18 @@
   </ul>
   <p class="note">This guide is general information, not legal advice. Hazmat and vehicle rules vary by state and by how the truck is used; check with your state DOT for your situation.</p>
 </article>
-
+<aside class="toc-side" aria-label="On this page"><nav class="toc"><p class="label">On this page</p><ol><li><a href="#the-rules-for-hauling-fuel-in-a-pickup">The rules for hauling fuel in a pickup</a></li><li><a href="#choosing-a-tank">Choosing a tank</a></li><li><a href="#setting-it-up">Setting it up</a></li><li><a href="#keeping-the-fuel-clean">Keeping the fuel clean</a></li><li><a href="#faq">FAQ</a></li><li><a href="#sources">Sources</a></li></ol></nav></aside></div><section class="related" aria-labelledby="related-title"><div class="related-inner"><p class="label">Keep reading</p><h2 id="related-title">More aboveground tanks guides</h2><ul class="guide-list related-list"><li><a class="guide" href="/do-i-need-an-spcc-plan/"><span class="card-title">Do I need an SPCC plan?</span><p>The 1,320-gallon rule, the farm thresholds, which plan type you need, and a one-minute checker.</p></a></li><li><a class="guide" href="/anti-siphon-valve/"><span class="card-title">Anti-siphon valves</span><p>Why elevated tanks siphon, what the fire code requires, picking the head setting, and pump troubleshooting.</p></a></li><li><a class="guide" href="/fuel-nozzle/"><span class="card-title">Fuel nozzles</span><p>Automatic vs. manual, 3/4 or 1 inch, gas or diesel spouts, and troubleshooting.</p></a></li></ul><p><a class="more-link" href="/aboveground-fuel-tanks/">All aboveground tanks guides</a></p></div></section>
 </main>
 <footer class="site-footer">
   <div class="footer-inner">
-    <span>FuelStorageGuide. Practical guidance on stored fuel, written by a working fuel-system technician. As an Amazon Associate, we earn from qualifying purchases.</span>
+    <div class="footer-brand">
+      <a class="wordmark" href="/" aria-label="FuelStorageGuide home"><span class="wm-fuel">Fuel</span><span>StorageGuide</span></a>
+      <p>Practical guidance on stored fuel, written by a working fuel-system technician. As an Amazon Associate, we earn from qualifying purchases.</p>
+    </div>
     <nav aria-label="Footer">
+      <a href="/fuel-quality/">Fuel quality</a>
+      <a href="/aboveground-fuel-tanks/">Aboveground tanks</a>
+      <a href="/underground-storage-tanks/">Underground tanks</a>
       <a href="/about/">About</a>
       <a href="/contact/">Contact</a>
       <a href="/privacy/">Privacy</a>

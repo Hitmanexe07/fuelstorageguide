@@ -17,9 +17,8 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://fuelstorageguide.com/og/anti-siphon-valve.png">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+<link rel="preload" href="/fonts/barlow-condensed-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/source-serif-4-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/styles.css">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Anti-Siphon Valves for Fuel Tanks: How They Work and When You Need One", "description": "An anti-siphon valve keeps fuel from draining out of an aboveground tank if a line breaks. How it works, when codes require one, how to pick the head setting, and why it can make a pump struggle.", "datePublished": "2026-10-30", "dateModified": "2026-10-30", "author": {"@type": "Person", "name": "FuelStorageGuide", "jobTitle": "Fuel-system technician"}, "publisher": {"@type": "Organization", "name": "FuelStorageGuide", "url": "https://fuelstorageguide.com"}, "mainEntityOfPage": "https://fuelstorageguide.com/anti-siphon-valve/"}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Do I need an anti-siphon valve if my pump is on top of the tank?", "acceptedAnswer": {"@type": "Answer", "text": "If the hose or piping runs below the top of the tank, fire code checklists still call for one (Central Arizona Fire). Farm rules can differ: Nebraska allows a self-closing nozzle instead (Nebraska State Fire Marshal)."}}, {"@type": "Question", "name": "Is an anti-siphon valve the same as a check valve?", "acceptedAnswer": {"@type": "Answer", "text": "A spring-loaded anti-siphon valve is a type of check valve, but it's set to hold back a specific head of fuel and usually includes thermal relief (PEI; Morrison Bros.)."}}, {"@type": "Question", "name": "Does it need to be tested?", "acceptedAnswer": {"@type": "Answer", "text": "Florida's rules have no annual test requirement for anti-siphon valves, but manufacturers may have their own (Florida DEP)."}}]}</script>
@@ -28,25 +27,27 @@
 <body>
 <a class="skip" href="#content">Skip to content</a>
 <header class="site-header">
+  <div class="hazard" aria-hidden="true"></div>
   <div class="header-inner">
     <a class="wordmark" href="/" aria-label="FuelStorageGuide home"><span class="wm-fuel">Fuel</span><span>StorageGuide</span></a>
-    <nav class="site-nav" aria-label="Main"><a href="/">Guides</a><a href="/about/">About</a><a href="/contact/">Contact</a></nav>
+    <nav class="site-nav" aria-label="Main"><a href="/fuel-quality/">Fuel quality</a><a href="/aboveground-fuel-tanks/" aria-current="page">Aboveground tanks</a><a href="/underground-storage-tanks/">Underground tanks</a><a href="/about/">About</a></nav>
   </div>
 </header>
 <main id="content">
-
+<div class="article-layout">
 <article class="wrap">
   <p class="crumbs"><a href="/aboveground-fuel-tanks/">Aboveground tanks</a></p>
   <h1>Anti-siphon valves for fuel tanks: how they work and when you need one</h1>
-  <p class="meta">Written by a fuel-system technician. Updated October 30, 2026.</p>
+  <p class="meta byline"><span class="byline-who">By a fuel-system technician</span><span class="byline-sep" aria-hidden="true">/</span><span>8 years in the trade</span><span class="byline-sep" aria-hidden="true">/</span><span>Updated October 30, 2026.</span></p>
   <p class="aff-note">This guide has affiliate links. As an Amazon Associate, FuelStorageGuide earns from qualifying purchases, at no extra cost to you. <a href="/affiliate-disclosure/">How we pick products</a>.</p>
 
   <div class="answer">
     <p><strong>An anti-siphon valve is a normally closed valve in the outlet piping of an aboveground tank. It keeps fuel from flowing or siphoning out of the tank if a line breaks, and opens only when the pump runs</strong> (<a href="https://pei.org/?p=11463" rel="noopener">PEI</a>). <strong>You generally need one whenever the fuel level in the tank sits higher than any part of the piping or the dispenser.</strong></p>
   </div>
+  <details class="toc toc-inline"><summary>On this page</summary><ol><li><a href="#how-a-tank-siphons-and-how-the-valve-stops-it">How a tank siphons, and how the valve stops it</a></li><li><a href="#when-codes-require-one">When codes require one</a></li><li><a href="#types-of-anti-siphon-valves">Types of anti-siphon valves</a></li><li><a href="#picking-the-head-setting">Picking the head setting</a></li><li><a href="#installing-it">Installing it</a></li><li><a href="#troubleshooting">Troubleshooting</a></li><li><a href="#faq">FAQ</a></li><li><a href="#sources">Sources</a></li></ol></details>
   <p>The fire code language many local fire departments use reads: "Approved antisiphon devices shall be installed in each external pipe connected to the tank when the pipe extends below the level of the top of the tank" (<a href="https://www.cazfire.gov/DocumentCenter/View/133/Above-Ground-Fuel-Tank-Checklist-PDF" rel="noopener">Central Arizona Fire and Medical Authority checklist, International Fire Code</a>).</p>
 
-  <h2>How a tank siphons, and how the valve stops it</h2>
+  <h2 id="how-a-tank-siphons-and-how-the-valve-stops-it">How a tank siphons, and how the valve stops it</h2>
   <p><strong>If the fuel level in the tank is higher than the pipe or dispenser, gravity pushes fuel toward the low point. When a line breaks, it keeps coming until the tank drains down to the level of the break.</strong> PEI puts it simply: fuel in an elevated tank will try to flow out, so you need a positive shutoff except when you mean to pump (<a href="https://pei.org/?p=11463" rel="noopener">PEI</a>).</p>
   <p>This happens even when the piping leaves through the top of the tank. Once the line is full of fuel, it works like a siphon hose. A tank on a stand, a tank on higher ground than the dispenser, and piping that runs down a hill or to a dock are all common setups that do this.</p>
   <figure class="diagram">
@@ -94,7 +95,7 @@
 </figure>
   <p><strong>The valve holds a spring-loaded poppet closed against that gravity pressure.</strong> When the pump starts, it overcomes the spring and fuel flows. When the pump stops, the spring closes the valve again (<a href="https://www.opwglobal.com/products/us/ast-equipment/anti-siphon-valves/opw-199asv-anti-siphon-valve" rel="noopener">OPW</a>). Most also have a built-in relief for pressure from fuel expanding in a sun-warmed line (<a href="https://dv.franklinfueling.com/en/products/service-station-hardware/aboveground-storage-tank-equipment/anti-syphon-valves/" rel="noopener">Franklin Fueling Systems</a>; <a href="https://yodify.com/Products/PzAqG/Fig-910-Anti-Siphon-Valve" rel="noopener">Morrison Bros.</a>).</p>
 
-  <h2>When codes require one</h2>
+  <h2 id="when-codes-require-one">When codes require one</h2>
   <p><strong>Fire codes, NFPA 30A, and several state tank rules all require an anti-siphon valve where an aboveground tank creates gravity head on the piping.</strong> Your local fire marshal decides which code edition applies.</p>
   <div class="table-wrap">
   <table class="even">
@@ -111,7 +112,7 @@
   <p><strong>Valve order matters.</strong> Florida's rule spells out the sequence: tank, then block (shutoff) valve, then anti-siphon valve (<a href="https://floridadep.gov/sites/default/files/BlockValvesandAntiSiphonValves_2023_0.pdf" rel="noopener">Florida DEP</a>). PEI describes the same placement: downstream of the block valve, outside the tank shell (<a href="https://pei.org/?p=11463" rel="noopener">PEI</a>).</p>
   <p><strong>Farm tanks.</strong> Nebraska's farm tank guidance, based on NFPA 395, says a pump discharge must have an effective anti-siphoning device or a self-closing nozzle on the hose, and siphons are prohibited (<a href="https://sfm.nebraska.gov/sites/default/files/doc/nfpa395_0.pdf" rel="noopener">Nebraska State Fire Marshal</a>). Check with your state: farm rules vary a lot.</p>
 
-  <h2>Types of anti-siphon valves</h2>
+  <h2 id="types-of-anti-siphon-valves">Types of anti-siphon valves</h2>
   <p><strong>There are three main types: spring-loaded mechanical valves, normally closed solenoid valves, and siphon breakers</strong> (<a href="https://pei.org/?p=11463" rel="noopener">PEI</a>).</p>
   <div class="table-wrap">
   <table>
@@ -124,13 +125,13 @@
   </table>
   </div>
 
-  <h2>Picking the head setting</h2>
+  <h2 id="picking-the-head-setting">Picking the head setting</h2>
   <p><strong>Spring-loaded valves are rated in feet of head. Pick the range that covers the height from the tank's highest fuel level down to the lowest point in the piping.</strong> One maker's guide calculates it as the height of the maximum liquid level minus the height of the lowest point of the delivery pipework (<a href="https://elaflex.com.au/dokumente/download/ElaflexInformation/ELAFLEX_Information_6.07E.pdf" rel="noopener">Elaflex</a>).</p>
   <p>Common ranges are 0 to 5, 5 to 10, 10 to 15, and 15 to 20 feet of water column (<a href="https://yodify.com/Products/PzAqG/Fig-910-Anti-Siphon-Valve" rel="noopener">Morrison Bros.</a>). OPW's 199ASV comes in four factory-set ranges, and OPW says not to field-adjust it (<a href="https://www.opwglobal.com/products/us/ast-equipment/anti-siphon-valves/opw-199asv-anti-siphon-valve" rel="noopener">OPW</a>). Some others are adjustable and lock once set (<a href="https://dv.franklinfueling.com/en/products/service-station-hardware/aboveground-storage-tank-equipment/anti-syphon-valves/" rel="noopener">Franklin Fueling Systems</a>).</p>
   <p><strong>Example:</strong> A tank on a stand with a full fuel level 9 feet above the ground, feeding a dispenser whose lowest piping is at ground level, has about 9 feet of head. That calls for the 5 to 10 foot range.</p>
   <p><strong>Field note:</strong> Morrison and OPW are the two brands I install. Both are widely stocked by fuel equipment distributors. Shop: <span class="shop"><a href="https://www.amazon.com/s?k=Morrison+Bros+anti+siphon+valve&tag=fuelstoragegu-20" rel="sponsored nofollow noopener" target="_blank">Morrison anti-siphon valves on Amazon</a></span> · <span class="shop"><a href="https://www.amazon.com/s?k=OPW+199ASV+anti+siphon+valve&tag=fuelstoragegu-20" rel="sponsored nofollow noopener" target="_blank">OPW anti-siphon valves on Amazon</a></span></p>
 
-  <h2>Installing it</h2>
+  <h2 id="installing-it">Installing it</h2>
   <ul>
     <li><strong>Put it after the shutoff valve:</strong> tank, block valve, then anti-siphon valve (<a href="https://floridadep.gov/sites/default/files/BlockValvesandAntiSiphonValves_2023_0.pdf" rel="noopener">Florida DEP</a>).</li>
     <li><strong>Top-mount valves go on the tank top,</strong> with the suction tube on the inlet and the line to the pump on the outlet (<a href="https://www.opwglobal.com/products/us/ast-equipment/anti-siphon-valves/opw-199asv-anti-siphon-valve" rel="noopener">OPW</a>).</li>
@@ -138,7 +139,7 @@
     <li><strong>With a line leak detector,</strong> put the detector right downstream of the anti-siphon valve (<a href="https://www.deq.nc.gov/waste-management/dwm/ust/pib/pib-guidance-docs/memo-anti-siphon-valves-marinas/open" rel="noopener">NC DEQ</a>).</li>
   </ul>
 
-  <h2>Troubleshooting</h2>
+  <h2 id="troubleshooting">Troubleshooting</h2>
   <p><strong>The pump has to overcome the valve's spring every time it runs</strong> (<a href="https://www.opwglobal.com/products/us/ast-equipment/anti-siphon-valves/opw-199asv-anti-siphon-valve" rel="noopener">OPW</a>). On a suction pump, that's extra lift on top of everything else, so a valve set much higher than needed can cause trouble. For pump basics, see <a href="/12v-fuel-transfer-pump/">how to choose a 12V fuel transfer pump</a>.</p>
   <div class="table-wrap">
   <table class="even">
@@ -153,7 +154,7 @@
   </div>
 
   <section class="faq">
-  <h2>FAQ</h2>
+  <h2 id="faq">FAQ</h2>
   <h3>Do I need an anti-siphon valve if my pump is on top of the tank?</h3>
 <p>If the hose or piping runs below the top of the tank, fire code checklists still call for one (<a href="https://www.cazfire.gov/DocumentCenter/View/133/Above-Ground-Fuel-Tank-Checklist-PDF" rel="noopener">Central Arizona Fire</a>). Farm rules can differ: Nebraska allows a self-closing nozzle instead (<a href="https://sfm.nebraska.gov/sites/default/files/doc/nfpa395_0.pdf" rel="noopener">Nebraska State Fire Marshal</a>).</p>
 <h3>Is an anti-siphon valve the same as a check valve?</h3>
@@ -162,7 +163,16 @@
 <p>Florida's rules have no annual test requirement for anti-siphon valves, but manufacturers may have their own (<a href="https://floridadep.gov/sites/default/files/BlockValvesandAntiSiphonValves_2023_0.pdf" rel="noopener">Florida DEP</a>).</p>
   </section>
 
-  <h2>Sources</h2>
+  
+  <aside class="author-box" aria-label="About the author">
+    <div class="author-badge" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="19" fill="#1d6a48"/><path d="M25.5 10.5a5.5 5.5 0 0 0-6.9 6.9l-7.4 7.4a2.1 2.1 0 0 0 3 3l7.4-7.4a5.5 5.5 0 0 0 6.9-6.9l-3.2 3.2-2.9-.6-.6-2.9z" fill="#f0c02b"/></svg></div>
+    <div>
+      <p class="label">Who writes these guides</p>
+      <p>A working fuel-system technician with eight years in the trade: inspecting and servicing underground and aboveground tanks, dispensers, piping, valves, leak detectors, and aviation fuel systems. Every number on this page links to its source, and anything that differs in the field gets called out. <a href="/about/">More about the site</a>.</p>
+    </div>
+  </aside>
+
+  <h2 id="sources">Sources</h2>
   <ul class="sources">
     <li><a href="https://pei.org/?p=11463" rel="noopener">PEI: Antisiphon valve (2014)</a></li>
     <li><a href="https://floridadep.gov/sites/default/files/BlockValvesandAntiSiphonValves_2023_0.pdf" rel="noopener">Florida DEP: Block valves and anti-siphon valves (rev. July 2023)</a></li>
@@ -178,12 +188,18 @@
   </ul>
   <p class="note">This guide is general information. Your fire marshal or tank regulator decides what's required at your site.</p>
 </article>
-
+<aside class="toc-side" aria-label="On this page"><nav class="toc"><p class="label">On this page</p><ol><li><a href="#how-a-tank-siphons-and-how-the-valve-stops-it">How a tank siphons, and how the valve stops it</a></li><li><a href="#when-codes-require-one">When codes require one</a></li><li><a href="#types-of-anti-siphon-valves">Types of anti-siphon valves</a></li><li><a href="#picking-the-head-setting">Picking the head setting</a></li><li><a href="#installing-it">Installing it</a></li><li><a href="#troubleshooting">Troubleshooting</a></li><li><a href="#faq">FAQ</a></li><li><a href="#sources">Sources</a></li></ol></nav></aside></div><section class="related" aria-labelledby="related-title"><div class="related-inner"><p class="label">Keep reading</p><h2 id="related-title">More aboveground tanks guides</h2><ul class="guide-list related-list"><li><a class="guide" href="/do-i-need-an-spcc-plan/"><span class="card-title">Do I need an SPCC plan?</span><p>The 1,320-gallon rule, the farm thresholds, which plan type you need, and a one-minute checker.</p></a></li><li><a class="guide" href="/diesel-transfer-tank/"><span class="card-title">Diesel transfer tanks</span><p>Why 119 gallons matters, the rules for gasoline, payload math for your pickup, and setup.</p></a></li><li><a class="guide" href="/fuel-nozzle/"><span class="card-title">Fuel nozzles</span><p>Automatic vs. manual, 3/4 or 1 inch, gas or diesel spouts, and troubleshooting.</p></a></li></ul><p><a class="more-link" href="/aboveground-fuel-tanks/">All aboveground tanks guides</a></p></div></section>
 </main>
 <footer class="site-footer">
   <div class="footer-inner">
-    <span>FuelStorageGuide. Practical guidance on stored fuel, written by a working fuel-system technician. As an Amazon Associate, we earn from qualifying purchases.</span>
+    <div class="footer-brand">
+      <a class="wordmark" href="/" aria-label="FuelStorageGuide home"><span class="wm-fuel">Fuel</span><span>StorageGuide</span></a>
+      <p>Practical guidance on stored fuel, written by a working fuel-system technician. As an Amazon Associate, we earn from qualifying purchases.</p>
+    </div>
     <nav aria-label="Footer">
+      <a href="/fuel-quality/">Fuel quality</a>
+      <a href="/aboveground-fuel-tanks/">Aboveground tanks</a>
+      <a href="/underground-storage-tanks/">Underground tanks</a>
       <a href="/about/">About</a>
       <a href="/contact/">Contact</a>
       <a href="/privacy/">Privacy</a>

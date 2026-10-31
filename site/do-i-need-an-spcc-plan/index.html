@@ -17,9 +17,8 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://fuelstorageguide.com/og/do-i-need-an-spcc-plan.png">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+<link rel="preload" href="/fonts/barlow-condensed-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/source-serif-4-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/styles.css">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Do I Need an SPCC Plan? A Plain-English Guide for Farms and Small Businesses", "description": "If you store more than 1,320 gallons of oil aboveground and a spill could reach water, you probably need an SPCC plan. Check your site in a minute, with the farm rules included.", "datePublished": "2026-10-28", "dateModified": "2026-10-28", "author": {"@type": "Person", "name": "FuelStorageGuide", "jobTitle": "Fuel-system technician"}, "publisher": {"@type": "Organization", "name": "FuelStorageGuide", "url": "https://fuelstorageguide.com"}, "mainEntityOfPage": "https://fuelstorageguide.com/do-i-need-an-spcc-plan/"}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Do I send my SPCC plan to EPA?", "acceptedAnswer": {"@type": "Answer", "text": "No. You keep it at the site if it's attended at least four hours a day, and make it available if EPA asks to review it (40 CFR 112.3(e)). Some states, such as Michigan, can also ask for a copy."}}, {"@type": "Question", "name": "Does a double-walled tank mean I don't need a plan?", "acceptedAnswer": {"@type": "Answer", "text": "No. A double-walled tank still counts toward your capacity. It can help meet the containment requirement, but the rest of the plan still applies."}}, {"@type": "Question", "name": "Can I write the plan myself?", "acceptedAnswer": {"@type": "Answer", "text": "If you have 10,000 gallons or less, no single container over 5,000 gallons, and no reportable spill history, you can use EPA's Tier I template and sign it yourself (40 CFR 112.6). Farms between 6,000 and 20,000 gallons with no tank over 10,000 gallons and no spill history can also self-certify (EPA WRRDA fact sheet)."}}, {"@type": "Question", "name": "Does vegetable oil count?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Vegetable oils and animal fats count as oil under the rule (40 CFR 112.2)."}}]}</script>
@@ -28,21 +27,23 @@
 <body>
 <a class="skip" href="#content">Skip to content</a>
 <header class="site-header">
+  <div class="hazard" aria-hidden="true"></div>
   <div class="header-inner">
     <a class="wordmark" href="/" aria-label="FuelStorageGuide home"><span class="wm-fuel">Fuel</span><span>StorageGuide</span></a>
-    <nav class="site-nav" aria-label="Main"><a href="/">Guides</a><a href="/about/">About</a><a href="/contact/">Contact</a></nav>
+    <nav class="site-nav" aria-label="Main"><a href="/fuel-quality/">Fuel quality</a><a href="/aboveground-fuel-tanks/" aria-current="page">Aboveground tanks</a><a href="/underground-storage-tanks/">Underground tanks</a><a href="/about/">About</a></nav>
   </div>
 </header>
 <main id="content">
-
+<div class="article-layout">
 <article class="wrap">
   <p class="crumbs"><a href="/aboveground-fuel-tanks/">Aboveground tanks</a></p>
   <h1>Do I need an SPCC plan?</h1>
-  <p class="meta">Written by a fuel-system technician. Updated October 28, 2026.</p>
+  <p class="meta byline"><span class="byline-who">By a fuel-system technician</span><span class="byline-sep" aria-hidden="true">/</span><span>8 years in the trade</span><span class="byline-sep" aria-hidden="true">/</span><span>Updated October 28, 2026.</span></p>
 
   <div class="answer">
     <p><strong>You need an SPCC plan if you store more than 1,320 gallons of oil aboveground, counting only containers of 55 gallons or more, and a spill from your site could reasonably reach a creek, river, lake, wetland, or ditch that drains to one.</strong> Farms get higher thresholds.</p>
   </div>
+  <details class="toc toc-inline"><summary>On this page</summary><ol><li><a href="#checker-title">Check your site</a></li><li><a href="#step-1-add-up-your-aboveground-capacity">Step 1: Add up your aboveground capacity</a></li><li><a href="#step-2-could-a-spill-reach-water">Step 2: Could a spill reach water?</a></li><li><a href="#farms-higher-thresholds">Farms: higher thresholds</a></li><li><a href="#which-kind-of-plan-you-need">Which kind of plan you need</a></li><li><a href="#what-the-plan-has-to-cover">What the plan has to cover</a></li><li><a href="#your-state-may-add-its-own-rules">Your state may add its own rules</a></li><li><a href="#common-mistakes">Common mistakes</a></li><li><a href="#faq">FAQ</a></li><li><a href="#sources">Sources</a></li></ol></details>
 
   <p>That comes from the federal Spill Prevention, Control, and Countermeasure (SPCC) rule, 40 CFR Part 112 (<a href="https://www.law.cornell.edu/cfr/text/40/112.1" rel="noopener">eCFR</a>). A second trigger covers completely buried storage over 42,000 gallons, but buried tanks already regulated as underground storage tanks don't count toward it.</p>
   <p>Two details trip people up right away:</p>
@@ -132,7 +133,7 @@
 </script>
 
 
-  <h2>Step 1: Add up your aboveground capacity</h2>
+  <h2 id="step-1-add-up-your-aboveground-capacity">Step 1: Add up your aboveground capacity</h2>
   <p><strong>List every container that holds oil and is 55 gallons or bigger, and add up the sizes stamped on them.</strong> Under 55 gallons doesn't count (<a href="https://www.law.cornell.edu/cfr/text/40/112.1" rel="noopener">40 CFR 112.1(d)(5)</a>).</p>
   <div class="table-wrap">
   <table class="even">
@@ -151,7 +152,7 @@
   <p class="source-line">Sources: <a href="https://www.law.cornell.edu/cfr/text/40/112.1" rel="noopener">40 CFR 112.1(b) and (d)</a>, <a href="https://www.law.cornell.edu/cfr/text/40/112.2" rel="noopener">40 CFR 112.2</a>.</p>
   <p><strong>Example.</strong> A contractor's yard has a 1,000-gallon diesel tank, a 500-gallon gasoline tank, a 275-gallon used oil tank, and two 55-gallon drums of hydraulic oil. That's 1,885 gallons. Even if every tank is half empty, it's over 1,320, so the yard moves on to Step 2.</p>
 
-  <h2>Step 2: Could a spill reach water?</h2>
+  <h2 id="step-2-could-a-spill-reach-water">Step 2: Could a spill reach water?</h2>
   <p><strong>If your total is over the threshold, the plan is required only if a spill could reasonably reach "navigable waters or adjoining shorelines."</strong> In practice, that includes creeks, rivers, lakes, and wetlands, and ditches or storm drains that lead to them.</p>
   <ul>
     <li><strong>You make the call, based on location.</strong> EPA says the owner decides using things like distance to water, the slope of the land, and how the site drains (<a href="https://www.epa.gov/sites/default/files/2014-05/documents/spcc_basics.pdf" rel="noopener">EPA: SPCC basics</a>).</li>
@@ -159,7 +160,7 @@
     <li><strong>Write it down.</strong> Documenting the decision isn't required, but EPA recommends it. If you decide a spill couldn't reach water, you don't need a plan, but you still have to clean up any spill (<a href="https://www.epa.gov/node/34641" rel="noopener">EPA farm FAQ</a>).</li>
   </ul>
 
-  <h2>Farms: higher thresholds</h2>
+  <h2 id="farms-higher-thresholds">Farms: higher thresholds</h2>
   <p><strong>A 2014 law, the Water Resources Reform and Development Act (WRRDA), gave farms their own, higher thresholds.</strong> A farm here means land used to grow crops or raise animals, including fish, that sold or would normally sell at least $1,000 of agricultural products a year (<a href="https://www.law.cornell.edu/cfr/text/40/112.2" rel="noopener">40 CFR 112.2</a>).</p>
   <div class="table-wrap">
   <table class="even">
@@ -184,7 +185,7 @@
   <p><strong>"Reportable discharge history" means</strong> a single spill of more than 1,000 gallons to water, or two spills of more than 42 gallons each within any 12 months, during the three years before you certify the plan. Spills caused by natural disasters, war, or terrorism don't count (<a href="https://www.ecfr.gov/current/title-40/chapter-I/subchapter-D/part-112" rel="noopener">40 CFR 112.3(g)</a>).</p>
   <p><strong>These numbers could change.</strong> The farm thresholds come from the 2014 law, not the regulation text. EPA's 2015 study recommended dropping the 6,000-gallon tier and using 2,500 gallons for farms (<a href="https://www.epa.gov/sites/default/files/2016-02/documents/wrrda_farm_study_2015-06-30.pdf" rel="noopener">EPA farm study</a>), but we found no final rule making that change. Going the other way, the House passed the PERMIT Act (H.R. 3898) in December 2025, which would raise the farm thresholds, including 20,000 to 42,000 gallons and 2,500 to 3,000 (<a href="https://www.govinfo.gov/content/pkg/CRPT-119hrpt180/pdf/CRPT-119hrpt180.pdf" rel="noopener">House Report 119-180</a>; <a href="https://www.bdlaw.com/publications/house-approves-sweeping-clean-water-act-reforms/" rel="noopener">Beveridge &amp; Diamond</a>). As of our last check, it hadn't passed the Senate (<a href="https://legislate.dev/bills/119/hr-3898" rel="noopener">Legislate</a>). This guide will be updated if either changes.</p>
 
-  <h2>Which kind of plan you need</h2>
+  <h2 id="which-kind-of-plan-you-need">Which kind of plan you need</h2>
   <p><strong>If you need a plan and have 10,000 gallons or less with no reportable spill history, you can usually write and certify it yourself.</strong> EPA calls these "qualified facilities" (<a href="https://www.ecfr.gov/current/title-40/chapter-I/subchapter-D/part-112" rel="noopener">40 CFR 112.3(g)</a>).</p>
   <div class="table-wrap">
   <table class="even">
@@ -198,7 +199,7 @@
   </div>
   <p>The Tier I template is Appendix G of the rule (<a href="https://www.ecfr.gov/current/title-40/chapter-I/subchapter-D/part-112" rel="noopener">40 CFR 112.6(a)</a>), and the engineer requirement is in <a href="https://www.ecfr.gov/current/title-40/chapter-I/subchapter-D/part-112" rel="noopener">40 CFR 112.3(d)</a>. Any site can choose an engineer-certified plan even if it qualifies to self-certify (<a href="https://www.epa.gov/sites/default/files/2014-05/documents/spcc_basics.pdf" rel="noopener">EPA: SPCC basics</a>).</p>
 
-  <h2>What the plan has to cover</h2>
+  <h2 id="what-the-plan-has-to-cover">What the plan has to cover</h2>
   <p><strong>An SPCC plan isn't just paperwork. It describes the equipment and routines that keep oil in the tank, and you have to actually follow it.</strong> The main pieces for a typical tank site:</p>
   <div class="table-wrap">
   <table>
@@ -217,7 +218,7 @@
   </div>
   <p>Tier I sites using EPA's template can meet some of these in simpler ways, such as alternative overfill and containment measures spelled out in the rule (<a href="https://www.ecfr.gov/current/title-40/chapter-I/subchapter-D/part-112" rel="noopener">40 CFR 112.6(a)(3)</a>).</p>
 
-  <h2>Your state may add its own rules</h2>
+  <h2 id="your-state-may-add-its-own-rules">Your state may add its own rules</h2>
   <p><strong>The SPCC rule is federal and enforced by EPA, but many states have their own tank rules on top of it, and some apply even when you don't need a federal plan.</strong> EPA can't hand the SPCC program itself to a state (<a href="https://danr.sd.gov/Agriculture/Inspection/StorageTanks/SPCCFarmTanks.aspx" rel="noopener">South Dakota DANR</a>), so state rules are a separate layer. A few examples:</p>
   <div class="table-wrap">
   <table>
@@ -231,7 +232,7 @@
   </div>
   <p>Your state environmental agency, state fire marshal, and local fire department may also have rules on tank placement, setbacks, and permits. Check with them before installing a new tank.</p>
 
-  <h2>Common mistakes</h2>
+  <h2 id="common-mistakes">Common mistakes</h2>
   <ul>
     <li><strong>Counting gallons in the tank instead of tank size.</strong> The rule uses shell capacity (<a href="https://www.law.cornell.edu/cfr/text/40/112.2" rel="noopener">40 CFR 112.2</a>).</li>
     <li><strong>Forgetting the small stuff.</strong> Drums, totes, used oil tanks, and fuel trailers all count once they're 55 gallons or bigger.</li>
@@ -241,7 +242,7 @@
   </ul>
 
   <section class="faq">
-  <h2>FAQ</h2>
+  <h2 id="faq">FAQ</h2>
   <h3>Do I send my SPCC plan to EPA?</h3>
 <p>No. You keep it at the site if it's attended at least four hours a day, and make it available if EPA asks to review it (<a href="https://www.ecfr.gov/current/title-40/chapter-I/subchapter-D/part-112" rel="noopener">40 CFR 112.3(e)</a>). Some states, such as Michigan, can also ask for a copy.</p>
 <h3>Does a double-walled tank mean I don't need a plan?</h3>
@@ -252,7 +253,16 @@
 <p>Yes. Vegetable oils and animal fats count as oil under the rule (<a href="https://www.law.cornell.edu/cfr/text/40/112.2" rel="noopener">40 CFR 112.2</a>).</p>
   </section>
 
-  <h2>Sources</h2>
+  
+  <aside class="author-box" aria-label="About the author">
+    <div class="author-badge" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="19" fill="#1d6a48"/><path d="M25.5 10.5a5.5 5.5 0 0 0-6.9 6.9l-7.4 7.4a2.1 2.1 0 0 0 3 3l7.4-7.4a5.5 5.5 0 0 0 6.9-6.9l-3.2 3.2-2.9-.6-.6-2.9z" fill="#f0c02b"/></svg></div>
+    <div>
+      <p class="label">Who writes these guides</p>
+      <p>A working fuel-system technician with eight years in the trade: inspecting and servicing underground and aboveground tanks, dispensers, piping, valves, leak detectors, and aviation fuel systems. Every number on this page links to its source, and anything that differs in the field gets called out. <a href="/about/">More about the site</a>.</p>
+    </div>
+  </aside>
+
+  <h2 id="sources">Sources</h2>
   <ul class="sources">
     <li><a href="https://www.ecfr.gov/current/title-40/chapter-I/subchapter-D/part-112" rel="noopener">40 CFR Part 112, full text (eCFR)</a></li>
     <li><a href="https://www.law.cornell.edu/cfr/text/40/112.1" rel="noopener">40 CFR 112.1, applicability and exemptions (Cornell LII)</a></li>
@@ -271,12 +281,18 @@
   </ul>
   <p class="note">This guide is general information, not legal advice. For a specific site, check with EPA's regional office, your state environmental agency, or a Professional Engineer familiar with SPCC.</p>
 </article>
-
+<aside class="toc-side" aria-label="On this page"><nav class="toc"><p class="label">On this page</p><ol><li><a href="#checker-title">Check your site</a></li><li><a href="#step-1-add-up-your-aboveground-capacity">Step 1: Add up your aboveground capacity</a></li><li><a href="#step-2-could-a-spill-reach-water">Step 2: Could a spill reach water?</a></li><li><a href="#farms-higher-thresholds">Farms: higher thresholds</a></li><li><a href="#which-kind-of-plan-you-need">Which kind of plan you need</a></li><li><a href="#what-the-plan-has-to-cover">What the plan has to cover</a></li><li><a href="#your-state-may-add-its-own-rules">Your state may add its own rules</a></li><li><a href="#common-mistakes">Common mistakes</a></li><li><a href="#faq">FAQ</a></li><li><a href="#sources">Sources</a></li></ol></nav></aside></div><section class="related" aria-labelledby="related-title"><div class="related-inner"><p class="label">Keep reading</p><h2 id="related-title">More aboveground tanks guides</h2><ul class="guide-list related-list"><li><a class="guide" href="/anti-siphon-valve/"><span class="card-title">Anti-siphon valves</span><p>Why elevated tanks siphon, what the fire code requires, picking the head setting, and pump troubleshooting.</p></a></li><li><a class="guide" href="/diesel-transfer-tank/"><span class="card-title">Diesel transfer tanks</span><p>Why 119 gallons matters, the rules for gasoline, payload math for your pickup, and setup.</p></a></li><li><a class="guide" href="/fuel-nozzle/"><span class="card-title">Fuel nozzles</span><p>Automatic vs. manual, 3/4 or 1 inch, gas or diesel spouts, and troubleshooting.</p></a></li></ul><p><a class="more-link" href="/aboveground-fuel-tanks/">All aboveground tanks guides</a></p></div></section>
 </main>
 <footer class="site-footer">
   <div class="footer-inner">
-    <span>FuelStorageGuide. Practical guidance on stored fuel, written by a working fuel-system technician. As an Amazon Associate, we earn from qualifying purchases.</span>
+    <div class="footer-brand">
+      <a class="wordmark" href="/" aria-label="FuelStorageGuide home"><span class="wm-fuel">Fuel</span><span>StorageGuide</span></a>
+      <p>Practical guidance on stored fuel, written by a working fuel-system technician. As an Amazon Associate, we earn from qualifying purchases.</p>
+    </div>
     <nav aria-label="Footer">
+      <a href="/fuel-quality/">Fuel quality</a>
+      <a href="/aboveground-fuel-tanks/">Aboveground tanks</a>
+      <a href="/underground-storage-tanks/">Underground tanks</a>
       <a href="/about/">About</a>
       <a href="/contact/">Contact</a>
       <a href="/privacy/">Privacy</a>

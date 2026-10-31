@@ -17,55 +17,161 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://fuelstorageguide.com/og/home.png">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+<link rel="preload" href="/fonts/barlow-condensed-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/source-serif-4-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/styles.css">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "FuelStorageGuide", "url": "https://fuelstorageguide.com"}</script>
 </head>
 <body>
 <a class="skip" href="#content">Skip to content</a>
 <header class="site-header">
+  <div class="hazard" aria-hidden="true"></div>
   <div class="header-inner">
     <a class="wordmark" href="/" aria-label="FuelStorageGuide home"><span class="wm-fuel">Fuel</span><span>StorageGuide</span></a>
-    <nav class="site-nav" aria-label="Main"><a href="/" aria-current="page">Guides</a><a href="/about/">About</a><a href="/contact/">Contact</a></nav>
+    <nav class="site-nav" aria-label="Main"><a href="/fuel-quality/">Fuel quality</a><a href="/aboveground-fuel-tanks/">Aboveground tanks</a><a href="/underground-storage-tanks/">Underground tanks</a><a href="/about/">About</a></nav>
   </div>
 </header>
 <main id="content">
 
-<div class="wide">
-  <section class="intro">
-    <h1>Straight answers about the fuel in your tank</h1>
-    <p class="lede">Practical guides for farms, contractors, and fleets that store their own diesel and gasoline: keeping fuel clean and flowing, choosing equipment, and understanding the rules for aboveground tanks.</p>
-    <p>Every guide is written by a fuel-system technician who inspects and services tanks, pumps, and dispensers for a living, and every fact links to its source.</p>
-  </section>
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <p class="label label-light">Fuel storage guides from the field</p>
+      <h1>Straight answers about the fuel in your tank</h1>
+      <p class="lede">Practical guides for farms, contractors, fleets, and anyone who owns a fuel tank: keeping fuel clean and flowing, choosing equipment, and understanding the rules for aboveground and underground tanks.</p>
+      <div class="hero-actions">
+        <a class="btn btn-yellow" href="#topics">Find your guide</a>
+        <a class="btn btn-ghost" href="/do-i-need-an-spcc-plan/#checker-title">Check if you need an SPCC plan</a>
+      </div>
+    </div>
+    <figure class="hero-figure">
+      <svg class="hero-tank" viewBox="0 0 560 380" role="img" aria-labelledby="tank-title">
+  <title id="tank-title">Cutaway of an aboveground diesel tank. Each label links to a guide.</title>
+  <defs>
+    <clipPath id="tank-clip"><rect x="60" y="120" width="380" height="150" rx="75"/></clipPath>
+    <pattern id="bugs" width="14" height="8" patternUnits="userSpaceOnUse"><circle cx="3" cy="4" r="1.6" fill="#9fd3a9"/><circle cx="10" cy="2.5" r="1.1" fill="#9fd3a9"/></pattern>
+  </defs>
+  <!-- saddles -->
+  <path d="M120 262 L104 318 H186 L170 262Z M330 262 L314 318 H396 L380 262Z" fill="#33454e"/>
+  <rect x="40" y="318" width="420" height="6" rx="3" fill="#33454e"/>
+  <!-- tank contents -->
+  <g clip-path="url(#tank-clip)">
+    <rect x="60" y="120" width="380" height="150" fill="#22323a"/>
+    <rect x="60" y="160" width="380" height="110" fill="#c79f2a" opacity=".9"/>
+    <rect x="60" y="160" width="380" height="3" fill="#f0c02b"/>
+    <rect x="60" y="246" width="380" height="24" fill="#3b7ea1"/>
+    <rect x="60" y="240" width="380" height="8" fill="url(#bugs)"/>
+    <path d="M60 150 Q 110 140 160 150 T 260 150 T 360 150 T 440 150" stroke="#5f737c" stroke-width="1.5" fill="none" stroke-dasharray="3 5"/>
+  </g>
+  <rect x="60" y="120" width="380" height="150" rx="75" fill="none" stroke="#d9e2df" stroke-width="3"/>
+  <!-- vent -->
+  <path d="M120 120 V78" stroke="#d9e2df" stroke-width="6"/>
+  <path d="M104 80 Q120 60 136 80Z" fill="#d9e2df"/>
+  <!-- fill -->
+  <rect x="200" y="104" width="26" height="16" fill="#d9e2df"/><rect x="196" y="98" width="34" height="8" rx="2" fill="#f0c02b"/>
+  <!-- pump, valve, hose, nozzle -->
+  <rect x="320" y="84" width="44" height="36" rx="4" fill="#1d6a48" stroke="#d9e2df" stroke-width="2"/>
+  <path d="M364 102 H404 V112" stroke="#d9e2df" stroke-width="5" fill="none"/>
+  <rect x="396" y="112" width="16" height="16" rx="2" fill="#f0c02b"/>
+  <path d="M404 128 C 404 230, 480 210, 486 286" stroke="#0e171c" stroke-width="7" fill="none"/>
+  <path d="M404 128 C 404 230, 480 210, 486 286" stroke="#4d5f67" stroke-width="4" fill="none"/>
+  <path d="M478 282 h18 l4 26 h-8 l-3 14 h-6z" fill="#d9e2df"/>
+  <g class="hotspots">
+    <a href="/how-long-does-diesel-last/" class="hotspot"><line x1="250" y1="200" x2="18" y2="210"/><circle cx="250" cy="200" r="5"/><rect x="18" y="197" width="77.2" height="26" rx="13"/><text x="56.6" y="214.5" text-anchor="middle">Old fuel</text></a>
+    <a href="/water-in-diesel-tank/" class="hotspot"><line x1="150" y1="258" x2="18" y2="352"/><circle cx="150" cy="258" r="5"/><rect x="18" y="339" width="158.6" height="26" rx="13"/><text x="97.3" y="356.5" text-anchor="middle">Water on the bottom</text></a>
+    <a href="/diesel-biocide/" class="hotspot"><line x1="300" y1="243" x2="250" y2="352"/><circle cx="300" cy="243" r="5"/><rect x="250" y="339" width="99.4" height="26" rx="13"/><text x="299.7" y="356.5" text-anchor="middle">Diesel bugs</text></a>
+    <a href="/diesel-gelling-temperature/" class="hotspot"><line x1="180" y1="175" x2="18" y2="168"/><circle cx="180" cy="175" r="5"/><rect x="18" y="155" width="69.80000000000001" height="26" rx="13"/><text x="52.900000000000006" y="172.5" text-anchor="middle">Gelling</text></a>
+    <a href="/12v-fuel-transfer-pump/" class="hotspot"><line x1="342" y1="90" x2="300" y2="32"/><circle cx="342" cy="90" r="5"/><rect x="300" y="19" width="77.2" height="26" rx="13"/><text x="338.6" y="36.5" text-anchor="middle">12V pump</text></a>
+    <a href="/anti-siphon-valve/" class="hotspot"><line x1="412" y1="120" x2="548" y2="72"/><circle cx="412" cy="120" r="5"/><rect x="404.2" y="59" width="143.8" height="26" rx="13"/><text x="476.1" y="76.5" text-anchor="middle">Anti-siphon valve</text></a>
+    <a href="/fuel-nozzle/" class="hotspot"><line x1="492" y1="300" x2="548" y2="352"/><circle cx="492" cy="300" r="5"/><rect x="485.6" y="339" width="62.400000000000006" height="26" rx="13"/><text x="516.8000000000001" y="356.5" text-anchor="middle">Nozzle</text></a>
+    <a href="/water-in-diesel-tank/" class="hotspot"><line x1="120" y1="70" x2="18" y2="32"/><circle cx="120" cy="70" r="5"/><rect x="18" y="19" width="47.6" height="26" rx="13"/><text x="41.8" y="36.5" text-anchor="middle">Vent</text></a>
+  </g>
+</svg>
+      <figcaption>Tap a part of the tank to jump to its guide.</figcaption>
+      <ul class="hero-chips"><li><a href="/water-in-diesel-tank/">Water on the bottom</a></li><li><a href="/diesel-biocide/">Diesel bugs</a></li><li><a href="/diesel-gelling-temperature/">Gelling</a></li><li><a href="/how-long-does-diesel-last/">Old fuel</a></li><li><a href="/12v-fuel-transfer-pump/">12V pump</a></li><li><a href="/anti-siphon-valve/">Anti-siphon valve</a></li><li><a href="/fuel-nozzle/">Nozzle</a></li></ul>
+    </figure>
+  </div>
+</section>
 
-  <h2>Guides</h2>
-  <ul class="guide-list">
-    <li><a class="guide" href="/fuel-quality/"><span class="card-title">Fuel quality: start here</span><p>Water, microbes, gelling, and old fuel. Find the guide for what you're seeing in your tank.</p></a></li>
-    <li><a class="guide" href="/aboveground-fuel-tanks/"><span class="card-title">Aboveground tanks: start here</span><p>Tank types, the rules that apply, and the equipment on top, with links to every tank guide.</p></a></li>
-    <li><a class="guide" href="/underground-storage-tanks/"><span class="card-title">Underground tanks: start here</span><p>What gets checked every 30 days, every year, and every 3 years, with a guide for each piece of equipment.</p></a></li>
-    <li><a class="guide" href="/do-i-need-an-spcc-plan/"><span class="card-title">Do I need an SPCC plan?</span><p>The 1,320-gallon rule, the farm thresholds, which plan type you need, and a one-minute checker for your site.</p></a></li>
-    <li><a class="guide" href="/diesel-biocide/"><span class="card-title">Diesel bugs and biocides</span><p>How to spot microbial growth, test for it, and treat a tank step by step without plugging every filter.</p></a></li>
-    <li><a class="guide" href="/how-long-does-diesel-last/"><span class="card-title">How long does diesel last in storage?</span><p>Shelf life, what makes stored fuel go bad, how to tell if it's still good, and how to make it last.</p></a></li>
-    <li><a class="guide" href="/water-in-diesel-tank/"><span class="card-title">Water in your diesel tank</span><p>How water gets in, how to check for it with paste or a clear jar, how to get it out, and how to keep it out.</p></a></li>
-    <li><a class="guide" href="/winter-diesel-additive/"><span class="card-title">Winter diesel additives: what anti-gel does and when to add it</span><p>How anti-gel works, how to treat a bulk tank before the cold, label treat rates, and when blending or heat makes more sense.</p></a></li>
-    <li><a class="guide" href="/anti-siphon-valve/"><span class="card-title">Anti-siphon valves: how they work and when you need one</span><p>Why elevated tanks siphon, what the fire code requires, picking the head setting, and pump troubleshooting.</p></a></li>
-    <li><a class="guide" href="/spill-bucket-testing/"><span class="card-title">Spill bucket testing for underground tanks</span><p>The 30-day walkthrough, the 3-year test, how the water and vacuum tests work, and what fails.</p></a></li>
-    <li><a class="guide" href="/line-leak-detector/"><span class="card-title">Line leak detectors: the annual test and slow flow</span><p>How mechanical and electronic detectors work, what the yearly test checks, and why a dispenser drops to a trickle.</p></a></li>
-    <li><a class="guide" href="/ust-overfill-prevention/"><span class="card-title">UST overfill prevention</span><p>Shutoff valves, alarms, and ball floats, the 3-year inspection, and how to order fuel so it never gets close.</p></a></li>
-    <li><a class="guide" href="/diesel-transfer-tank/"><span class="card-title">Diesel transfer tanks: sizing, legal limits, and setup</span><p>Why 119 gallons matters, the rules for gasoline, payload math for your pickup, and how to set one up.</p></a></li>
-    <li><a class="guide" href="/fuel-nozzle/"><span class="card-title">Fuel nozzles: automatic vs. manual</span><p>How the auto shutoff works, 3/4 vs 1 inch, gas vs diesel spouts, and which nozzle fits your pump.</p></a></li>
-    <li><a class="guide" href="/12v-fuel-transfer-pump/"><span class="card-title">How to choose a 12V fuel transfer pump</span><p>Flow rate, duty cycle, and wiring explained, Fill-Rite and GPI models compared, and which size fits your tank.</p></a></li>
-    <li><a class="guide" href="/diesel-gelling-temperature/"><span class="card-title">Diesel gelling: when it happens and how to prevent it</span><p>Cloud point, CFPP, and pour point explained, why bulk tanks gel first, and a winter checklist for tank owners.</p></a></li>
+<section class="proof" aria-label="Why trust these guides">
+  <ul class="proof-inner">
+    <li><span class="proof-num">8 yrs</span><span>servicing tanks, pumps, dispensers, and leak detectors</span></li>
+    <li><span class="proof-num">Sourced</span><span>every number links to the regulation, study, or manufacturer it came from</span></li>
+    <li><span class="proof-num">Independent</span><span>no fuel supplier, additive maker, or equipment brand owns this site</span></li>
   </ul>
+</section>
+
+<div class="wide home-body">
+  <div class="section-head" id="topics">
+    <p class="label">Pick a topic</p>
+    <h2>What kind of tank problem do you have?</h2>
+  </div>
+  <div class="topics">
+    
+    <section class="topic" aria-labelledby="topic-1">
+      <span class="rivet tl"></span><span class="rivet tr"></span><span class="rivet bl"></span><span class="rivet br"></span>
+      <div class="topic-head">
+        <span class="topic-icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M16 3 C 16 3, 6 15, 6 21 a10 10 0 0 0 20 0 C 26 15, 16 3, 16 3Z" fill="#f0c02b"/><path d="M8 22 h16" stroke="#15212a" stroke-width="2"/></svg></span>
+        <div><p class="label">01 / 5 guides</p><h3 id="topic-1"><a href="/fuel-quality/">Fuel quality</a></h3></div>
+      </div>
+      <p class="topic-blurb">Water, microbes, gelling, and old fuel. Start with what you're seeing in the tank.</p>
+      <ol class="topic-list"><li><a href="/water-in-diesel-tank/">Water in your diesel tank</a></li><li><a href="/diesel-biocide/">Diesel bugs and biocides</a></li><li><a href="/how-long-does-diesel-last/">How long does diesel last in storage?</a></li><li><a href="/diesel-gelling-temperature/">Diesel gelling: when it happens and how to prevent it</a></li><li><a href="/winter-diesel-additive/">Winter diesel additives</a></li></ol>
+      <a class="topic-cta" href="/fuel-quality/">Start here: fuel quality</a>
+    </section>
+    
+    <section class="topic" aria-labelledby="topic-2">
+      <span class="rivet tl"></span><span class="rivet tr"></span><span class="rivet bl"></span><span class="rivet br"></span>
+      <div class="topic-head">
+        <span class="topic-icon" aria-hidden="true"><svg viewBox="0 0 32 32"><rect x="3" y="9" width="26" height="14" rx="7" fill="#f0c02b"/><path d="M9 23 l-2 6 M23 23 l2 6 M10 9 V5" stroke="#f0c02b" stroke-width="2.5"/></svg></span>
+        <div><p class="label">02 / 5 guides</p><h3 id="topic-2"><a href="/aboveground-fuel-tanks/">Aboveground tanks</a></h3></div>
+      </div>
+      <p class="topic-blurb">Farm and fleet tanks: the spill rules, transfer tanks, and the equipment on top.</p>
+      <ol class="topic-list"><li><a href="/do-i-need-an-spcc-plan/">Do I need an SPCC plan?</a></li><li><a href="/anti-siphon-valve/">Anti-siphon valves</a></li><li><a href="/diesel-transfer-tank/">Diesel transfer tanks</a></li><li><a href="/fuel-nozzle/">Fuel nozzles</a></li><li><a href="/12v-fuel-transfer-pump/">How to choose a 12V fuel transfer pump</a></li></ol>
+      <a class="topic-cta" href="/aboveground-fuel-tanks/">Start here: aboveground tanks</a>
+    </section>
+    
+    <section class="topic" aria-labelledby="topic-3">
+      <span class="rivet tl"></span><span class="rivet tr"></span><span class="rivet bl"></span><span class="rivet br"></span>
+      <div class="topic-head">
+        <span class="topic-icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M2 12 H30" stroke="#f0c02b" stroke-width="2.5" stroke-dasharray="3 2"/><rect x="5" y="16" width="22" height="12" rx="6" fill="#f0c02b"/><path d="M12 16 V4 M20 16 V8" stroke="#f0c02b" stroke-width="2.5"/></svg></span>
+        <div><p class="label">03 / 3 guides</p><h3 id="topic-3"><a href="/underground-storage-tanks/">Underground tanks</a></h3></div>
+      </div>
+      <p class="topic-blurb">What gets tested every 30 days, every year, and every 3 years, piece by piece.</p>
+      <ol class="topic-list"><li><a href="/spill-bucket-testing/">Spill bucket testing</a></li><li><a href="/line-leak-detector/">Line leak detectors</a></li><li><a href="/ust-overfill-prevention/">Overfill prevention</a></li></ol>
+      <a class="topic-cta" href="/underground-storage-tanks/">Start here: underground tanks</a>
+    </section>
+  </div>
+
+  <div class="quick">
+    <div class="section-head">
+      <p class="label">Common questions</p>
+      <h2>Quick answers people come here for</h2>
+    </div>
+    <ul class="quick-list"><li><a href="/do-i-need-an-spcc-plan/">Do I need an SPCC plan?</a></li><li><a href="/how-long-does-diesel-last/">How long does diesel last?</a></li><li><a href="/diesel-gelling-temperature/">At what temperature does diesel gel?</a></li><li><a href="/water-in-diesel-tank/">How do I get water out of my tank?</a></li><li><a href="/diesel-transfer-tank/">Is a 119-gallon transfer tank legal?</a></li><li><a href="/line-leak-detector/">Why is my dispenser so slow?</a></li></ul>
+  </div>
+
+  
+  <aside class="author-box" aria-label="About the author">
+    <div class="author-badge" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="19" fill="#1d6a48"/><path d="M25.5 10.5a5.5 5.5 0 0 0-6.9 6.9l-7.4 7.4a2.1 2.1 0 0 0 3 3l7.4-7.4a5.5 5.5 0 0 0 6.9-6.9l-3.2 3.2-2.9-.6-.6-2.9z" fill="#f0c02b"/></svg></div>
+    <div>
+      <p class="label">Who writes these guides</p>
+      <p>A working fuel-system technician with eight years in the trade: inspecting and servicing underground and aboveground tanks, dispensers, piping, valves, leak detectors, and aviation fuel systems. Every number on this page links to its source, and anything that differs in the field gets called out. <a href="/about/">More about the site</a>.</p>
+    </div>
+  </aside>
+
 </div>
 
 </main>
 <footer class="site-footer">
   <div class="footer-inner">
-    <span>FuelStorageGuide. Practical guidance on stored fuel, written by a working fuel-system technician. As an Amazon Associate, we earn from qualifying purchases.</span>
+    <div class="footer-brand">
+      <a class="wordmark" href="/" aria-label="FuelStorageGuide home"><span class="wm-fuel">Fuel</span><span>StorageGuide</span></a>
+      <p>Practical guidance on stored fuel, written by a working fuel-system technician. As an Amazon Associate, we earn from qualifying purchases.</p>
+    </div>
     <nav aria-label="Footer">
+      <a href="/fuel-quality/">Fuel quality</a>
+      <a href="/aboveground-fuel-tanks/">Aboveground tanks</a>
+      <a href="/underground-storage-tanks/">Underground tanks</a>
       <a href="/about/">About</a>
       <a href="/contact/">Contact</a>
       <a href="/privacy/">Privacy</a>

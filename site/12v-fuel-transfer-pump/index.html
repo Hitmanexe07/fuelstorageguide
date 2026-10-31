@@ -17,9 +17,8 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://fuelstorageguide.com/og/12v-fuel-transfer-pump.png">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+<link rel="preload" href="/fonts/barlow-condensed-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/source-serif-4-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/styles.css">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "How to Choose a 12V Fuel Transfer Pump (Fill-Rite and GPI Compared)", "description": "How to pick a 12V fuel transfer pump: flow rate, duty cycle, wiring, and which size fits a pickup transfer tank, drums, or a farm tank. Fill-Rite and GPI models compared.", "datePublished": "2026-10-28", "dateModified": "2026-10-28", "author": {"@type": "Person", "name": "FuelStorageGuide", "jobTitle": "Fuel-system technician"}, "publisher": {"@type": "Organization", "name": "FuelStorageGuide", "url": "https://fuelstorageguide.com"}, "mainEntityOfPage": "https://fuelstorageguide.com/12v-fuel-transfer-pump/"}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What size wire does a 12V transfer pump need?", "acceptedAnswer": {"@type": "Answer", "text": "At least 12 gauge, with a fuse near the battery. Fill-Rite specifies a 30-amp fuse for its 12V pumps, and heavier wire for runs over 20 feet (Fill-Rite manual)."}}, {"@type": "Question", "name": "Can I run a 12V pump continuously?", "acceptedAnswer": {"@type": "Answer", "text": "Most can't. The common 15 and 20 GPM pumps are rated 30 minutes on, 30 minutes off (Fill-Rite FR4210H; GPI M-150S)."}}, {"@type": "Question", "name": "Can I use the same pump for gasoline and diesel?", "acceptedAnswer": {"@type": "Answer", "text": "The models here are rated for both, but don't switch back and forth on the same tank. Mixing gasoline into diesel lowers the flash point and creates a fire hazard (EPRI)."}}, {"@type": "Question", "name": "Does a bigger pump mean faster fueling?", "acceptedAnswer": {"@type": "Answer", "text": "Up to a point. Your hose, filter, meter, and nozzle all limit flow, and a bigger pump draws more current from your battery."}}]}</script>
@@ -28,26 +27,28 @@
 <body>
 <a class="skip" href="#content">Skip to content</a>
 <header class="site-header">
+  <div class="hazard" aria-hidden="true"></div>
   <div class="header-inner">
     <a class="wordmark" href="/" aria-label="FuelStorageGuide home"><span class="wm-fuel">Fuel</span><span>StorageGuide</span></a>
-    <nav class="site-nav" aria-label="Main"><a href="/">Guides</a><a href="/about/">About</a><a href="/contact/">Contact</a></nav>
+    <nav class="site-nav" aria-label="Main"><a href="/fuel-quality/">Fuel quality</a><a href="/aboveground-fuel-tanks/" aria-current="page">Aboveground tanks</a><a href="/underground-storage-tanks/">Underground tanks</a><a href="/about/">About</a></nav>
   </div>
 </header>
 <main id="content">
-
+<div class="article-layout">
 <article class="wrap">
   <p class="crumbs"><a href="/aboveground-fuel-tanks/">Aboveground tanks</a></p>
   <h1>How to choose a 12V fuel transfer pump</h1>
-  <p class="meta">Written by a fuel-system technician. Updated October 28, 2026.</p>
+  <p class="meta byline"><span class="byline-who">By a fuel-system technician</span><span class="byline-sep" aria-hidden="true">/</span><span>8 years in the trade</span><span class="byline-sep" aria-hidden="true">/</span><span>Updated October 28, 2026.</span></p>
   <p class="aff-note">This guide has affiliate links. As an Amazon Associate, FuelStorageGuide earns from qualifying purchases, at no extra cost to you. <a href="/affiliate-disclosure/">How we pick products</a>.</p>
 
   <div class="answer">
     <p><strong>For a pickup transfer tank or a small farm tank, a 15 GPM pump is the usual fit. Step up to 20 GPM for bigger tanks and frequent fueling, and drop to about 8 GPM for drums and occasional use.</strong> Then check three things before you buy: the duty cycle, the fuels it's rated for, and whether your truck or battery can feed its amp draw.</p>
   </div>
+  <details class="toc toc-inline"><summary>On this page</summary><ol><li><a href="#what-the-specs-mean">What the specs mean</a></li><li><a href="#common-12v-pumps-compared">Common 12V pumps compared</a></li><li><a href="#which-pump-for-which-job">Which pump for which job</a></li><li><a href="#installing-and-wiring-it">Installing and wiring it</a></li><li><a href="#common-problems-and-fixes">Common problems and fixes</a></li><li><a href="#faq">FAQ</a></li><li><a href="#sources">Sources</a></li></ol></details>
 
   <p>Most 12-volt pumps can't run all day. The common Fill-Rite and GPI models are rated for 30 minutes on, then 30 minutes off (<a href="https://www.fillrite.com/12v-dc-20-gpm-fuel-transfer-pump-with-nozzle-fr4210h" rel="noopener">Fill-Rite FR4210H</a>; <a href="https://toolsid.com/gpi/gpi-m-150s-series-fuel-transfer-pump-2114015016.html" rel="noopener">GPI M-150S</a>). That's plenty for fueling equipment, but it rules them out for long, continuous transfers.</p>
 
-  <h2>What the specs mean</h2>
+  <h2 id="what-the-specs-mean">What the specs mean</h2>
   <p><strong>Five numbers on the box decide whether a pump fits your job.</strong></p>
   <div class="table-wrap">
   <table>
@@ -63,7 +64,7 @@
   </div>
   <p><strong>About thermal shutoff:</strong> On Fill-Rite's 1200 and 4200 series, once the motor overheats and shuts off, you have to let it cool and then turn the switch off to reset it. Some other series reset on their own (<a href="https://goind.com.au/cdn/shop/files/GO_Manual_Fill-Rite_DC_Pumps.pdf" rel="noopener">Fill-Rite manual</a>). If your pump quits mid-fill and won't restart, that's often why.</p>
 
-  <h2>Common 12V pumps compared</h2>
+  <h2 id="common-12v-pumps-compared">Common 12V pumps compared</h2>
   <p><strong>Fill-Rite and GPI make most of the 12V transfer pumps you'll find at farm stores, and their lineups line up closely by flow rate.</strong> Specs below come from each manufacturer's listing. Model numbers vary by kit (hose, nozzle, meter), so match the series.</p>
   <div class="table-wrap">
   <table class="compare">
@@ -85,7 +86,7 @@
     <li><strong>Fill-Rite's longer warranty</strong> is a real difference from GPI's 2 years on these models.</li>
   </ul>
 
-  <h2>Which pump for which job</h2>
+  <h2 id="which-pump-for-which-job">Which pump for which job</h2>
   <div class="table-wrap">
   <table>
     <thead><tr><th scope="col">Job</th><th scope="col">Size to start with</th><th scope="col">Why</th></tr></thead>
@@ -99,7 +100,7 @@
   </div>
   <p><strong>Gasoline needs extra care.</strong> The pumps above are rated for gasoline up to E15, but pumping gasoline means more vapor and more fire risk. Use a pump with a hazardous-location motor listing, an unleaded nozzle, a grounded hose, and bond the pump to the tank or frame (<a href="https://goind.com.au/cdn/shop/files/GO_Manual_Fill-Rite_DC_Pumps.pdf" rel="noopener">Fill-Rite manual</a>; <a href="https://toolsid.com/gpi/gpi-m-150s-series-fuel-transfer-pump-2114015016.html" rel="noopener">GPI M-150S</a>).</p>
 
-  <h2>Installing and wiring it</h2>
+  <h2 id="installing-and-wiring-it">Installing and wiring it</h2>
   <p><strong>Wire it straight to the battery with a fuse near the battery, use at least 12-gauge wire, and bond the pump to the tank.</strong> These come from Fill-Rite's manual for its 1200, 2400, 4200, and 4400 series (<a href="https://goind.com.au/cdn/shop/files/GO_Manual_Fill-Rite_DC_Pumps.pdf" rel="noopener">Fill-Rite manual</a>); check your own pump's manual for its numbers.</p>
   <ol>
     <li><strong>Power from the battery.</strong> Red to positive, black to negative. Put the fuse holder as close to the battery as you can. Fill-Rite calls for a 30-amp fuse on 12V installs, 20 amps on 24V.</li>
@@ -110,7 +111,7 @@
     <li><strong>Skip extra check or foot valves</strong> unless they have a built-in pressure relief. They can cut flow (<a href="https://goind.com.au/cdn/shop/files/GO_Manual_Fill-Rite_DC_Pumps.pdf" rel="noopener">Fill-Rite manual</a>).</li>
   </ol>
 
-  <h2>Common problems and fixes</h2>
+  <h2 id="common-problems-and-fixes">Common problems and fixes</h2>
   <p>From Fill-Rite's troubleshooting guide (<a href="https://goind.com.au/cdn/shop/files/GO_Manual_Fill-Rite_DC_Pumps.pdf" rel="noopener">Fill-Rite manual</a>):</p>
   <div class="table-wrap">
   <table>
@@ -126,7 +127,7 @@
   <p><strong>A plugged filter is one of the most common causes of slow flow at farm tanks,</strong> and it often means water or microbes in the tank.</p>
 
   <section class="faq">
-  <h2>FAQ</h2>
+  <h2 id="faq">FAQ</h2>
   <h3>What size wire does a 12V transfer pump need?</h3>
 <p>At least 12 gauge, with a fuse near the battery. Fill-Rite specifies a 30-amp fuse for its 12V pumps, and heavier wire for runs over 20 feet (<a href="https://goind.com.au/cdn/shop/files/GO_Manual_Fill-Rite_DC_Pumps.pdf" rel="noopener">Fill-Rite manual</a>).</p>
 <h3>Can I run a 12V pump continuously?</h3>
@@ -137,7 +138,16 @@
 <p>Up to a point. Your hose, filter, meter, and nozzle all limit flow, and a bigger pump draws more current from your battery.</p>
   </section>
 
-  <h2>Sources</h2>
+  
+  <aside class="author-box" aria-label="About the author">
+    <div class="author-badge" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="19" fill="#1d6a48"/><path d="M25.5 10.5a5.5 5.5 0 0 0-6.9 6.9l-7.4 7.4a2.1 2.1 0 0 0 3 3l7.4-7.4a5.5 5.5 0 0 0 6.9-6.9l-3.2 3.2-2.9-.6-.6-2.9z" fill="#f0c02b"/></svg></div>
+    <div>
+      <p class="label">Who writes these guides</p>
+      <p>A working fuel-system technician with eight years in the trade: inspecting and servicing underground and aboveground tanks, dispensers, piping, valves, leak detectors, and aviation fuel systems. Every number on this page links to its source, and anything that differs in the field gets called out. <a href="/about/">More about the site</a>.</p>
+    </div>
+  </aside>
+
+  <h2 id="sources">Sources</h2>
   <ul class="sources">
     <li><a href="https://goind.com.au/cdn/shop/files/GO_Manual_Fill-Rite_DC_Pumps.pdf" rel="noopener">Fill-Rite: DC pump owner's manual (FR1200, FR2400, FR4200, FR4400 series)</a></li>
     <li><a href="https://images.oreillyauto.com/parts/img/documents/fil/fillritedcpumpsalessheet.pdf" rel="noopener">Fill-Rite: DC pump sales sheet</a></li>
@@ -151,12 +161,18 @@
   </ul>
   <p class="note">This guide is general information. Follow your pump's manual and local electrical and fire codes when installing.</p>
 </article>
-
+<aside class="toc-side" aria-label="On this page"><nav class="toc"><p class="label">On this page</p><ol><li><a href="#what-the-specs-mean">What the specs mean</a></li><li><a href="#common-12v-pumps-compared">Common 12V pumps compared</a></li><li><a href="#which-pump-for-which-job">Which pump for which job</a></li><li><a href="#installing-and-wiring-it">Installing and wiring it</a></li><li><a href="#common-problems-and-fixes">Common problems and fixes</a></li><li><a href="#faq">FAQ</a></li><li><a href="#sources">Sources</a></li></ol></nav></aside></div><section class="related" aria-labelledby="related-title"><div class="related-inner"><p class="label">Keep reading</p><h2 id="related-title">More aboveground tanks guides</h2><ul class="guide-list related-list"><li><a class="guide" href="/do-i-need-an-spcc-plan/"><span class="card-title">Do I need an SPCC plan?</span><p>The 1,320-gallon rule, the farm thresholds, which plan type you need, and a one-minute checker.</p></a></li><li><a class="guide" href="/anti-siphon-valve/"><span class="card-title">Anti-siphon valves</span><p>Why elevated tanks siphon, what the fire code requires, picking the head setting, and pump troubleshooting.</p></a></li><li><a class="guide" href="/diesel-transfer-tank/"><span class="card-title">Diesel transfer tanks</span><p>Why 119 gallons matters, the rules for gasoline, payload math for your pickup, and setup.</p></a></li></ul><p><a class="more-link" href="/aboveground-fuel-tanks/">All aboveground tanks guides</a></p></div></section>
 </main>
 <footer class="site-footer">
   <div class="footer-inner">
-    <span>FuelStorageGuide. Practical guidance on stored fuel, written by a working fuel-system technician. As an Amazon Associate, we earn from qualifying purchases.</span>
+    <div class="footer-brand">
+      <a class="wordmark" href="/" aria-label="FuelStorageGuide home"><span class="wm-fuel">Fuel</span><span>StorageGuide</span></a>
+      <p>Practical guidance on stored fuel, written by a working fuel-system technician. As an Amazon Associate, we earn from qualifying purchases.</p>
+    </div>
     <nav aria-label="Footer">
+      <a href="/fuel-quality/">Fuel quality</a>
+      <a href="/aboveground-fuel-tanks/">Aboveground tanks</a>
+      <a href="/underground-storage-tanks/">Underground tanks</a>
       <a href="/about/">About</a>
       <a href="/contact/">Contact</a>
       <a href="/privacy/">Privacy</a>
