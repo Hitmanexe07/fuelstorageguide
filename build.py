@@ -26,7 +26,7 @@ DATES = {
 
 # Who gets credit in bylines and structured data. While this is None, guides are credited
 # to the site itself. Set it to the technician's real name to switch to a named Person author.
-AUTHOR_NAME = None
+AUTHOR_NAME = "Austin"
 
 ORG_ID = DOMAIN + "/#organization"
 ORG = {
@@ -87,7 +87,7 @@ AUTHOR_BOX = """
     <div class="author-badge" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="19" fill="#1d6a48"/><path d="M25.5 10.5a5.5 5.5 0 0 0-6.9 6.9l-7.4 7.4a2.1 2.1 0 0 0 3 3l7.4-7.4a5.5 5.5 0 0 0 6.9-6.9l-3.2 3.2-2.9-.6-.6-2.9z" fill="#f0c02b"/></svg></div>
     <div>
       <p class="label">Who writes these guides</p>
-      <p>A working fuel-system technician with eight years in the trade: inspecting and servicing underground and aboveground tanks, dispensers, piping, valves, leak detectors, and aviation fuel systems. Every number on this page links to its source, and anything that differs in the field gets called out. <a href="/about/">More about the site</a>.</p>
+      <p>Austin, a working fuel-system technician with eight years in the trade: inspecting and servicing underground and aboveground tanks, dispensers, piping, valves, leak detectors, and aviation fuel systems. Every number on this page links to its source, and anything that differs in the field gets called out. <a href="/about/">More about the site</a>.</p>
     </div>
   </aside>
 """
@@ -2453,7 +2453,7 @@ page("/", "FuelStorageGuide: Practical Guides for Farm and Fleet Fuel Tanks",
 about_body = """
 <div class="wrap">
   <h1>About FuelStorageGuide</h1>
-  <p class="lede">FuelStorageGuide is written by a working fuel-system technician with eight years in the trade.</p>
+  <p class="lede">FuelStorageGuide is written by Austin, a working fuel-system technician with eight years in the trade.</p>
   <p>The day job is inspecting and servicing fuel systems: underground and aboveground tanks, dispensers, piping, valves, and leak detection equipment, plus annual inspections and filter changes on aviation fuel systems.</p>
   <p>Most of what goes wrong with stored fuel is preventable, but the good information is scattered across fuel supplier marketing, government PDFs, and forum threads that contradict each other. This site puts it in one place, in plain language, for the people who actually own the tanks.</p>
   <h2>How guides are written</h2>
