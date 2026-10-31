@@ -22,6 +22,7 @@ DATES = {
     "/ust-overfill-prevention/": ("2026-10-30", "October 30, 2026"),
     "/underground-storage-tanks/": ("2026-10-30", "October 30, 2026"),
     "/fuel-nozzle/": ("2026-10-30", "October 30, 2026"),
+    "/fuel-tank-secondary-containment/": ("2026-10-31", "October 31, 2026"),
 }
 
 # Who gets credit in bylines and structured data. While this is None, guides are credited
@@ -430,6 +431,7 @@ MN = "https://www.pca.state.mn.us/waste/aboveground-storage-tank-systems"
 MI = "https://www.michigan.gov/documents/deq/wrd-policy-036-part-5-rules-oil_454799_7.pdf"
 
 SPCC_PATH = "/do-i-need-an-spcc-plan/"
+SC_PATH = "/fuel-tank-secondary-containment/"
 SPCC_TITLE = "Do I Need an SPCC Plan? A Plain-English Guide for Farms and Small Businesses"
 SPCC_DESC = ("If you store more than 1,320 gallons of oil aboveground and a spill could reach water, "
              "you probably need an SPCC plan. Check your site in a minute, with the farm rules included.")
@@ -618,7 +620,7 @@ spcc_body = f"""
   <table>
     <thead><tr><th scope="col">Requirement</th><th scope="col">What it means in practice</th><th scope="col">Rule</th></tr></thead>
     <tbody>
-      <tr><td>Secondary containment</td><td>A dike, berm, double-wall tank, or similar that holds the entire contents of the largest container, plus room for rain</td><td><a href="{ECFR}" rel="noopener">112.8(c)(2)</a></td></tr>
+      <tr><td>Secondary containment</td><td>A dike, berm, double-wall tank, or similar that holds the entire contents of the largest container, plus room for rain. See <a href="{SC_PATH}">secondary containment</a> for sizing</td><td><a href="{ECFR}" rel="noopener">112.8(c)(2)</a></td></tr>
       <tr><td>Containment where you transfer fuel</td><td>Spill protection sized for a likely spill at fill points, loading areas, and mobile refuelers</td><td><a href="{BASICS}" rel="noopener">EPA basics</a></td></tr>
       <tr><td>Overfill prevention</td><td>At least one of: a high-level alarm, a high-level pump cutoff, direct communication between whoever is gauging and whoever is pumping, or a fast-response level gauge someone watches during the fill</td><td><a href="{ECFR}" rel="noopener">112.8(c)(8)</a></td></tr>
       <tr><td>Inspections</td><td>Inspect or test each tank on a regular schedule using an industry standard, check supports and foundations, and keep records</td><td><a href="{ECFR}" rel="noopener">112.8(c)(6)</a></td></tr>
@@ -696,6 +698,163 @@ spcc_schema = [
     },
 ]
 page(SPCC_PATH, SPCC_TITLE, SPCC_DESC, spcc_body, schema=spcc_schema, og_type="article")
+
+# ---------------- Article: secondary containment ----------------
+C1127 = "https://www.law.cornell.edu/cfr/text/40/112.7"
+C1128 = "https://www.law.cornell.edu/cfr/text/40/112.8"
+EPACH4 = "https://www.epa.gov/sites/default/files/2014-04/documents/4_secondarycontainment_impracticability_2014.pdf"
+NOAA = "https://hdsc.nws.noaa.gov/pfds/"
+CAZ = "https://www.cazfire.gov/DocumentCenter/View/133/Above-Ground-Fuel-Tank-Checklist-PDF"
+
+SC_TITLE = "Fuel Tank Secondary Containment: Sizing, Dikes, Double-Wall"
+SC_DESC = ("How big a fuel tank dike has to be, when a double-wall tank counts as containment, "
+           "and what the 110% rule really means under the federal SPCC rule.")
+
+sc_faq = [
+    ("Does a double-wall tank need a dike around it?",
+     f"Usually not for the tank itself. The outer wall can be the containment for a leak from the inner tank {src(EPACH4, 'EPA SPCC guidance, ch. 4')}. "
+     "You still need to deal with spills at the fill point, the hose and nozzle, and overfills through the vent."),
+    ("Is 110% required?",
+     f"Not by the federal rule. It requires the full capacity of the largest container plus enough freeboard for rain, and leaves the rain amount to the plan {src(EPACH4, 'EPA SPCC guidance, ch. 4')}. "
+     "Your state, fire code, or plan certifier may set a number."),
+    ("Do I need containment if I don't need an SPCC plan?",
+     "Not under the federal SPCC rule, since containment is a requirement of the plan. State rules and your fire code can still require it, and a dike or double-wall tank is cheap insurance against a cleanup bill."),
+    ("Can I just drain the rainwater out of my dike?",
+     f"Only if the drain valve is normally kept sealed closed, you check the water for oil first, and you keep a record each time {src(C1128, '40 CFR 112.8(c)(3)')}."),
+]
+sc_faq_html = "\n".join(f"<h3>{q}</h3>\n<p>{a}</p>" for q, a in sc_faq)
+
+sc_body = f"""
+<article class="wrap">
+  <p class="crumbs"><a href="/aboveground-fuel-tanks/">Aboveground tanks</a></p>
+  <h1>Fuel tank secondary containment: sizing, dikes, and double-wall tanks</h1>
+  <p class="meta">Written by a fuel-system technician. Updated {UPDATED_HUMAN}.</p>
+
+  <div class="answer">
+    <p><strong>If your site needs an SPCC plan, every bulk fuel tank needs secondary containment that holds the entire capacity of the largest tank, plus enough extra room ("freeboard") for rain.</strong> A dike, a containment basin, or a double-wall tank can all do the job. The federal rule doesn't say 110%; that's a rule of thumb.</p>
+  </div>
+
+  <p>Secondary containment is the second barrier: if the tank (the primary container) leaks or splits, the containment catches the fuel before it reaches soil or water. The requirement comes from the federal Spill Prevention, Control, and Countermeasure (SPCC) rule, so it applies once your site needs an SPCC plan. Not sure whether you do? Start with <a href="{SPCC_PATH}">Do I need an SPCC plan?</a></p>
+
+  <h2>What the rule requires</h2>
+  <p><strong>The SPCC rule has two containment requirements, and most fuel sites need both.</strong></p>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th scope="col">Requirement</th><th scope="col">What it covers</th><th scope="col">How big</th></tr></thead>
+    <tbody>
+      <tr><td>Sized containment {src(C1128, '40 CFR 112.8(c)(2)')}</td><td>Bulk storage tanks: your fuel tanks, used oil tanks, and other stationary containers</td><td>The entire capacity of the largest single container, plus sufficient freeboard to contain precipitation</td></tr>
+      <tr><td>Sized containment for mobile containers {src(C1128, '40 CFR 112.8(c)(11)')}</td><td>Drums, totes, and skid tanks that get moved around (mobile refuelers and tank trucks excepted)</td><td>The largest single compartment or container, plus freeboard for precipitation</td></tr>
+      <tr><td>General containment {src(C1127, '40 CFR 112.7(c)')}</td><td>Everywhere else oil could spill: fill points, transfer areas, hoses and nozzles, mobile refuelers</td><td>The most likely spill, based on the typical way things fail there</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>The rule also says the containment, walls and floor, has to actually hold oil until cleanup: diked areas must be "sufficiently impervious to contain discharged oil" {src(C1128, '40 CFR 112.8(c)(2)')}, and a spill can't escape the system before cleanup {src(C1127, '40 CFR 112.7(c)')}.</p>
+  <p><strong>"Largest single container" can be more than one tank.</strong> Tanks that are permanently manifolded together, so they work as a single storage unit, count as one container for sizing {src(EPACH4, 'EPA SPCC guidance, ch. 4')}.</p>
+
+  <h2>The 110% rule and "sufficient freeboard"</h2>
+  <p><strong>The federal rule never says 110%.</strong> EPA's own inspector guidance says the rule "does not specifically define the term 'sufficient freeboard,' nor does it describe how to calculate this volume" {src(EPACH4, 'EPA SPCC guidance, section 4.3.2')}.</p>
+  <ul>
+    <li><strong>Where 110% comes from.</strong> When EPA proposed using storm data, commenters suggested 110% of tank capacity as a simpler alternative {src(EPACH4, 'EPA SPCC guidance, section 4.3.2')}. It stuck as a rule of thumb.</li>
+    <li><strong>What EPA said is "proper."</strong> In the 2002 rule preamble, EPA wrote that sufficient freeboard is the amount needed to hold the rain from a 25-year, 24-hour storm {src(EPACH4, 'EPA SPCC guidance, section 4.3.2')}.</li>
+    <li><strong>Who decides.</strong> The Professional Engineer certifying the plan, or the owner for a self-certified plan, sets the freeboard and should write down how it was figured {src(EPACH4, 'EPA SPCC guidance, ch. 4')}.</li>
+    <li><strong>Indoors or under a roof.</strong> When containment is inside a building, freeboard for rain usually doesn't apply {src(EPACH4, 'EPA SPCC guidance, ch. 4')}.</li>
+  </ul>
+  <p>Some fire codes use the same storm: a fire code checklist based on the International Fire Code sizes outdoor drainage for "a 24-hour rainfall as determined by a 25-year storm" {src(CAZ, 'Central Arizona Fire checklist, IFC 2012')}.</p>
+
+  <h2>Sizing a dike: a worked example</h2>
+  <p><strong>Rain falls on the whole dike, not just the tank, so a small dike can need more than 110%.</strong> Here's the math for a common farm setup. The storm number is only an example; look up yours in NOAA's precipitation frequency data {src(NOAA, 'NOAA Atlas 14')}.</p>
+  <div class="table-wrap">
+  <table class="even">
+    <thead><tr><th scope="col">Step</th><th scope="col">Example</th></tr></thead>
+    <tbody>
+      <tr><td>The setup</td><td>One 1,000-gallon tank on a stand inside an 8 ft by 14 ft dike. The tank bottom sits above the top of the dike wall, so the tank takes up almost no room in the dike.</td></tr>
+      <tr><td>1. Tank volume in cubic feet</td><td>1,000 gal &divide; 7.48 gal/ft&sup3; = 133.7 ft&sup3;</td></tr>
+      <tr><td>2. Rain on the dike floor</td><td>Example 25-year, 24-hour storm of 4.5 in = 0.375 ft. 8 &times; 14 = 112 ft&sup2; &times; 0.375 ft = 42.0 ft&sup3; (about 314 gallons)</td></tr>
+      <tr><td>3. Total volume needed</td><td>133.7 + 42.0 = 175.7 ft&sup3;</td></tr>
+      <tr><td>4. Wall height</td><td>175.7 ft&sup3; &divide; 112 ft&sup2; = 1.57 ft, about 19 inches</td></tr>
+      <tr><td>Compare: 110% of the tank</td><td>1,100 gal = 147.1 ft&sup3;, a 15.8-inch wall. That falls about 3 inches short of the storm-based number here</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><strong>Two adjustments for real sites:</strong></p>
+  <ul>
+    <li><strong>Subtract anything sitting in the dike below the wall top:</strong> other tanks, saddles, the foundation of a tank that sits on the floor. EPA's worked example subtracts the volume the tanks displace {src(EPACH4, 'EPA SPCC guidance, ch. 4')}. Size the dike for the largest tank, with the other tanks counted as taking up space.</li>
+    <li><strong>Leave room for the water you haven't drained yet.</strong> Rain that sits in the dike takes up the space meant for fuel.</li>
+  </ul>
+
+  <h2>Your containment options</h2>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th scope="col">Option</th><th scope="col">How it works</th><th scope="col">Watch for</th></tr></thead>
+    <tbody>
+      <tr><td>Dike or berm</td><td>Concrete, block, or earth walls around one or more tanks; the rule names dikes, containment curbs, and pits {src(C1128, '40 CFR 112.8(c)(2)')}</td><td>Cracks, unsealed joints, earthen floors that let fuel soak in, and rainwater management</td></tr>
+      <tr><td>Steel containment basin</td><td>A prefabricated steel tub the tank sits in</td><td>Rainwater fills it unless it's covered; rust at the seams</td></tr>
+      <tr><td>Double-wall tank</td><td>A tank inside a tank; the outer wall is the containment</td><td>Still need protection at the fill point, hose, and vent (see below)</td></tr>
+      <tr><td>Drainage to a catchment basin</td><td>Curbs and trenches that carry a spill to a holding pond or basin {src(C1128, '40 CFR 112.8(c)(2)')}</td><td>Usually for larger sites; the basin has to hold the largest tank</td></tr>
+      <tr><td>Spill pallets and drip pans</td><td>For drums and totes; curbing and drip pans are listed containment methods {src(C1127, '40 CFR 112.7(c)')}</td><td>Pallet capacity has to cover the largest drum or tote on it</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><strong>Field note:</strong> Most of the farm and fleet setups I service use double-wall tanks rather than a single-wall tank in a dike.</p>
+
+  <h2>Double-wall tanks</h2>
+  <p><strong>A double-wall tank can be its own secondary containment.</strong> EPA describes it as "a tank within another tank," where the inner tank stores the fuel and the outer tank is the containment {src(EPACH4, 'EPA SPCC guidance, ch. 4')}. Because rain can't get into the space between the walls, double-wall tanks usually don't need extra freeboard {src(EPACH4, 'EPA SPCC guidance, ch. 4')}.</p>
+  <p><strong>The catch is everything outside the outer wall.</strong> EPA notes a double-wall tank doesn't contain an overfill that comes out of the vent during a delivery {src(EPACH4, 'EPA SPCC guidance, ch. 4')}. Piping, pumps, and dispensers outside the tank also need their own general containment {src(EPACH4, 'EPA SPCC guidance, ch. 4')}. EPA treats a shop-built double-wall tank as covering the general containment requirement too when it has all of these:</p>
+  <ul>
+    <li>The tank was built in a shop, not in the field</li>
+    <li>The inner tank is a UL-listed steel tank</li>
+    <li>The outer tank is built to a recognized industry standard, such as API or STI</li>
+    <li>It has an overfill alarm, plus an automatic flow restrictor or shutoff</li>
+    <li>Every transfer is constantly watched</li>
+  </ul>
+  <p class="source-line">Source: <a href="{EPACH4}" rel="noopener">EPA SPCC Guidance for Regional Inspectors, chapter 4</a>. Without the overfill equipment, you can instead put active or passive containment where a vent overfill would land.</p>
+  <p>Inspections still apply: the rule's routine checks for leaks and deterioration cover the inner tank of a double-wall tank {src(EPACH4, 'EPA SPCC guidance, ch. 4')}, and double-wall tanks usually have a port for checking the space between the walls.</p>
+  <p><strong>Field note:</strong> When I check the space between the walls, condensation is the usual find. It's common, and it has to be sponged out. Fuel in there is a different story: it usually means the inner tank has failed, which I see on tanks after years of service.</p>
+  <p>For protected tanks, fire code checklists also call for emergency venting on enclosed secondary containment {src(CAZ, 'Central Arizona Fire checklist')}. For tank construction types, see <a href="/aboveground-fuel-tanks/">aboveground fuel tanks</a>.</p>
+
+  <h2>Fill points, hoses, and fuel trailers</h2>
+  <p><strong>Containment around the tank doesn't cover where the fuel actually moves.</strong> Fill connections, the pump and hose, and areas where you fuel equipment fall under the general requirement: containment sized for the most likely spill {src(C1127, '40 CFR 112.7(c)')}. Methods the rule lists include curbing, drip pans, sumps, and sorbent materials {src(C1127, '40 CFR 112.7(c)')}.</p>
+  <p>Mobile refuelers and tank trucks used only on your site are excepted from sized containment {src(C1128, '40 CFR 112.8(c)(11)')}, but still need general containment {src(EPACH4, 'EPA SPCC guidance, ch. 4')}. On farms, nurse tanks and fuel trailers count toward your SPCC capacity {src(FARMFAQ, 'EPA farm FAQ')}. Overfill protection is a separate SPCC requirement; the <a href="{SPCC_PATH}">SPCC guide</a> lists the options.</p>
+
+  <h2>Keeping containment working</h2>
+  <ul>
+    <li><strong>Drain rainwater the right way.</strong> Keep the dike's drain or bypass valve normally sealed closed, check the water for oil before you open it, reseal it afterward, and keep a record each time {src(C1128, '40 CFR 112.8(c)(3)')}.</li>
+    <li><strong>Inspect it.</strong> The rule calls for frequent inspection of the outside of each tank for deterioration, leaks, and "accumulation of oil inside diked areas" {src(C1128, '40 CFR 112.8(c)(6)')}.</li>
+    <li><strong>Keep the floor and walls tight.</strong> Seal cracks and joints in concrete, and keep earthen dikes free of burrows and erosion. The containment has to be "sufficiently impervious" {src(C1128, '40 CFR 112.8(c)(2)')}.</li>
+    <li><strong>Don't store junk in the dike.</strong> Anything sitting in it takes up volume you counted on for fuel.</li>
+  </ul>
+  <p><strong>Field note:</strong> The dike problem I run into most is rainwater that never got drained. The dike sits full, and in winter it freezes solid. A dike full of ice has no room left for a spill.</p>
+
+  <h2>When containment isn't practical</h2>
+  <p><strong>If a dike or other containment truly can't be built, the rule allows an alternative, but it's more work, not less.</strong> The plan has to explain why containment isn't practicable, and you have to:</p>
+  <ul>
+    <li>Periodically integrity test the tanks, and integrity and leak test the valves and piping</li>
+    <li>Have an oil spill contingency plan</li>
+    <li>Put a written commitment of people, equipment, and materials to clean up a spill in the plan</li>
+  </ul>
+  <p class="source-line">Source: <a href="{C1127}" rel="noopener">40 CFR 112.7(d)</a>. This route needs a Professional Engineer to certify that part of the plan, even at a self-certified site.</p>
+
+  <section class="faq">
+  <h2>FAQ</h2>
+  {sc_faq_html}
+  </section>
+
+  <h2>Sources</h2>
+  <ul class="sources">
+    <li><a href="{C1127}" rel="noopener">40 CFR 112.7, general requirements including secondary containment and impracticability (Cornell LII)</a></li>
+    <li><a href="{C1128}" rel="noopener">40 CFR 112.8, requirements for onshore facilities including bulk storage containers (Cornell LII)</a></li>
+    <li><a href="{EPACH4}" rel="noopener">EPA: SPCC Guidance for Regional Inspectors, chapter 4, Secondary Containment and Impracticability (2013)</a></li>
+    <li><a href="{FARMFAQ}" rel="noopener">EPA: SPCC frequently asked questions for farms</a></li>
+    <li><a href="{NOAA}" rel="noopener">NOAA: Precipitation Frequency Data Server (Atlas 14)</a></li>
+    <li><a href="{CAZ}" rel="noopener">Central Arizona Fire and Medical Authority: Above-ground fuel tank checklist (IFC 2012)</a></li>
+  </ul>
+  <p class="note">This guide is general information, not legal advice. Your state and local fire code can add their own containment rules. For a specific site, check with your state environmental agency, fire marshal, or a Professional Engineer familiar with SPCC.</p>
+</article>
+"""
+
+sc_schema = [{"@context": "https://schema.org", "@type": "Article", "headline": SC_TITLE, "description": SC_DESC,
+              "datePublished": UPDATED, "dateModified": UPDATED, "mainEntityOfPage": DOMAIN + SC_PATH}]
+page(SC_PATH, SC_TITLE, SC_DESC, sc_body, schema=sc_schema, og_type="article")
 
 # ---------------- Article: water in diesel ----------------
 CRC672 = "https://www.cdfa.ca.gov/dms/programs/petroleum/CRC_DieselStorageSystem.pdf"
@@ -1603,7 +1762,6 @@ PEIASV = "https://pei.org/?p=11463"
 FLDEP = "https://floridadep.gov/sites/default/files/BlockValvesandAntiSiphonValves_2023_0.pdf"
 NCDEQ = "https://www.deq.nc.gov/waste-management/dwm/ust/pib/pib-guidance-docs/memo-anti-siphon-valves-marinas/open"
 NMAC = "https://regulations.justia.com/states/new-mexico/title-20/chapter-5/part-109/section-20-5-109-902/"
-CAZ = "https://www.cazfire.gov/DocumentCenter/View/133/Above-Ground-Fuel-Tank-Checklist-PDF"
 FREEPORT = "https://www.freeporttx.gov/page/open/2729/0/ABOVEGROUND%20STORAGE%20TANKS%20Flammable%20Liquids.pdf"
 NESFM = "https://sfm.nebraska.gov/sites/default/files/doc/nfpa395_0.pdf"
 OPWASV = "https://www.opwglobal.com/products/us/ast-equipment/anti-siphon-valves/opw-199asv-anti-siphon-valve"
@@ -1867,6 +2025,7 @@ AST_DESC = ("A guide to aboveground fuel tanks for farms, fleets, and small busi
             "the rules that apply, the equipment on top, and links to every detailed guide.")
 AST_GUIDES = [
     (SPCC_PATH, "Do I need an SPCC plan?", "The 1,320-gallon rule, the farm thresholds, which plan type you need, and a one-minute checker."),
+    (SC_PATH, "Secondary containment", "How big a dike has to be, what the 110% rule really means, and when a double-wall tank counts."),
     (ASV_PATH, "Anti-siphon valves", "Why elevated tanks siphon, what the fire code requires, picking the head setting, and pump troubleshooting."),
     (TT_PATH, "Diesel transfer tanks", "Why 119 gallons matters, the rules for gasoline, payload math for your pickup, and setup."),
     (NOZ_PATH, "Fuel nozzles", "Automatic vs. manual, 3/4 or 1 inch, gas or diesel spouts, and troubleshooting."),
@@ -1885,7 +2044,7 @@ ast_body = f"""
   <table>
     <thead><tr><th scope="col">Type</th><th scope="col">What it is</th><th scope="col">Typical use</th></tr></thead>
     <tbody>
-      <tr><td>Single-wall (UL 142)</td><td>One steel wall</td><td>Needs a separate dike or containment area to meet spill rules {src(ECFR, '40 CFR 112.8(c)(2)')}</td></tr>
+      <tr><td>Single-wall (UL 142)</td><td>One steel wall</td><td>Needs a separate dike or containment area to meet spill rules {src(ECFR, '40 CFR 112.8(c)(2)')}; see <a href="{SC_PATH}">secondary containment</a></td></tr>
       <tr><td>Double-wall (UL 142)</td><td>A tank inside a tank; the outer wall catches a leak from the inner one</td><td>Can help meet the containment requirement, but still counts toward your SPCC capacity (see <a href="{SPCC_PATH}">the SPCC guide</a>)</td></tr>
       <tr><td>Protected (UL 2085)</td><td>Double-wall with insulation between the walls, built to limit heat to the inner tank during a 2-hour fire; can also be tested for ballistics and vehicle impact {src(WGUL, 'Western Global')}</td><td>Permanent installations with higher fire risk, such as gasoline dispensing; some states require it for aboveground gasoline dispensing tanks {src(NCUL, 'NC State Fire Marshal')}</td></tr>
       <tr><td>Transfer and auxiliary tanks</td><td>Small tanks in a pickup bed</td><td>See <a href="{TT_PATH}">diesel transfer tanks</a></td></tr>
@@ -2542,7 +2701,7 @@ for _args in PAGES:
 
 # ---------------- sitemap, robots, favicon ----------------
 # Legal and contact pages stay crawlable through the footer but are left out of the sitemap
-urls = ["/", NOZ_PATH, UST_PATH, OFP_PATH, AST_PATH, SB_PATH, LLD_PATH, FQ_PATH, STORE_PATH, ASV_PATH, SPCC_PATH, ADD_PATH, WATER_PATH, BIO_PATH, TT_PATH, PUMP_PATH, GEL_PATH, "/about/"]
+urls = ["/", NOZ_PATH, UST_PATH, OFP_PATH, AST_PATH, SB_PATH, LLD_PATH, FQ_PATH, STORE_PATH, ASV_PATH, SPCC_PATH, SC_PATH, ADD_PATH, WATER_PATH, BIO_PATH, TT_PATH, PUMP_PATH, GEL_PATH, "/about/"]
 sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
 for u in urls:
     sitemap += f"  <url><loc>{DOMAIN}{u}</loc><lastmod>{DATES.get(u, (UPDATED,))[0]}</lastmod></url>\n"
