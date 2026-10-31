@@ -23,6 +23,7 @@ DATES = {
     "/underground-storage-tanks/": ("2026-10-30", "October 30, 2026"),
     "/fuel-nozzle/": ("2026-10-30", "October 30, 2026"),
     "/fuel-tank-secondary-containment/": ("2026-10-31", "October 31, 2026"),
+    "/ust-walkthrough-inspection/": ("2026-10-31", "October 31, 2026"),
 }
 
 # Who gets credit in bylines and structured data. While this is None, guides are credited
@@ -2148,7 +2149,7 @@ sb_body = f"""
   <table>
     <thead><tr><th scope="col">Requirement</th><th scope="col">How often</th><th scope="col">Details</th></tr></thead>
     <tbody>
-      <tr><td>Walkthrough inspection</td><td>Every 30 days, or before each delivery if deliveries are less frequent</td><td>Check for damage, remove liquid or debris, clear any obstruction in the fill pipe, make sure the fill cap is secure, and on double-walled buckets check between the walls for a leak {src(EPAOM, 'EPA')}</td></tr>
+      <tr><td>Walkthrough inspection</td><td>Every 30 days, or before each delivery if deliveries are less frequent</td><td>Check for damage, remove liquid or debris, clear any obstruction in the fill pipe, make sure the fill cap is secure, and on double-walled buckets check between the walls for a leak {src(EPAOM, 'EPA')}. See the <a href="/ust-walkthrough-inspection/">walkthrough checklist</a></td></tr>
       <tr><td>Tightness test (single-wall)</td><td>At least every 3 years</td><td>Vacuum, pressure, or liquid test to show it's liquid tight {src(C28035, '40 CFR 280.35')}</td></tr>
       <tr><td>Interstitial monitoring (double-wall)</td><td>At least as often as walkthroughs</td><td>Replaces the 3-year test. Stop monitoring and you have to test within 30 days {src(C28035, '40 CFR 280.35')}</td></tr>
     </tbody>
@@ -2417,12 +2418,165 @@ ofp_schema = [
 ]
 page(OFP_PATH, OFP_TITLE, OFP_DESC, ofp_body, schema=ofp_schema, og_type="article")
 
+
+# ---------------- UST walkthrough inspections ----------------
+WT_PATH = "/ust-walkthrough-inspection/"
+C28036 = "https://www.law.cornell.edu/cfr/text/40/280.36"
+C28031 = "https://www.law.cornell.edu/cfr/text/40/280.31"
+C28034 = "https://www.law.cornell.edu/cfr/text/40/280.34"
+C28012 = "https://www.law.cornell.edu/cfr/text/40/280.12"
+EPAOMPDF = "https://www.epa.gov/sites/default/files/2016-02/documents/om_final_2-17-16_508_0.pdf"
+
+WT_TITLE = "UST Walkthrough Inspection: 30-Day and Annual Checklist"
+WT_DESC = ("What the federal UST rule says to check every 30 days and every year, a printable walkthrough "
+           "checklist, and the records you have to keep.")
+
+wt_faq = [
+    ("Who is allowed to do the walkthrough?",
+     "The federal rule doesn't say who has to do it, only what gets checked and what gets written down. Your state may set its own requirements, so check with your state UST program."),
+    ("Does my farm tank need walkthroughs?",
+     f"Not if it's 1,100 gallons or less and holds motor fuel for noncommercial use. Those tanks aren't USTs under the federal rule, and neither are heating oil tanks used on the premises {src(C28012, '40 CFR 280.12')}. Your state may still regulate them."),
+    ("Do I send walkthrough records to the state?",
+     f"No. Keep them at the site where an inspector can see them right away, or at another location and hand them over when asked {src(C28034, '40 CFR 280.34(c)')}."),
+    ("My tank only gets fuel every couple of months. Do I still check spill buckets every 30 days?",
+     f"No. If deliveries come less often than every 30 days, you can check spill prevention equipment before each delivery instead. Keep the delivery records to show why {src(C28036, '40 CFR 280.36')}."),
+]
+wt_faq_html = "\n".join(f"<h3>{q}</h3>\n<p>{a}</p>" for q, a in wt_faq)
+
+wt_rows = [
+    ("Every 30 days", "Spill buckets", "No cracks, holes, or other damage"),
+    ("Every 30 days", "Spill buckets", "Liquid and debris removed"),
+    ("Every 30 days", "Fill pipe", "Nothing blocking the fill pipe"),
+    ("Every 30 days", "Fill cap", "Cap secure on the fill pipe"),
+    ("Every 30 days", "Double-wall spill buckets", "No leak in the space between the walls"),
+    ("Every 30 days", "Release detection", "Equipment running, no alarms or unusual conditions"),
+    ("Every 30 days", "Release detection records", "Test records reviewed and up to date"),
+    ("Every year", "Containment sumps", "No damage, no leaks into the sump, no releases to the environment"),
+    ("Every year", "Containment sumps", "Liquid and debris removed"),
+    ("Every year", "Double-wall sumps", "No leak in the space between the walls"),
+    ("Every year", "Hand-held equipment", "Gauge sticks and groundwater bailers usable and in good shape"),
+]
+wt_checklist = "\n".join(
+    f"      <tr><td>{f}</td><td>{a}</td><td>{c}</td><td></td><td></td></tr>" for f, a, c in wt_rows)
+
+wt_body = f"""
+<article class="wrap">
+  <p class="crumbs"><a href="/underground-storage-tanks/">Underground tanks</a></p>
+  <h1>UST walkthrough inspection: the 30-day and annual checklist</h1>
+  <p class="meta">Written by a fuel-system technician. Updated {UPDATED_HUMAN}.</p>
+
+  <div class="answer">
+    <p><strong>Under the federal UST rule, you walk your system every 30 days to check spill buckets and release detection, and once a year to check containment sumps and hand-held release detection equipment. Keep a record of each walkthrough for one year.</strong> The requirement has applied since October 13, 2018 {src(C28036, '40 CFR 280.36')}.</p>
+  </div>
+
+  <p>The walkthrough is the routine check that catches problems between the formal tests: a cracked spill bucket, a loose fill cap, an alarm nobody noticed. It doesn't replace the 3-year tests or the yearly line leak detector test; it runs alongside them.</p>
+
+  <h2>Who has to do walkthroughs</h2>
+  <p><strong>Owners and operators of regulated underground storage tanks.</strong> Some tanks aren't USTs under the federal rule, including farm or residential tanks of 1,100 gallons or less holding motor fuel for noncommercial use, and tanks holding heating oil used on the premises {src(C28012, '40 CFR 280.12')}.</p>
+  <p><strong>States run most UST programs</strong>, so your state's version of the rule is the one you're inspected on. You can meet the walkthrough requirement any of three ways {src(C28036, '40 CFR 280.36(a)')}:</p>
+  <ul>
+    <li>Check the equipment the federal rule lists (the checklist below)</li>
+    <li>Follow a recognized code of practice; the rule names PEI RP 900, the Petroleum Equipment Institute's recommended practice for UST inspection and maintenance</li>
+    <li>Use a walkthrough developed by your state program</li>
+  </ul>
+
+  <h2>Every 30 days</h2>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th scope="col">Equipment</th><th scope="col">What to check</th></tr></thead>
+    <tbody>
+      <tr><td>Spill prevention equipment (spill buckets)</td><td>Visually check for damage; remove liquid or debris; check for and remove obstructions in the fill pipe; make sure the fill cap is securely on the fill pipe; on double-walled equipment with interstitial monitoring, check for a leak between the walls</td></tr>
+      <tr><td>Release detection equipment</td><td>Make sure it's operating with no alarms or other unusual operating conditions; make sure release detection test records are reviewed and current</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="source-line">Source: <a href="{C28036}" rel="noopener">40 CFR 280.36(a)(1)(i)</a>.</p>
+  <p><strong>Field note:</strong> On walkthroughs I find all of it: water or fuel sitting in spill buckets and sumps, fill caps that aren't tight, and alarms nobody acted on. Another gap I see a lot is owners not printing the sensor status reports from the tank monitor, so there's no record of what the sensors showed.</p>
+  <p><strong>Infrequent deliveries.</strong> If your tank gets fuel less often than every 30 days, you can check the spill prevention equipment before each delivery instead. You then keep the delivery records with your walkthrough records {src(C28036, '40 CFR 280.36')}. Release detection still gets checked every 30 days.</p>
+  <p>For what a spill bucket should look like and why water in it matters, see <a href="{SB_PATH}">spill bucket testing</a>. For release detection on pressurized piping, see <a href="{LLD_PATH}">line leak detectors</a>.</p>
+
+  <h2>Once a year</h2>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th scope="col">Equipment</th><th scope="col">What to check</th></tr></thead>
+    <tbody>
+      <tr><td>Containment sumps (under dispensers and at the tank top)</td><td>Visually check for damage, leaks into the sump, or releases to the environment; remove liquid (in contained sumps) or debris; on double-walled sumps with interstitial monitoring, check for a leak between the walls</td></tr>
+      <tr><td>Hand-held release detection equipment</td><td>Check devices such as tank gauge sticks or groundwater bailers for operability and serviceability</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="source-line">Source: <a href="{C28036}" rel="noopener">40 CFR 280.36(a)(1)(ii)</a>.</p>
+
+  <h2>Printable walkthrough checklist</h2>
+  <p><strong>Print this page and fill in a row for each item, each walkthrough.</strong> It covers the federal minimum; add anything your state requires. EPA also publishes a longer manual with checklists and record forms {src(EPAOMPDF, 'EPA 510-K-16-001')}.</p>
+  <div class="table-wrap">
+  <table class="checklist">
+    <thead><tr><th scope="col">How often</th><th scope="col">Equipment</th><th scope="col">Check</th><th scope="col">OK?</th><th scope="col">Action taken</th></tr></thead>
+    <tbody>
+{wt_checklist}
+    </tbody>
+  </table>
+  </div>
+  <p>Date: ____________ &nbsp; Checked by: ______________________ &nbsp; Last delivery (if checking before deliveries): ____________</p>
+
+  <h2>Records you have to keep</h2>
+  <p><strong>Keep walkthrough records for one year.</strong> Each record has to include {src(C28036, '40 CFR 280.36(b)')}:</p>
+  <ul>
+    <li>A list of each area checked</li>
+    <li>Whether each area was acceptable or needed action</li>
+    <li>A description of what was done to fix any problem</li>
+    <li>Delivery records, if you check spill equipment before deliveries instead of every 30 days</li>
+  </ul>
+  <p><strong>Field note:</strong> The slip-up I see most is owners who do the walkthrough but never write it down. Without the record, there's nothing to show an inspector.</p>
+  <p>Keep them at the site, immediately available to an inspector, or at another location and provide them when asked {src(C28034, '40 CFR 280.34(c)')}. Records of the 3-year spill bucket, sump, and overfill tests are kept longer: three years {src(C28035, '40 CFR 280.35(c)')}.</p>
+
+  <h2>How the walkthrough fits the other UST deadlines</h2>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th scope="col">How often</th><th scope="col">What</th><th scope="col">Rule</th></tr></thead>
+    <tbody>
+      <tr><td>Every 30 days</td><td>Walkthrough: spill buckets and release detection</td><td><a href="{C28036}" rel="noopener">280.36</a></td></tr>
+      <tr><td>Every 60 days</td><td>Check impressed current cathodic protection is running</td><td><a href="{C28031}" rel="noopener">280.31(c)</a></td></tr>
+      <tr><td>Every year</td><td>Walkthrough: containment sumps and hand-held equipment</td><td><a href="{C28036}" rel="noopener">280.36</a></td></tr>
+      <tr><td>Every year</td><td>Line leak detector test on pressurized piping (see <a href="{LLD_PATH}">line leak detectors</a>)</td><td><a href="{STOT}" rel="noopener">EPA</a></td></tr>
+      <tr><td>Every 3 years</td><td>Tightness test of single-wall spill buckets and of sumps used for piping interstitial monitoring (see <a href="{SB_PATH}">spill bucket testing</a>)</td><td><a href="{C28035}" rel="noopener">280.35</a></td></tr>
+      <tr><td>Every 3 years</td><td>Overfill prevention inspection (see <a href="{OFP_PATH}">overfill prevention</a>)</td><td><a href="{C28035}" rel="noopener">280.35</a></td></tr>
+      <tr><td>Every 3 years</td><td>Cathodic protection test by a qualified tester</td><td><a href="{C28031}" rel="noopener">280.31(b)</a></td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><strong>Double-walled spill buckets and sumps</strong> can skip the 3-year tightness test if you check between the walls at least as often as your walkthroughs. Stop checking, and you have 30 days to test {src(C28035, '40 CFR 280.35(a)(1)')}.</p>
+
+  <section class="faq">
+  <h2>FAQ</h2>
+  {wt_faq_html}
+  </section>
+
+  <h2>Sources</h2>
+  <ul class="sources">
+    <li><a href="{C28036}" rel="noopener">40 CFR 280.36, periodic operation and maintenance walkthrough inspections (Cornell LII)</a></li>
+    <li><a href="{C28035}" rel="noopener">40 CFR 280.35, periodic testing of spill and overfill prevention equipment and containment sumps (Cornell LII)</a></li>
+    <li><a href="{C28034}" rel="noopener">40 CFR 280.34, reporting and recordkeeping (Cornell LII)</a></li>
+    <li><a href="{C28031}" rel="noopener">40 CFR 280.31, operation and maintenance of corrosion protection (Cornell LII)</a></li>
+    <li><a href="{C28012}" rel="noopener">40 CFR 280.12, definitions (Cornell LII)</a></li>
+    <li><a href="{EPAOMPDF}" rel="noopener">EPA: Operating and Maintaining UST Systems, Practical Help and Checklists (EPA 510-K-16-001, 2016)</a></li>
+    <li><a href="{STOT}" rel="noopener">EPA: UST system operation and testing requirements</a></li>
+  </ul>
+  <p class="note">This guide is general information. Your state UST program decides what's required at your site.</p>
+</article>
+"""
+
+wt_schema = [{"@context": "https://schema.org", "@type": "Article", "headline": WT_TITLE, "description": WT_DESC,
+              "datePublished": UPDATED, "dateModified": UPDATED, "mainEntityOfPage": DOMAIN + WT_PATH}]
+page(WT_PATH, WT_TITLE, WT_DESC, wt_body, schema=wt_schema, og_type="article")
+
 # ---------------- Underground tanks hub ----------------
 UST_PATH = "/underground-storage-tanks/"
 UST_TITLE = "Underground Storage Tanks: Inspections, Testing, and Equipment"
 UST_DESC = ("A guide to underground fuel tank (UST) compliance for gas stations, fleets, airports, and small businesses: "
             "what gets checked monthly, yearly, and every 3 years, and a detailed guide for each piece of equipment.")
 UST_GUIDES = [
+    (WT_PATH, "Walkthrough inspections", "What to check every 30 days and every year, a printable checklist, and the records to keep."),
     (SB_PATH, "Spill bucket testing", "The 30-day walkthrough, the 3-year test, how the water and vacuum tests work, and what fails."),
     (LLD_PATH, "Line leak detectors", "How mechanical and electronic detectors work, what the yearly test checks, and why a dispenser drops to a trickle."),
     (OFP_PATH, "Overfill prevention", "Shutoff valves, alarms, and ball floats, the 3-year inspection, and how to order fuel so it never gets close."),
@@ -2440,7 +2594,8 @@ ust_body = f"""
   <table>
     <thead><tr><th scope="col">How often</th><th scope="col">What</th><th scope="col">Guide</th></tr></thead>
     <tbody>
-      <tr><td>Every 30 days</td><td>Walkthrough inspection, including spill buckets {src(EPAOM, 'EPA')}</td><td><a href="{SB_PATH}">Spill buckets</a></td></tr>
+      <tr><td>Every 30 days</td><td>Walkthrough inspection, including spill buckets {src(EPAOM, 'EPA')}</td><td><a href="{WT_PATH}">Walkthrough checklist</a></td></tr>
+      <tr><td>Every year</td><td>Walkthrough of containment sumps and hand-held release detection equipment {src(C28036, '40 CFR 280.36')}</td><td><a href="{WT_PATH}">Walkthrough checklist</a></td></tr>
       <tr><td>Every year</td><td>Line leak detector test on pressurized piping, plus a line tightness test unless you monitor monthly {src(STOT, 'EPA')}</td><td><a href="{LLD_PATH}">Line leak detectors</a></td></tr>
       <tr><td>Every 3 years</td><td>Spill bucket tightness test (single-wall) {src(C28035, '40 CFR 280.35')}</td><td><a href="{SB_PATH}">Spill buckets</a></td></tr>
       <tr><td>Every 3 years</td><td>Overfill prevention inspection {src(MUSTS, 'EPA')}</td><td><a href="{OFP_PATH}">Overfill prevention</a></td></tr>
@@ -2701,7 +2856,7 @@ for _args in PAGES:
 
 # ---------------- sitemap, robots, favicon ----------------
 # Legal and contact pages stay crawlable through the footer but are left out of the sitemap
-urls = ["/", NOZ_PATH, UST_PATH, OFP_PATH, AST_PATH, SB_PATH, LLD_PATH, FQ_PATH, STORE_PATH, ASV_PATH, SPCC_PATH, SC_PATH, ADD_PATH, WATER_PATH, BIO_PATH, TT_PATH, PUMP_PATH, GEL_PATH, "/about/"]
+urls = ["/", NOZ_PATH, UST_PATH, WT_PATH, OFP_PATH, AST_PATH, SB_PATH, LLD_PATH, FQ_PATH, STORE_PATH, ASV_PATH, SPCC_PATH, SC_PATH, ADD_PATH, WATER_PATH, BIO_PATH, TT_PATH, PUMP_PATH, GEL_PATH, "/about/"]
 sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
 for u in urls:
     sitemap += f"  <url><loc>{DOMAIN}{u}</loc><lastmod>{DATES.get(u, (UPDATED,))[0]}</lastmod></url>\n"

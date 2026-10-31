@@ -391,6 +391,11 @@ main:has(.hero) { padding-top: 0; }
   .answer { box-shadow: 3px 3px 0 var(--ink); }
 }
 
+/* Fill-in walkthrough checklist: blank columns get room to write */
+.checklist td:nth-child(3) { min-width: 13rem; }
+.checklist td:nth-child(4) { width: 3.5rem; }
+.checklist td:nth-child(5) { width: 22%; }
+
 @media print {
   .site-header, .site-footer, .toc, .toc-side, .related { display: none; }
   body { background: #fff; }
