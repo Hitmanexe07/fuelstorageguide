@@ -83,6 +83,36 @@
     <li>Bleed the line to zero so the detector resets, open the simulated leak, and turn the pump on again for at least 60 seconds.</li>
     <li><strong>Pass:</strong> the line pressure never climbs above the metering pressure while the leak is open. <strong>Fail:</strong> it reaches full pump pressure, or the detector doesn't reset when the line is bled to zero.</li>
   </ol>
+  <figure class="diagram">
+<svg viewBox="0 0 680 360" role="img" aria-labelledby="ld-title ld-desc" xmlns="http://www.w3.org/2000/svg" font-family="Barlow Condensed, Arial Narrow, Arial, sans-serif">
+  <title id="ld-title">What a mechanical line leak detector does when the pump turns on</title>
+  <desc id="ld-desc">Line pressure over time after the pump starts. With a tight line, pressure rises, pauses at the low metering pressure for about 2 to 5 seconds, then climbs to full pump pressure and the detector opens to full flow. With a leak, pressure never gets past the metering pressure, and the detector stays in its slow-flow position.</desc>
+  <text x="24" y="34" font-size="21" font-weight="700" fill="#1c272c">A tight line opens to full flow; a leaking one stays slow</text>
+  <!-- axes -->
+  <line x1="90" y1="70" x2="90" y2="300" stroke="#1c272c" stroke-width="2"/>
+  <line x1="90" y1="300" x2="640" y2="300" stroke="#1c272c" stroke-width="2"/>
+  <!-- reference levels -->
+  <line x1="90" y1="110" x2="640" y2="110" stroke="#d3dbd9" stroke-width="1.5" stroke-dasharray="5 5"/>
+  <line x1="90" y1="230" x2="640" y2="230" stroke="#d3dbd9" stroke-width="1.5" stroke-dasharray="5 5"/>
+  <!-- tight line -->
+  <path d="M90 300 L140 230 L260 230 L300 110 L640 110" fill="none" stroke="#1d6a48" stroke-width="4" stroke-linejoin="round"/>
+  <!-- leaking line -->
+  <path d="M90 300 L140 232 L640 232" fill="none" stroke="#b4462d" stroke-width="4" stroke-dasharray="10 6"/>
+  <!-- pause bracket -->
+  <path d="M140 250 L140 258 L260 258 L260 250" fill="none" stroke="#56666d" stroke-width="1.5"/>
+  <g font-size="17" fill="#1c272c">
+    <text x="82" y="115" text-anchor="end" font-size="15">Full</text>
+    <text x="82" y="133" text-anchor="end" font-size="15">pressure</text>
+    <text x="82" y="227" text-anchor="end" font-size="15">Metering</text>
+    <text x="82" y="245" text-anchor="end" font-size="15">pressure</text>
+    <text x="640" y="326" text-anchor="end" font-size="15" fill="#56666d">Time after the pump turns on</text>
+    <text x="200" y="278" text-anchor="middle" font-size="15" fill="#56666d">pause, about 2 to 5 s</text>
+    <text x="330" y="96" font-weight="700" fill="#1d6a48">No leak: detector opens, full flow</text>
+    <text x="330" y="216" font-weight="700" fill="#b4462d">Leak: stuck at metering pressure, slow flow</text>
+  </g>
+</svg>
+<figcaption>The annual test opens a calibrated 3 gallon-per-hour leak and checks that the line stays at metering pressure. Shape based on Mississippi DEQ's test procedure.</figcaption>
+</figure>
   <p>An electronic detector passes if it alarms or shuts the pump down during the simulated leak. Mississippi says to repeat the test before calling a first failure final (<a href="https://deq.ms.gov/wp-content/uploads/2012/02/LineLeakDetectorTest-1.pdf" rel="noopener">Mississippi DEQ</a>).</p>
 
   <h2>"My dispenser is slow"</h2>

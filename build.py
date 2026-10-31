@@ -3,6 +3,7 @@ import json
 import sys
 sys.path.insert(0, str(__import__("pathlib").Path(__file__).parent / "tools"))
 from diagrams import WATER_TANK_SVG, TRANSFER_RULE_SVG
+from diagrams2 import OVERFILL_SVG, ASV_SVG, LLD_SVG, NOZZLE_SVG, SPILL_SVG
 from pathlib import Path
 
 SITE = Path(__file__).parent / "site"
@@ -1486,6 +1487,7 @@ asv_body = f"""
   <h2>How a tank siphons, and how the valve stops it</h2>
   <p><strong>If the fuel level in the tank is higher than the pipe or dispenser, gravity pushes fuel toward the low point. When a line breaks, it keeps coming until the tank drains down to the level of the break.</strong> PEI puts it simply: fuel in an elevated tank will try to flow out, so you need a positive shutoff except when you mean to pump {src(PEIASV, 'PEI')}.</p>
   <p>This happens even when the piping leaves through the top of the tank. Once the line is full of fuel, it works like a siphon hose. A tank on a stand, a tank on higher ground than the dispenser, and piping that runs down a hill or to a dock are all common setups that do this.</p>
+  {ASV_SVG}
   <p><strong>The valve holds a spring-loaded poppet closed against that gravity pressure.</strong> When the pump starts, it overcomes the spring and fuel flows. When the pump stops, the spring closes the valve again {src(OPWASV, 'OPW')}. Most also have a built-in relief for pressure from fuel expanding in a sun-warmed line (<a href="{FFSASV}" rel="noopener">Franklin Fueling Systems</a>; <a href="{MORASV}" rel="noopener">Morrison Bros.</a>).</p>
 
   <h2>When codes require one</h2>
@@ -1618,6 +1620,7 @@ noz_body = f"""
   <h2>Automatic vs. manual</h2>
   <p><strong>An automatic nozzle shuts itself off when fuel covers a small hole near the tip of the spout. A manual nozzle has no shutoff: it flows as long as the handle is squeezed.</strong></p>
   <p><strong>How the automatic shutoff works.</strong> While fuel flows, air is drawn in through the hole at the spout tip. When the fuel level rises and covers that hole, the air stops, a vacuum builds inside the nozzle, and it pulls a diaphragm that trips the valve closed {src(PEINOZ, 'PEI')}. That's why a nozzle clicks off when the tank is full, and also why splash-back can trip it early.</p>
+  {NOZZLE_SVG}
   <div class="table-wrap">
   <table>
     <thead><tr><th scope="col"></th><th scope="col">Automatic</th><th scope="col">Manual</th></tr></thead>
@@ -1825,6 +1828,7 @@ sb_body = f"""
     <p><strong>A spill bucket is the container around an underground tank's fill pipe that catches fuel that drips when the delivery hose comes off. Under the federal UST rule, you check it every 30 days and test it for tightness at least every 3 years, unless it's double-walled and you check between the walls instead</strong> (<a href="{EPASO}" rel="noopener">EPA</a>; <a href="{C28035}" rel="noopener">40 CFR 280.35</a>).</p>
   </div>
   <p>Spill buckets are meant to hold small spills for a short time, not to store fuel. EPA says to empty them right away and dispose of what's inside properly {src(EPASB, 'EPA')}.</p>
+  {SPILL_SVG}
 
   <h2>What the federal rule requires</h2>
   <p><strong>Any UST filled with more than 25 gallons at a time needs spill and overfill prevention</strong> {src(EPASO, 'EPA')}. For spill buckets, that means three ongoing jobs:</p>
@@ -1979,6 +1983,7 @@ lld_body = f"""
     <li>Bleed the line to zero so the detector resets, open the simulated leak, and turn the pump on again for at least 60 seconds.</li>
     <li><strong>Pass:</strong> the line pressure never climbs above the metering pressure while the leak is open. <strong>Fail:</strong> it reaches full pump pressure, or the detector doesn't reset when the line is bled to zero.</li>
   </ol>
+  {LLD_SVG}
   <p>An electronic detector passes if it alarms or shuts the pump down during the simulated leak. Mississippi says to repeat the test before calling a first failure final {src(MSLLD, 'Mississippi DEQ')}.</p>
 
   <h2>"My dispenser is slow"</h2>
@@ -2059,6 +2064,7 @@ ofp_body = f"""
   </table>
   </div>
   <p class="source-line">Sources: <a href="{MUSTS}" rel="noopener">EPA, Musts for USTs</a>; <a href="{EPASO}" rel="noopener">EPA, Spill and Overfill Prevention (2024)</a>.</p>
+  {OVERFILL_SVG}
   <p><strong>Ball floats are on their way out.</strong> They can't be used when overfill prevention is installed or replaced after October 13, 2015 {src(MUSTS, 'EPA')}. They also only work with tight-fill gravity deliveries, not pressurized (pumped) deliveries or tanks with suction pumps or coaxial drop tubes {src(NEIOFP, 'NEIWPCC inspector training, 2021')}.</p>
   <p><strong>Field note:</strong> On the sites I work on, overfill prevention is alarms and drop-tube shutoff valves. Ball floats aren't an option for new or replacement equipment.</p>
 

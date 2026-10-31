@@ -48,6 +48,55 @@
   <h2>Automatic vs. manual</h2>
   <p><strong>An automatic nozzle shuts itself off when fuel covers a small hole near the tip of the spout. A manual nozzle has no shutoff: it flows as long as the handle is squeezed.</strong></p>
   <p><strong>How the automatic shutoff works.</strong> While fuel flows, air is drawn in through the hole at the spout tip. When the fuel level rises and covers that hole, the air stops, a vacuum builds inside the nozzle, and it pulls a diaphragm that trips the valve closed (<a href="https://pei.org/?p=11360" rel="noopener">PEI</a>). That's why a nozzle clicks off when the tank is full, and also why splash-back can trip it early.</p>
+  <figure class="diagram">
+<svg viewBox="0 0 680 400" role="img" aria-labelledby="nz-title nz-desc" xmlns="http://www.w3.org/2000/svg" font-family="Barlow Condensed, Arial Narrow, Arial, sans-serif">
+  <title id="nz-title">How an automatic nozzle shuts off</title>
+  <desc id="nz-desc">Two panels. While filling, air is drawn in through a small hole near the spout tip, so the nozzle stays open. When fuel rises and covers the hole, the air stops, a vacuum builds, and it pulls a diaphragm that trips the nozzle closed.</desc>
+  <defs><marker id="nz-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#56666d"/></marker></defs>
+  <text x="24" y="34" font-size="21" font-weight="700" fill="#1c272c">Fuel covering a hole at the spout tip is what shuts it off</text>
+  
+  <g>
+    <rect x="24" y="60" width="300" height="250" rx="6" fill="#ffffff" stroke="#1d6a48" stroke-width="3"/>
+    <!-- fill neck walls -->
+    <path d="M114 150 L114 300 M234 150 L234 300" stroke="#1c272c" stroke-width="3"/>
+    <rect x="116" y="250" width="116" height="50" fill="#e9d9a8"/>
+    <!-- nozzle body and spout -->
+    <rect x="44" y="84" width="120" height="44" rx="10" fill="#56666d"/>
+    <path d="M154 110 L184 110 L184 210" stroke="#56666d" stroke-width="16" fill="none" stroke-linejoin="round"/>
+    <!-- sensing tube back to diaphragm -->
+    <path d="M180 206 L180 118 L88 118" stroke="#f0c02b" stroke-width="3" fill="none"/>
+    <circle cx="180" cy="206" r="4" fill="#ffffff" stroke="#1c272c" stroke-width="1.5"/>
+    <ellipse cx="80" cy="106" rx="14" ry="14" fill="#f0c02b" stroke="#1c272c" stroke-width="2"/>
+    <path d="M174 214 L154 196" stroke="#56666d" stroke-width="1.5" fill="none" marker-end="url(#nz-arrow)"/>
+  </g>
+  
+  <g>
+    <rect x="356" y="60" width="300" height="250" rx="6" fill="#ffffff" stroke="#b4462d" stroke-width="3"/>
+    <!-- fill neck walls -->
+    <path d="M446 150 L446 300 M566 150 L566 300" stroke="#1c272c" stroke-width="3"/>
+    <rect x="448" y="196" width="116" height="104" fill="#e9d9a8"/>
+    <!-- nozzle body and spout -->
+    <rect x="376" y="84" width="120" height="44" rx="10" fill="#56666d"/>
+    <path d="M486 110 L516 110 L516 210" stroke="#56666d" stroke-width="16" fill="none" stroke-linejoin="round"/>
+    <!-- sensing tube back to diaphragm -->
+    <path d="M512 206 L512 118 L420 118" stroke="#f0c02b" stroke-width="3" fill="none"/>
+    <circle cx="512" cy="206" r="4" fill="#ffffff" stroke="#1c272c" stroke-width="1.5"/>
+    <ellipse cx="412" cy="106" rx="14" ry="14" fill="#f0c02b" stroke="#1c272c" stroke-width="2"/>
+    
+  </g>
+  <g font-size="17" fill="#1c272c">
+    <text x="44" y="290" font-size="15" fill="#56666d">Fill neck</text>
+    <text x="240" y="204" font-size="15">Sensing</text><text x="240" y="220" font-size="15">hole</text>
+    <text x="40" y="150" font-size="15">Diaphragm</text>
+    <text x="118" y="192" font-size="15" fill="#56666d">air in</text>
+    <text x="174" y="338" text-anchor="middle" font-weight="700" fill="#1d6a48">Filling: air flows in,</text>
+    <text x="174" y="358" text-anchor="middle" font-weight="700" fill="#1d6a48">nozzle stays open</text>
+    <text x="506" y="338" text-anchor="middle" font-weight="700" fill="#b4462d">Full: fuel covers the hole,</text>
+    <text x="506" y="358" text-anchor="middle" font-weight="700" fill="#b4462d">vacuum trips it closed</text>
+  </g>
+</svg>
+<figcaption>Splash-back that covers the hole early is why a nozzle clicks off before the tank is full. Based on PEI's description of the automatic nozzle.</figcaption>
+</figure>
   <div class="table-wrap">
   <table>
     <thead><tr><th scope="col"></th><th scope="col">Automatic</th><th scope="col">Manual</th></tr></thead>
