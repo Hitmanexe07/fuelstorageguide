@@ -25,6 +25,7 @@ DATES = {
     "/fuel-tank-secondary-containment/": ("2026-10-31", "October 31, 2026"),
     "/ust-walkthrough-inspection/": ("2026-10-31", "October 31, 2026"),
     "/test-diesel-fuel-quality/": ("2026-10-31", "October 31, 2026"),
+    "/diesel-tank-cleaning/": ("2026-10-31", "October 31, 2026"),
 }
 
 # Who gets credit in bylines and structured data. While this is None, guides are credited
@@ -946,7 +947,7 @@ water_body = f"""
     <li><strong>Expect filters to plug for a while after a biocide treatment.</strong> Dead microbes come loose from the tank walls and get caught in filters (<a href="{PSAIL}" rel="noopener">Practical Sailor</a>; <a href="{CRC672}" rel="noopener">CRC Report 672</a>). Keep spares on hand.</li>
     <li><strong>Change the dispenser filter</strong> when you're done, and look at the old one for rust or slime.</li>
   </ol>
-  <p><strong>Call for a tank cleaning when</strong> there's heavy sludge, the water keeps coming back, or filters keep plugging after treatment. A badly infected tank usually needs the bottom material removed mechanically, not just treated {src(PSAIL, 'Practical Sailor')}. Your fuel supplier can often pump the tank out {src(CENEXW, 'Cenex')}.</p>
+  <p><strong>Call for a tank cleaning when</strong> there's heavy sludge, the water keeps coming back, or filters keep plugging after treatment. A badly infected tank usually needs the bottom material removed mechanically, not just treated {src(PSAIL, 'Practical Sailor')}. Your fuel supplier can often pump the tank out {src(CENEXW, 'Cenex')}. See <a href="/diesel-tank-cleaning/">tank cleaning and fuel polishing</a>.</p>
   <p><strong>Don't dump the water on the ground.</strong> Water from a fuel tank bottom is petroleum-contaminated and can count as hazardous waste. Don't pour it on soil, into surface water, or down a storm drain or septic system. Keep it in a closed, labeled container and ask your state environmental agency or a waste hauler how to dispose of it {src(MODNR, 'Missouri DNR')}.</p>
 
   <h2>How to keep water out</h2>
@@ -1537,7 +1538,7 @@ bio_body = f"""
     <li><strong>Let it settle.</strong> Bell's procedure calls for at least 8 hours so dead microbes fall to the bottom {src(BELL, 'Bell Performance procedures')}. Follow your label's wait time.</li>
     <li><strong>Drain the bottom again.</strong> Pull off the dead material and any water that settled out {src(GILBERT, 'Gilbert')}.</li>
     <li><strong>Change filters, and keep spares.</strong> Expect more frequent filter changes for a while after treatment {src(CRC672, 'CRC Report 672')}. {amz("Fill-Rite 10 micron fuel filter", "Fill-Rite filters on Amazon")}.</li>
-    <li><strong>Retest.</strong> Test again over the following weeks to confirm it worked {src(GILBERT, 'Gilbert')}. If growth comes back fast or sludge is heavy, have the tank cleaned.</li>
+    <li><strong>Retest.</strong> Test again over the following weeks to confirm it worked {src(GILBERT, 'Gilbert')}. If growth comes back fast or sludge is heavy, have the tank cleaned (see <a href="/diesel-tank-cleaning/">tank cleaning and fuel polishing</a>).</li>
   </ol>
 
   <h2>What the labels say</h2>
@@ -1822,7 +1823,7 @@ test_body = f"""
   <ul>
     <li><strong>Water:</strong> get it off the bottom as soon as you find it. "No detectable water is desirable" {src(CRC672, 'CRC Report 672')}. See <a href="{WATER_PATH}">water in your diesel tank</a>.</li>
     <li><strong>Microbes:</strong> remove the water first, then treat with an EPA-registered biocide. See <a href="{BIO_PATH}">diesel bugs and biocides</a>.</li>
-    <li><strong>Sediment or failed stability:</strong> the usual fix is to recondition or replace the fuel, clean the tank, and change filters {src(MA527, 'Massachusetts fire code excerpt')}.</li>
+    <li><strong>Sediment or failed stability:</strong> the usual fix is to recondition or replace the fuel, clean the tank, and change filters {src(MA527, 'Massachusetts fire code excerpt')}. See <a href="/diesel-tank-cleaning/">tank cleaning and fuel polishing</a>.</li>
     <li><strong>Cold-flow problems:</strong> see <a href="{GEL_PATH}">diesel gelling</a> and <a href="{ADD_PATH}">winter additives</a>.</li>
   </ul>
 
@@ -1858,6 +1859,131 @@ test_schema = [{"@context": "https://schema.org", "@type": "Article", "headline"
                 "datePublished": UPDATED, "dateModified": UPDATED, "mainEntityOfPage": DOMAIN + TEST_PATH}]
 page(TEST_PATH, TEST_TITLE, TEST_DESC, test_body, schema=test_schema, og_type="article")
 
+
+# ---------------- Article: tank cleaning and fuel polishing ----------------
+CLEAN_PATH = "/diesel-tank-cleaning/"
+OSHAHS = "https://www.osha.gov/storage-tanks/hazard-solutions"
+OSHAWA = "https://www.osha.gov/storage-tanks/work-activities"
+OSHAFARM = "https://www.osha.gov/sites/default/files/publications/OSHA3939.pdf"
+C1910146 = "https://www.law.cornell.edu/cfr/text/29/1910.146"
+POLPAT = "https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/7883627"
+
+CLEAN_TITLE = "Diesel Tank Cleaning and Fuel Polishing: When and How"
+CLEAN_DESC = ("Fuel polishing filters the fuel in place; tank cleaning removes the sludge and water. When you need each, "
+              "how they work, and why not to climb inside.")
+
+clean_faq = [
+    ("Can I clean my own fuel tank?",
+     f"You can drain water off the bottom and change filters yourself. Don't go inside the tank. Most storage tanks are permit-required confined spaces, even when they're out of service {src(OSHAHS, 'OSHA')}. Interior cleaning is a job for a contractor with a confined space program."),
+    ("Will an additive clean my tank?",
+     f"Some multifunctional additives contain detergents that lift sludge and corrosion deposits {src(GILBERT, 'Gilbert')}. That loosened material ends up in your filters, so expect to change them. An additive won't remove a heavy sludge layer or the water under it."),
+    ("How often should a tank be cleaned?",
+     "There's no set schedule for a farm or fleet tank. Clean it when the signs below show up, and keep water out so it doesn't need cleaning often."),
+]
+clean_faq_html = "\n".join(f"<h3>{q}</h3>\n<p>{a}</p>" for q, a in clean_faq)
+
+clean_body = f"""
+<article class="wrap">
+  <p class="crumbs"><a href="/fuel-quality/">Fuel quality</a></p>
+  <h1>Diesel tank cleaning and fuel polishing: when and how</h1>
+  <p class="meta">Written by a fuel-system technician. Updated {UPDATED_HUMAN}.</p>
+
+  <div class="answer">
+    <p><strong>Fuel polishing pumps the fuel through filters and water separators and back into the tank, so you keep the fuel. Tank cleaning removes the sludge, water, and growth from the tank itself.</strong> Polish when the fuel is worth saving and the contamination is light. Clean when there's heavy sludge, the water keeps coming back, or filters keep plugging after treatment. Either way, nobody should climb into the tank.</p>
+  </div>
+
+  <h2>Signs a tank needs attention</h2>
+  <div class="table-wrap">
+  <table class="even">
+    <thead><tr><th scope="col">What you see</th><th scope="col">What it points to</th></tr></thead>
+    <tbody>
+      <tr><td>Filters that clog often, or a dispenser that slows after a delivery</td><td>Contamination stirred up from the bottom {src(CRC672, 'CRC Report 672')}</td></tr>
+      <tr><td>Rust or slime on a used filter</td><td>Corrosion or microbial growth {src(CRC672, 'CRC Report 672')}</td></tr>
+      <tr><td>Water that keeps coming back after you drain it</td><td>A leak, a bad cap or vent, or a water layer you can't reach</td></tr>
+      <tr><td>Slime, mats, or heavy sediment in a bottom sample</td><td>Growth or sludge on the tank bottom (see <a href="{TEST_PATH}">how to test diesel fuel</a>)</td></tr>
+      <tr><td>Filters still plugging weeks after a biocide treatment</td><td>Dead growth still coming off the walls; a badly infected tank usually needs the bottom material removed mechanically {src(PSAIL, 'Practical Sailor')}</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h2>Polishing or cleaning?</h2>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th scope="col"></th><th scope="col">Fuel polishing</th><th scope="col">Tank cleaning</th></tr></thead>
+    <tbody>
+      <tr><td>What it does</td><td>Filters and dewaters the fuel while it stays in the tank</td><td>Removes the fuel, then the water, sludge, and growth from the tank</td></tr>
+      <tr><td>Good for</td><td>Light contamination, water and particles in the fuel, standby fuel you want to keep usable</td><td>Heavy sludge, recurring water, a microbial problem that treatment didn't fix</td></tr>
+      <tr><td>Limits</td><td>Doesn't remove sludge stuck to the walls and bottom</td><td>More downtime and cost; the fuel has to go somewhere while it's done</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>For a small farm tank with bad fuel, it's often simpler to have the fuel and bottoms pumped out and start over. Your fuel supplier can often pump the tank out {src(CENEXW, 'Cenex')}.</p>
+  <p><strong>Field note:</strong> When I find a bad tank, the usual call is to have it pumped and cleaned. When one gets opened up, I see all of it: sludge, rust scale, and microbial mats.</p>
+
+  <h2>How fuel polishing works</h2>
+  <p><strong>A polishing unit pulls fuel from the tank, runs it through a filter and water separator, and returns it to the tank, over and over.</strong> Fuel polishing is used to clean and filter fuel in tanks that are contaminated or at risk of it; a typical unit has a primary filter and water separator, a pump, and a secondary filter and water separator {src(POLPAT, 'U.S. Patent 7,883,627')}.</p>
+  <ul>
+    <li><strong>Draw from the bottom.</strong> That's where water and sediment are. The goal is to move fuel across the bottom, not just through the middle of the tank.</li>
+    <li><strong>Drain the separator.</strong> The water it catches has to be emptied and disposed of properly.</li>
+    <li><strong>Test before and after</strong> so you know it worked (see <a href="{TEST_PATH}">how to test diesel fuel</a>).</li>
+  </ul>
+
+  <h2>How tank cleaning works</h2>
+  <p><strong>Tank cleaning is a contractor job with a set sequence.</strong> OSHA's guidance on tank cleaning covers a pre-cleaning site review, degassing and vapor control, removing the product, disposal, and a safety check before the tank goes back into service {src(OSHAWA, 'OSHA')}.</p>
+  <ol>
+    <li><strong>Remove the usable fuel</strong>, usually by pumping it through filters into temporary storage. Removing product calls for controlling ignition sources and bonding and grounding the equipment {src(OSHAWA, 'OSHA')}.</li>
+    <li><strong>Remove the water and sludge</strong> from the bottom.</li>
+    <li><strong>Clean the interior</strong>, from outside the tank where possible, or by trained entrants under a confined space permit.</li>
+    <li><strong>Check the tank before it goes back in service.</strong> OSHA calls for a recommissioning safety check using a written checklist signed by qualified people {src(OSHAWA, 'OSHA')}.</li>
+    <li><strong>Return or replace the fuel</strong>, and change the filters.</li>
+  </ol>
+  <p><strong>Ask where the waste goes.</strong> Tank-bottom water is petroleum-contaminated and can count as hazardous waste. Don't let it go on the ground or down a drain {src(MODNR, 'Missouri DNR')}. A contractor should tell you how sludge and water will be handled.</p>
+  <p><strong>Field note:</strong> Owners draining tank bottoms onto the ground is something I still run into. Don't do it. Catch it in a closed, labeled container and get it disposed of properly.</p>
+
+  <h2>Never climb into a fuel tank</h2>
+  <p><strong>"Because they may contain hazards when taken out of service, most storage tanks will be considered Permit-Required Confined Spaces"</strong> {src(OSHAHS, 'OSHA')}. The hazards include vapors, hazardous gases, and an atmosphere with too little or too much oxygen, which can cause serious injury or death {src(OSHAHS, 'OSHA')}.</p>
+  <ul>
+    <li><strong>What counts as a confined space:</strong> a space big enough to enter and work in, with limited ways in and out, and not meant for continuous occupancy. Tanks are the first example the rule gives {src(C1910146, '29 CFR 1910.146')}.</li>
+    <li><strong>A hazardous atmosphere</strong> includes flammable vapor over 10% of its lower flammable limit, or oxygen below 19.5% or above 23.5% {src(C1910146, '29 CFR 1910.146')}.</li>
+    <li><strong>On farms:</strong> OSHA's confined space standard doesn't apply to agricultural operations, but OSHA points to it as the guide for preventing deaths, and the General Duty Clause still requires a workplace free from recognized hazards {src(OSHAFARM, 'OSHA Fatal Facts No. 16')}. OSHA's farm example is a worker who died from a hazardous atmosphere inside a storage tank that wasn't marked as a confined space {src(OSHAFARM, 'OSHA')}.</li>
+  </ul>
+  <p>If a tank needs interior work, hire a contractor with a confined space program and rescue plan.</p>
+
+  <h2>After the job</h2>
+  <ul>
+    <li><strong>Let it settle.</strong> Mixing or circulating a tank kicks sludge up off the bottom; one fuel treatment maker says to let fuel settle at least 8 hours before use {src(BELL, 'Bell Performance')}.</li>
+    <li><strong>Expect to change filters</strong> for a while, especially after a biocide treatment {src(CRC672, 'CRC Report 672')}.</li>
+    <li><strong>Keep water out</strong> so you don't have to do this again soon: tight caps and vents, and water checks before and after deliveries {src(CRC672, 'CRC Report 672')}. See <a href="{WATER_PATH}">water in your diesel tank</a>.</li>
+    <li><strong>Treat for microbes</strong> if they were the problem. See <a href="{BIO_PATH}">diesel bugs and biocides</a>.</li>
+  </ul>
+
+  <section class="faq">
+  <h2>FAQ</h2>
+  {clean_faq_html}
+  </section>
+
+  <h2>Sources</h2>
+  <ul class="sources">
+    <li><a href="{OSHAHS}" rel="noopener">OSHA: Storage tanks, hazards and solutions</a></li>
+    <li><a href="{OSHAWA}" rel="noopener">OSHA: Major work activities for tank cleaning operations</a></li>
+    <li><a href="{C1910146}" rel="noopener">29 CFR 1910.146, permit-required confined spaces (Cornell LII)</a></li>
+    <li><a href="{OSHAFARM}" rel="noopener">OSHA Fatal Facts No. 16: Confined space entry on a farm (2018)</a></li>
+    <li><a href="{CRC672}" rel="noopener">CRC Report 672: Preventive maintenance guide for diesel storage and dispensing systems (2016)</a></li>
+    <li><a href="{PSAIL}" rel="noopener">Practical Sailor: Diesel biocides take on contaminated fuel</a></li>
+    <li><a href="{CENEXW}" rel="noopener">Cenex: Water-contaminated diesel</a></li>
+    <li><a href="{MODNR}" rel="noopener">Missouri DNR: Management of petroleum storage tank wastes</a></li>
+    <li><a href="{GILBERT}" rel="noopener">Gilbert, National Tanks Conference (2018)</a></li>
+    <li><a href="{BELL}" rel="noopener">Bell Performance: Fuel storage tank treatment recommendations (2014)</a></li>
+    <li><a href="{POLPAT}" rel="noopener">U.S. Patent 7,883,627: Automated fuel polishing system</a></li>
+  </ul>
+  <p class="note">This guide is general information. Tank entry and waste disposal are regulated; follow OSHA, your state, and your contractor's procedures.</p>
+</article>
+"""
+
+clean_schema = [{"@context": "https://schema.org", "@type": "Article", "headline": CLEAN_TITLE, "description": CLEAN_DESC,
+                 "datePublished": UPDATED, "dateModified": UPDATED, "mainEntityOfPage": DOMAIN + CLEAN_PATH}]
+page(CLEAN_PATH, CLEAN_TITLE, CLEAN_DESC, clean_body, schema=clean_schema, og_type="article")
+
 # ---------------- Fuel quality hub ----------------
 FQ_PATH = "/fuel-quality/"
 FQ_TITLE = "Fuel Quality Guides: Keeping Stored Diesel Clean, Dry, and Usable"
@@ -1868,6 +1994,7 @@ FQ_GUIDES = [
     (BIO_PATH, "Diesel bugs and biocides", "How to spot microbial growth, test for it, and treat a tank step by step without plugging every filter."),
     (STORE_PATH, "How long does diesel last in storage?", "Shelf life, what makes fuel go bad, how to tell if it's still good, and how to make it last."),
     (TEST_PATH, "How to test diesel fuel", "Taking a good bottom sample, the checks you can do yourself, and which lab tests to ask for."),
+    (CLEAN_PATH, "Tank cleaning and fuel polishing", "When to polish the fuel and when to clean the tank, how each works, and why nobody should climb inside."),
     (GEL_PATH, "Diesel gelling: when it happens and how to prevent it", "Cloud point, CFPP, and pour point explained, why bulk tanks gel first, and a winter checklist."),
     (ADD_PATH, "Winter diesel additives", "How anti-gel works, how to treat a bulk tank before the cold, label treat rates, and when blending makes more sense."),
 ]
@@ -3004,7 +3131,7 @@ for _args in PAGES:
 
 # ---------------- sitemap, robots, favicon ----------------
 # Legal and contact pages stay crawlable through the footer but are left out of the sitemap
-urls = ["/", NOZ_PATH, UST_PATH, WT_PATH, OFP_PATH, AST_PATH, SB_PATH, LLD_PATH, FQ_PATH, STORE_PATH, TEST_PATH, ASV_PATH, SPCC_PATH, SC_PATH, ADD_PATH, WATER_PATH, BIO_PATH, TT_PATH, PUMP_PATH, GEL_PATH, "/about/"]
+urls = ["/", NOZ_PATH, UST_PATH, WT_PATH, OFP_PATH, AST_PATH, SB_PATH, LLD_PATH, FQ_PATH, STORE_PATH, TEST_PATH, CLEAN_PATH, ASV_PATH, SPCC_PATH, SC_PATH, ADD_PATH, WATER_PATH, BIO_PATH, TT_PATH, PUMP_PATH, GEL_PATH, "/about/"]
 sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
 for u in urls:
     sitemap += f"  <url><loc>{DOMAIN}{u}</loc><lastmod>{DATES.get(u, (UPDATED,))[0]}</lastmod></url>\n"
