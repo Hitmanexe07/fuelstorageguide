@@ -29,6 +29,7 @@ DATES = {
     "/diesel-fuel-stabilizer/": ("2026-10-31", "October 31, 2026"),
     "/ust-release-detection/": ("2026-10-31", "October 31, 2026"),
     "/containment-sump-testing/": ("2026-10-31", "October 31, 2026"),
+    "/how-to-ungel-diesel/": ("2026-10-31", "October 31, 2026"),
 }
 
 # Who gets credit in bylines and structured data. While this is None, guides are credited
@@ -280,7 +281,7 @@ faq = [
     ("Does #1 diesel gel?",
      f"Much later. #1 has very little wax. In one EPRI example, a #1 fuel had a cloud point of −26°F, compared with +12°F for the #2 it was blended with {src(EPRI, 'EPRI')}."),
     ("Can I add anti-gel after the fuel has gelled?",
-     "Not regular anti-gel. It only works when mixed in above the cloud point. Use a product made for gelled fuel, and warm the filter and lines."),
+     "Not regular anti-gel. It only works when mixed in above the cloud point. Use a product made for gelled fuel, and warm the filter and lines. See <a href=\"/how-to-ungel-diesel/\">how to un-gel diesel</a>."),
     ("Does red (off-road) diesel gel differently?",
      f"The red dye marks fuel for tax purposes {src(EPRI, 'EPRI')}. Cold behavior comes from the grade and whether the fuel was winterized or blended, so ask your supplier the same questions for off-road fuel."),
 ]
@@ -347,14 +348,8 @@ gel_body = f"""
   </ol>
 
   <h2>If your fuel already gelled</h2>
-  <p><strong>Start with the filter, warm what you can safely, and don't count on a regular anti-gel to fix it.</strong> Most of the time the tank is cloudy but the filter is what's actually blocked.</p>
-  <ul>
-    <li><strong>Swap the dispenser filter first.</strong> A plugged filter is often packed with wax or ice. Replace it with a fresh one and watch whether it plugs again {src(CRC, 'CRC')}. Don't run without a filter.</li>
-    <li><strong>Use a product made for gelled fuel.</strong> Regular anti-gel is a preventive and won't fix wax that has already formed. Emergency products such as Power Service Diesel 9-1-1 are made to reliquefy gelled fuel and de-ice frozen filters. Follow the label, then treat the fuel with an anti-gel so it doesn't gel again {src(POWER, 'Power Service')}.</li>
-    <li><strong>Warm safely.</strong> Use a heated building, a tank or filter heater, or heat tracing. Never use an open flame or torch on a tank, pump, or fuel line.</li>
-    <li><strong>Let the tank come back above the cloud point before trusting it.</strong> Wax that settled to the bottom leaves the fuel uneven until it redissolves {src(CRC, 'CRC')}.</li>
-    <li><strong>Then fix the cause.</strong> Once it's flowing, treat or blend the fuel so it doesn't happen on the next cold night.</li>
-  </ul>
+  <p><strong>Start with the filter, warm what you can safely, and don't count on a regular anti-gel to fix it.</strong> Most of the time the tank is cloudy but the filter is what's actually blocked. Use a product made for gelled fuel, such as Power Service Diesel 9-1-1, then treat with an anti-gel so it doesn't gel again {src(POWER, 'Power Service')}. Never use an open flame on a tank, pump, or fuel line.</p>
+  <p>Step-by-step for bulk tanks, dispensers, and equipment: <a href="/how-to-ungel-diesel/">how to un-gel diesel</a>.</p>
 
   <h2>What to keep on hand</h2>
   <ul>
@@ -1414,7 +1409,7 @@ add_body = f"""
     </tbody>
   </table>
   </div>
-  <p><strong>Don't mix up the white and gray bottles.</strong> The white bottle prevents gelling; the gray 9-1-1 bottle rescues fuel that's already gelled {src(POWER, 'Power Service')}. Keep one of each on hand through the winter.</p>
+  <p><strong>Don't mix up the white and gray bottles.</strong> The white bottle prevents gelling; the gray 9-1-1 bottle rescues fuel that's already gelled {src(POWER, 'Power Service')}. Keep one of each on hand through the winter. If it already gelled, see <a href="/how-to-ungel-diesel/">how to un-gel diesel</a>.</p>
   <p>These are the makers' own claims, not independent tests.</p>
 
   <h2>Anti-gel, #1 blending, or heat?</h2>
@@ -1465,6 +1460,106 @@ add_schema = [
      "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": strip_tags(a)}} for q, a in add_faq]},
 ]
 page(ADD_PATH, ADD_TITLE, ADD_DESC, add_body, schema=add_schema, og_type="article")
+
+
+# ---------------- Article: how to un-gel diesel ----------------
+UNGEL_PATH = "/how-to-ungel-diesel/"
+UNGEL_TITLE = "How to Un-Gel Diesel in a Tank, Filter, or Tractor"
+UNGEL_DESC = ("Diesel gelled or a filter froze? Find where it's plugged, warm it safely, use an emergency re-liquefier, "
+              "and stop it from happening again.")
+
+ungel_faq = [
+    ("Will regular anti-gel fix fuel that already gelled?",
+     f"No. Anti-gel has to be in the fuel before wax forms {src(CRC, 'CRC')}. Use a product made for gelled fuel, then add anti-gel so it doesn't happen again {src(POWER, 'Power Service')}."),
+    ("Can I add gasoline to thin gelled diesel?",
+     f"No. Gasoline lowers the flash point and creates a fire hazard. Blend with #1 diesel or a kerosene-type fuel instead {src(EPRI, 'EPRI')}."),
+    ("How do I know if it's wax or ice?",
+     f"You often can't by looking; ice and wax plugs look the same, and sometimes it's both {src(CRC, 'CRC')}. Cloudy fuel points to wax. Water on the tank bottom points to ice. Emergency products like Diesel 9-1-1 are made to handle both {src(POWER, 'Power Service')}."),
+]
+ungel_faq_html = "\n".join(f"<h3>{q}</h3>\n<p>{a}</p>" for q, a in ungel_faq)
+
+ungel_body = f"""
+<article class="wrap">
+  <p class="crumbs"><a href="/fuel-quality/">Fuel quality</a></p>
+  <h1>How to un-gel diesel in a tank, filter, or tractor</h1>
+  <p class="meta">Written by a fuel-system technician. Updated {UPDATED_HUMAN}.</p>
+  {AFF_NOTE}
+
+  <div class="answer">
+    <p><strong>Start with the filter: it's usually what's plugged, even when the tank still pours. Warm the system safely, add an emergency re-liquefier made for gelled fuel by its label, and once it's flowing, treat or blend the fuel so it doesn't gel again.</strong> Never use an open flame, never add gasoline, and never run without a filter.</p>
+  </div>
+
+  <h2>Wax or ice?</h2>
+  <p><strong>Two different things stop diesel in the cold, and they look alike.</strong> Wax forms when fuel drops below its cloud point. Ice forms when water in the fuel freezes in the filter. "Ice and wax plugs look the same, and sometimes it's both" {src(CRC, 'CRC')}.</p>
+  <div class="table-wrap">
+  <table class="even">
+    <thead><tr><th scope="col">Clue</th><th scope="col">Points to</th></tr></thead>
+    <tbody>
+      <tr><td>Cloudy fuel in a sample jar that clears when it warms up</td><td>Wax</td></tr>
+      <tr><td>Water on the tank bottom (check with water paste)</td><td>Ice</td></tr>
+      <tr><td>The tank is liquid but the filter or line is blocked</td><td>Either; fuel can gel in the line or filter while the tank is still liquid {src(CRC, 'CRC')}</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>Emergency products such as Power Service Diesel 9-1-1 are made to reliquefy gelled fuel and de-ice frozen filters, so they cover both {src(POWER, 'Power Service')}.</p>
+  <p><strong>Field note:</strong> On gelled-fuel calls, the problem is usually in both the filter and the tank.</p>
+
+  <h2>Bulk tank or dispenser: step by step</h2>
+  <p><strong>Field note:</strong> On a gelled bulk tank, the first thing I do is pump the water out, flush the system, and change the filters.</p>
+  <ol>
+    <li><strong>Swap the dispenser filter.</strong> A plugged filter is often packed with wax or ice. Put on a fresh one and watch whether it plugs again {src(CRC, 'CRC')}. Never bypass or remove the filter to keep fuel moving; that sends dirt straight to your engines.</li>
+    <li><strong>Treat the tank with an emergency re-liquefier.</strong> Follow the label rate for the tank's gallons. Power Service's label rate for Diesel 9-1-1 is 80 oz per 100 gallons (<a href="{PS911LBL}" rel="noopener">label directions</a>; <a href="{POWER}" rel="noopener">Power Service</a>). For a 500-gallon tank, that's 400 oz, a little over 3 gallons. {amz("Power Service Diesel 9-1-1", "Diesel 9-1-1 on Amazon")}.</li>
+    <li><strong>Warm what you can, safely.</strong> A tank or filter heater, heat tracing on short lines, or a heated building for portable tanks {src(CRC, 'CRC')}. Never use an open flame or a torch on a tank, pump, or fuel line.</li>
+    <li><strong>Let the tank come back above its cloud point before you trust it.</strong> Wax that settled to the bottom leaves the fuel uneven until it redissolves, so what comes out changes as the level drops {src(CRC, 'CRC')}.</li>
+    <li><strong>Check for water.</strong> Stick the bottom with water-finding paste and drain any water. Routinely draining water bottoms is the best defense against ice {src(CRC, 'CRC')}. See <a href="{WATER_PATH}">water in your diesel tank</a>.</li>
+    <li><strong>Fix the fuel for the rest of the winter.</strong> Add an anti-gel {src(POWER, 'Power Service')}, or blend in #1 diesel. See below.</li>
+  </ol>
+
+  <h2>Tractor, truck, or equipment that won't run</h2>
+  <ol>
+    <li><strong>Get it warm if you can:</strong> a heated shop, or plug in the block heater and give it time.</li>
+    <li><strong>Treat the fuel filter.</strong> Diesel 9-1-1 is made to melt ice on contact when it's added directly to a plugged fuel filter {src(POWER, 'Power Service')}. Follow the label directions for your equipment.</li>
+    <li><strong>Treat the tank</strong> at the label rate, so warm, treated fuel is what reaches the filter once the engine runs {src(POWER, 'Power Service')}.</li>
+    <li><strong>Then treat with a regular anti-gel</strong> so it doesn't gel again {src(POWER, 'Power Service')}.</li>
+  </ol>
+
+  <h2>Stop it from happening again</h2>
+  <ul>
+    <li><strong>Add anti-gel before the cold.</strong> It has to be in the fuel before wax starts forming {src(CRC, 'CRC')}. See <a href="{ADD_PATH}">winter diesel additives</a> for treat rates.</li>
+    <li><strong>Blend #1 diesel for deep cold.</strong> Cenex's schedule: below 35&deg;F, about 70% #2 and 30% #1 plus an anti-gel; deeper into winter, 30% #2 and 70% #1; below &minus;30&deg;F, straight #1 {src(CENEX, 'Cenex')}. Additives alone typically protect to about 0&deg;F {src(CENEX, 'Cenex')}.</li>
+    <li><strong>Protect the filter and short lines</strong> with a filter heater, insulation, and heat tracing {src(CRC, 'CRC')}.</li>
+    <li><strong>Watch out for summer fuel.</strong> Diesel bought in summer or early fall won't have the cloud point of fuel made for January {src(EPRI, 'EPRI')}.</li>
+  </ul>
+  <p>For cloud point, CFPP, and why bulk tanks gel first, see <a href="{GEL_PATH}">diesel gelling: when it happens and how to prevent it</a>.</p>
+
+  <h2>What to keep on hand</h2>
+  <ul>
+    <li>An emergency re-liquefier: {amz("Power Service Diesel 9-1-1", "Power Service Diesel 9-1-1 on Amazon")}</li>
+    <li>Spare dispenser and equipment fuel filters: {amz("Fill-Rite 10 micron fuel filter", "Fill-Rite filters on Amazon")}</li>
+    <li>Anti-gel for the rest of the winter: {amz("diesel anti gel additive", "anti-gel on Amazon")}</li>
+    <li>Water-finding paste: {amz("Kolor Kut water finding paste", "Kolor Kut paste on Amazon")}</li>
+  </ul>
+
+  <section class="faq">
+  <h2>FAQ</h2>
+  {ungel_faq_html}
+  </section>
+
+  <h2>Sources</h2>
+  <ul class="sources">
+    <li><a href="{CRC}" rel="noopener">Coordinating Research Council: Diesel Fuel Low Temperature Operability Guide (CRC Report 671, 2016)</a></li>
+    <li><a href="{POWER}" rel="noopener">Power Service: Diesel 9-1-1</a></li>
+    <li><a href="{PS911LBL}" rel="noopener">Diesel 9-1-1 label directions (Agro Trade Parts listing)</a></li>
+    <li><a href="{CENEX}" rel="noopener">Cenex: Diesel gelling and how to stop it this winter</a></li>
+    <li><a href="{EPRI}" rel="noopener">EPRI / Southwest Research Institute: Winterizing Diesel Fuel (TR-104843, 1994)</a></li>
+  </ul>
+  <p class="note">Product rates are the makers' own; follow the label on the product you use. This guide is general information.</p>
+</article>
+"""
+
+ungel_schema = [{"@context": "https://schema.org", "@type": "Article", "headline": UNGEL_TITLE, "description": UNGEL_DESC,
+                 "datePublished": UPDATED, "dateModified": UPDATED, "mainEntityOfPage": DOMAIN + UNGEL_PATH}]
+page(UNGEL_PATH, UNGEL_TITLE, UNGEL_DESC, ungel_body, schema=ungel_schema, og_type="article")
 
 # ---------------- Article: diesel biocides ----------------
 BIOKLEEN = "https://powerservice.com/psp_product/bio-kleen-diesel-fuel-biocide/"
@@ -2106,6 +2201,7 @@ FQ_GUIDES = [
     (TEST_PATH, "How to test diesel fuel", "Taking a good bottom sample, the checks you can do yourself, and which lab tests to ask for."),
     (STAB_PATH, "Diesel fuel stabilizer", "What a stabilizer does and doesn't do, when stored fuel needs one, and label treat rates for bulk tanks."),
     (CLEAN_PATH, "Tank cleaning and fuel polishing", "When to polish the fuel and when to clean the tank, how each works, and why nobody should climb inside."),
+    (UNGEL_PATH, "How to un-gel diesel", "Find where it's plugged, warm it safely, use an emergency re-liquefier, and keep it from gelling again."),
     (GEL_PATH, "Diesel gelling: when it happens and how to prevent it", "Cloud point, CFPP, and pour point explained, why bulk tanks gel first, and a winter checklist."),
     (ADD_PATH, "Winter diesel additives", "How anti-gel works, how to treat a bulk tank before the cold, label treat rates, and when blending makes more sense."),
 ]
@@ -3512,7 +3608,7 @@ for _args in PAGES:
 
 # ---------------- sitemap, robots, favicon ----------------
 # Legal and contact pages stay crawlable through the footer but are left out of the sitemap
-urls = ["/", NOZ_PATH, UST_PATH, WT_PATH, RD_PATH, SUMP_PATH, OFP_PATH, AST_PATH, SB_PATH, LLD_PATH, FQ_PATH, STORE_PATH, TEST_PATH, CLEAN_PATH, STAB_PATH, ASV_PATH, SPCC_PATH, SC_PATH, ADD_PATH, WATER_PATH, BIO_PATH, TT_PATH, PUMP_PATH, GEL_PATH, "/about/"]
+urls = ["/", NOZ_PATH, UST_PATH, WT_PATH, RD_PATH, SUMP_PATH, OFP_PATH, AST_PATH, SB_PATH, LLD_PATH, FQ_PATH, STORE_PATH, TEST_PATH, CLEAN_PATH, STAB_PATH, UNGEL_PATH, ASV_PATH, SPCC_PATH, SC_PATH, ADD_PATH, WATER_PATH, BIO_PATH, TT_PATH, PUMP_PATH, GEL_PATH, "/about/"]
 sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
 for u in urls:
     sitemap += f"  <url><loc>{DOMAIN}{u}</loc><lastmod>{DATES.get(u, (UPDATED,))[0]}</lastmod></url>\n"
