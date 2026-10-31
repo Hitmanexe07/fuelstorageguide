@@ -30,6 +30,7 @@ DATES = {
     "/ust-release-detection/": ("2026-10-31", "October 31, 2026"),
     "/containment-sump-testing/": ("2026-10-31", "October 31, 2026"),
     "/how-to-ungel-diesel/": ("2026-10-31", "October 31, 2026"),
+    "/aboveground-fuel-tank-setback/": ("2026-10-31", "October 31, 2026"),
 }
 
 # Who gets credit in bylines and structured data. While this is None, guides are credited
@@ -646,7 +647,7 @@ spcc_body = f"""
     </tbody>
   </table>
   </div>
-  <p>Your state environmental agency, state fire marshal, and local fire department may also have rules on tank placement, setbacks, and permits. Check with them before installing a new tank.</p>
+  <p>Your state environmental agency, state fire marshal, and local fire department may also have rules on tank placement, setbacks, and permits. Check with them before installing a new tank. See <a href="/aboveground-fuel-tank-setback/">setback distances</a> for examples.</p>
 
   <h2>Common mistakes</h2>
   <ul>
@@ -856,6 +857,124 @@ sc_body = f"""
 sc_schema = [{"@context": "https://schema.org", "@type": "Article", "headline": SC_TITLE, "description": SC_DESC,
               "datePublished": UPDATED, "dateModified": UPDATED, "mainEntityOfPage": DOMAIN + SC_PATH}]
 page(SC_PATH, SC_TITLE, SC_DESC, sc_body, schema=sc_schema, og_type="article")
+
+# ---------------- Article: aboveground tank setbacks ----------------
+SETB_PATH = "/aboveground-fuel-tank-setback/"
+NDFARM = "https://www.deq.nd.gov/Publications/WM/FarmFuelTankSafetyGuide.pdf"
+UTFM = "https://www.utahcounty.gov/apps/WebLink/Dept/FIREMARSHAL/FM121AboveGroundFuelTankReq101320.pdf"
+ORAST = "https://www.oregon.gov/osfm/Docs/AbovegroundTankApplicationInstallationGuidelines.pdf"
+JMEFS = "https://www.jmesales.com/jme-tanks-double-wall-flameshield-tank-300-gallons-38-59-12/"
+PA146 = "https://www.pacodeandbulletin.gov/Display/pacode?file=%2Fsecure%2Fpacode%2Fdata%2F037%2Fchapter14%2Fs14.6.html&d=reduce"
+IL16030 = "https://www.law.cornell.edu/regulations/illinois/Ill-Admin-Code-tit-41-SS-160.30"
+NPSFL = "https://www.nps.gov/subjects/policy/upload/RM-50B_Chp29_Flammables_Combustibles-508.pdf"
+CSUFL = "https://www.csupueblo.edu/facilities-management/_doc/flammable-and-combustible-liquids.pdf"
+
+SETB_TITLE = "Aboveground Fuel Tank Setback Distances by Tank and State"
+SETB_DESC = ("How far an aboveground fuel tank has to be from buildings and property lines depends on your fire code, "
+             "the tank type, and the fuel. Real examples.")
+
+setb_faq = [
+    ("Is there one national setback distance?",
+     "No. Setbacks come from the fire code your state or county adopted, usually the International Fire Code or NFPA 30, often with local changes. The same tank can need 5 feet in one place and 50 in another."),
+    ("Does a double-wall tank get a shorter setback?",
+     f"Not just for being double-walled. Shorter distances usually go with protected tanks listed to UL 2085, which are insulated and fire-tested {src(ORAST, 'Oregon State Fire Marshal')}. Double-walled tanks can help with spill control; North Dakota's farm guide says double-walled or vaulted tanks don't need a dike {src(NDFARM, 'North Dakota farm fuel tank guide')}."),
+    ("Who do I ask?",
+     "Your state fire marshal or local fire department, before you set the tank. Many require a permit and a site plan showing property lines, buildings, roads, and waterways."),
+]
+setb_faq_html = "\n".join(f"<h3>{q}</h3>\n<p>{a}</p>" for q, a in setb_faq)
+
+setb_body = f"""
+<article class="wrap">
+  <p class="crumbs"><a href="/aboveground-fuel-tanks/">Aboveground tanks</a></p>
+  <h1>Aboveground fuel tank setback distances</h1>
+  <p class="meta">Written by a fuel-system technician. Updated {UPDATED_HUMAN}.</p>
+
+  <div class="answer">
+    <p><strong>There's no single national number. How far a tank has to be from buildings and property lines depends on the fire code your state or county adopted, whether the tank is a standard UL 142 tank or a protected UL 2085 tank, what fuel it holds, and whether it's on a farm or a fueling site.</strong> The examples below range from 5 feet to 100 feet. Check with your fire marshal before you set a tank.</p>
+  </div>
+
+  <h2>What sets the distance</h2>
+  <ul>
+    <li><strong>Your adopted fire code.</strong> Most states and counties use the International Fire Code (IFC) or NFPA 30, often with their own changes.</li>
+    <li><strong>The tank type.</strong> Protected tanks listed to UL 2085 get much shorter distances than standard UL 142 tanks {src(ORAST, 'Oregon State Fire Marshal')}. See <a href="/aboveground-fuel-tanks/">aboveground fuel tanks</a> for the difference.</li>
+    <li><strong>The fuel.</strong> Gasoline is a Class I flammable liquid, with a flash point below 100&deg;F {src(NPSFL, 'National Park Service')}. Class II liquids have flash points from 100&deg;F to below 140&deg;F, and include No. 1 and No. 2 fuel oils and kerosene {src(CSUFL, 'Colorado State University Pueblo')}; #2 diesel normally falls here.</li>
+    <li><strong>The use.</strong> Farm and construction-site tanks for private use often fall under separate, simpler rules than motor fuel dispensing sites.</li>
+  </ul>
+
+  <h2>Farm tanks: the IFC farm rule</h2>
+  <p><strong>The IFC has a separate section for storing and dispensing Class I and II liquids for private use on farms and construction sites.</strong> Utah County's fire marshal publishes it for unincorporated areas {src(UTFM, 'Utah County Fire Marshal')}:</p>
+  <ul>
+    <li>Tanks are kept outside and at least <strong>50 feet from buildings and combustible storage</strong>, with extra distance so vehicles and equipment being filled are also at least 50 feet from structures and haystacks.</li>
+    <li>Tanks are marked with the product name, <strong>"FLAMMABLE—KEEP FIRE AND FLAME AWAY,"</strong> and <strong>"KEEP 50 FEET FROM BUILDINGS."</strong></li>
+    <li>Permanent tanks are limited to 1,100 gallons unless they meet the full aboveground tank requirements; temporary tanks to 10,000 gallons.</li>
+    <li>Fill openings need a locking closure, and the area has to be kept free of weeds and combustible material.</li>
+  </ul>
+  <p>Utah County requires a permit for farm and construction-site tanks over 10 gallons of Class I or over 60 gallons of Class II or III-A liquid {src(UTFM, 'Utah County Fire Marshal')}.</p>
+
+  <h2>Fueling sites: standard vs. protected tanks</h2>
+  <p><strong>For motor fuel dispensing, the IFC table gives very different distances for standard and protected tanks.</strong> Oregon's fire marshal publishes these under the Oregon Fire Code {src(ORAST, 'Oregon State Fire Marshal')}:</p>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th scope="col">Tank</th><th scope="col">From property lines or the far side of a public way</th><th scope="col">From the near side of a public way or an important building</th><th scope="col">Between tanks</th></tr></thead>
+    <tbody>
+      <tr><td>Standard (UL 142), any size</td><td>100 ft</td><td>50 ft</td><td>3 ft</td></tr>
+      <tr><td>Protected (UL 2085), 6,000 gal or less</td><td>15 ft</td><td>5 ft</td><td>3 ft</td></tr>
+      <tr><td>Protected (UL 2085), over 6,000 gal</td><td>25 ft</td><td>15 ft</td><td>3 ft</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>The same IFC table appears on local fire department checklists, sometimes with local footnotes {src(CAZ, 'Central Arizona Fire checklist')}.</p>
+  <p><strong>Field note:</strong> For farm and fleet tanks, I like Flameshield double-wall tanks. They're UL 142 tanks with a tight-wrap double wall, built-in secondary containment, interstitial monitoring, and a 2-hour fire test {src(JMEFS, 'JME Tanks spec sheet')}. Since the shortest distances in the table are written for UL 2085 protected tanks, ask your fire marshal how a Flameshield tank is treated where you are.</p>
+
+  <h2>How states compare</h2>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th scope="col">State</th><th scope="col">Rule</th><th scope="col">Distances</th></tr></thead>
+    <tbody>
+      <tr><td>North Dakota</td><td>Farm fuel tank guidance, based on state rules and NFPA 30</td><td>10 ft from property lines and public rights-of-way; 5 ft from an occupied building; 3 ft between tanks; 20 ft from propane tanks; tanks under 1,100 gal need 40 ft of clear space around them {src(NDFARM, 'ND farm fuel tank guide')}</td></tr>
+      <tr><td>Utah County, UT</td><td>IFC farm and construction-site rule</td><td>50 ft from buildings and combustible storage {src(UTFM, 'Utah County Fire Marshal')}</td></tr>
+      <tr><td>Oregon</td><td>Oregon Fire Code, motor fuel dispensing</td><td>Standard tanks 100 ft from property lines, 50 ft from important buildings; protected tanks as little as 15 and 5 ft {src(ORAST, 'Oregon State Fire Marshal')}</td></tr>
+      <tr><td>Pennsylvania</td><td>Aboveground Class I and II motor fuel tanks, nonretail</td><td>50 ft from buildings and 100 ft from property lines, cut in half for a 2-hour fire-rated tank {src(PA146, '37 Pa. Code &sect; 14.6')}</td></tr>
+      <tr><td>Illinois</td><td>General storage of gasoline and volatile oils</td><td>At least 20 ft from the adjoining property line for tanks of 3,000 gal or less {src(IL16030, 'Ill. Admin. Code tit. 41 &sect; 160.30')}</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>These are examples, not a complete list, and local fire departments can add to them.</p>
+
+  <h2>Other distances that come with a tank</h2>
+  <ul>
+    <li><strong>Propane:</strong> at least 20 feet between an LP gas container and a Class I, II, or III-A liquid tank (<a href="{ORAST}" rel="noopener">Oregon</a>; <a href="{NDFARM}" rel="noopener">North Dakota</a>).</li>
+    <li><strong>Vent outlets:</strong> at least 5 feet from building openings and from property lines that can be built on {src(ORAST, 'Oregon State Fire Marshal')}.</li>
+    <li><strong>Dispensers at fueling sites:</strong> 10 feet or more from property lines and from most buildings {src(ORAST, 'Oregon State Fire Marshal')}.</li>
+    <li><strong>No smoking or open flames</strong> within 25 feet of fueling {src(ORAST, 'Oregon State Fire Marshal')}.</li>
+    <li><strong>Vehicle impact:</strong> guard posts where tanks can be hit (<a href="{ORAST}" rel="noopener">Oregon</a>; <a href="{PA146}" rel="noopener">Pennsylvania</a>).</li>
+  </ul>
+  <p>Setbacks are separate from spill containment. For dikes and double-wall tanks, see <a href="{SC_PATH}">secondary containment</a>, and for whether you need a spill plan, <a href="{SPCC_PATH}">Do I need an SPCC plan?</a></p>
+
+  <section class="faq">
+  <h2>FAQ</h2>
+  {setb_faq_html}
+  </section>
+
+  <h2>Sources</h2>
+  <ul class="sources">
+    <li><a href="{UTFM}" rel="noopener">Utah County Fire Marshal: Aboveground fuel tank requirements (IFC farm and construction sites)</a></li>
+    <li><a href="{ORAST}" rel="noopener">Oregon State Fire Marshal: Aboveground tank application and installation guidelines (2024)</a></li>
+    <li><a href="{CAZ}" rel="noopener">Central Arizona Fire and Medical Authority: Above-ground fuel tank checklist (IFC 2012)</a></li>
+    <li><a href="{NDFARM}" rel="noopener">North Dakota: Farm fuel tank safety guide</a></li>
+    <li><a href="{JMEFS}" rel="noopener">JME Tanks: 300-gallon double-wall Flameshield tank spec sheet</a></li>
+    <li><a href="{PA146}" rel="noopener">37 Pa. Code &sect; 14.6: Aboveground tanks for Class I and II motor fuels</a></li>
+    <li><a href="{IL16030}" rel="noopener">Ill. Admin. Code tit. 41 &sect; 160.30: Location of aboveground tanks (Cornell LII)</a></li>
+    <li><a href="{NPSFL}" rel="noopener">National Park Service: Flammables and combustibles (RM-50B, ch. 29)</a></li>
+    <li><a href="{CSUFL}" rel="noopener">Colorado State University Pueblo: Flammable and combustible liquids</a></li>
+  </ul>
+  <p class="note">This guide is general information. Your state and local fire code decide the distances at your site; check with your fire marshal before installing a tank.</p>
+</article>
+"""
+
+setb_schema = [{"@context": "https://schema.org", "@type": "Article", "headline": SETB_TITLE, "description": SETB_DESC,
+                "datePublished": UPDATED, "dateModified": UPDATED, "mainEntityOfPage": DOMAIN + SETB_PATH}]
+page(SETB_PATH, SETB_TITLE, SETB_DESC, setb_body, schema=setb_schema, og_type="article")
 
 # ---------------- Article: water in diesel ----------------
 CRC672 = "https://www.cdfa.ca.gov/dms/programs/petroleum/CRC_DieselStorageSystem.pdf"
@@ -2509,6 +2628,7 @@ AST_DESC = ("A guide to aboveground fuel tanks for farms, fleets, and small busi
 AST_GUIDES = [
     (SPCC_PATH, "Do I need an SPCC plan?", "The 1,320-gallon rule, the farm thresholds, which plan type you need, and a one-minute checker."),
     (SC_PATH, "Secondary containment", "How big a dike has to be, what the 110% rule really means, and when a double-wall tank counts."),
+    (SETB_PATH, "Setback distances", "How far a tank has to be from buildings and property lines, by tank type and state, with real examples."),
     (ASV_PATH, "Anti-siphon valves", "Why elevated tanks siphon, what the fire code requires, picking the head setting, and pump troubleshooting."),
     (TT_PATH, "Diesel transfer tanks", "Why 119 gallons matters, the rules for gasoline, payload math for your pickup, and setup."),
     (NOZ_PATH, "Fuel nozzles", "Automatic vs. manual, 3/4 or 1 inch, gas or diesel spouts, and troubleshooting."),
@@ -3608,7 +3728,7 @@ for _args in PAGES:
 
 # ---------------- sitemap, robots, favicon ----------------
 # Legal and contact pages stay crawlable through the footer but are left out of the sitemap
-urls = ["/", NOZ_PATH, UST_PATH, WT_PATH, RD_PATH, SUMP_PATH, OFP_PATH, AST_PATH, SB_PATH, LLD_PATH, FQ_PATH, STORE_PATH, TEST_PATH, CLEAN_PATH, STAB_PATH, UNGEL_PATH, ASV_PATH, SPCC_PATH, SC_PATH, ADD_PATH, WATER_PATH, BIO_PATH, TT_PATH, PUMP_PATH, GEL_PATH, "/about/"]
+urls = ["/", NOZ_PATH, UST_PATH, WT_PATH, RD_PATH, SUMP_PATH, OFP_PATH, AST_PATH, SB_PATH, LLD_PATH, FQ_PATH, STORE_PATH, TEST_PATH, CLEAN_PATH, STAB_PATH, UNGEL_PATH, ASV_PATH, SPCC_PATH, SC_PATH, SETB_PATH, ADD_PATH, WATER_PATH, BIO_PATH, TT_PATH, PUMP_PATH, GEL_PATH, "/about/"]
 sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
 for u in urls:
     sitemap += f"  <url><loc>{DOMAIN}{u}</loc><lastmod>{DATES.get(u, (UPDATED,))[0]}</lastmod></url>\n"
