@@ -27,6 +27,7 @@ DATES = {
     "/test-diesel-fuel-quality/": ("2026-10-31", "October 31, 2026"),
     "/diesel-tank-cleaning/": ("2026-10-31", "October 31, 2026"),
     "/diesel-fuel-stabilizer/": ("2026-10-31", "October 31, 2026"),
+    "/ust-release-detection/": ("2026-10-31", "October 31, 2026"),
 }
 
 # Who gets credit in bylines and structured data. While this is None, guides are credited
@@ -2877,7 +2878,7 @@ wt_body = f"""
   <p class="source-line">Source: <a href="{C28036}" rel="noopener">40 CFR 280.36(a)(1)(i)</a>.</p>
   <p><strong>Field note:</strong> On walkthroughs I find all of it: water or fuel sitting in spill buckets and sumps, fill caps that aren't tight, and alarms nobody acted on. Another gap I see a lot is owners not printing the sensor status reports from the tank monitor, so there's no record of what the sensors showed.</p>
   <p><strong>Infrequent deliveries.</strong> If your tank gets fuel less often than every 30 days, you can check the spill prevention equipment before each delivery instead. You then keep the delivery records with your walkthrough records {src(C28036, '40 CFR 280.36')}. Release detection still gets checked every 30 days.</p>
-  <p>For what a spill bucket should look like and why water in it matters, see <a href="{SB_PATH}">spill bucket testing</a>. For release detection on pressurized piping, see <a href="{LLD_PATH}">line leak detectors</a>.</p>
+  <p>For what a spill bucket should look like and why water in it matters, see <a href="{SB_PATH}">spill bucket testing</a>. For release detection on pressurized piping, see <a href="{LLD_PATH}">line leak detectors</a>; for the methods and the yearly equipment test, see <a href="/ust-release-detection/">release detection</a>.</p>
 
   <h2>Once a year</h2>
   <div class="table-wrap">
@@ -2954,6 +2955,160 @@ wt_schema = [{"@context": "https://schema.org", "@type": "Article", "headline": 
               "datePublished": UPDATED, "dateModified": UPDATED, "mainEntityOfPage": DOMAIN + WT_PATH}]
 page(WT_PATH, WT_TITLE, WT_DESC, wt_body, schema=wt_schema, og_type="article")
 
+
+# ---------------- UST release detection ----------------
+RD_PATH = "/ust-release-detection/"
+C28040 = "https://www.law.cornell.edu/cfr/text/40/280.40"
+C28041 = "https://www.law.cornell.edu/cfr/text/40/280.41"
+C28042 = "https://www.law.cornell.edu/cfr/text/40/280.42"
+C28043 = "https://www.law.cornell.edu/cfr/text/40/280.43"
+C28044 = "https://www.law.cornell.edu/cfr/text/40/280.44"
+C28045 = "https://www.law.cornell.edu/cfr/text/40/280.45"
+C28050 = "https://www.law.cornell.edu/cfr/text/40/280.50"
+
+RD_TITLE = "UST Release Detection: Methods, Schedules, and Records"
+RD_DESC = ("Which leak detection methods an underground tank and its piping can use, how often, the yearly "
+           "equipment test, when to report, and what records to keep.")
+
+rd_faq = [
+    ("Is an automatic tank gauge enough by itself?",
+     f"It can be, for the tank. The gauge has to detect a 0.2 gallon per hour leak at least every 30 days, and you also have to meet the monthly inventory control requirements {src(C28043, '40 CFR 280.43(d)')}. Tanks installed after April 11, 2016 have to use interstitial monitoring instead {src(C28041, '40 CFR 280.41')}. Piping needs its own release detection."),
+    ("What counts as a suspected release?",
+     f"Spilled product at the site, unusual operating conditions like erratic dispensing, a sudden loss of product, unexplained water in the tank, or liquid between the walls, and monitoring results or alarms that indicate a release {src(C28050, '40 CFR 280.50')}. Report within 24 hours unless your state sets another period, or unless you find a defective part and fix it right away."),
+    ("Do farm tanks need release detection?",
+     f"Not if they're 1,100 gallons or less and hold motor fuel for noncommercial use; those aren't USTs under the federal rule {src(C28012, '40 CFR 280.12')}. Your state may still regulate them."),
+]
+rd_faq_html = "\n".join(f"<h3>{q}</h3>\n<p>{a}</p>" for q, a in rd_faq)
+
+rd_body = f"""
+<article class="wrap">
+  <p class="crumbs"><a href="/underground-storage-tanks/">Underground tanks</a></p>
+  <h1>UST release detection: methods, schedules, and records</h1>
+  <p class="meta">Written by a fuel-system technician. Updated {UPDATED_HUMAN}.</p>
+
+  <div class="answer">
+    <p><strong>Every underground storage tank needs release detection that covers the tank and any underground piping that routinely holds product. Most tanks are monitored at least every 30 days, and pressurized piping also needs an automatic line leak detector. Since October 13, 2018, the equipment has to be tested for proper operation at least once a year</strong> ({src(C28040, '40 CFR 280.40')[1:-1]}; {src(C28041, '280.41')[1:-1]}).</p>
+  </div>
+
+  <p>Whatever method you use has to be installed and calibrated to the manufacturer's instructions and meet the performance standards in the rule {src(C28040, '40 CFR 280.40(a)')}. A system that can't use any method that complies has to be closed {src(C28040, '40 CFR 280.40(c)')}.</p>
+
+  <h2>Tanks: what's required depends on when it was installed</h2>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th scope="col">Tank installed</th><th scope="col">Requirement</th></tr></thead>
+    <tbody>
+      <tr><td>On or before April 11, 2016</td><td>Monitor at least every 30 days with one of the monthly methods: automatic tank gauging, vapor monitoring, groundwater monitoring, interstitial monitoring, statistical inventory reconciliation, or another approved method. Limited exceptions for tank tightness testing and manual tank gauging, below</td></tr>
+      <tr><td>After April 11, 2016</td><td>Interstitial monitoring at least every 30 days. New tanks have to be secondarily contained, such as double-walled</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="source-line">Sources: <a href="{C28041}" rel="noopener">40 CFR 280.41(a)</a>, <a href="{C28042}" rel="noopener">280.42</a>.</p>
+
+  <h2>The release detection methods</h2>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th scope="col">Method</th><th scope="col">How it works</th><th scope="col">Performance standard and limits</th></tr></thead>
+    <tbody>
+      <tr><td>Automatic tank gauging (ATG)</td><td>A probe in the tank measures product level and runs a leak test</td><td>Detects 0.2 gallon per hour; tests at least every 30 days, static or continuous; must also meet inventory control</td></tr>
+      <tr><td>Interstitial monitoring</td><td>Checks the space between the tank and its secondary barrier, such as between the walls of a double-walled tank</td><td>Must detect a leak through the inner wall from any part of the tank that holds product. Required for tanks installed after April 11, 2016</td></tr>
+      <tr><td>Statistical inventory reconciliation (SIR)</td><td>Statistical analysis of your daily inventory records</td><td>Reports a calculated leak rate; detects 0.2 gallon per hour or 150 gallons within 30 days</td></tr>
+      <tr><td>Vapor monitoring</td><td>Wells in the backfill detect fuel vapors</td><td>Needs porous backfill and a product volatile enough to detect, such as gasoline, or a tracer added to the tank</td></tr>
+      <tr><td>Groundwater monitoring</td><td>Wells detect product floating on groundwater</td><td>Groundwater can never be more than 20 feet below the surface, and the soil has to be permeable</td></tr>
+      <tr><td>Tank tightness testing plus inventory control</td><td>A tightness test that detects 0.1 gallon per hour, plus monthly inventory control</td><td>Allowed only for older tanks that meet the equipment standards, every 5 years, until 10 years after installation</td></tr>
+      <tr><td>Manual tank gauging</td><td>Stick readings at the start and end of a period with no fuel added or removed</td><td>Small tanks only; see the table below. Not allowed over 2,000 gallons</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><strong>Field note:</strong> The sites I service use both automatic tank gauges and interstitial monitoring.</p>
+  <p class="source-line">Source: <a href="{C28043}" rel="noopener">40 CFR 280.43</a> and <a href="{C28041}" rel="noopener">280.41</a>. Inventory control on its own has to catch a loss of 1.0% of flow-through plus 130 gallons a month, with daily records and a monthly water check to the nearest 1/8 inch.</p>
+
+  <h3>Manual tank gauging limits</h3>
+  <div class="table-wrap">
+  <table class="even">
+    <thead><tr><th scope="col">Tank size</th><th scope="col">Test length</th><th scope="col">Weekly limit (one test)</th><th scope="col">Monthly limit (4-test average)</th></tr></thead>
+    <tbody>
+      <tr><td>550 gallons or less</td><td>36 hours</td><td>10 gallons</td><td>5 gallons</td></tr>
+      <tr><td>551&ndash;1,000 gallons, 64-inch diameter</td><td>44 hours</td><td>9 gallons</td><td>4 gallons</td></tr>
+      <tr><td>551&ndash;1,000 gallons, 48-inch diameter</td><td>58 hours</td><td>12 gallons</td><td>6 gallons</td></tr>
+      <tr><td>551&ndash;1,000 gallons, other (plus tightness testing)</td><td>36 hours</td><td>13 gallons</td><td>7 gallons</td></tr>
+      <tr><td>1,001&ndash;2,000 gallons (plus tightness testing)</td><td>36 hours</td><td>26 gallons</td><td>13 gallons</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="source-line">Source: <a href="{C28043}" rel="noopener">40 CFR 280.43(b)</a>. Each reading is the average of two consecutive stick readings, measured to the nearest 1/8 inch. Manual gauging can be the only method for tanks of 550 gallons or less and for 551&ndash;1,000 gallon tanks that meet the diameter criteria.</p>
+
+  <h2>Piping</h2>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th scope="col">Piping</th><th scope="col">Installed on or before April 11, 2016</th><th scope="col">Installed or replaced after April 11, 2016</th></tr></thead>
+    <tbody>
+      <tr><td>Pressurized</td><td>Automatic line leak detector, plus an annual line tightness test or monthly monitoring</td><td>Interstitial monitoring every 30 days, plus an automatic line leak detector</td></tr>
+      <tr><td>Suction</td><td>Line tightness test every 3 years, or monthly monitoring</td><td>Interstitial monitoring every 30 days</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="source-line">Source: <a href="{C28041}" rel="noopener">40 CFR 280.41(b)</a>.</p>
+  <ul>
+    <li><strong>Line leak detectors</strong> have to catch a 3 gallon per hour leak at 10 psi within an hour, and line tightness tests have to detect 0.1 gallon per hour at 1.5 times operating pressure {src(C28044, '40 CFR 280.44')}. See <a href="{LLD_PATH}">line leak detectors</a>.</li>
+    <li><strong>"Safe suction" piping needs no release detection</strong> if all of these are true: it runs below atmospheric pressure, slopes back to the tank so it drains if suction is lost, has only one check valve per line, located directly below and as close as practical to the pump, and there's a way to verify all of that {src(C28041, '40 CFR 280.41(b)')}.</li>
+  </ul>
+
+  <h2>The yearly equipment test</h2>
+  <p><strong>Electronic and mechanical release detection components have to be tested for proper operation at least once a year</strong>, following the manufacturer's instructions, a code of practice such as PEI RP1200, or your state's requirements {src(C28040, '40 CFR 280.40(a)(3)')}. As applicable, the test covers:</p>
+  <ul>
+    <li><strong>Automatic tank gauge and other controllers:</strong> test the alarm, verify the system configuration, and test the battery backup</li>
+    <li><strong>Probes and sensors:</strong> inspect for buildup, make sure floats move freely, check that the shaft isn't damaged and cables are free of kinks and breaks, and test alarms and communication with the controller</li>
+    <li><strong>Automatic line leak detectors:</strong> simulate a leak to show it meets the 3 gallon per hour standard</li>
+    <li><strong>Vacuum pumps and pressure gauges:</strong> make sure they communicate with sensors and the controller</li>
+    <li><strong>Hand-held electronic sampling equipment</strong> for groundwater and vapor monitoring: make sure it works</li>
+  </ul>
+  <p><strong>Field note:</strong> On yearly tests I find failures in every one of these: sensors, floats, backup batteries, and line leak detectors.</p>
+  <p>Between yearly tests, the 30-day walkthrough checks that release detection is running with no alarms and that records are current. See the <a href="{WT_PATH}">walkthrough checklist</a>.</p>
+
+  <h2>When release detection alarms</h2>
+  <p><strong>Report a suspected release to your state within 24 hours, unless your state sets another period</strong> {src(C28050, '40 CFR 280.50')}. That includes monitoring results or an alarm that indicate a release may have occurred. You don't have to report if you find the monitoring device was defective, fix or replace it right away, and further monitoring doesn't confirm the first result {src(C28050, '40 CFR 280.50(c)')}.</p>
+  <p>Unusual operating conditions also count, such as erratic dispensing, a sudden loss of product, unexplained water in the tank, or liquid between the walls of a double-walled system, unless you find the equipment isn't releasing and fix it immediately {src(C28050, '40 CFR 280.50(b)')}.</p>
+  <p><strong>Field note:</strong> I do see alarms get silenced instead of investigated. Silencing an alarm doesn't clear it; find out what triggered it.</p>
+
+  <h2>Records to keep</h2>
+  <div class="table-wrap">
+  <table class="even">
+    <thead><tr><th scope="col">Record</th><th scope="col">Keep for</th></tr></thead>
+    <tbody>
+      <tr><td>Monitoring, sampling, and test results</td><td>At least 1 year</td></tr>
+      <tr><td>Yearly operation test results: each component, pass or action needed, and what was done</td><td>3 years</td></tr>
+      <tr><td>Tank tightness test results</td><td>Until the next test</td></tr>
+      <tr><td>Calibration, maintenance, and repair of on-site release detection equipment</td><td>At least 1 year after the work</td></tr>
+      <tr><td>Manufacturer performance claims and calibration and maintenance schedules</td><td>5 years from installation</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="source-line">Source: <a href="{C28045}" rel="noopener">40 CFR 280.45</a>. Your state can set different periods.</p>
+
+  <section class="faq">
+  <h2>FAQ</h2>
+  {rd_faq_html}
+  </section>
+
+  <h2>Sources</h2>
+  <ul class="sources">
+    <li><a href="{C28040}" rel="noopener">40 CFR 280.40, general requirements for release detection (Cornell LII)</a></li>
+    <li><a href="{C28041}" rel="noopener">40 CFR 280.41, requirements for petroleum UST systems (Cornell LII)</a></li>
+    <li><a href="{C28042}" rel="noopener">40 CFR 280.42, secondary containment and interstitial monitoring (Cornell LII)</a></li>
+    <li><a href="{C28043}" rel="noopener">40 CFR 280.43, methods of release detection for tanks (Cornell LII)</a></li>
+    <li><a href="{C28044}" rel="noopener">40 CFR 280.44, methods of release detection for piping (Cornell LII)</a></li>
+    <li><a href="{C28045}" rel="noopener">40 CFR 280.45, release detection recordkeeping (Cornell LII)</a></li>
+    <li><a href="{C28050}" rel="noopener">40 CFR 280.50, reporting of suspected releases (Cornell LII)</a></li>
+    <li><a href="{C28012}" rel="noopener">40 CFR 280.12, definitions (Cornell LII)</a></li>
+  </ul>
+  <p class="note">This guide is general information. Your state UST program decides what's required at your site.</p>
+</article>
+"""
+
+rd_schema = [{"@context": "https://schema.org", "@type": "Article", "headline": RD_TITLE, "description": RD_DESC,
+              "datePublished": UPDATED, "dateModified": UPDATED, "mainEntityOfPage": DOMAIN + RD_PATH}]
+page(RD_PATH, RD_TITLE, RD_DESC, rd_body, schema=rd_schema, og_type="article")
+
 # ---------------- Underground tanks hub ----------------
 UST_PATH = "/underground-storage-tanks/"
 UST_TITLE = "Underground Storage Tanks: Inspections, Testing, and Equipment"
@@ -2961,6 +3116,7 @@ UST_DESC = ("A guide to underground fuel tank (UST) compliance for gas stations,
             "what gets checked monthly, yearly, and every 3 years, and a detailed guide for each piece of equipment.")
 UST_GUIDES = [
     (WT_PATH, "Walkthrough inspections", "What to check every 30 days and every year, a printable checklist, and the records to keep."),
+    (RD_PATH, "Release detection", "Which leak detection methods your tanks and piping can use, the yearly equipment test, and when to report."),
     (SB_PATH, "Spill bucket testing", "The 30-day walkthrough, the 3-year test, how the water and vacuum tests work, and what fails."),
     (LLD_PATH, "Line leak detectors", "How mechanical and electronic detectors work, what the yearly test checks, and why a dispenser drops to a trickle."),
     (OFP_PATH, "Overfill prevention", "Shutoff valves, alarms, and ball floats, the 3-year inspection, and how to order fuel so it never gets close."),
@@ -2986,7 +3142,7 @@ ust_body = f"""
     </tbody>
   </table>
   </div>
-  <p>The federal rule also covers release detection for the tanks themselves, containment sumps, corrosion protection, and operator training. Guides on those are coming.</p>
+  <p>Release detection for the tanks and piping has its own guide: <a href="{RD_PATH}">release detection methods, schedules, and records</a>. The federal rule also covers containment sumps, corrosion protection, and operator training; guides on those are coming.</p>
   <p><strong>Your state runs the program.</strong> Most states adopted the federal rule and inspect against it, sometimes with their own forms and extra requirements. Michigan, for example, adopted the federal testing schedule {src(MI2120, 'Mich. Admin. Code R 29.2120')}. Check with your state UST program.</p>
 
   <h2>All underground tank guides</h2>
@@ -3240,7 +3396,7 @@ for _args in PAGES:
 
 # ---------------- sitemap, robots, favicon ----------------
 # Legal and contact pages stay crawlable through the footer but are left out of the sitemap
-urls = ["/", NOZ_PATH, UST_PATH, WT_PATH, OFP_PATH, AST_PATH, SB_PATH, LLD_PATH, FQ_PATH, STORE_PATH, TEST_PATH, CLEAN_PATH, STAB_PATH, ASV_PATH, SPCC_PATH, SC_PATH, ADD_PATH, WATER_PATH, BIO_PATH, TT_PATH, PUMP_PATH, GEL_PATH, "/about/"]
+urls = ["/", NOZ_PATH, UST_PATH, WT_PATH, RD_PATH, OFP_PATH, AST_PATH, SB_PATH, LLD_PATH, FQ_PATH, STORE_PATH, TEST_PATH, CLEAN_PATH, STAB_PATH, ASV_PATH, SPCC_PATH, SC_PATH, ADD_PATH, WATER_PATH, BIO_PATH, TT_PATH, PUMP_PATH, GEL_PATH, "/about/"]
 sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
 for u in urls:
     sitemap += f"  <url><loc>{DOMAIN}{u}</loc><lastmod>{DATES.get(u, (UPDATED,))[0]}</lastmod></url>\n"
