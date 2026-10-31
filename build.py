@@ -24,6 +24,7 @@ DATES = {
     "/fuel-nozzle/": ("2026-10-30", "October 30, 2026"),
     "/fuel-tank-secondary-containment/": ("2026-10-31", "October 31, 2026"),
     "/ust-walkthrough-inspection/": ("2026-10-31", "October 31, 2026"),
+    "/test-diesel-fuel-quality/": ("2026-10-31", "October 31, 2026"),
 }
 
 # Who gets credit in bylines and structured data. While this is None, guides are credited
@@ -1516,7 +1517,7 @@ bio_body = f"""
   </table>
   </div>
   <p class="source-line">Source: <a href="{BELLTEST}" rel="noopener">Bell Performance, citing ASTM D6469</a>. Test kits: {amz("diesel fuel microbial test kit", "fuel microbe test kits on Amazon")}.</p>
-  <p><strong>How often?</strong> Quarterly testing is a reasonable baseline for stored fuel, and more often after you've had a problem {src(BELLTEST, 'Bell Performance')}. For most farm tanks, a test whenever you find water or slime is the practical minimum.</p>
+  <p><strong>How often?</strong> Quarterly testing is a reasonable baseline for stored fuel, and more often after you've had a problem {src(BELLTEST, 'Bell Performance')}. For most farm tanks, a test whenever you find water or slime is the practical minimum. For sampling and the full set of lab tests, see <a href="/test-diesel-fuel-quality/">how to test diesel fuel</a>.</p>
 
   <h2>How biocides work</h2>
   <p><strong>A biocide kills the microbes. It doesn't remove the water they live in, the sludge they've made, or the bodies they leave behind.</strong></p>
@@ -1660,7 +1661,7 @@ store_body = f"""
   </table>
   </div>
   <p>Sample from near the bottom, not the top. Water, microbes, and sediment all collect at the bottom, so a top sample can look fine while the bottom isn't {src(BELLTEST, 'Bell Performance')}. Check for a water layer in the tank itself with water-finding paste on a gauge stick: {amz("water finding paste fuel", "water-finding paste on Amazon")}.</p>
-  <p><strong>For fuel that has to work, test it.</strong> Standby generators are the clearest case: NFPA 110 requires a fuel quality test at least once a year using ASTM methods, and says tanks should be sized so fuel is used within its storage life {src(NFPA110, 'Bell Performance on NFPA 110')}. A fuel lab can test water and sediment, stability, and microbes. If fuel fails, the usual fix is to recondition or replace it, clean the tank, and change filters {src(MA527, 'Massachusetts fire code excerpt')}.</p>
+  <p><strong>For fuel that has to work, test it.</strong> Standby generators are the clearest case: NFPA 110 requires a fuel quality test at least once a year using ASTM methods, and says tanks should be sized so fuel is used within its storage life {src(NFPA110, 'Bell Performance on NFPA 110')}. A fuel lab can test water and sediment, stability, and microbes; see <a href="/test-diesel-fuel-quality/">how to test diesel fuel</a> for which tests to ask for. If fuel fails, the usual fix is to recondition or replace it, clean the tank, and change filters {src(MA527, 'Massachusetts fire code excerpt')}.</p>
 
   <h2>How to make stored diesel last</h2>
   <p><strong>Keep it full, cool, dry, and treated, and use the oldest fuel first.</strong></p>
@@ -1711,6 +1712,152 @@ store_schema = [
 ]
 page(STORE_PATH, STORE_TITLE, STORE_DESC, store_body, schema=store_schema, og_type="article")
 
+
+# ---------------- Article: testing diesel ----------------
+TEST_PATH = "/test-diesel-fuel-quality/"
+ASTM4176 = "https://www.astm.org/d4176.html"
+ASTM4057 = "https://www.astm.org/d4057.html"
+ASTM2709 = "https://www.astm.org/d2709.html"
+ASTM6217 = "https://www.astm.org/d6217.html"
+ASTM2274 = "https://www.astm.org/d2274.html"
+ASTM6371 = "https://www.astm.org/d6371.html"
+ASTM6469 = "https://www.astm.org/d6469.html"
+ASTM7687 = "https://www.astm.org/d7687.html"
+ASTM8070 = "https://www.astm.org/d8070.html"
+ASTM975 = "https://www.astm.org/d975.html"
+
+TEST_TITLE = "How to Test Diesel Fuel: Sampling, Field Checks, Lab Tests"
+TEST_DESC = ("How to pull a good diesel sample, what you can check yourself with a jar and water paste, "
+             "and which lab tests find water, sediment, microbes, and aging.")
+
+test_faq = [
+    ("Is a sample from the top of the tank good enough?",
+     f"No. Water, microbes, and sediment collect at the bottom, so a top sample can look clean while the bottom isn't {src(BELLTEST, 'Bell Performance')}."),
+    ("Do biodiesel blends need different tests?",
+     f"Some lab tests do. ASTM's accelerated stability test and its particulate filtration test haven't been validated for biodiesel blends, and ASTM points to other methods for them ({src(ASTM2274, 'ASTM D2274')[1:-1]}; {src(ASTM6217, 'ASTM D6217')[1:-1]}). Most diesel can contain up to 5% biodiesel, so tell the lab what you have."),
+    ("Do I need a lab, or can I test it myself?",
+     "Start yourself: a clear-jar bottom sample and water paste catch most problems. Send a sample to a lab when the fuel has to work, like a standby generator, when the jar shows haze or sediment you can't explain, or before you spend money on fuel you might not need to replace."),
+]
+test_faq_html = "\n".join(f"<h3>{q}</h3>\n<p>{a}</p>" for q, a in test_faq)
+
+test_body = f"""
+<article class="wrap">
+  <p class="crumbs"><a href="/fuel-quality/">Fuel quality</a></p>
+  <h1>How to test diesel fuel: sampling, field checks, and lab tests</h1>
+  <p class="meta">Written by a fuel-system technician. Updated {UPDATED_HUMAN}.</p>
+  {AFF_NOTE}
+
+  <div class="answer">
+    <p><strong>Start with a sample from the bottom of the tank in a clear jar, and water-finding paste on a gauge stick. Good diesel is "clear and bright," with no haze, particles, or water layer.</strong> When fuel has to work, or the jar shows something you can't explain, send a sample to a fuel lab for water and sediment, particulates, stability, cold flow, and microbes.</p>
+  </div>
+
+  <h2>What you're testing for</h2>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th scope="col">Problem</th><th scope="col">Quick check</th><th scope="col">More</th></tr></thead>
+    <tbody>
+      <tr><td>Free water</td><td>Water paste on the tank bottom; water layer in the jar</td><td><a href="{WATER_PATH}">Water in your diesel tank</a></td></tr>
+      <tr><td>Microbes</td><td>Slime, dark mats, or a hazy layer where fuel meets water; field test kit</td><td><a href="{BIO_PATH}">Diesel bugs and biocides</a></td></tr>
+      <tr><td>Sediment and rust</td><td>Particles in the jar; plugged filters</td><td>Lab particulate test</td></tr>
+      <tr><td>Aging (oxidation)</td><td>Darkening, gums, sludge</td><td><a href="{STORE_PATH}">How long diesel lasts</a></td></tr>
+      <tr><td>Cold-weather wax</td><td>Cloudiness that clears when the sample warms</td><td><a href="{GEL_PATH}">Diesel gelling</a></td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h2>Step 1: Take a good sample</h2>
+  <p><strong>Sample from the bottom.</strong> Water, microbes, and sediment all settle there. Pull from about 3 to 6 inches off the bottom, plus any water layer {src(BELLTEST, 'Bell Performance')}. The industry practice for doing this, including sampling free water, is ASTM D4057 {src(ASTM4057, 'ASTM D4057')}.</p>
+  <ul>
+    <li><strong>Use a bottom sampler</strong> lowered through a tank opening, or drain a sample from a low-point valve if your tank has one.</li>
+    <li><strong>At a dispenser, also take a nozzle sample.</strong> Industry guidance for diesel dispensing sites calls for a weekly nozzle sample in a clear jar {src(CRC672, 'CRC Report 672')}.</li>
+    <li><strong>Use a clean, clear glass or plastic jar</strong>, and label it with the date, tank, and where in the tank it came from. Sample jars: {amz("fuel sample bottle clear", "clear fuel sample bottles on Amazon")}.</li>
+    <li><strong>Dispose of samples properly</strong> unless you're keeping them {src(CRC672, 'CRC Report 672')}.</li>
+  </ul>
+  <p><strong>Field note:</strong> On the tanks I service, I pull a bottom sample once a year. Water and sediment are what I find most.</p>
+
+  <h2>Step 2: Checks you can do yourself</h2>
+  <p><strong>The clear-jar check.</strong> Let the jar settle, then hold it up to the light. Good diesel is "clear and bright" with no haze or particles {src(CRC672, 'CRC Report 672')}. ASTM D4176 standardizes this check: one procedure is a quick pass/fail for contamination, the other rates the haze, and both work as field tests at storage temperature {src(ASTM4176, 'ASTM D4176')}. If the haze clears when the sample warms up, it's probably wax, not water.</p>
+  <p><strong>Water paste on the tank bottom.</strong> Industry guidance is to stick the tank bottom with water-finding paste weekly, and to compare the reading with the automatic tank gauge if you have one {src(CRC672, 'CRC Report 672')}. Check before and after deliveries, too {src(CRC672, 'CRC Report 672')}. Water paste: {amz("water finding paste fuel", "water-finding paste on Amazon")}.</p>
+  <p><strong>Microbe test kits.</strong> Two ASTM methods can be run in the field:</p>
+  <ul>
+    <li><strong>Immunoassay (ASTM D8070):</strong> screens fuel or tank water for antigens from bacteria and fungi, in the field or a lab {src(ASTM8070, 'ASTM D8070')}.</li>
+    <li><strong>ATP (ASTM D7687):</strong> measures the energy molecule in living cells and gives a number you can track over time; it works as a lab or portable test {src(ASTM7687, 'ASTM D7687')}.</li>
+  </ul>
+  <p>Culture tests are cheaper but take 48 to 72 hours or more {src(BELLTEST, 'Bell Performance')}. ASTM's guide to microbial contamination, D6469, covers the symptoms and how to detect and control it {src(ASTM6469, 'ASTM D6469')}. Test water you drain from the tank, too {src(CRC672, 'CRC Report 672')}. Kits: {amz("diesel fuel microbial test kit", "fuel microbe test kits on Amazon")}.</p>
+  <p><strong>Your filters are a test, too.</strong> Filters that clog often, or a dispenser that slows down after a delivery, point to contamination; flow should stay above 5 gallons per minute. When you change a filter, look at the old one for rust and slime {src(CRC672, 'CRC Report 672')}.</p>
+  <p><strong>Field note:</strong> In the field, I mostly go by the jar and the paste. A lab is for when those turn up something they can't explain.</p>
+
+  <h2>Step 3: Lab tests worth asking for</h2>
+  <p><strong>A fuel lab runs standard ASTM methods. These are the ones that answer the usual storage questions.</strong></p>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th scope="col">Test</th><th scope="col">ASTM method</th><th scope="col">What it tells you</th></tr></thead>
+    <tbody>
+      <tr><td>Water and sediment</td><td><a href="{ASTM2709}" rel="noopener">D2709</a></td><td>The percentage of free water and sediment suspended in the fuel, by centrifuge. The diesel spec allows 0.05% {src(GILBERT, 'Gilbert')}</td></tr>
+      <tr><td>Particulate contamination</td><td><a href="{ASTM6217}" rel="noopener">D6217</a></td><td>The weight of particles caught by filtering the fuel. Not validated for biodiesel blends; ASTM points to D7321 for those</td></tr>
+      <tr><td>Oxidation stability</td><td><a href="{ASTM2274}" rel="noopener">D2274</a></td><td>How well the fuel resists aging under accelerated conditions at 95&deg;C. For biodiesel blends, ASTM points to D7462</td></tr>
+      <tr><td>Cold filter plugging point</td><td><a href="{ASTM6371}" rel="noopener">D6371</a></td><td>The temperature at which the fuel plugs a test filter, with or without flow-improver additives</td></tr>
+      <tr><td>Microbial ATP</td><td><a href="{ASTM7687}" rel="noopener">D7687</a></td><td>How much living microbial growth is in the fuel or tank water</td></tr>
+      <tr><td>Haze and free water</td><td><a href="{ASTM4176}" rel="noopener">D4176</a></td><td>A standardized version of the clear-jar check</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>The specification diesel is sold against is ASTM D975, which covers seven grades of diesel {src(ASTM975, 'ASTM D975')}. It has no storage-stability test for #1 or #2 diesel {src(NRELBIO, 'NREL')}, which is why stored fuel gets tested separately. Tell the lab whether your fuel has biodiesel in it, since some methods differ for blends.</p>
+
+  <h2>How often to test</h2>
+  <div class="table-wrap">
+  <table class="even">
+    <thead><tr><th scope="col">Situation</th><th scope="col">How often</th></tr></thead>
+    <tbody>
+      <tr><td>Water paste on the tank bottom</td><td>Weekly at dispensing sites, and before and after deliveries {src(CRC672, 'CRC Report 672')}</td></tr>
+      <tr><td>Nozzle sample in a clear jar</td><td>Weekly at dispensing sites {src(CRC672, 'CRC Report 672')}</td></tr>
+      <tr><td>Microbial test</td><td>Quarterly as a baseline for stored fuel, more often after a problem {src(BELLTEST, 'Bell Performance')}</td></tr>
+      <tr><td>Standby generator fuel</td><td>At least once a year by ASTM methods, under NFPA 110 {src(NFPA110, 'Bell Performance on NFPA 110')}</td></tr>
+      <tr><td>Farm and yard tanks</td><td>A clear-jar bottom sample and water paste monthly and after deliveries is a reasonable minimum</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h2>What to do with the results</h2>
+  <ul>
+    <li><strong>Water:</strong> get it off the bottom as soon as you find it. "No detectable water is desirable" {src(CRC672, 'CRC Report 672')}. See <a href="{WATER_PATH}">water in your diesel tank</a>.</li>
+    <li><strong>Microbes:</strong> remove the water first, then treat with an EPA-registered biocide. See <a href="{BIO_PATH}">diesel bugs and biocides</a>.</li>
+    <li><strong>Sediment or failed stability:</strong> the usual fix is to recondition or replace the fuel, clean the tank, and change filters {src(MA527, 'Massachusetts fire code excerpt')}.</li>
+    <li><strong>Cold-flow problems:</strong> see <a href="{GEL_PATH}">diesel gelling</a> and <a href="{ADD_PATH}">winter additives</a>.</li>
+  </ul>
+
+  <section class="faq">
+  <h2>FAQ</h2>
+  {test_faq_html}
+  </section>
+
+  <h2>Sources</h2>
+  <ul class="sources">
+    <li><a href="{CRC672}" rel="noopener">CRC Report 672: Preventive maintenance guide for diesel storage and dispensing systems (2016)</a></li>
+    <li><a href="{ASTM4057}" rel="noopener">ASTM D4057: Manual sampling of petroleum and petroleum products</a></li>
+    <li><a href="{ASTM4176}" rel="noopener">ASTM D4176: Free water and particulate contamination, visual inspection</a></li>
+    <li><a href="{ASTM2709}" rel="noopener">ASTM D2709: Water and sediment in middle distillate fuels by centrifuge</a></li>
+    <li><a href="{ASTM6217}" rel="noopener">ASTM D6217: Particulate contamination by laboratory filtration</a></li>
+    <li><a href="{ASTM2274}" rel="noopener">ASTM D2274: Oxidation stability of distillate fuel oil</a></li>
+    <li><a href="{ASTM6371}" rel="noopener">ASTM D6371: Cold filter plugging point</a></li>
+    <li><a href="{ASTM6469}" rel="noopener">ASTM D6469: Guide for microbial contamination in fuels</a></li>
+    <li><a href="{ASTM7687}" rel="noopener">ASTM D7687: Cellular ATP in fuel and fuel-associated water</a></li>
+    <li><a href="{ASTM8070}" rel="noopener">ASTM D8070: Microbial screening by lateral flow immunoassay</a></li>
+    <li><a href="{ASTM975}" rel="noopener">ASTM D975: Standard specification for diesel fuel</a></li>
+    <li><a href="{BELLTEST}" rel="noopener">Bell Performance: Fuel tests that predict failure (ASTM D6469 and microbial testing)</a></li>
+    <li><a href="{GILBERT}" rel="noopener">Gilbert, National Tanks Conference (2018)</a></li>
+    <li><a href="{NRELBIO}" rel="noopener">NREL: Biodiesel handling and use guide</a></li>
+    <li><a href="{NFPA110}" rel="noopener">Bell Performance: What NFPA 110 requires for stored generator fuel</a></li>
+    <li><a href="{MA527}" rel="noopener">Massachusetts: Testing of diesel fuel (527 CMR excerpt)</a></li>
+  </ul>
+  <p class="note">This guide is general information. Follow your equipment manufacturer's fuel requirements and your fuel lab's sampling instructions.</p>
+</article>
+"""
+
+test_schema = [{"@context": "https://schema.org", "@type": "Article", "headline": TEST_TITLE, "description": TEST_DESC,
+                "datePublished": UPDATED, "dateModified": UPDATED, "mainEntityOfPage": DOMAIN + TEST_PATH}]
+page(TEST_PATH, TEST_TITLE, TEST_DESC, test_body, schema=test_schema, og_type="article")
+
 # ---------------- Fuel quality hub ----------------
 FQ_PATH = "/fuel-quality/"
 FQ_TITLE = "Fuel Quality Guides: Keeping Stored Diesel Clean, Dry, and Usable"
@@ -1720,6 +1867,7 @@ FQ_GUIDES = [
     (WATER_PATH, "Water in your diesel tank", "How water gets in, how to check for it with paste or a clear jar, how to get it out, and how to keep it out."),
     (BIO_PATH, "Diesel bugs and biocides", "How to spot microbial growth, test for it, and treat a tank step by step without plugging every filter."),
     (STORE_PATH, "How long does diesel last in storage?", "Shelf life, what makes fuel go bad, how to tell if it's still good, and how to make it last."),
+    (TEST_PATH, "How to test diesel fuel", "Taking a good bottom sample, the checks you can do yourself, and which lab tests to ask for."),
     (GEL_PATH, "Diesel gelling: when it happens and how to prevent it", "Cloud point, CFPP, and pour point explained, why bulk tanks gel first, and a winter checklist."),
     (ADD_PATH, "Winter diesel additives", "How anti-gel works, how to treat a bulk tank before the cold, label treat rates, and when blending makes more sense."),
 ]
@@ -2856,7 +3004,7 @@ for _args in PAGES:
 
 # ---------------- sitemap, robots, favicon ----------------
 # Legal and contact pages stay crawlable through the footer but are left out of the sitemap
-urls = ["/", NOZ_PATH, UST_PATH, WT_PATH, OFP_PATH, AST_PATH, SB_PATH, LLD_PATH, FQ_PATH, STORE_PATH, ASV_PATH, SPCC_PATH, SC_PATH, ADD_PATH, WATER_PATH, BIO_PATH, TT_PATH, PUMP_PATH, GEL_PATH, "/about/"]
+urls = ["/", NOZ_PATH, UST_PATH, WT_PATH, OFP_PATH, AST_PATH, SB_PATH, LLD_PATH, FQ_PATH, STORE_PATH, TEST_PATH, ASV_PATH, SPCC_PATH, SC_PATH, ADD_PATH, WATER_PATH, BIO_PATH, TT_PATH, PUMP_PATH, GEL_PATH, "/about/"]
 sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
 for u in urls:
     sitemap += f"  <url><loc>{DOMAIN}{u}</loc><lastmod>{DATES.get(u, (UPDATED,))[0]}</lastmod></url>\n"
