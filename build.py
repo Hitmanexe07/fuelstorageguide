@@ -26,6 +26,7 @@ DATES = {
     "/ust-walkthrough-inspection/": ("2026-10-31", "October 31, 2026"),
     "/test-diesel-fuel-quality/": ("2026-10-31", "October 31, 2026"),
     "/diesel-tank-cleaning/": ("2026-10-31", "October 31, 2026"),
+    "/diesel-fuel-stabilizer/": ("2026-10-31", "October 31, 2026"),
 }
 
 # Who gets credit in bylines and structured data. While this is None, guides are credited
@@ -1670,7 +1671,7 @@ store_body = f"""
     <li><strong>Keep the tank nearly full.</strong> Less air space means less condensation and less oxidation {src(ALBERTA, 'Alberta Agriculture')}.</li>
     <li><strong>Keep it cool and out of the sun where you can.</strong> Heat speeds up aging {src(ALBERTA, 'Alberta Agriculture')}.</li>
     <li><strong>Drain water off the bottom on a schedule,</strong> at least monthly and after deliveries (see <a href="{WATER_PATH}">water in your diesel tank</a>).</li>
-    <li><strong>Add a stabilizer when the fuel is fresh,</strong> and a biocide if microbes have been a problem. Filtering the fuel periodically and adding stabilizers and biocides help store diesel longer {src(ALBERTA, 'Alberta Agriculture')}. {amz("diesel fuel stabilizer", "Diesel stabilizers on Amazon")}.</li>
+    <li><strong>Add a stabilizer when the fuel is fresh,</strong> and a biocide if microbes have been a problem. Filtering the fuel periodically and adding stabilizers and biocides help store diesel longer {src(ALBERTA, 'Alberta Agriculture')}. See <a href="/diesel-fuel-stabilizer/">diesel fuel stabilizer</a> for treat rates. {amz("diesel fuel stabilizer", "Diesel stabilizers on Amazon")}.</li>
     <li><strong>Avoid copper, brass, and zinc in the fuel system.</strong> These metals speed up fuel breakdown, especially with biodiesel blends; carbon steel, aluminum, and stainless are better {src(NRELBIO, 'NREL')}.</li>
     <li><strong>Size the tank to what you use.</strong> A tank you empty a few times a year stays fresher than one that holds a two-year supply. For standby generators, that's an NFPA 110 requirement, not just good advice {src(NFPA110, 'Bell Performance on NFPA 110')}.</li>
     <li><strong>Rotate it.</strong> Burn the old fuel before adding a big load of new fuel to it, so old fuel doesn't keep getting mixed into fresh.</li>
@@ -1984,6 +1985,113 @@ clean_schema = [{"@context": "https://schema.org", "@type": "Article", "headline
                  "datePublished": UPDATED, "dateModified": UPDATED, "mainEntityOfPage": DOMAIN + CLEAN_PATH}]
 page(CLEAN_PATH, CLEAN_TITLE, CLEAN_DESC, clean_body, schema=clean_schema, og_type="article")
 
+
+# ---------------- Article: diesel fuel stabilizer ----------------
+STAB_PATH = "/diesel-fuel-stabilizer/"
+STABIL = "https://www.goldeagle.com/product/diesel-formula-sta-bil-fuel-stabilizer/"
+DEEZOL = "https://www.bellperformance.com/dee-zol-life"
+BELLB20 = "https://www.bellperformance.com/bell-performs-blog/biodiesel-stability-why-b20-goes-bad-faster-in-storage"
+
+STAB_TITLE = "Diesel Fuel Stabilizer: When You Need It and How Much to Add"
+STAB_DESC = ("What a diesel stabilizer does and doesn't do, when stored fuel needs one, label treat rates "
+             "for bulk tanks, and biodiesel blends.")
+
+stab_faq = [
+    ("Is a stabilizer the same as anti-gel?",
+     f"No. A stabilizer slows the fuel's aging in storage. Anti-gel keeps wax from plugging filters in cold weather. Some products do both, but check the label. See <a href=\"{ADD_PATH}\">winter diesel additives</a>."),
+    ("Does a stabilizer kill microbes?",
+     f"Not unless it's also an EPA-registered biocide, with a registration number on the label. Microbes are a separate problem with a separate fix; see <a href=\"{BIO_PATH}\">diesel bugs and biocides</a>."),
+    ("Can a stabilizer bring old fuel back?",
+     f"No. Antioxidants slow aging but can't reverse it {src(NRELBIO, 'NREL')}. Test old fuel before you decide to keep it; see <a href=\"{TEST_PATH}\">how to test diesel fuel</a>."),
+    ("Is more stabilizer better?",
+     f"No. Use the label rate. STA-BIL's diesel label, for one, says \"DO NOT OVERTREAT\" {src(STABIL, 'Gold Eagle')}."),
+]
+stab_faq_html = "\n".join(f"<h3>{q}</h3>\n<p>{a}</p>" for q, a in stab_faq)
+
+stab_body = f"""
+<article class="wrap">
+  <p class="crumbs"><a href="/fuel-quality/">Fuel quality</a></p>
+  <h1>Diesel fuel stabilizer: when you need it and how much to add</h1>
+  <p class="meta">Written by a fuel-system technician. Updated {UPDATED_HUMAN}.</p>
+  {AFF_NOTE}
+
+  <div class="answer">
+    <p><strong>A diesel stabilizer slows the oxidation that turns stored fuel dark and gummy. It only works if you add it while the fuel is fresh, because it can't reverse aging that has already happened</strong> {src(NRELBIO, 'NREL')}. Use one when fuel will sit longer than you'd normally burn through it, and follow the label rate for storage.</p>
+  </div>
+
+  <h2>What a stabilizer does, and what it doesn't</h2>
+  <div class="table-wrap">
+  <table class="even">
+    <thead><tr><th scope="col">Does</th><th scope="col">Doesn't</th></tr></thead>
+    <tbody>
+      <tr><td>Slows oxidation, the reaction that forms gums, sludge, and sediment as fuel ages {src(DEEZOL, 'Bell Performance')}</td><td>Reverse aging in fuel that's already gone bad {src(NRELBIO, 'NREL')}</td></tr>
+      <tr><td>Helps stored fuel stay usable longer, alongside filtering and keeping water out {src(ALBERTA, 'Alberta Agriculture')}</td><td>Remove water. Some products push water out of the fuel so it drops to the bottom {src(STABIL, 'Gold Eagle')}, but you still have to drain it</td></tr>
+      <tr><td></td><td>Kill microbes, unless it's also an EPA-registered biocide</td></tr>
+      <tr><td></td><td>Prevent gelling, unless it's also an anti-gel</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>Diesel today has less natural protection to start with. The hydrotreating that takes sulfur out of ultra-low sulfur diesel also removes naturally occurring antioxidants, according to one fuel treatment maker {src(BELLB20, 'Bell Performance')}.</p>
+
+  <h2>When stored diesel needs one</h2>
+  <ul>
+    <li><strong>Fuel that sits for months:</strong> seasonal equipment, a farm tank filled in spring for fall, or a tank sized bigger than you use. See <a href="{STORE_PATH}">how long diesel lasts</a> for typical shelf life.</li>
+    <li><strong>Standby generators.</strong> That fuel sits the longest and has to work when it's needed. NFPA 110 also requires a yearly fuel quality test {src(NFPA110, 'Bell Performance on NFPA 110')}.</li>
+    <li><strong>Biodiesel blends.</strong> Blends need more attention in storage, and added antioxidants extended their life in testing {src(NRELBIO, 'NREL')}.</li>
+  </ul>
+  <p><strong>Fuel you burn within a few months usually doesn't need it</strong> if the tank is kept full, dry, and clean. A stabilizer is cheap insurance, not a substitute for keeping water out.</p>
+
+  <h2>Label treat rates, worked out for bulk tanks</h2>
+  <p><strong>Treat rates vary a lot between products, so always use the label on the product you buy.</strong> Two diesel stabilizers with published rates, as examples:</p>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th scope="col">Product</th><th scope="col">Label rate</th><th scope="col">500-gallon tank</th><th scope="col">1,000-gallon tank</th></tr></thead>
+    <tbody>
+      <tr><td>STA-BIL Diesel Formula, storage rate {src(STABIL, 'Gold Eagle')}</td><td>1 oz per 5 gallons</td><td>100 oz (about 3 qt)</td><td>200 oz (about 1.6 gal)</td></tr>
+      <tr><td>STA-BIL Diesel Formula, every-fill rate {src(STABIL, 'Gold Eagle')}</td><td>1 oz per 10 gallons</td><td>50 oz</td><td>100 oz</td></tr>
+      <tr><td>Bell Performance Dee-Zol Life {src(BELL, 'Bell Performance')}</td><td>1 gallon per 2,000 gallons (about 1 oz per 15&ndash;16 gallons)</td><td>32 oz (1 qt)</td><td>64 oz (&frac12; gal)</td></tr>
+      <tr><td>Bell Performance Bio Dee-Zol Life, for B20 {src(BELLB20, 'Bell Performance')}</td><td>1 oz per 10 gallons</td><td>50 oz</td><td>100 oz</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="source-line">Rates are from the makers' labels and pages; check the current label before you buy. Products: {amz("STA-BIL Diesel Formula fuel stabilizer", "STA-BIL Diesel on Amazon")}; {amz("Bell Performance Dee-Zol Life", "Dee-Zol Life on Amazon")}.</p>
+  <p><strong>Compare by cost per gallon treated, not bottle price.</strong> A bottle with a low treat rate can cost more and still treat more fuel.</p>
+
+  <h2>How to add it to a bulk tank</h2>
+  <ol>
+    <li><strong>Add it to fresh fuel, ideally right before or during a delivery,</strong> so the incoming fuel mixes it in. Antioxidants work best added when the fuel is fresh {src(NRELBIO, 'NREL')}.</li>
+    <li><strong>Drain any water off the bottom first.</strong> See <a href="{WATER_PATH}">water in your diesel tank</a>.</li>
+    <li><strong>Dose for the whole tank,</strong> using the tank's capacity, not just the gallons delivered, if the old fuel was never treated.</li>
+    <li><strong>Write down the date and amount</strong> so you know when it was last treated.</li>
+  </ol>
+
+  <h2>Biodiesel blends need the right product</h2>
+  <p><strong>Most diesel can contain up to 5% biodiesel, and higher blends like B20 age differently.</strong> One fuel treatment maker says the traditional antioxidants used in petroleum fuels, hindered phenols like BHT and TBHQ, weren't designed to fully protect biodiesel, and sells a separate biodiesel stabilizer {src(BELLB20, 'Bell Performance')}. That's a maker's claim, so treat it as a reason to check the label for biodiesel use, not as settled fact. NREL's testing found fuels with added antioxidants lasted much longer in storage {src(NRELBIO, 'NREL')}.</p>
+  <p>Avoid copper, brass, and zinc in the fuel system; they speed up breakdown, especially with biodiesel blends {src(NRELBIO, 'NREL')}.</p>
+
+  <section class="faq">
+  <h2>FAQ</h2>
+  {stab_faq_html}
+  </section>
+
+  <h2>Sources</h2>
+  <ul class="sources">
+    <li><a href="{NRELBIO}" rel="noopener">NREL: Biodiesel handling and use guide</a></li>
+    <li><a href="{ALBERTA}" rel="noopener">Alberta Agriculture: Storing fuel on the farm</a></li>
+    <li><a href="{STABIL}" rel="noopener">Gold Eagle: Diesel Formula STA-BIL product page and directions</a></li>
+    <li><a href="{DEEZOL}" rel="noopener">Bell Performance: Dee-Zol Life product page</a></li>
+    <li><a href="{BELL}" rel="noopener">Bell Performance: Fuel storage tank treatment recommendations (2014)</a></li>
+    <li><a href="{BELLB20}" rel="noopener">Bell Performance: Biodiesel stability and B20 in storage (2026)</a></li>
+    <li><a href="{NFPA110}" rel="noopener">Bell Performance: What NFPA 110 requires for stored generator fuel</a></li>
+  </ul>
+  <p class="note">This guide is general information. We haven't lab-tested these products; rates come from the makers. Follow the label on the product you use.</p>
+</article>
+"""
+
+stab_schema = [{"@context": "https://schema.org", "@type": "Article", "headline": STAB_TITLE, "description": STAB_DESC,
+                "datePublished": UPDATED, "dateModified": UPDATED, "mainEntityOfPage": DOMAIN + STAB_PATH}]
+page(STAB_PATH, STAB_TITLE, STAB_DESC, stab_body, schema=stab_schema, og_type="article")
+
 # ---------------- Fuel quality hub ----------------
 FQ_PATH = "/fuel-quality/"
 FQ_TITLE = "Fuel Quality Guides: Keeping Stored Diesel Clean, Dry, and Usable"
@@ -1994,6 +2102,7 @@ FQ_GUIDES = [
     (BIO_PATH, "Diesel bugs and biocides", "How to spot microbial growth, test for it, and treat a tank step by step without plugging every filter."),
     (STORE_PATH, "How long does diesel last in storage?", "Shelf life, what makes fuel go bad, how to tell if it's still good, and how to make it last."),
     (TEST_PATH, "How to test diesel fuel", "Taking a good bottom sample, the checks you can do yourself, and which lab tests to ask for."),
+    (STAB_PATH, "Diesel fuel stabilizer", "What a stabilizer does and doesn't do, when stored fuel needs one, and label treat rates for bulk tanks."),
     (CLEAN_PATH, "Tank cleaning and fuel polishing", "When to polish the fuel and when to clean the tank, how each works, and why nobody should climb inside."),
     (GEL_PATH, "Diesel gelling: when it happens and how to prevent it", "Cloud point, CFPP, and pour point explained, why bulk tanks gel first, and a winter checklist."),
     (ADD_PATH, "Winter diesel additives", "How anti-gel works, how to treat a bulk tank before the cold, label treat rates, and when blending makes more sense."),
@@ -3131,7 +3240,7 @@ for _args in PAGES:
 
 # ---------------- sitemap, robots, favicon ----------------
 # Legal and contact pages stay crawlable through the footer but are left out of the sitemap
-urls = ["/", NOZ_PATH, UST_PATH, WT_PATH, OFP_PATH, AST_PATH, SB_PATH, LLD_PATH, FQ_PATH, STORE_PATH, TEST_PATH, CLEAN_PATH, ASV_PATH, SPCC_PATH, SC_PATH, ADD_PATH, WATER_PATH, BIO_PATH, TT_PATH, PUMP_PATH, GEL_PATH, "/about/"]
+urls = ["/", NOZ_PATH, UST_PATH, WT_PATH, OFP_PATH, AST_PATH, SB_PATH, LLD_PATH, FQ_PATH, STORE_PATH, TEST_PATH, CLEAN_PATH, STAB_PATH, ASV_PATH, SPCC_PATH, SC_PATH, ADD_PATH, WATER_PATH, BIO_PATH, TT_PATH, PUMP_PATH, GEL_PATH, "/about/"]
 sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
 for u in urls:
     sitemap += f"  <url><loc>{DOMAIN}{u}</loc><lastmod>{DATES.get(u, (UPDATED,))[0]}</lastmod></url>\n"
