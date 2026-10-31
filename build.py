@@ -10,6 +10,18 @@ SITE = Path(__file__).parent / "site"
 DOMAIN = "https://fuelstorageguide.com"
 UPDATED = "2026-10-28"
 UPDATED_HUMAN = "October 28, 2026"
+# Pages first published after the launch date: (ISO date, human date)
+DATES = {
+    "/how-long-does-diesel-last/": ("2026-10-29", "October 29, 2026"),
+    "/fuel-quality/": ("2026-10-29", "October 29, 2026"),
+    "/anti-siphon-valve/": ("2026-10-30", "October 30, 2026"),
+    "/aboveground-fuel-tanks/": ("2026-10-30", "October 30, 2026"),
+    "/spill-bucket-testing/": ("2026-10-30", "October 30, 2026"),
+    "/line-leak-detector/": ("2026-10-30", "October 30, 2026"),
+    "/ust-overfill-prevention/": ("2026-10-30", "October 30, 2026"),
+    "/underground-storage-tanks/": ("2026-10-30", "October 30, 2026"),
+    "/fuel-nozzle/": ("2026-10-30", "October 30, 2026"),
+}
 
 CRC = "https://crcao.org/wp-content/uploads/2019/05/CRC-671.pdf"
 CENEX = "https://www.cenex.com/expert-advice-and-insights/Diesel-Gelling-and-How-to-Stop-It-This-Winter"
@@ -38,6 +50,19 @@ NAV = [("/", "Guides"), ("/about/", "About"), ("/contact/", "Contact")]
 
 def page(path, title, description, body, current=None, schema=None, og_type="website"):
     canonical = DOMAIN + path
+    if path in DATES:
+        iso, human = DATES[path]
+        body = body.replace(f"Updated {UPDATED_HUMAN}.", f"Updated {human}.")
+        if schema:
+            schema = json.loads(json.dumps(schema).replace(f'"{UPDATED}"', f'"{iso}"'))
+    m = re.search(r'<p class="crumbs"><a href="([^"]+)">([^<]+)</a></p>', body)
+    if m:
+        h1 = re.search(r"<h1>(.*?)</h1>", body)
+        crumbs = {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Home", "item": DOMAIN + "/"},
+            {"@type": "ListItem", "position": 2, "name": m.group(2), "item": DOMAIN + m.group(1)},
+            {"@type": "ListItem", "position": 3, "name": strip_tags(h1.group(1)) if h1 else title, "item": canonical}]}
+        schema = (schema or []) + [crumbs]
     slug = path.strip("/").replace(".html", "") or "home"
     og_file = SITE / "og" / f"{slug}.png"
     og_image = f"{DOMAIN}/og/{slug}.png" if og_file.exists() else f"{DOMAIN}/og/home.png"
@@ -2274,7 +2299,7 @@ page("/404.html", "Page not found | FuelStorageGuide", "Page not found.", nf_bod
 urls = ["/", NOZ_PATH, UST_PATH, OFP_PATH, AST_PATH, SB_PATH, LLD_PATH, FQ_PATH, STORE_PATH, ASV_PATH, SPCC_PATH, ADD_PATH, WATER_PATH, BIO_PATH, TT_PATH, PUMP_PATH, GEL_PATH,"/about/", "/contact/", "/privacy/", "/affiliate-disclosure/"]
 sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
 for u in urls:
-    sitemap += f"  <url><loc>{DOMAIN}{u}</loc><lastmod>{UPDATED}</lastmod></url>\n"
+    sitemap += f"  <url><loc>{DOMAIN}{u}</loc><lastmod>{DATES.get(u, (UPDATED,))[0]}</lastmod></url>\n"
 sitemap += "</urlset>\n"
 (SITE / "sitemap.xml").write_text(sitemap)
 (SITE / "robots.txt").write_text(f"User-agent: *\nAllow: /\n\nSitemap: {DOMAIN}/sitemap.xml\n")
