@@ -31,6 +31,7 @@ DATES = {
     "/containment-sump-testing/": ("2026-10-31", "October 31, 2026"),
     "/how-to-ungel-diesel/": ("2026-10-31", "October 31, 2026"),
     "/aboveground-fuel-tank-setback/": ("2026-10-31", "October 31, 2026"),
+    "/fuel-tank-vent/": ("2026-10-31", "October 31, 2026"),
 }
 
 # Who gets credit in bylines and structured data. While this is None, guides are credited
@@ -1074,7 +1075,7 @@ water_body = f"""
     <thead><tr><th scope="col">Where water gets in</th><th scope="col">What to do</th></tr></thead>
     <tbody>
       <tr><td>Fill cap and bungs</td><td>Make sure caps close tight and gaskets aren't cracked; replace worn ones {src(CRC672, 'CRC Report 672')}</td></tr>
-      <tr><td>Vent</td><td>Check that the vent cap seals against rain and blowing snow, and inspect vents after storms {src(STI, 'STI SP001 checklist')}. A desiccant vent cap dries the air the tank breathes in {src(GILBERT, 'Gilbert')}</td></tr>
+      <tr><td>Vent</td><td>Check that the vent cap seals against rain and blowing snow, and inspect vents after storms {src(STI, 'STI SP001 checklist')}. A desiccant vent cap dries the air the tank breathes in {src(GILBERT, 'Gilbert')}. See <a href="/fuel-tank-vent/">fuel tank vents</a></td></tr>
       <tr><td>Condensation</td><td>Avoid letting the tank sit low for long stretches, especially going into fall and winter {src(CRC672, 'CRC Report 672')}</td></tr>
       <tr><td>Around the fill</td><td>Keep snow, ice, and standing water away from the fill opening {src(CRC672, 'CRC Report 672')}</td></tr>
       <tr><td>Deliveries</td><td>Check for water before and after each delivery {src(CRC672, 'CRC Report 672')}, and ask your supplier what they do about water in their own tanks and trucks</td></tr>
@@ -1146,6 +1147,101 @@ water_schema = [
     },
 ]
 page(WATER_PATH, WATER_TITLE, WATER_DESC, water_body, schema=water_schema, og_type="article")
+
+
+# ---------------- Article: fuel tank vents ----------------
+VENT_PATH = "/fuel-tank-vent/"
+VENT_TITLE = "Fuel Tank Vents: Normal and Emergency Venting Explained"
+VENT_DESC = ("What normal and emergency vents do on an aboveground fuel tank, the fire code rules for vent height and "
+             "placement, and what to check on a vent cap.")
+
+vent_faq = [
+    ("Does a small farm tank need an emergency vent?",
+     f"It depends on your code. North Dakota's farm guidance requires normal venting under 1,100 gallons and both normal and emergency venting over 1,100 gallons {src(NDFARM, 'ND farm fuel tank guide')}. The IFC farm rule calls for a method of normal and emergency venting {src(UTFM, 'Utah County Fire Marshal')}."),
+    ("Can I cap off a vent to keep water out?",
+     "No. A tank needs to breathe as fuel goes in and out and as temperatures change. Keep the vent cap in good shape instead, so it sheds rain and snow."),
+    ("Can two tanks share one vent pipe?",
+     f"Not usually. The IFC says vent piping isn't manifolded except for special purposes like vapor recovery, and vents from gasoline tanks aren't tied into vents from diesel tanks without a way to keep gasoline vapors out {src(UTFM, 'Utah County Fire Marshal, IFC references')}."),
+]
+vent_faq_html = "\n".join(f"<h3>{q}</h3>\n<p>{a}</p>" for q, a in vent_faq)
+
+vent_body = f"""
+<article class="wrap">
+  <p class="crumbs"><a href="/aboveground-fuel-tanks/">Aboveground tanks</a></p>
+  <h1>Fuel tank vents: normal and emergency venting</h1>
+  <p class="meta">Written by a fuel-system technician. Updated {UPDATED_HUMAN}.</p>
+
+  <div class="answer">
+    <p><strong>An aboveground fuel tank needs two kinds of venting. The normal vent lets the tank breathe as it's filled, emptied, and warmed or cooled. The emergency vent relieves the much higher pressure from a fire, so the tank doesn't rupture.</strong> Under the fire code, stationary aboveground tanks need emergency venting {src(ORAST, 'Oregon State Fire Marshal')}, and the IFC farm rule calls for both {src(UTFM, 'Utah County Fire Marshal')}.</p>
+  </div>
+
+  <h2>Normal vs. emergency vents</h2>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th scope="col"></th><th scope="col">Normal vent</th><th scope="col">Emergency vent</th></tr></thead>
+    <tbody>
+      <tr><td>Job</td><td>Lets air out as fuel goes in, and in as fuel is pumped out or the tank cools</td><td>Relieves "excessive internal pressure caused by exposure to fires" {src(ORAST, 'Oregon State Fire Marshal')}</td></tr>
+      <tr><td>What it looks like</td><td>A vent pipe with a cap, often a mushroom cap</td><td>A larger, spring- or weight-loaded cap that stays closed until pressure lifts it</td></tr>
+      <tr><td>Where it discharges</td><td>Outside, away from buildings, at a safe height</td><td>Never inside a building, for Class I, II, and III-A liquids {src(ORAST, 'Oregon State Fire Marshal')}</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><strong>Double-wall tanks have more than one emergency vent.</strong> The spec sheet for a 300-gallon double-wall Flameshield tank, for example, lists an operating vent opening plus separate emergency vent openings for the inner and outer tanks {src(JMEFS, 'JME Tanks spec sheet')}. Fire code checklists also call for emergency venting on enclosed secondary containment {src(CAZ, 'Central Arizona Fire checklist')}.</p>
+  <p><strong>One exception:</strong> tanks over 12,000 gallons storing Class III-B liquids, outside the diked area or drainage path of Class I or II liquids, don't need emergency relief venting {src(ORAST, 'Oregon State Fire Marshal')}. That doesn't cover diesel, which is normally a Class II liquid.</p>
+
+  <h2>Fire code rules for vent placement</h2>
+  <p>These come from the International Fire Code as quoted by Utah County's fire marshal and published by Oregon's (<a href="{UTFM}" rel="noopener">Utah County</a>; <a href="{ORAST}" rel="noopener">Oregon</a>):</p>
+  <ul>
+    <li><strong>Height:</strong> vent outlets for Class I, II, and III-A liquids release vapors at a safe point outside buildings, at least 12 feet above the adjacent ground.</li>
+    <li><strong>Direction:</strong> vapors discharge upward, or horizontally away from nearby walls.</li>
+    <li><strong>Clearance:</strong> at least 5 feet from building openings and from lot lines of property that can be built on, and not where eaves or other obstructions can trap vapors.</li>
+    <li><strong>Piping:</strong> vent pipes drain back toward the tank with no sags or traps where liquid can collect, and are protected from damage and vibration.</li>
+    <li><strong>Vent lines are only for venting</strong> unless approved, and fill openings are separate from vent openings.</li>
+    <li><strong>No manifolding</strong> of vent piping except for special purposes like vapor recovery. Gasoline (Class I) tank vents aren't tied into diesel (Class II) tank vents without a way to keep gasoline vapors out, since that could change the diesel's classification.</li>
+    <li><strong>Emergency vents</strong> are arranged so that if their vapors ignite, the flame doesn't heat one spot on the tank.</li>
+  </ul>
+  <p>Farm and small-tank rules can be simpler. North Dakota's farm guidance requires normal venting on tanks under 1,100 gallons, and normal plus emergency venting over 1,100 gallons {src(NDFARM, 'ND farm fuel tank guide')}. Check your state and local fire code.</p>
+
+  <h2>Vents and water</h2>
+  <p><strong>The vent is one of the ways water gets into a tank.</strong> Industry guidance is to verify that vents are installed and caps are sealing, and to replace a cap or repair the vent as needed {src(CRC672, 'CRC Report 672')}. The standard monthly inspection checks that the vent cap seals against rain and blowing snow, and calls for checking vents after storms {src(STI, 'STI SP001 checklist')}. A desiccant vent cap dries the air the tank breathes in {src(GILBERT, 'Gilbert')}. See <a href="{WATER_PATH}">water in your diesel tank</a>.</p>
+
+  <h2>Vents and overfills</h2>
+  <p><strong>An overfilled tank pushes fuel out the vent.</strong> EPA notes that even a double-walled tank doesn't contain an overfill that comes out of the vent during a delivery {src(EPACH4, 'EPA SPCC guidance, ch. 4')}. That's why overfill prevention matters on aboveground tanks; see <a href="{SC_PATH}">secondary containment</a> and the <a href="{SPCC_PATH}">SPCC guide</a>.</p>
+
+  <h2>What to check</h2>
+  <ul>
+    <li>The normal vent cap is on, intact, and sheds rain and snow</li>
+    <li>Nothing blocks the vent: nests, ice, debris, or a cap that's been taped or plugged</li>
+    <li>Emergency vent caps are free to lift and aren't painted shut or weighed down</li>
+    <li>Vent piping is supported, undamaged, and drains back to the tank</li>
+    <li>A tank that whistles, sucks in, or bulges when filling or pumping points to a blocked vent</li>
+  </ul>
+  <p><strong>Field note:</strong> Vents do get clogged, and a clogged vent slows down deliveries. Most of the farm tanks I service have emergency vents.</p>
+
+  <section class="faq">
+  <h2>FAQ</h2>
+  {vent_faq_html}
+  </section>
+
+  <h2>Sources</h2>
+  <ul class="sources">
+    <li><a href="{UTFM}" rel="noopener">Utah County Fire Marshal: Aboveground fuel tank requirements, with IFC references</a></li>
+    <li><a href="{ORAST}" rel="noopener">Oregon State Fire Marshal: Aboveground tank application and installation guidelines (2024)</a></li>
+    <li><a href="{NDFARM}" rel="noopener">North Dakota: Farm fuel tank safety guide</a></li>
+    <li><a href="{CAZ}" rel="noopener">Central Arizona Fire and Medical Authority: Above-ground fuel tank checklist (IFC 2012)</a></li>
+    <li><a href="{JMEFS}" rel="noopener">JME Tanks: 300-gallon double-wall Flameshield tank spec sheet</a></li>
+    <li><a href="{CRC672}" rel="noopener">CRC Report 672: Preventive maintenance guide for diesel storage and dispensing systems (2016)</a></li>
+    <li><a href="{STI}" rel="noopener">Steel Tank Institute: SP001 monthly inspection checklist, 7th edition</a></li>
+    <li><a href="{GILBERT}" rel="noopener">Gilbert, National Tanks Conference (2018)</a></li>
+    <li><a href="{EPACH4}" rel="noopener">EPA: SPCC Guidance for Regional Inspectors, chapter 4</a></li>
+  </ul>
+  <p class="note">This guide is general information. Vent sizing and placement follow your adopted fire code and the tank maker's instructions; check with your fire marshal.</p>
+</article>
+"""
+
+vent_schema = [{"@context": "https://schema.org", "@type": "Article", "headline": VENT_TITLE, "description": VENT_DESC,
+                "datePublished": UPDATED, "dateModified": UPDATED, "mainEntityOfPage": DOMAIN + VENT_PATH}]
+page(VENT_PATH, VENT_TITLE, VENT_DESC, vent_body, schema=vent_schema, og_type="article")
 
 # ---------------- Article: 12V transfer pumps ----------------
 FRMAN = "https://goind.com.au/cdn/shop/files/GO_Manual_Fill-Rite_DC_Pumps.pdf"
@@ -2629,6 +2725,7 @@ AST_GUIDES = [
     (SPCC_PATH, "Do I need an SPCC plan?", "The 1,320-gallon rule, the farm thresholds, which plan type you need, and a one-minute checker."),
     (SC_PATH, "Secondary containment", "How big a dike has to be, what the 110% rule really means, and when a double-wall tank counts."),
     (SETB_PATH, "Setback distances", "How far a tank has to be from buildings and property lines, by tank type and state, with real examples."),
+    (VENT_PATH, "Tank vents", "Normal vs. emergency venting, the fire code rules for vent height and placement, and what to check on a vent cap."),
     (ASV_PATH, "Anti-siphon valves", "Why elevated tanks siphon, what the fire code requires, picking the head setting, and pump troubleshooting."),
     (TT_PATH, "Diesel transfer tanks", "Why 119 gallons matters, the rules for gasoline, payload math for your pickup, and setup."),
     (NOZ_PATH, "Fuel nozzles", "Automatic vs. manual, 3/4 or 1 inch, gas or diesel spouts, and troubleshooting."),
@@ -3728,7 +3825,7 @@ for _args in PAGES:
 
 # ---------------- sitemap, robots, favicon ----------------
 # Legal and contact pages stay crawlable through the footer but are left out of the sitemap
-urls = ["/", NOZ_PATH, UST_PATH, WT_PATH, RD_PATH, SUMP_PATH, OFP_PATH, AST_PATH, SB_PATH, LLD_PATH, FQ_PATH, STORE_PATH, TEST_PATH, CLEAN_PATH, STAB_PATH, UNGEL_PATH, ASV_PATH, SPCC_PATH, SC_PATH, SETB_PATH, ADD_PATH, WATER_PATH, BIO_PATH, TT_PATH, PUMP_PATH, GEL_PATH, "/about/"]
+urls = ["/", NOZ_PATH, UST_PATH, WT_PATH, RD_PATH, SUMP_PATH, OFP_PATH, AST_PATH, SB_PATH, LLD_PATH, FQ_PATH, STORE_PATH, TEST_PATH, CLEAN_PATH, STAB_PATH, UNGEL_PATH, ASV_PATH, SPCC_PATH, SC_PATH, SETB_PATH, VENT_PATH, ADD_PATH, WATER_PATH, BIO_PATH, TT_PATH, PUMP_PATH, GEL_PATH, "/about/"]
 sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
 for u in urls:
     sitemap += f"  <url><loc>{DOMAIN}{u}</loc><lastmod>{DATES.get(u, (UPDATED,))[0]}</lastmod></url>\n"
