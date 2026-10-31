@@ -1582,6 +1582,126 @@ page(ASV_PATH, ASV_TITLE, ASV_DESC, asv_body, schema=asv_schema, og_type="articl
 
 
 
+
+# ---------------- Fuel nozzles ----------------
+NOZ_PATH = "/fuel-nozzle/"
+PEINOZ = "https://pei.org/?p=11360"
+OPWNOZ = "https://opwglobal.com/products/us/retail-fueling-products/standard-dispensing-equipment/automatic-nozzles-gas-station/11a-and-11b-automatic-nozzles"
+FRAUTO = "https://www.fillrite.com/1-cold-weather-automatic-diesel-spout-nozzle-blue"
+FRMANN = "https://www.fillrite.com/1-aluminum-manual-nozzle"
+DULTNOZ = "https://www.dultmeier.com/fuel-nozzle-automatic-34-diesel-green-cover-1516-spout-max-145-gpm"
+
+NOZ_TITLE = "Fuel Nozzles: Automatic vs. Manual, Sizes, and Which Fits Your Pump"
+NOZ_DESC = ("Automatic or manual, 3/4 or 1 inch, gas or diesel spout: how to pick a fuel nozzle that fits your pump and tank, "
+            "how the automatic shutoff works, and what to do when it clicks off too early.")
+
+noz_faq = [
+    ("Can I use a gas nozzle for diesel?",
+     f"It will work if it's rated for diesel, but use a diesel nozzle with the green cover and 15/16-inch spout. The different sizes and colors help prevent putting the wrong fuel in a vehicle {src(DULTNOZ, 'Dultmeier')}."),
+    ("Why won't my automatic nozzle work on my gravity-fed farm tank?",
+     f"Automatic nozzles need pumped flow to work the shutoff. Fill-Rite says its automatic nozzles aren't meant for gravity systems {src(FRAUTO, 'Fill-Rite')}. On a gravity tank, use a manual nozzle and stay with it."),
+]
+noz_faq_html = "\n".join(f"<h3>{q}</h3>\n<p>{a}</p>" for q, a in noz_faq)
+
+noz_body = f"""
+<article class="wrap">
+  <p class="crumbs"><a href="/aboveground-fuel-tanks/">Aboveground tanks</a></p>
+  <h1>Fuel nozzles: automatic vs. manual, sizes, and which fits your pump</h1>
+  <p class="meta">Written by a fuel-system technician. Updated {UPDATED_HUMAN}.</p>
+  {AFF_NOTE}
+
+  <div class="answer">
+    <p><strong>Pick a nozzle by three things: automatic or manual, an inlet size that matches your hose (3/4 or 1 inch), and the right spout for your fuel.</strong> Automatic nozzles shut off when the tank is full; manual ones flow until you let go. Diesel nozzles usually have a 15/16-inch spout and a green cover, and unleaded gasoline nozzles a 13/16-inch spout, which helps keep the wrong fuel out of a vehicle {src(DULTNOZ, 'Dultmeier')}.</p>
+  </div>
+  <p>Match the nozzle to your pump's flow, too. A typical 3/4-inch automatic nozzle is rated to about 14.5 gallons per minute {src(DULTNOZ, 'Dultmeier')}; Fill-Rite's 1-inch nozzles are rated to 40 {src(FRMANN, 'Fill-Rite')}.</p>
+
+  <h2>Automatic vs. manual</h2>
+  <p><strong>An automatic nozzle shuts itself off when fuel covers a small hole near the tip of the spout. A manual nozzle has no shutoff: it flows as long as the handle is squeezed.</strong></p>
+  <p><strong>How the automatic shutoff works.</strong> While fuel flows, air is drawn in through the hole at the spout tip. When the fuel level rises and covers that hole, the air stops, a vacuum builds inside the nozzle, and it pulls a diaphragm that trips the valve closed {src(PEINOZ, 'PEI')}. That's why a nozzle clicks off when the tank is full, and also why splash-back can trip it early.</p>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th scope="col"></th><th scope="col">Automatic</th><th scope="col">Manual</th></tr></thead>
+    <tbody>
+      <tr><td>Shuts off when full</td><td>Yes</td><td>No; you have to watch it</td></tr>
+      <tr><td>Best for</td><td>Farm and fleet tanks, pickups and equipment with a fill neck</td><td>Gravity-fed tanks, drums, and cans</td></tr>
+      <tr><td>Watch out for</td><td>Needs pumped flow; Fill-Rite says its automatic nozzles aren't for gravity systems {src(FRAUTO, 'Fill-Rite')}</td><td>Easy to overfill if you walk away</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><strong>Field note:</strong> On farm and fleet tanks with a pump, I always install automatic nozzles.</p>
+  <p><strong>Hold-open latches.</strong> Many automatic nozzles have a clip that holds the handle open at a set flow; Fill-Rite's have three latch positions {src(FRAUTO, 'Fill-Rite')}. Some sites can't use them: OPW says not to use its 11A with a hold-open device at pre-pay self-service sites {src(OPWNOZ, 'OPW')}. Never latch a manual nozzle open.</p>
+
+  <h2>Sizes and spouts</h2>
+  <p><strong>Match the inlet to your hose, the flow rating to your pump, and the spout to your fuel.</strong></p>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th scope="col">Choice</th><th scope="col">Options</th><th scope="col">How to pick</th></tr></thead>
+    <tbody>
+      <tr><td>Inlet</td><td>3/4-inch or 1-inch NPT</td><td>Match your hose. A 3/4-inch automatic is typically rated to about 14.5 GPM {src(DULTNOZ, 'Dultmeier')}; 1-inch Fill-Rite nozzles go to 40 GPM {src(FRMANN, 'Fill-Rite')}</td></tr>
+      <tr><td>Spout</td><td>13/16 inch (gasoline), 15/16 inch (diesel), larger high-flow spouts</td><td>Use the spout that matches the fuel {src(DULTNOZ, 'Dultmeier')}. Fill-Rite's 1-inch automatic diesel nozzle has a 1-3/16-inch spout {src(FRAUTO, 'Fill-Rite')}; whether that fits depends on the truck or tank, so check the fill neck first</td></tr>
+      <tr><td>Fuel rating</td><td>Gasoline, diesel, ethanol and biodiesel blends</td><td>Check the listing. OPW's 11A and 11B are UL-listed for gasoline, diesel, and up to E85 {src(OPWNOZ, 'OPW')}</td></tr>
+      <tr><td>Pressure</td><td>Check the max rating</td><td>OPW's 11A and 11B are rated to 50 psi {src(OPWNOZ, 'OPW')}</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>For matching a nozzle to a 12V transfer pump, see <a href="{PUMP_PATH}">how to choose a 12V fuel transfer pump</a>.</p>
+
+  <h2>Common nozzles</h2>
+  <p><strong>Field note:</strong> OPW is the nozzle I install most.</p>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th scope="col">Nozzle</th><th scope="col">Type and size</th><th scope="col">Notes</th></tr></thead>
+    <tbody>
+      <tr><td>OPW 11B<br><span class="shop">{amz("OPW 11B automatic fuel nozzle", "Check price on Amazon")}</span></td><td>Automatic, 3/4 inch, gas or diesel versions</td><td>Won't open until the system is pressurized; rated to 50 psi {src(OPWNOZ, 'OPW')}</td></tr>
+      <tr><td>OPW 11A<br><span class="shop">{amz("OPW 11A automatic fuel nozzle", "Check price on Amazon")}</span></td><td>Automatic, 3/4 inch, gas or diesel versions</td><td>No pressure-to-open feature; not for pre-pay self-serve with a hold-open {src(OPWNOZ, 'OPW')}</td></tr>
+      <tr><td>Fill-Rite 1" automatic diesel<br><span class="shop">{amz("Fill-Rite 1 inch automatic diesel nozzle", "Check price on Amazon")}</span></td><td>Automatic, 1 inch, 1-3/16 inch spout, 40 GPM</td><td>Three latch positions; not for gravity flow {src(FRAUTO, 'Fill-Rite')}</td></tr>
+      <tr><td>Fill-Rite 1" manual<br><span class="shop">{amz("Fill-Rite FRHMN100S manual nozzle", "Check price on Amazon")}</span></td><td>Manual, 1 inch, 15/16 inch spout, 40 GPM</td><td>For gravity tanks and drums {src(FRMANN, 'Fill-Rite')}</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h2>Troubleshooting</h2>
+  <div class="table-wrap">
+  <table class="even">
+    <thead><tr><th scope="col">Problem</th><th scope="col">What to do</th></tr></thead>
+    <tbody>
+      <tr><td>Clicks off too early</td><td>Fuel is splashing up and covering the sensing hole at the spout tip {src(PEINOZ, 'PEI')}. Insert the spout further, lower the flow with the latch, or angle the nozzle</td></tr>
+      <tr><td>Won't shut off</td><td>Stop using it and change the nozzle before it causes a spill</td></tr>
+      <tr><td>OPW 11B won't open</td><td>The system isn't pressurized yet; the 11B is designed not to open until it is {src(OPWNOZ, 'OPW')}</td></tr>
+      <tr><td>Automatic nozzle won't shut off on a gravity tank</td><td>Not enough flow; automatic nozzles aren't meant for gravity systems {src(FRAUTO, 'Fill-Rite')}</td></tr>
+      <tr><td>Slow flow at a dispenser</td><td>Often the leak detector, not the nozzle. See <a href="/line-leak-detector/">line leak detectors</a></td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <section class="faq">
+  <h2>FAQ</h2>
+  {noz_faq_html}
+  </section>
+
+  <h2>Sources</h2>
+  <ul class="sources">
+    <li><a href="{PEINOZ}" rel="noopener">PEI: Automatic nozzle (2014)</a></li>
+    <li><a href="{OPWNOZ}" rel="noopener">OPW: 11A and 11B automatic nozzles</a></li>
+    <li><a href="{FRAUTO}" rel="noopener">Fill-Rite: 1" automatic diesel spout nozzle</a></li>
+    <li><a href="{FRMANN}" rel="noopener">Fill-Rite: 1" aluminum manual nozzle</a></li>
+    <li><a href="{DULTNOZ}" rel="noopener">Dultmeier: 3/4" automatic diesel nozzle</a></li>
+  </ul>
+</article>
+"""
+
+noz_schema = [
+    {"@context": "https://schema.org", "@type": "Article", "headline": NOZ_TITLE, "description": NOZ_DESC,
+     "datePublished": UPDATED, "dateModified": UPDATED,
+     "author": {"@type": "Person", "name": "FuelStorageGuide", "jobTitle": "Fuel-system technician"},
+     "publisher": {"@type": "Organization", "name": "FuelStorageGuide", "url": DOMAIN},
+     "mainEntityOfPage": DOMAIN + NOZ_PATH},
+    {"@context": "https://schema.org", "@type": "FAQPage",
+     "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": strip_tags(a)}} for q, a in noz_faq]},
+]
+page(NOZ_PATH, NOZ_TITLE, NOZ_DESC, noz_body, schema=noz_schema, og_type="article")
+
+
 # ---------------- Aboveground tanks hub ----------------
 AST_PATH = "/aboveground-fuel-tanks/"
 WGUL = "https://western-global.com/us/support/insights/knowing-the-approvals-ul142-vs-ul2085/"
@@ -1593,6 +1713,7 @@ AST_GUIDES = [
     (SPCC_PATH, "Do I need an SPCC plan?", "The 1,320-gallon rule, the farm thresholds, which plan type you need, and a one-minute checker."),
     (ASV_PATH, "Anti-siphon valves", "Why elevated tanks siphon, what the fire code requires, picking the head setting, and pump troubleshooting."),
     (TT_PATH, "Diesel transfer tanks", "Why 119 gallons matters, the rules for gasoline, payload math for your pickup, and setup."),
+    (NOZ_PATH, "Fuel nozzles", "Automatic vs. manual, 3/4 or 1 inch, gas or diesel spouts, and troubleshooting."),
     (PUMP_PATH, "How to choose a 12V fuel transfer pump", "Flow rate, duty cycle, and wiring explained, and Fill-Rite and GPI models compared."),
 ]
 ast_cards = "\n".join(
@@ -1638,6 +1759,7 @@ ast_body = f"""
     <tbody>
       <tr><td>Anti-siphon valve</td><td>Keeps fuel from draining out if a line breaks</td><td><a href="{ASV_PATH}">Anti-siphon valves</a></td></tr>
       <tr><td>Transfer pump</td><td>Moves fuel from the tank to equipment</td><td><a href="{PUMP_PATH}">12V transfer pumps</a></td></tr>
+      <tr><td>Nozzle</td><td>Shuts off automatically when the tank you're filling is full</td><td><a href="{NOZ_PATH}">Fuel nozzles</a></td></tr>
       <tr><td>Vents (normal and emergency)</td><td>Let air in and out as fuel moves; relieve pressure in a fire</td><td>Coming soon</td></tr>
       <tr><td>Fill and spill containment</td><td>Catch drips at the fill when the delivery hose comes off</td><td>Coming soon</td></tr>
       <tr><td>Overfill prevention</td><td>Stops or warns before the tank is overfilled</td><td>Coming soon</td></tr>
@@ -2047,6 +2169,7 @@ home_body = f"""
     <li><a class="guide" href="{LLD_PATH}"><span class="card-title">Line leak detectors: the annual test and slow flow</span><p>How mechanical and electronic detectors work, what the yearly test checks, and why a dispenser drops to a trickle.</p></a></li>
     <li><a class="guide" href="{OFP_PATH}"><span class="card-title">UST overfill prevention</span><p>Shutoff valves, alarms, and ball floats, the 3-year inspection, and how to order fuel so it never gets close.</p></a></li>
     <li><a class="guide" href="{TT_PATH}"><span class="card-title">Diesel transfer tanks: sizing, legal limits, and setup</span><p>Why 119 gallons matters, the rules for gasoline, payload math for your pickup, and how to set one up.</p></a></li>
+    <li><a class="guide" href="{NOZ_PATH}"><span class="card-title">Fuel nozzles: automatic vs. manual</span><p>How the auto shutoff works, 3/4 vs 1 inch, gas vs diesel spouts, and which nozzle fits your pump.</p></a></li>
     <li><a class="guide" href="{PUMP_PATH}"><span class="card-title">How to choose a 12V fuel transfer pump</span><p>Flow rate, duty cycle, and wiring explained, Fill-Rite and GPI models compared, and which size fits your tank.</p></a></li>
     <li><a class="guide" href="{GEL_PATH}"><span class="card-title">Diesel gelling: when it happens and how to prevent it</span><p>Cloud point, CFPP, and pour point explained, why bulk tanks gel first, and a winter checklist for tank owners.</p></a></li>
   </ul>
@@ -2142,7 +2265,7 @@ nf_body = """
 page("/404.html", "Page not found | FuelStorageGuide", "Page not found.", nf_body)
 
 # ---------------- sitemap, robots, favicon ----------------
-urls = ["/", UST_PATH, OFP_PATH, AST_PATH, SB_PATH, LLD_PATH, FQ_PATH, STORE_PATH, ASV_PATH, SPCC_PATH, ADD_PATH, WATER_PATH, BIO_PATH, TT_PATH, PUMP_PATH, GEL_PATH,"/about/", "/contact/", "/privacy/", "/affiliate-disclosure/"]
+urls = ["/", NOZ_PATH, UST_PATH, OFP_PATH, AST_PATH, SB_PATH, LLD_PATH, FQ_PATH, STORE_PATH, ASV_PATH, SPCC_PATH, ADD_PATH, WATER_PATH, BIO_PATH, TT_PATH, PUMP_PATH, GEL_PATH,"/about/", "/contact/", "/privacy/", "/affiliate-disclosure/"]
 sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
 for u in urls:
     sitemap += f"  <url><loc>{DOMAIN}{u}</loc><lastmod>{UPDATED}</lastmod></url>\n"

@@ -18,6 +18,7 @@ CARDS = [
     ("line-leak-detector", "Line leak detectors", "How they work, the annual test, and why a dispenser runs slow"),
     ("ust-overfill-prevention", "UST overfill prevention", "Shutoff valves, alarms, ball floats, and the 3-year inspection"),
     ("underground-storage-tanks", "Underground storage tanks", "What gets checked every 30 days, every year, and every 3 years"),
+    ("fuel-nozzle", "Fuel nozzles", "Automatic vs. manual, sizes, and which fits your pump"),
     ("diesel-biocide", "Diesel bugs and biocides", "How to spot microbial growth and treat it, step by step"),
     ("water-in-diesel-tank", "Water in your diesel tank", "How it gets in, how to check, and how to get it out"),
     ("diesel-transfer-tank", "Diesel transfer tanks", "Sizing, the 119-gallon rule, and setup"),
