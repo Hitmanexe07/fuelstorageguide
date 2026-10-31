@@ -28,6 +28,7 @@ DATES = {
     "/diesel-tank-cleaning/": ("2026-10-31", "October 31, 2026"),
     "/diesel-fuel-stabilizer/": ("2026-10-31", "October 31, 2026"),
     "/ust-release-detection/": ("2026-10-31", "October 31, 2026"),
+    "/containment-sump-testing/": ("2026-10-31", "October 31, 2026"),
 }
 
 # Who gets credit in bylines and structured data. While this is None, guides are credited
@@ -2557,7 +2558,7 @@ sb_body = f"""
   </table>
   </div>
   <p><strong>Field note:</strong> I test with water. While the bucket is open, I always check the drop tube gasket and the fill gasket, and replace them if they're bad or stretched.</p>
-  <p>The water from a hydrostatic test has been in contact with fuel residue, so handle and dispose of it properly.</p>
+  <p>The water from a hydrostatic test has been in contact with fuel residue, so handle and dispose of it properly. Containment sumps are tested on the same 3-year schedule; see <a href="/containment-sump-testing/">containment sump testing</a>.</p>
 
   <h2>What fails, and what to do about it</h2>
   <p><strong>Cracks, bad seals, leaking drain valves, and broken lids are the usual problems. EPA says to repair or replace any of them right away</strong> {src(EPASB, 'EPA')}.</p>
@@ -2890,7 +2891,7 @@ wt_body = f"""
     </tbody>
   </table>
   </div>
-  <p class="source-line">Source: <a href="{C28036}" rel="noopener">40 CFR 280.36(a)(1)(ii)</a>.</p>
+  <p class="source-line">Source: <a href="{C28036}" rel="noopener">40 CFR 280.36(a)(1)(ii)</a>. For which sumps also need the 3-year test, see <a href="/containment-sump-testing/">containment sump testing</a>.</p>
 
   <h2>Printable walkthrough checklist</h2>
   <p><strong>Print this page and fill in a row for each item, each walkthrough.</strong> It covers the federal minimum; add anything your state requires. EPA also publishes a longer manual with checklists and record forms {src(EPAOMPDF, 'EPA 510-K-16-001')}.</p>
@@ -3109,6 +3110,119 @@ rd_schema = [{"@context": "https://schema.org", "@type": "Article", "headline": 
               "datePublished": UPDATED, "dateModified": UPDATED, "mainEntityOfPage": DOMAIN + RD_PATH}]
 page(RD_PATH, RD_TITLE, RD_DESC, rd_body, schema=rd_schema, og_type="article")
 
+
+# ---------------- Containment sump testing ----------------
+SUMP_PATH = "/containment-sump-testing/"
+C28020 = "https://www.law.cornell.edu/cfr/text/40/280.20"
+
+SUMP_TITLE = "Containment Sump Testing: The 3-Year Test and Annual Check"
+SUMP_DESC = ("Which UST containment sumps need the 3-year tightness test, how the hydrostatic test works and "
+             "what passes, and the yearly walkthrough check.")
+
+sump_faq = [
+    ("Does every sump need the 3-year test?",
+     f"No. The federal 3-year test applies to containment sumps used for interstitial monitoring of piping {src(C28035, '40 CFR 280.35')}. Every containment sump still gets the yearly walkthrough check {src(C28036, '40 CFR 280.36')}. Your state may test more."),
+    ("What do I do with the test water?",
+     "It has been in contact with fuel residue, so handle and dispose of it properly, the same as spill bucket test water. Don't dump it on the ground."),
+    ("My sump has water in it. Is that a release?",
+     f"Liquid in a sump can be a sign of a leak, so investigate it, remove it, and find where it came from. The yearly walkthrough calls for removing liquid in contained sumps and checking for leaks into the sump {src(C28036, '40 CFR 280.36')}. Liquid in the interstitial space of a secondarily contained system is an unusual operating condition you may have to report {src(C28050, '40 CFR 280.50')}."),
+]
+sump_faq_html = "\n".join(f"<h3>{q}</h3>\n<p>{a}</p>" for q, a in sump_faq)
+
+sump_body = f"""
+<article class="wrap">
+  <p class="crumbs"><a href="/underground-storage-tanks/">Underground tanks</a></p>
+  <h1>Containment sump testing: the 3-year test and the annual check</h1>
+  <p class="meta">Written by a fuel-system technician. Updated {UPDATED_HUMAN}.</p>
+
+  <div class="answer">
+    <p><strong>Containment sumps used for interstitial monitoring of piping have to be tested for tightness at least every 3 years, unless they're double-walled and you check between the walls at least as often as your walkthroughs. Every containment sump also gets a visual check once a year.</strong> ({src(C28035, '40 CFR 280.35')[1:-1]}; {src(C28036, '280.36')[1:-1]})</p>
+  </div>
+
+  <h2>What a containment sump is</h2>
+  <p><strong>A containment sump is "a liquid-tight container that protects the environment by containing leaks and spills" from piping, dispensers, pumps, and related parts</strong> {src(C28012, '40 CFR 280.12')}. The rule names three locations:</p>
+  <ul>
+    <li><strong>Tank top or submersible turbine pump (STP) sump,</strong> over the tank where the pump and piping connect</li>
+    <li><strong>Under-dispenser containment (UDC),</strong> under each dispenser</li>
+    <li><strong>Transition or intermediate sumps</strong> at other points in the piping run</li>
+  </ul>
+  <p>Sumps can be single-walled or double-walled {src(C28012, '40 CFR 280.12')}. Any new dispenser system installed after April 11, 2016 needs under-dispenser containment {src(C28020, '40 CFR 280.20(f)')}.</p>
+
+  <h2>Which sumps need the 3-year test</h2>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th scope="col">Sump</th><th scope="col">Federal requirement</th></tr></thead>
+    <tbody>
+      <tr><td>Used for interstitial monitoring of piping, single-walled</td><td>Tightness test at least every 3 years by vacuum, pressure, or liquid testing</td></tr>
+      <tr><td>Used for interstitial monitoring of piping, double-walled</td><td>Check between the walls at least as often as your walkthroughs instead. Stop checking, and you have 30 days to test</td></tr>
+      <tr><td>Not used for interstitial monitoring</td><td>No federal 3-year test, but still part of the yearly walkthrough</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="source-line">Source: <a href="{C28035}" rel="noopener">40 CFR 280.35(a)(1)</a>. Tanks in use on or before October 13, 2015 needed the first test by October 13, 2018; newer systems comply from installation.</p>
+  <p><strong>The test has to follow the manufacturer's requirements, a recognized code of practice such as PEI RP1200, or your state's method</strong> {src(C28035, '40 CFR 280.35')}. Many states test more sumps than the federal minimum, so check yours.</p>
+
+  <h2>How the hydrostatic test works</h2>
+  <p><strong>Most sump tests are hydrostatic: fill the sump with water, wait, and measure whether the level drops.</strong> These are the two tests described in a 2022 National Tanks Conference presentation on PEI RP1200 {src(KUBIN, 'Kubinsky, National Tanks Conference 2022')}:</p>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th scope="col">Test</th><th scope="col">Water level</th><th scope="col">Passes if</th></tr></thead>
+    <tbody>
+      <tr><td>High-level hydrostatic</td><td>4 inches above the highest penetration or sidewall seam, or within 1 inch of the top</td><td>Visual inspection is good and the level drops less than 1/8 inch in an hour</td></tr>
+      <tr><td>Low-level hydrostatic</td><td>4 inches above the sump sensor's activation level</td><td>Visual inspection is good, the sensor or float shuts down the pump or dispenser as it should, and the level drops less than 1/8 inch in an hour</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><strong>The steps:</strong></p>
+  <ol>
+    <li>Visually inspect the entire sump. A visible crack or hole fails without a test.</li>
+    <li><strong>Isolate the piping interstitials</strong> so test water can't get into the space between the pipe walls {src(KUBIN, 'Kubinsky')}.</li>
+    <li>Add water to the test level.</li>
+    <li>Wait 15 minutes for the sump walls to settle, then measure the level {src(KUBIN, 'Kubinsky')}.</li>
+    <li>Wait an hour and measure again.</li>
+  </ol>
+  <p><strong>Field note:</strong> The high-level test is the one I run most.</p>
+  <p>The low-level test also proves the sump sensor works: a sensor wired to the tank gauge has to shut down the pump serving that sump, and a stand-alone sensor has to shut down the dispenser or pump {src(KUBIN, 'Kubinsky')}. For sensors and the yearly equipment test, see <a href="{RD_PATH}">release detection</a>.</p>
+
+  <h2>The yearly walkthrough check</h2>
+  <p><strong>Once a year, every containment sump gets a visual check:</strong> look for damage, leaks into the sump, or releases to the environment; remove liquid (in contained sumps) or debris; and on double-walled sumps with interstitial monitoring, check between the walls {src(C28036, '40 CFR 280.36')}. It's on the <a href="{WT_PATH}">walkthrough checklist</a>.</p>
+  <p><strong>Field note:</strong> I find water or fuel sitting in sumps on walkthroughs quite often.</p>
+
+  <h2>Records</h2>
+  <p><strong>Keep test records for 3 years.</strong> If you skip testing because the sump is double-walled and monitored, keep documentation of that for as long as you monitor it {src(C28035, '40 CFR 280.35(c)')}. Walkthrough records are kept for 1 year {src(C28036, '40 CFR 280.36(b)')}.</p>
+
+  <h2>What fails</h2>
+  <ul>
+    <li><strong>Penetration boots and seals</strong> where piping and conduit pass through the sump wall</li>
+    <li><strong>Sidewall seams</strong> and cracks in the sump body</li>
+    <li><strong>Sensors</strong> that don't activate or don't shut the pump down</li>
+    <li><strong>Lids and covers</strong> that let water in, filling the sump</li>
+  </ul>
+  <p><strong>Field note:</strong> Those are the failures I see on the sump tests I run.</p>
+  <p>A failed sump has to be repaired and retested, or replaced. For spill buckets, which are tested on the same 3-year schedule, see <a href="{SB_PATH}">spill bucket testing</a>.</p>
+
+  <section class="faq">
+  <h2>FAQ</h2>
+  {sump_faq_html}
+  </section>
+
+  <h2>Sources</h2>
+  <ul class="sources">
+    <li><a href="{C28035}" rel="noopener">40 CFR 280.35, periodic testing of spill and overfill prevention equipment and containment sumps (Cornell LII)</a></li>
+    <li><a href="{C28036}" rel="noopener">40 CFR 280.36, walkthrough inspections (Cornell LII)</a></li>
+    <li><a href="{C28012}" rel="noopener">40 CFR 280.12, definitions (Cornell LII)</a></li>
+    <li><a href="{C28020}" rel="noopener">40 CFR 280.20, performance standards for new UST systems (Cornell LII)</a></li>
+    <li><a href="{C28050}" rel="noopener">40 CFR 280.50, reporting of suspected releases (Cornell LII)</a></li>
+    <li><a href="{KUBIN}" rel="noopener">Edward Kubinsky, CROMPCO: UST testing, National Tanks Conference (2022)</a></li>
+  </ul>
+  <p class="note">This guide is general information. Your state UST program decides what's required at your site.</p>
+</article>
+"""
+
+sump_schema = [{"@context": "https://schema.org", "@type": "Article", "headline": SUMP_TITLE, "description": SUMP_DESC,
+                "datePublished": UPDATED, "dateModified": UPDATED, "mainEntityOfPage": DOMAIN + SUMP_PATH}]
+page(SUMP_PATH, SUMP_TITLE, SUMP_DESC, sump_body, schema=sump_schema, og_type="article")
+
 # ---------------- Underground tanks hub ----------------
 UST_PATH = "/underground-storage-tanks/"
 UST_TITLE = "Underground Storage Tanks: Inspections, Testing, and Equipment"
@@ -3117,6 +3231,7 @@ UST_DESC = ("A guide to underground fuel tank (UST) compliance for gas stations,
 UST_GUIDES = [
     (WT_PATH, "Walkthrough inspections", "What to check every 30 days and every year, a printable checklist, and the records to keep."),
     (RD_PATH, "Release detection", "Which leak detection methods your tanks and piping can use, the yearly equipment test, and when to report."),
+    (SUMP_PATH, "Containment sump testing", "Which sumps need the 3-year test, how the hydrostatic test works and what passes, and the yearly check."),
     (SB_PATH, "Spill bucket testing", "The 30-day walkthrough, the 3-year test, how the water and vacuum tests work, and what fails."),
     (LLD_PATH, "Line leak detectors", "How mechanical and electronic detectors work, what the yearly test checks, and why a dispenser drops to a trickle."),
     (OFP_PATH, "Overfill prevention", "Shutoff valves, alarms, and ball floats, the 3-year inspection, and how to order fuel so it never gets close."),
@@ -3138,11 +3253,12 @@ ust_body = f"""
       <tr><td>Every year</td><td>Walkthrough of containment sumps and hand-held release detection equipment {src(C28036, '40 CFR 280.36')}</td><td><a href="{WT_PATH}">Walkthrough checklist</a></td></tr>
       <tr><td>Every year</td><td>Line leak detector test on pressurized piping, plus a line tightness test unless you monitor monthly {src(STOT, 'EPA')}</td><td><a href="{LLD_PATH}">Line leak detectors</a></td></tr>
       <tr><td>Every 3 years</td><td>Spill bucket tightness test (single-wall) {src(C28035, '40 CFR 280.35')}</td><td><a href="{SB_PATH}">Spill buckets</a></td></tr>
+      <tr><td>Every 3 years</td><td>Tightness test of containment sumps used for piping interstitial monitoring (single-wall) {src(C28035, '40 CFR 280.35')}</td><td><a href="{SUMP_PATH}">Containment sumps</a></td></tr>
       <tr><td>Every 3 years</td><td>Overfill prevention inspection {src(MUSTS, 'EPA')}</td><td><a href="{OFP_PATH}">Overfill prevention</a></td></tr>
     </tbody>
   </table>
   </div>
-  <p>Release detection for the tanks and piping has its own guide: <a href="{RD_PATH}">release detection methods, schedules, and records</a>. The federal rule also covers containment sumps, corrosion protection, and operator training; guides on those are coming.</p>
+  <p>Release detection for the tanks and piping has its own guide: <a href="{RD_PATH}">release detection methods, schedules, and records</a>. The federal rule also covers corrosion protection and operator training; guides on those are coming.</p>
   <p><strong>Your state runs the program.</strong> Most states adopted the federal rule and inspect against it, sometimes with their own forms and extra requirements. Michigan, for example, adopted the federal testing schedule {src(MI2120, 'Mich. Admin. Code R 29.2120')}. Check with your state UST program.</p>
 
   <h2>All underground tank guides</h2>
@@ -3396,7 +3512,7 @@ for _args in PAGES:
 
 # ---------------- sitemap, robots, favicon ----------------
 # Legal and contact pages stay crawlable through the footer but are left out of the sitemap
-urls = ["/", NOZ_PATH, UST_PATH, WT_PATH, RD_PATH, OFP_PATH, AST_PATH, SB_PATH, LLD_PATH, FQ_PATH, STORE_PATH, TEST_PATH, CLEAN_PATH, STAB_PATH, ASV_PATH, SPCC_PATH, SC_PATH, ADD_PATH, WATER_PATH, BIO_PATH, TT_PATH, PUMP_PATH, GEL_PATH, "/about/"]
+urls = ["/", NOZ_PATH, UST_PATH, WT_PATH, RD_PATH, SUMP_PATH, OFP_PATH, AST_PATH, SB_PATH, LLD_PATH, FQ_PATH, STORE_PATH, TEST_PATH, CLEAN_PATH, STAB_PATH, ASV_PATH, SPCC_PATH, SC_PATH, ADD_PATH, WATER_PATH, BIO_PATH, TT_PATH, PUMP_PATH, GEL_PATH, "/about/"]
 sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
 for u in urls:
     sitemap += f"  <url><loc>{DOMAIN}{u}</loc><lastmod>{DATES.get(u, (UPDATED,))[0]}</lastmod></url>\n"
