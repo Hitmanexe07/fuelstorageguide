@@ -1,4 +1,5 @@
 """Builds the FuelStorageGuide.com static site into ./site"""
+import hashlib
 import json
 import sys
 sys.path.insert(0, str(__import__("pathlib").Path(__file__).parent / "tools"))
@@ -22,6 +23,26 @@ DATES = {
     "/underground-storage-tanks/": ("2026-10-30", "October 30, 2026"),
     "/fuel-nozzle/": ("2026-10-30", "October 30, 2026"),
 }
+
+# Who gets credit in bylines and structured data. While this is None, guides are credited
+# to the site itself. Set it to the technician's real name to switch to a named Person author.
+AUTHOR_NAME = None
+
+ORG_ID = DOMAIN + "/#organization"
+ORG = {
+    "@type": "Organization", "@id": ORG_ID, "name": "FuelStorageGuide", "url": DOMAIN + "/",
+    "logo": {"@type": "ImageObject", "url": DOMAIN + "/logo.png", "width": 512, "height": 512},
+    "description": "Practical, sourced guides for farms, contractors, and fleets that store their own fuel, "
+                   "written by a working fuel-system technician.",
+}
+if AUTHOR_NAME:
+    AUTHOR = {"@type": "Person", "@id": DOMAIN + "/about/#author", "name": AUTHOR_NAME,
+              "jobTitle": "Fuel-system technician", "url": DOMAIN + "/about/", "worksFor": {"@id": ORG_ID}}
+else:
+    AUTHOR = ORG
+
+# Changes whenever styles.css changes, so the stylesheet can be cached for a year.
+CSS_VERSION = hashlib.sha256((SITE / "styles.css").read_bytes()).hexdigest()[:10]
 
 CRC = "https://crcao.org/wp-content/uploads/2019/05/CRC-671.pdf"
 CENEX = "https://www.cenex.com/expert-advice-and-insights/Diesel-Gelling-and-How-to-Stop-It-This-Winter"
@@ -97,9 +118,15 @@ def enhance_article(body, path):
     else:
         i = body.index("</p>", body.index('class="meta"')) + len("</p>")
     body = body[:i] + "\n  " + toc_inline + body[i:]
+    # Lead with the answer: the affiliate note moves below the answer box, still above the first product link
+    if AFF_NOTE in body and '<div class="answer">' in body:
+        body = body.replace(AFF_NOTE, "", 1)
+        i = body.index("</div>", body.index('<div class="answer">')) + len("</div>")
+        body = body[:i] + "\n  " + AFF_NOTE + body[i:]
     # Byline
+    who = f"By {AUTHOR_NAME}, fuel-system technician" if AUTHOR_NAME else "By a fuel-system technician"
     body = re.sub(r'<p class="meta">Written by a fuel-system technician\. (Updated [^<]+)</p>',
-                  r'<p class="meta byline"><span class="byline-who">By a fuel-system technician</span>'
+                  rf'<p class="meta byline"><span class="byline-who">{who}</span>'
                   r'<span class="byline-sep" aria-hidden="true">/</span><span>8 years in the trade</span>'
                   r'<span class="byline-sep" aria-hidden="true">/</span><span>\1</span></p>', body)
     # Author box before the sources list
@@ -112,7 +139,9 @@ def enhance_article(body, path):
     if m and m.group(1) in hubs:
         hub_path = m.group(1)
         name, guides = hubs[hub_path]
-        picks = [g for g in guides if g[0] != path][:3]
+        # The three guides after this one in the hub's list (wrapping), so every guide gets linked
+        idx = next((n for n, g in enumerate(guides) if g[0] == path), -1)
+        picks = [guides[(idx + k) % len(guides)] for k in range(1, len(guides))][:3]
         cards = "".join(f'<li><a class="guide" href="{p}"><span class="card-title">{t}</span><p>{d}</p></a></li>'
                         for p, t, d in picks)
         related = (f'<section class="related" aria-labelledby="related-title"><div class="related-inner">'
@@ -142,9 +171,21 @@ def render(path, title, description, body, current=None, schema=None, og_type="w
             {"@type": "ListItem", "position": 2, "name": m.group(2), "item": DOMAIN + m.group(1)},
             {"@type": "ListItem", "position": 3, "name": strip_tags(h1.group(1)) if h1 else title, "item": canonical}]}
         schema = (schema or []) + [crumbs]
+    elif schema and any(s.get("@type") == "CollectionPage" for s in schema):
+        crumbs = {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Home", "item": DOMAIN + "/"},
+            {"@type": "ListItem", "position": 2, "name": strip_tags(title.split(":")[0]), "item": canonical}]}
+        schema = schema + [crumbs]
     slug = path.strip("/").replace(".html", "") or "home"
     og_file = SITE / "og" / f"{slug}.png"
     og_image = f"{DOMAIN}/og/{slug}.png" if og_file.exists() else f"{DOMAIN}/og/home.png"
+    if schema:
+        # Every article points at the shared site and author entities and carries its share image
+        schema = [dict(s, **{"@id": s.get("@id", canonical + "#article"), "author": AUTHOR,
+                             "publisher": ORG, "image": og_image})
+                  if s.get("@type") == "Article" else s for s in schema]
+    # Quotes inside attribute values would cut the value short (e.g. 'Diesel "algae" is...')
+    attr_title, attr_desc = title.replace('"', "&quot;"), description.replace('"', "&quot;")
     if current is None and any(path == h for h, _ in NAV):
         current = path
     nav = "".join(
@@ -163,11 +204,11 @@ def render(path, title, description, body, current=None, schema=None, og_type="w
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{title}</title>
-<meta name="description" content="{description}">
+<meta name="description" content="{attr_desc}">
 <link rel="canonical" href="{canonical}">
 <meta property="og:type" content="{og_type}">
-<meta property="og:title" content="{title}">
-<meta property="og:description" content="{description}">
+<meta property="og:title" content="{attr_title}">
+<meta property="og:description" content="{attr_desc}">
 <meta property="og:url" content="{canonical}">
 <meta property="og:site_name" content="FuelStorageGuide">
 <meta property="og:image" content="{og_image}">
@@ -178,7 +219,7 @@ def render(path, title, description, body, current=None, schema=None, og_type="w
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="/fonts/barlow-condensed-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/source-serif-4-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="/styles.css?v={CSS_VERSION}">
 {schema_tag}
 </head>
 <body>
@@ -555,7 +596,7 @@ spcc_body = f"""
   <p class="source-line">Source: <a href="{WRRDA}" rel="noopener">EPA WRRDA fact sheet</a>.</p>
   <p>EPA also says storage is figured separately for central fueling and for each parcel, tract, or field, rather than adding up every location you farm {src(FARMFAQ, 'EPA farm FAQ')}. Fuel trailers and trucks used only on the farm still count {src(FARMFAQ, 'EPA farm FAQ')}.</p>
   <p><strong>"Reportable discharge history" means</strong> a single spill of more than 1,000 gallons to water, or two spills of more than 42 gallons each within any 12 months, during the three years before you certify the plan. Spills caused by natural disasters, war, or terrorism don't count {src(ECFR, '40 CFR 112.3(g)')}.</p>
-  <p><strong>These numbers could change.</strong> The farm thresholds come from the 2014 law, not the regulation text. EPA's 2015 study recommended dropping the 6,000-gallon tier and using 2,500 gallons for farms {src(STUDY, 'EPA farm study')}, but we found no final rule making that change. Going the other way, the House passed the PERMIT Act (H.R. 3898) in December 2025, which would raise the farm thresholds, including 20,000 to 42,000 gallons and 2,500 to 3,000 (<a href="{HRPT}" rel="noopener">House Report 119-180</a>; <a href="{BDLAW}" rel="noopener">Beveridge &amp; Diamond</a>). As of our last check, it hadn't passed the Senate {src(LEGIS, 'Legislate')}. This guide will be updated if either changes.</p>
+  <p><strong>These numbers could change.</strong> The farm thresholds come from the 2014 law, not the regulation text. EPA's 2015 study recommended dropping the 6,000-gallon tier and using 2,500 gallons for farms {src(STUDY, 'EPA farm study')}, but we found no final rule making that change. Going the other way, the House passed the PERMIT Act (H.R. 3898) in December 2025, which would raise the farm thresholds, including 20,000 to 42,000 gallons and 2,500 to 3,000 (<a href="{HRPT}" rel="noopener">House Report 119-180</a>; <a href="{BDLAW}" rel="noopener">Beveridge &amp; Diamond</a>). As of October 28, 2026, it hadn't passed the Senate {src(LEGIS, 'Legislate')}. This guide will be updated if either changes.</p>
 
   <h2>Which kind of plan you need</h2>
   <p><strong>If you need a plan and have 10,000 gallons or less with no reportable spill history, you can usually write and certify it yourself.</strong> EPA calls these "qualified facilities" {src(ECFR, '40 CFR 112.3(g)')}.</p>
@@ -2400,7 +2441,13 @@ home_body = f"""
 page("/", "FuelStorageGuide: Practical Guides for Farm and Fleet Fuel Tanks",
      "Practical, sourced guides for farms, contractors, and fleets that store their own fuel, written by a working fuel-system technician.",
      home_body, current="/",
-     schema=[{"@context": "https://schema.org", "@type": "WebSite", "name": "FuelStorageGuide", "url": DOMAIN}])
+     schema=[{"@context": "https://schema.org", "@graph": [
+         {"@type": "WebSite", "@id": DOMAIN + "/#website", "name": "FuelStorageGuide", "url": DOMAIN + "/",
+          "publisher": {"@id": ORG_ID}},
+         ORG,
+         {"@type": "WebPage", "@id": DOMAIN + "/", "url": DOMAIN + "/",
+          "name": "FuelStorageGuide: Practical Guides for Farm and Fleet Fuel Tanks",
+          "isPartOf": {"@id": DOMAIN + "/#website"}, "about": {"@id": ORG_ID}}]}])
 
 # ---------------- About ----------------
 about_body = """
@@ -2421,7 +2468,11 @@ about_body = """
 """
 page("/about/", "About FuelStorageGuide",
      "FuelStorageGuide is written by a working fuel-system technician. How guides are researched, sourced, and kept up to date.",
-     about_body, current="/about/")
+     about_body, current="/about/",
+     schema=[{"@context": "https://schema.org", "@type": "AboutPage", "@id": DOMAIN + "/about/",
+              "url": DOMAIN + "/about/", "name": "About FuelStorageGuide",
+              "mainEntity": AUTHOR if AUTHOR_NAME else {"@id": ORG_ID},
+              "isPartOf": {"@id": DOMAIN + "/#website"}}])
 
 # ---------------- Contact ----------------
 contact_body = """
@@ -2442,7 +2493,7 @@ privacy_body = f"""
 <div class="wrap">
   <h1>Privacy policy</h1>
   <p class="meta">Last updated {UPDATED_HUMAN}</p>
-  <p>FuelStorageGuide is a reading site. There are no accounts, logins, comments, or forms.</p>
+  <p>FuelStorageGuide is a reading site. There are no accounts, logins, or comments. The SPCC checker runs entirely in your browser, and nothing you enter in it is sent anywhere.</p>
   <h2>What is collected</h2>
   <ul>
     <li><strong>Visit statistics.</strong> The site uses Cloudflare Web Analytics to count page views and see which guides are useful. It doesn't use cookies or track you across other sites.</li>
@@ -2490,13 +2541,39 @@ for _args in PAGES:
     render(*_args)
 
 # ---------------- sitemap, robots, favicon ----------------
-urls = ["/", NOZ_PATH, UST_PATH, OFP_PATH, AST_PATH, SB_PATH, LLD_PATH, FQ_PATH, STORE_PATH, ASV_PATH, SPCC_PATH, ADD_PATH, WATER_PATH, BIO_PATH, TT_PATH, PUMP_PATH, GEL_PATH,"/about/", "/contact/", "/privacy/", "/affiliate-disclosure/"]
+# Legal and contact pages stay crawlable through the footer but are left out of the sitemap
+urls = ["/", NOZ_PATH, UST_PATH, OFP_PATH, AST_PATH, SB_PATH, LLD_PATH, FQ_PATH, STORE_PATH, ASV_PATH, SPCC_PATH, ADD_PATH, WATER_PATH, BIO_PATH, TT_PATH, PUMP_PATH, GEL_PATH, "/about/"]
 sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
 for u in urls:
     sitemap += f"  <url><loc>{DOMAIN}{u}</loc><lastmod>{DATES.get(u, (UPDATED,))[0]}</lastmod></url>\n"
 sitemap += "</urlset>\n"
 (SITE / "sitemap.xml").write_text(sitemap)
 (SITE / "robots.txt").write_text(f"User-agent: *\nAllow: /\n\nSitemap: {DOMAIN}/sitemap.xml\n")
+
+# ---------------- Cloudflare headers and redirects ----------------
+(SITE / "_headers").write_text("""/*
+  Strict-Transport-Security: max-age=31536000
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()
+  Content-Security-Policy: frame-ancestors 'none'; base-uri 'self'; form-action 'self'
+
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/styles.css
+  Cache-Control: public, max-age=31536000, immutable
+
+/og/*
+  Cache-Control: public, max-age=86400
+
+/logo.png
+  Cache-Control: public, max-age=86400
+""")
+# Permanent redirects for slashless URLs (the host's default is a temporary 307)
+(SITE / "_redirects").write_text("".join(
+    f"{p.rstrip('/')} {p} 301\n" for p, *_ in PAGES if p.endswith("/") and p != "/"))
 (SITE / "favicon.svg").write_text(
     '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">'
     '<rect width="32" height="32" rx="4" fill="#1c272c"/>'

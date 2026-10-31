@@ -382,7 +382,11 @@ main:has(.hero) { padding-top: 0; }
   main { padding-left: 1rem; padding-right: 1rem; }
   .hero, .proof { margin-left: -1rem; margin-right: -1rem; }
   .related { margin-left: -1rem; margin-right: -1rem; }
-  .site-nav { width: 100%; overflow-x: auto; gap: 1.1rem; font-size: 1.05rem; white-space: nowrap; scrollbar-width: none; }
+  /* Wrap instead of scrolling sideways, so every link stays visible; 44px tap height */
+  .site-nav { width: 100%; flex-wrap: wrap; gap: 0 1.1rem; font-size: 1.05rem; }
+  .site-nav a { display: inline-flex; align-items: center; min-height: 44px; padding: 0; }
+  .checker fieldset label { min-height: 44px; margin-right: 1rem; }
+  .checker input[type="radio"] { width: 1.35rem; height: 1.35rem; }
   td:first-child { white-space: normal; }
   .answer { box-shadow: 3px 3px 0 var(--ink); }
 }
