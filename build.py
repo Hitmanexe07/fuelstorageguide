@@ -2759,8 +2759,8 @@ ast_body = f"""
   <table>
     <thead><tr><th scope="col">Rule</th><th scope="col">Who it covers</th><th scope="col">Guide</th></tr></thead>
     <tbody>
-      <tr><td>SPCC (40 CFR 112)</td><td>Sites with more than 1,320 gallons of aboveground oil storage that could spill to water; farms have higher thresholds</td><td><a href="{SPCC_PATH}">Do I need an SPCC plan?</a></td></tr>
-      <tr><td>Fire code (IFC or NFPA 30/30A, as adopted locally)</td><td>Tank construction, spacing, and equipment such as anti-siphon valves</td><td><a href="{ASV_PATH}">Anti-siphon valves</a></td></tr>
+      <tr><td>SPCC (40 CFR 112)</td><td>Sites with more than 1,320 gallons of aboveground oil storage that could spill to water; farms have higher thresholds. Includes secondary containment sized for the largest tank</td><td><a href="{SPCC_PATH}">Do I need an SPCC plan?</a>; <a href="{SC_PATH}">Secondary containment</a></td></tr>
+      <tr><td>Fire code (IFC or NFPA 30/30A, as adopted locally)</td><td>Tank construction, setback distances, venting, and equipment such as anti-siphon valves</td><td><a href="{SETB_PATH}">Setback distances</a>; <a href="{VENT_PATH}">Tank vents</a>; <a href="{ASV_PATH}">Anti-siphon valves</a></td></tr>
       <tr><td>State tank rules</td><td>Varies by state; some register or inspect aboveground tanks</td><td>Check with your state fire marshal or environmental agency</td></tr>
     </tbody>
   </table>
@@ -2775,7 +2775,7 @@ ast_body = f"""
       <tr><td>Anti-siphon valve</td><td>Keeps fuel from draining out if a line breaks</td><td><a href="{ASV_PATH}">Anti-siphon valves</a></td></tr>
       <tr><td>Transfer pump</td><td>Moves fuel from the tank to equipment</td><td><a href="{PUMP_PATH}">12V transfer pumps</a></td></tr>
       <tr><td>Nozzle</td><td>Shuts off automatically when the tank you're filling is full</td><td><a href="{NOZ_PATH}">Fuel nozzles</a></td></tr>
-      <tr><td>Vents (normal and emergency)</td><td>Let air in and out as fuel moves; relieve pressure in a fire</td><td>Coming soon</td></tr>
+      <tr><td>Vents (normal and emergency)</td><td>Let air in and out as fuel moves; relieve pressure in a fire</td><td><a href="{VENT_PATH}">Tank vents</a></td></tr>
       <tr><td>Fill and spill containment</td><td>Catch drips at the fill when the delivery hose comes off</td><td>Coming soon</td></tr>
       <tr><td>Overfill prevention</td><td>Stops or warns before the tank is overfilled</td><td>Coming soon</td></tr>
       <tr><td>Gauges</td><td>Show how much fuel is in the tank</td><td>Coming soon</td></tr>
