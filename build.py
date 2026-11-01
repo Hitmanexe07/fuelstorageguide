@@ -32,6 +32,7 @@ DATES = {
     "/how-to-ungel-diesel/": ("2026-10-31", "October 31, 2026"),
     "/aboveground-fuel-tank-setback/": ("2026-10-31", "October 31, 2026"),
     "/fuel-tank-vent/": ("2026-10-31", "October 31, 2026"),
+    "/aboveground-tank-inspection/": ("2026-10-31", "October 31, 2026"),
 }
 
 # Who gets credit in bylines and structured data. While this is None, guides are credited
@@ -626,7 +627,7 @@ spcc_body = f"""
       <tr><td>Secondary containment</td><td>A dike, berm, double-wall tank, or similar that holds the entire contents of the largest container, plus room for rain. See <a href="{SC_PATH}">secondary containment</a> for sizing</td><td><a href="{ECFR}" rel="noopener">112.8(c)(2)</a></td></tr>
       <tr><td>Containment where you transfer fuel</td><td>Spill protection sized for a likely spill at fill points, loading areas, and mobile refuelers</td><td><a href="{BASICS}" rel="noopener">EPA basics</a></td></tr>
       <tr><td>Overfill prevention</td><td>At least one of: a high-level alarm, a high-level pump cutoff, direct communication between whoever is gauging and whoever is pumping, or a fast-response level gauge someone watches during the fill</td><td><a href="{ECFR}" rel="noopener">112.8(c)(8)</a></td></tr>
-      <tr><td>Inspections</td><td>Inspect or test each tank on a regular schedule using an industry standard, check supports and foundations, and keep records</td><td><a href="{ECFR}" rel="noopener">112.8(c)(6)</a></td></tr>
+      <tr><td>Inspections</td><td>Inspect or test each tank on a regular schedule using an industry standard, check supports and foundations, and keep records. See <a href="/aboveground-tank-inspection/">tank inspections (STI SP001)</a></td><td><a href="{ECFR}" rel="noopener">112.8(c)(6)</a></td></tr>
       <tr><td>Fix leaks</td><td>Promptly fix visible leaks from seams, gaskets, piping, pumps, and valves, and remove oil that collects in the dike</td><td><a href="{ECFR}" rel="noopener">112.8(c)(10)</a></td></tr>
       <tr><td>Training</td><td>Train the people who handle oil, name one person accountable for spill prevention, and hold a spill prevention briefing at least once a year</td><td><a href="{ECFR}" rel="noopener">112.7(f)</a></td></tr>
       <tr><td>Keep it on site</td><td>Keep a full copy at the site if it's normally attended at least four hours a day</td><td><a href="{ECFR}" rel="noopener">112.3(e)</a></td></tr>
@@ -1242,6 +1243,121 @@ vent_body = f"""
 vent_schema = [{"@context": "https://schema.org", "@type": "Article", "headline": VENT_TITLE, "description": VENT_DESC,
                 "datePublished": UPDATED, "dateModified": UPDATED, "mainEntityOfPage": DOMAIN + VENT_PATH}]
 page(VENT_PATH, VENT_TITLE, VENT_DESC, vent_body, schema=vent_schema, og_type="article")
+
+
+# ---------------- Article: AST inspection (STI SP001) ----------------
+INSP_PATH = "/aboveground-tank-inspection/"
+STIANN = "https://sandiegocounty.gov/content/dam/sdc/deh/hmd/pdf/STI-SP001-Annual-Inspection-Checklist-7th-Edition.pdf"
+WISP001 = "https://datcp.wi.gov/Documents/STI-SP001ASTInspections.pdf"
+EPATI = "https://www.epa.gov/oil-spills-prevention-and-preparedness-regulations/tank-inspections"
+
+INSP_TITLE = "AST Inspection: STI SP001 Monthly and Annual Checklists"
+INSP_DESC = ("What the SPCC rule requires for aboveground tank inspections, how STI SP001 monthly and annual "
+             "checklists work, and when a certified inspector is needed.")
+
+insp_faq = [
+    ("Do I need a certified inspector for monthly and annual checks?",
+     f"No. STI says the periodic inspection is a visual inspection that doesn't require a Certified Inspector; it's done by the owner's inspector {src(STI, 'STI SP001 monthly checklist')}. Certified inspectors do the formal external inspections on larger tanks."),
+    ("Is SP001 required by law?",
+     f"The SPCC rule requires inspections \"in accordance with industry standards\" {src(C1128, '40 CFR 112.8(c)(6)')}, and EPA says SP001 may be used for shop-built tanks {src(EPATI, 'EPA')}. Some states require it directly; Wisconsin does for shop-built metal tanks of 5,000 gallons or more, with farm and heating oil tanks excepted {src(WISP001, 'Wisconsin DATCP')}."),
+    ("What if I find fuel between the walls of a double-wall tank?",
+     f"Treat it as a possible leak and investigate {src(STI, 'STI SP001 monthly checklist')}. Wisconsin, for example, requires deliveries to stop right away and a vacuum or pressure test or closure within 10 business days {src(WISP001, 'Wisconsin DATCP')}."),
+]
+insp_faq_html = "\n".join(f"<h3>{q}</h3>\n<p>{a}</p>" for q, a in insp_faq)
+
+insp_body = f"""
+<article class="wrap">
+  <p class="crumbs"><a href="/aboveground-fuel-tanks/">Aboveground tanks</a></p>
+  <h1>Aboveground tank inspection: STI SP001 monthly and annual checklists</h1>
+  <p class="meta">Written by a fuel-system technician. Updated {UPDATED_HUMAN}.</p>
+
+  <div class="answer">
+    <p><strong>If your site needs an SPCC plan, each aboveground tank has to be inspected or tested on a regular schedule following an industry standard. For shop-built tanks, that's usually STI SP001: a monthly and an annual visual inspection you can do yourself, plus a formal inspection by a certified inspector on larger tanks.</strong> ({src(C1128, '40 CFR 112.8(c)(6)')[1:-1]}; {src(EPATI, 'EPA')[1:-1]})</p>
+  </div>
+
+  <h2>What the SPCC rule requires</h2>
+  <p><strong>The rule says to "test or inspect each aboveground container for integrity on a regular schedule and whenever you make material repairs"</strong> {src(C1128, '40 CFR 112.8(c)(6)')}. It also requires you to:</p>
+  <ul>
+    <li>Set the inspector qualifications, frequency, and type of testing following industry standards, based on the tank's size and design: shop-built, skid-mounted, elevated, double-walled, and so on</li>
+    <li>Inspect the tank's supports and foundations</li>
+    <li>Frequently inspect the outside of the tank for deterioration, leaks, or oil collecting in the dike</li>
+    <li>Keep comparison records; records kept as usual business practice count</li>
+  </ul>
+  <p>EPA points to STI SP001 as a standard that may be used for shop-built tanks. Its scope covers shop-fabricated tanks, small field-erected tanks, portable containers, and their secondary containment {src(EPATI, 'EPA')}. Not sure you need a plan? See <a href="{SPCC_PATH}">Do I need an SPCC plan?</a></p>
+
+  <h2>Who inspects, and how often</h2>
+  <p><strong>Monthly and annual inspections are visual checks by the owner's inspector; no certification needed</strong> {src(STI, 'STI SP001 checklist')}. Larger tanks also get a formal external inspection by a certified inspector. Wisconsin's state guidance lays out the SP001 intervals like this {src(WISP001, 'Wisconsin DATCP')}:</p>
+  <div class="table-wrap">
+  <table class="even">
+    <thead><tr><th scope="col">Tank capacity</th><th scope="col">Monthly</th><th scope="col">Annual</th><th scope="col">Formal inspection every 20 years</th></tr></thead>
+    <tbody>
+      <tr><td>Up to 5,000 gallons</td><td>Yes</td><td>Yes</td><td>No</td></tr>
+      <tr><td>5,001&ndash;50,000 gallons</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <ul>
+    <li><strong>Formal inspections</strong> are done by an STI SP001 certified inspector, or an API 653 inspector with the SP001 adjunct certification {src(WISP001, 'Wisconsin DATCP')}.</li>
+    <li><strong>The schedule depends on the tank's category, not just its size.</strong> SP001 looks at whether the tank has spill control and a continuous way to detect a leak. If an inspection finds those compromised, the tank's category and inspection timetable should be re-evaluated {src(STI, 'STI SP001 monthly checklist')}.</li>
+    <li><strong>Seasonal tanks:</strong> Wisconsin doesn't require monthly inspections while a seasonal tank is empty {src(WISP001, 'Wisconsin DATCP')}.</li>
+  </ul>
+  <p><strong>Field note:</strong> I'm a certified inspector, and I do these inspections for customers.</p>
+
+  <h2>The monthly checklist</h2>
+  <p><strong>STI's monthly checklist covers the tank, the equipment on it, and the containment.</strong> In summary {src(STI, 'STI SP001 monthly checklist, 7th edition')}:</p>
+  <ul>
+    <li><strong>Tank and piping:</strong> no visible leaks from the tank or piping connections; the level gauge is readable and working; no signs of leakage around the tank; no soil, vegetation, or water piled against the tank bottom</li>
+    <li><strong>Water:</strong> the primary tank is free of water (see <a href="{WATER_PATH}">water in your diesel tank</a>)</li>
+    <li><strong>Double-wall tanks:</strong> interstitial monitoring works, and the space between the walls is free of liquid. If it's product, investigate a possible leak</li>
+    <li><strong>Overfill equipment:</strong> test buttons sound the horn or light; mechanical tests work; batteries replaced as needed</li>
+    <li><strong>Spill container:</strong> empty, no leaks, in good condition</li>
+    <li><strong>Containment:</strong> free of excess liquid, debris, cracks, and corrosion; dike drain valves closed and working (see <a href="{SC_PATH}">secondary containment</a>)</li>
+    <li><strong>Ladders and platforms</strong> secure</li>
+  </ul>
+  <p><strong>After severe weather</strong> such as snow, ice, or wind storms, or after maintenance like coating, inspect critical components such as normal and emergency vents and valves as soon as it's safe {src(STI, 'STI SP001 monthly checklist')}.</p>
+
+  <h2>The annual checklist</h2>
+  <p><strong>Once a year, a deeper look, in addition to the monthly checks</strong> {src(STIANN, 'STI SP001 annual checklist, 7th edition')}:</p>
+  <ul>
+    <li><strong>Foundation and supports:</strong> no settling or washout; pad free of cracks; supports sound; water drains away; grounding strap in good shape</li>
+    <li><strong>Shell:</strong> no coating failure, distortion, buckling, denting, or bulging; labels legible</li>
+    <li><strong>Piping:</strong> joints, manway covers, gaskets, and bolts tight; supports in good condition; leak detection on underground piping done and documented if required</li>
+    <li><strong>Vents:</strong> normal and emergency vents free of obstructions; emergency vent working and moving freely (see <a href="{VENT_PATH}">fuel tank vents</a>)</li>
+    <li><strong>Gauges and alarms</strong> checked for operability</li>
+    <li><strong>Valves:</strong> anti-siphon, check, isolation, solenoid, fire, and shear valves free of leaks and damage (see <a href="/anti-siphon-valve/">anti-siphon valves</a>)</li>
+    <li><strong>Filters and strainers</strong> clean; wiring sound; cathodic protection tested if the tank has it</li>
+  </ul>
+  <p><strong>Field note:</strong> On tank inspections I find all of it: water, leaking fittings, bad gauges, and containment problems.</p>
+  <p>STI's checklists are models; a locally developed checklist is acceptable if it's substantially equivalent {src(STIANN, 'STI SP001 annual checklist')}. Download them free: <a href="{STI}" rel="noopener">monthly</a>, <a href="{STIANN}" rel="noopener">annual</a>.</p>
+
+  <h2>Records and problems</h2>
+  <ul>
+    <li><strong>Keep completed checklists at least 36 months</strong> {src(STIANN, 'STI SP001 annual checklist')}.</li>
+    <li><strong>Remove water promptly</strong> from the tank, containment, interstice, or spill container, check it for product, and dispose of it properly {src(STIANN, 'STI SP001 annual checklist')}.</li>
+    <li><strong>Problems that affect tank or containment integrity</strong> need evaluation by an engineer experienced in tank design, a certified inspector, or the tank maker, who decides the fix {src(STIANN, 'STI SP001 annual checklist')}.</li>
+    <li><strong>Changes that may affect your SPCC plan</strong> should be evaluated by a Professional Engineer {src(STIANN, 'STI SP001 annual checklist')}.</li>
+  </ul>
+
+  <section class="faq">
+  <h2>FAQ</h2>
+  {insp_faq_html}
+  </section>
+
+  <h2>Sources</h2>
+  <ul class="sources">
+    <li><a href="{C1128}" rel="noopener">40 CFR 112.8, including (c)(6) integrity testing (Cornell LII)</a></li>
+    <li><a href="{EPATI}" rel="noopener">EPA: Tank inspections</a></li>
+    <li><a href="{STI}" rel="noopener">Steel Tank Institute: SP001 monthly inspection checklist, 7th edition (2024)</a></li>
+    <li><a href="{STIANN}" rel="noopener">Steel Tank Institute: SP001 annual inspection checklist, 7th edition (2024)</a></li>
+    <li><a href="{WISP001}" rel="noopener">Wisconsin DATCP: STI SP001 inspection requirements for aboveground storage tanks (2025)</a></li>
+  </ul>
+  <p class="note">This guide summarizes STI's checklists; it doesn't replace the SP001 standard. Your SPCC plan and state rules set what's required at your site.</p>
+</article>
+"""
+
+insp_schema = [{"@context": "https://schema.org", "@type": "Article", "headline": INSP_TITLE, "description": INSP_DESC,
+                "datePublished": UPDATED, "dateModified": UPDATED, "mainEntityOfPage": DOMAIN + INSP_PATH}]
+page(INSP_PATH, INSP_TITLE, INSP_DESC, insp_body, schema=insp_schema, og_type="article")
 
 # ---------------- Article: 12V transfer pumps ----------------
 FRMAN = "https://goind.com.au/cdn/shop/files/GO_Manual_Fill-Rite_DC_Pumps.pdf"
@@ -2726,6 +2842,7 @@ AST_GUIDES = [
     (SC_PATH, "Secondary containment", "How big a dike has to be, what the 110% rule really means, and when a double-wall tank counts."),
     (SETB_PATH, "Setback distances", "How far a tank has to be from buildings and property lines, by tank type and state, with real examples."),
     (VENT_PATH, "Tank vents", "Normal vs. emergency venting, the fire code rules for vent height and placement, and what to check on a vent cap."),
+    (INSP_PATH, "Tank inspections (STI SP001)", "What SPCC requires, the monthly and annual checklists, and when you need a certified inspector."),
     (ASV_PATH, "Anti-siphon valves", "Why elevated tanks siphon, what the fire code requires, picking the head setting, and pump troubleshooting."),
     (TT_PATH, "Diesel transfer tanks", "Why 119 gallons matters, the rules for gasoline, payload math for your pickup, and setup."),
     (NOZ_PATH, "Fuel nozzles", "Automatic vs. manual, 3/4 or 1 inch, gas or diesel spouts, and troubleshooting."),
@@ -2759,7 +2876,7 @@ ast_body = f"""
   <table>
     <thead><tr><th scope="col">Rule</th><th scope="col">Who it covers</th><th scope="col">Guide</th></tr></thead>
     <tbody>
-      <tr><td>SPCC (40 CFR 112)</td><td>Sites with more than 1,320 gallons of aboveground oil storage that could spill to water; farms have higher thresholds. Includes secondary containment sized for the largest tank</td><td><a href="{SPCC_PATH}">Do I need an SPCC plan?</a>; <a href="{SC_PATH}">Secondary containment</a></td></tr>
+      <tr><td>SPCC (40 CFR 112)</td><td>Sites with more than 1,320 gallons of aboveground oil storage that could spill to water; farms have higher thresholds. Includes secondary containment sized for the largest tank</td><td><a href="{SPCC_PATH}">Do I need an SPCC plan?</a>; <a href="{SC_PATH}">Secondary containment</a>; <a href="{INSP_PATH}">Tank inspections</a></td></tr>
       <tr><td>Fire code (IFC or NFPA 30/30A, as adopted locally)</td><td>Tank construction, setback distances, venting, and equipment such as anti-siphon valves</td><td><a href="{SETB_PATH}">Setback distances</a>; <a href="{VENT_PATH}">Tank vents</a>; <a href="{ASV_PATH}">Anti-siphon valves</a></td></tr>
       <tr><td>State tank rules</td><td>Varies by state; some register or inspect aboveground tanks</td><td>Check with your state fire marshal or environmental agency</td></tr>
     </tbody>
@@ -3825,7 +3942,7 @@ for _args in PAGES:
 
 # ---------------- sitemap, robots, favicon ----------------
 # Legal and contact pages stay crawlable through the footer but are left out of the sitemap
-urls = ["/", NOZ_PATH, UST_PATH, WT_PATH, RD_PATH, SUMP_PATH, OFP_PATH, AST_PATH, SB_PATH, LLD_PATH, FQ_PATH, STORE_PATH, TEST_PATH, CLEAN_PATH, STAB_PATH, UNGEL_PATH, ASV_PATH, SPCC_PATH, SC_PATH, SETB_PATH, VENT_PATH, ADD_PATH, WATER_PATH, BIO_PATH, TT_PATH, PUMP_PATH, GEL_PATH, "/about/"]
+urls = ["/", NOZ_PATH, UST_PATH, WT_PATH, RD_PATH, SUMP_PATH, OFP_PATH, AST_PATH, SB_PATH, LLD_PATH, FQ_PATH, STORE_PATH, TEST_PATH, CLEAN_PATH, STAB_PATH, UNGEL_PATH, ASV_PATH, SPCC_PATH, SC_PATH, SETB_PATH, VENT_PATH, INSP_PATH, ADD_PATH, WATER_PATH, BIO_PATH, TT_PATH, PUMP_PATH, GEL_PATH, "/about/"]
 sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
 for u in urls:
     sitemap += f"  <url><loc>{DOMAIN}{u}</loc><lastmod>{DATES.get(u, (UPDATED,))[0]}</lastmod></url>\n"
