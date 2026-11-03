@@ -35,6 +35,7 @@ DATES = {
     "/aboveground-tank-inspection/": ("2026-10-31", "October 31, 2026"),
     "/red-dyed-diesel/": ("2026-11-02", "November 2, 2026"),
     "/def-storage/": ("2026-11-02", "November 2, 2026"),
+    "/diesel-transfer-tanks-compared/": ("2026-11-02", "November 2, 2026"),
 }
 
 # Who gets credit in bylines and structured data. While this is None, guides are credited
@@ -1527,7 +1528,7 @@ RDS95 = "https://www.tractorsupply.com/tsc/product/rds-95-gal-l-transfer-fuel-ta
 RDS60 = "https://www.tractorsupply.com/tsc/product/rds-60-gal-transfer-fuel-tank-combo-diamond-plate-72548-2431065"
 
 TT_PATH = "/diesel-transfer-tank/"
-TT_TITLE = "Diesel Transfer Tanks: Sizing, Legal Limits, and Setup"
+TT_TITLE = "Diesel Transfer Tank Laws: The 119-Gallon Rule and Setup"
 TT_DESC = ("Diesel transfer tanks up to 119 gallons are lightly regulated; gasoline tanks and bigger setups are not. "
            "Sizing, payload, legal limits, and setup for pickup transfer tanks.")
 
@@ -1553,7 +1554,7 @@ tt_body = f"""
   <div class="answer">
     <p><strong>A transfer tank is a fuel tank mounted in a pickup bed or on a trailer that you pump from to fuel equipment in the field. For diesel, keeping the tank at 119 gallons or less keeps it out of most federal hazmat rules.</strong> Over 119 gallons counts as "bulk" packaging, and diesel in bulk packaging needs placards {src(JJK, 'J.J. Keller')}.</p>
   </div>
-  <p>Gasoline is a different story: it's regulated much more tightly, even in small tanks. This guide covers the rules, choosing a size your truck can carry, and setting it up right.</p>
+  <p>Gasoline is a different story: it's regulated much more tightly, even in small tanks. This guide covers the rules, choosing a size your truck can carry, and setting it up right. Shopping for a tank? See <a href="/diesel-transfer-tanks-compared/">diesel transfer tanks compared</a> for specs and weights side by side.</p>
 
   <h2>The rules for hauling fuel in a pickup</h2>
   <p><strong>Under federal hazmat rules, what matters is the fuel and the tank's capacity, not how much is in it.</strong> A 120-gallon tank with 20 gallons in it is still a bulk package {src(JJK, 'J.J. Keller')}.</p>
@@ -1661,6 +1662,132 @@ tt_schema = [
     },
 ]
 page(TT_PATH, TT_TITLE, TT_DESC, tt_body, schema=tt_schema, og_type="article")
+
+
+# ---------------- Article: transfer tanks compared ----------------
+TTC_PATH = "/diesel-transfer-tanks-compared/"
+RDS50 = "https://www.tractorsupply.com/tsc/product/rds-50-gal-rectangular-fuel-transfer-tank-diamond-plate"
+RDS80 = "https://www.tractorsupply.com/tsc/product/rds-80-gal-rectangular-fuel-transfer-tank-diamond-plate"
+TF80 = "https://www.tractorsupply.com/tsc/product/transfer-flow-inc-80-gal-diesel-refueling-transfer-tank-070tk34311"
+BB100 = "https://www.tractorsupply.com/tsc/product/better-built-rectangle-transfer-tank-black-steel-100-gal"
+BBCAT = "https://media.tractorsupply.com/is/content/TractorSupplyCompany/tsc/product/8/28/01/8/828018_Bro1.pdf"
+
+TTC_TITLE = "Diesel Transfer Tanks Compared: Sizes, Weights, and Specs"
+TTC_DESC = ("Popular pickup diesel transfer tanks side by side: capacity, steel vs. aluminum, dimensions, empty and full "
+            "weight, and which are approved for gasoline.")
+
+ttc_faq = [
+    ("What's the best size transfer tank?",
+     f"The biggest one your truck's payload can carry full, up to 119 gallons for diesel. Over 119 gallons is bulk packaging and needs placards {src(JJK, 'J.J. Keller')}. See the full-weight table above."),
+    ("Can I put gasoline in any transfer tank?",
+     f"No. Only in a tank approved for it. RDS lists its aluminum tanks as DOT-approved for diesel, gasoline, or aviation fuel {src(RDS80, 'RDS 80-gallon listing')}. Better Built says its tanks are for combustible fuels like diesel and don't meet DOT regulations for transportation {src(BBCAT, 'Better Built catalog')}."),
+    ("Steel or aluminum?",
+     "Aluminum is lighter and doesn't rust; steel usually costs less. On a half-ton pickup, the weight difference can decide what size you can carry."),
+]
+ttc_faq_html = "\n".join(f"<h3>{q}</h3>\n<p>{a}</p>" for q, a in ttc_faq)
+
+def full_wt(empty, gal):
+    return round(empty + gal * 6.9)
+
+ttc_rows = [
+    ("RDS 50-gal rectangular", RDS50, "Aluminum, 0.125 in.", "50", "55 &times; 14 &times; 16 in.", 55, 50, "Diesel, gasoline, or aviation fuel (DOT approved)"),
+    ("RDS 80-gal rectangular", RDS80, "Aluminum, 0.125 in.", "80", "50 &times; 20 &times; 19 in.", 76, 80, "Diesel, gasoline, or aviation fuel (DOT approved)"),
+    ("RDS 95-gal L combo with toolbox", RDS95, "Aluminum, 0.125 in.", "92 (max fill)", "57 &times; 30 &times; 19 in.", 140, 92, "Diesel, gasoline, or aviation fuel (DOT approved)"),
+    ("Transfer Flow 80-gal refueling tank", TF80, "14-gauge aluminized steel", "80", "47 &times; 23 &times; 25.75 in.", 146, 80, "Diesel"),
+    ("Better Built 100-gal rectangular (29211677)", BB100, "14-gauge steel", "100", "45&frac14; &times; 24 &times; 24 in. (catalog)", 142, 100, "Combustible fuels such as diesel; not for gasoline; private use"),
+]
+ttc_table = "\n".join(
+    f'      <tr><td><a href="{u}" rel="noopener">{n}</a></td><td>{m}</td><td>{c}</td><td>{d}</td><td>{e} lb</td><td>{full_wt(e, g):,} lb</td><td>{f}</td></tr>'
+    for n, u, m, c, d, e, g, f in ttc_rows)
+
+ttc_body = f"""
+<article class="wrap">
+  <p class="crumbs"><a href="/aboveground-fuel-tanks/">Aboveground tanks</a></p>
+  <h1>Diesel transfer tanks compared: sizes, weights, and specs</h1>
+  <p class="meta">Written by a fuel-system technician. Updated {UPDATED_HUMAN}.</p>
+  {AFF_NOTE}
+
+  <div class="answer">
+    <p><strong>Pick a transfer tank by three things: what your truck can carry full, whether it needs to be approved for gasoline, and the shape that fits your bed.</strong> Diesel weighs about 6.9 pounds a gallon {src(EPRI, 'EPRI')}, so a full 100-gallon steel tank weighs over 800 pounds. Stay at 119 gallons or less for diesel to avoid bulk hazmat rules {src(JJK, 'J.J. Keller')}.</p>
+  </div>
+  <p>Below are popular pickup tanks side by side, with specs from the makers' listings. We haven't tested these tanks; this is a spec comparison, not a ranking. For the legal rules and setup, see <a href="{TT_PATH}">diesel transfer tank laws and setup</a>.</p>
+
+  <h2>Side-by-side specs</h2>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th scope="col">Tank</th><th scope="col">Material</th><th scope="col">Gallons</th><th scope="col">L &times; W &times; H</th><th scope="col">Empty</th><th scope="col">Full of diesel*</th><th scope="col">Approved fuels</th></tr></thead>
+    <tbody>
+{ttc_table}
+    </tbody>
+  </table>
+  </div>
+  <p class="source-line">Specs from each product listing (linked), and the Better Built catalog {src(BBCAT, 'Better Built')}. *Full weight = empty weight plus capacity &times; 6.9 lb per gallon of diesel {src(EPRI, 'EPRI')}; it doesn't include a pump, hose, or toolbox contents. Listings change; confirm specs before you buy.</p>
+  <p><strong>Read the capacity carefully.</strong> The RDS "95-gallon" L combo lists a maximum fill capacity of 92 gallons {src(RDS95, 'RDS listing')}. Better Built's catalog and Tractor Supply's listing give different widths for the same 100-gallon tank (24 vs. 31 inches) {src(BBCAT, 'Better Built catalog')}, so measure your bed against the maker's drawing.</p>
+  <p>Shop: {amz("RDS aluminum transfer tank", "RDS tanks on Amazon")}; {amz("Better Built transfer tank", "Better Built tanks on Amazon")}; {amz("Transfer Flow refueling tank", "Transfer Flow tanks on Amazon")}.</p>
+
+  <h2>Payload: the number that decides your size</h2>
+  <p><strong>Find the payload on your door-jamb sticker, then subtract everything else you carry.</strong> From the table above:</p>
+  <ul>
+    <li><strong>A 50-gallon aluminum tank</strong> is about {full_wt(55, 50)} pounds full, which most half-ton pickups can carry with room to spare.</li>
+    <li><strong>An 80-gallon tank</strong> runs about {full_wt(76, 80)} pounds full in aluminum and {full_wt(146, 80)} in steel, a 70-pound difference.</li>
+    <li><strong>A 100-gallon steel tank</strong> is about {full_wt(142, 100)} pounds full, before the pump, hose, and tools.</li>
+  </ul>
+  <p>Add the pump, hose reel, toolbox contents, and passengers. If the total is close to your payload, go smaller or go aluminum.</p>
+
+  <h2>Diesel-only vs. gasoline-approved</h2>
+  <p><strong>This is the spec that matters most if you'll ever haul gasoline.</strong></p>
+  <ul>
+    <li><strong>RDS</strong> lists its aluminum tanks as "DOT approved" for diesel, gasoline, or aviation fuel {src(RDS80, 'RDS 80-gallon listing')}.</li>
+    <li><strong>Better Built</strong> says its tanks are for combustible fuels such as diesel, are "SOLELY FOR PRIVATE USE and not for interstate commerce or commercial applications," and that their design does not meet Title 49, the federal transportation rules {src(BBCAT, 'Better Built catalog')}.</li>
+    <li><strong>Transfer Flow's</strong> 80-gallon tank above is listed for diesel {src(TF80, 'Transfer Flow listing')}. Transfer Flow makes separate gasoline tanks under a DOT special permit (see <a href="{TT_PATH}">the rules guide</a>).</li>
+  </ul>
+  <p>If you use the tank for work, check that its approvals fit commercial use, not just private use.</p>
+
+  <h2>Shapes</h2>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th scope="col">Shape</th><th scope="col">Good for</th><th scope="col">Example</th></tr></thead>
+    <tbody>
+      <tr><td>Rectangular</td><td>Most capacity for the footprint; sits behind the cab</td><td>RDS 80, Transfer Flow 80, Better Built 100</td></tr>
+      <tr><td>L-shaped</td><td>Leaves room for a crossover toolbox or flat bed space beside the tank</td><td>Better Built makes 75-, 88-, and 100-gallon L tanks {src(BBCAT, 'Better Built catalog')}</td></tr>
+      <tr><td>Combo with toolbox</td><td>Fuel and tool storage in one unit</td><td>RDS 95-gallon L combo</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h2>Features to check</h2>
+  <ul>
+    <li><strong>Baffles</strong> to cut sloshing; all the tanks above list them</li>
+    <li><strong>A rollover vent.</strong> RDS lists a rollover safety valve. Better Built says its tanks must be vented at all times {src(BBCAT, 'Better Built catalog')}</li>
+    <li><strong>Fittings:</strong> 2-inch fill and pump openings are standard on these tanks; a bottom drain makes water removal easy</li>
+    <li><strong>A level gauge,</strong> standard on some RDS models</li>
+    <li><strong>Mounting hardware</strong> included; never strap a tank in loose</li>
+  </ul>
+  <p>Pick a pump to match: see <a href="{PUMP_PATH}">how to choose a 12V fuel transfer pump</a>.</p>
+
+  <section class="faq">
+  <h2>FAQ</h2>
+  {ttc_faq_html}
+  </section>
+
+  <h2>Sources</h2>
+  <ul class="sources">
+    <li><a href="{RDS50}" rel="noopener">RDS 50-gallon rectangular transfer tank (Tractor Supply listing)</a></li>
+    <li><a href="{RDS80}" rel="noopener">RDS 80-gallon rectangular transfer tank (Tractor Supply listing)</a></li>
+    <li><a href="{RDS95}" rel="noopener">RDS 95-gallon L transfer tank combo (Tractor Supply listing)</a></li>
+    <li><a href="{TF80}" rel="noopener">Transfer Flow 80-gallon diesel refueling tank (Tractor Supply listing)</a></li>
+    <li><a href="{BB100}" rel="noopener">Better Built 100-gallon rectangular steel tank (Tractor Supply listing)</a></li>
+    <li><a href="{BBCAT}" rel="noopener">Better Built transfer tank catalog</a></li>
+    <li><a href="{JJK}" rel="noopener">J.J. Keller: Hauling diesel in transfer tanks</a></li>
+    <li><a href="{EPRI}" rel="noopener">EPRI / Southwest Research Institute: Winterizing Diesel Fuel (diesel density)</a></li>
+  </ul>
+  <p class="note">Specs are the makers' and retailers' listings as of {UPDATED_HUMAN}; we haven't independently tested these tanks. Confirm approvals and dimensions before buying.</p>
+</article>
+"""
+
+ttc_schema = [{"@context": "https://schema.org", "@type": "Article", "headline": TTC_TITLE, "description": TTC_DESC,
+               "datePublished": "2026-11-02", "dateModified": "2026-11-02", "mainEntityOfPage": DOMAIN + TTC_PATH}]
+page(TTC_PATH, TTC_TITLE, TTC_DESC, ttc_body, schema=ttc_schema, og_type="article")
 
 # ---------------- Article: winter diesel additives ----------------
 PSDFS = "https://powerservice.com/psp_product/diesel-fuel-supplement-cetane-boost/"
@@ -3072,7 +3199,8 @@ AST_GUIDES = [
     (VENT_PATH, "Tank vents", "Normal vs. emergency venting, the fire code rules for vent height and placement, and what to check on a vent cap."),
     (INSP_PATH, "Tank inspections (STI SP001)", "What SPCC requires, the monthly and annual checklists, and when you need a certified inspector."),
     (ASV_PATH, "Anti-siphon valves", "Why elevated tanks siphon, what the fire code requires, picking the head setting, and pump troubleshooting."),
-    (TT_PATH, "Diesel transfer tanks", "Why 119 gallons matters, the rules for gasoline, payload math for your pickup, and setup."),
+    (TTC_PATH, "Diesel transfer tanks compared", "Popular pickup tanks side by side: capacity, steel vs. aluminum, empty and full weight, and gasoline approval."),
+    (TT_PATH, "Diesel transfer tank laws", "Why 119 gallons matters, the rules for gasoline, payload math for your pickup, and setup."),
     (NOZ_PATH, "Fuel nozzles", "Automatic vs. manual, 3/4 or 1 inch, gas or diesel spouts, and troubleshooting."),
     (PUMP_PATH, "How to choose a 12V fuel transfer pump", "Flow rate, duty cycle, and wiring explained, and Fill-Rite and GPI models compared."),
 ]
@@ -4170,7 +4298,7 @@ for _args in PAGES:
 
 # ---------------- sitemap, robots, favicon ----------------
 # Legal and contact pages stay crawlable through the footer but are left out of the sitemap
-urls = ["/", NOZ_PATH, UST_PATH, WT_PATH, RD_PATH, SUMP_PATH, OFP_PATH, AST_PATH, SB_PATH, LLD_PATH, FQ_PATH, STORE_PATH, TEST_PATH, CLEAN_PATH, STAB_PATH, UNGEL_PATH, DYE_PATH, DEF_PATH, ASV_PATH, SPCC_PATH, SC_PATH, SETB_PATH, VENT_PATH, INSP_PATH, ADD_PATH, WATER_PATH, BIO_PATH, TT_PATH, PUMP_PATH, GEL_PATH, "/about/"]
+urls = ["/", NOZ_PATH, UST_PATH, WT_PATH, RD_PATH, SUMP_PATH, OFP_PATH, AST_PATH, SB_PATH, LLD_PATH, FQ_PATH, STORE_PATH, TEST_PATH, CLEAN_PATH, STAB_PATH, UNGEL_PATH, DYE_PATH, DEF_PATH, ASV_PATH, SPCC_PATH, SC_PATH, SETB_PATH, VENT_PATH, INSP_PATH, ADD_PATH, WATER_PATH, BIO_PATH, TT_PATH, TTC_PATH, PUMP_PATH, GEL_PATH, "/about/"]
 sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
 for u in urls:
     sitemap += f"  <url><loc>{DOMAIN}{u}</loc><lastmod>{DATES.get(u, (UPDATED,))[0]}</lastmod></url>\n"
