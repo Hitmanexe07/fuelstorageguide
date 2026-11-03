@@ -33,6 +33,7 @@ DATES = {
     "/aboveground-fuel-tank-setback/": ("2026-10-31", "October 31, 2026"),
     "/fuel-tank-vent/": ("2026-10-31", "October 31, 2026"),
     "/aboveground-tank-inspection/": ("2026-10-31", "October 31, 2026"),
+    "/red-dyed-diesel/": ("2026-11-02", "November 2, 2026"),
 }
 
 # Who gets credit in bylines and structured data. While this is None, guides are credited
@@ -286,7 +287,7 @@ faq = [
     ("Can I add anti-gel after the fuel has gelled?",
      "Not regular anti-gel. It only works when mixed in above the cloud point. Use a product made for gelled fuel, and warm the filter and lines. See <a href=\"/how-to-ungel-diesel/\">how to un-gel diesel</a>."),
     ("Does red (off-road) diesel gel differently?",
-     f"The red dye marks fuel for tax purposes {src(EPRI, 'EPRI')}. Cold behavior comes from the grade and whether the fuel was winterized or blended, so ask your supplier the same questions for off-road fuel."),
+     f"The red dye marks fuel for tax purposes {src(EPRI, 'EPRI')}. Cold behavior comes from the grade and whether the fuel was winterized or blended, so ask your supplier the same questions for off-road fuel. See <a href=\"/red-dyed-diesel/\">red-dyed diesel</a> for who can use it."),
 ]
 
 faq_html = "\n".join(f"<h3>{q}</h3>\n<p>{a}</p>" for q, a in faq)
@@ -2520,6 +2521,117 @@ stab_schema = [{"@context": "https://schema.org", "@type": "Article", "headline"
                 "datePublished": UPDATED, "dateModified": UPDATED, "mainEntityOfPage": DOMAIN + STAB_PATH}]
 page(STAB_PATH, STAB_TITLE, STAB_DESC, stab_body, schema=stab_schema, og_type="article")
 
+
+# ---------------- Article: red-dyed diesel ----------------
+DYE_PATH = "/red-dyed-diesel/"
+U6715 = "https://www.law.cornell.edu/uscode/text/26/6715"
+U4082 = "https://www.law.cornell.edu/uscode/text/26/4082"
+C48_4082_1 = "https://www.law.cornell.edu/cfr/text/26/48.4082-1"
+C48_4082_2 = "https://www.law.cornell.edu/cfr/text/26/48.4082-2"
+P510 = "https://www.irs.gov/publications/p510"
+IRSDYE26 = "https://www.irs.gov/newsroom/irs-provides-dyed-diesel-fuel-relief-related-to-excise-tax-following-president-trumps-executive-order"
+MIEO2615 = "https://www.michigan.gov/whitmer/news/press-releases/2026/10/12/whitmer-signs-executive-order-to-support-farmers-loggers-as-diesel-prices-collide-with-harvest"
+
+DYE_TITLE = "Red-Dyed Diesel: Who Can Use It and the Penalty for Misuse"
+DYE_DESC = ("Red diesel is untaxed fuel for off-road use. Who can legally use it, what counts as farm and off-highway "
+            "use, the federal penalty, and how to store it.")
+
+dye_faq = [
+    ("Is red diesel a different fuel?",
+     f"No. It's diesel with red dye added to show the federal fuel tax wasn't paid. The required dye is Solvent Red 164 {src(C48_4082_1, '26 CFR 48.4082-1')}. It burns the same as clear diesel of the same grade."),
+    ("Can I put red diesel in my pickup?",
+     f"Normally no, not if the pickup is registered, or required to be registered, for public roads. Fuel in a registered highway vehicle isn't an off-highway business use {src(P510, 'IRS Publication 510')}, and the penalty is at least $1,000 {src(U6715, '26 U.S.C. 6715')}. Through December 31, 2026, the federal penalty is suspended {src(IRSDYE26, 'IRS')}, but state rules still apply; Michigan's order covers only farm and wood harvester plates {src(MIEO2615, 'Michigan EO 2026-15')}."),
+    ("Can I filter the dye out?",
+     f"No. Willfully altering or trying to alter the dye is its own violation, with the same penalty {src(U6715, '26 U.S.C. 6715(a)(3)')}."),
+    ("Can I use red diesel for home heating?",
+     f"Heating oil and fuel used other than in a diesel-powered highway vehicle are among the uses IRS lists as nontaxable {src(P510, 'IRS Publication 510')}. Check your state's rules too."),
+]
+dye_faq_html = "\n".join(f"<h3>{q}</h3>\n<p>{a}</p>" for q, a in dye_faq)
+
+dye_body = f"""
+<article class="wrap">
+  <p class="crumbs"><a href="/fuel-quality/">Fuel quality</a></p>
+  <h1>Red-dyed diesel: who can use it and the penalty for misuse</h1>
+  <p class="meta">Written by a fuel-system technician. Updated {UPDATED_HUMAN}.</p>
+
+  <div class="answer">
+    <p><strong>Red-dyed diesel is diesel fuel sold without the federal highway fuel tax, for nontaxable uses: farming, off-highway equipment, generators, heating, and a few others. Using it in a vehicle registered for public roads normally carries a federal penalty of at least $1,000 or $10 a gallon, whichever is more</strong> {src(U6715, '26 U.S.C. 6715')}. <strong>Through December 31, 2026, that federal penalty is suspended; see below.</strong></p>
+  </div>
+
+  <h2>Temporary relief through December 31, 2026</h2>
+  <p><strong>Federal:</strong> after an October 5, 2026 executive order, the IRS announced it won't impose penalties when dyed diesel is sold for or used on highways nationwide, retroactive to October 1 and in effect until December 31, 2026. Federal inspections of on-road dyed fuel are suspended for that period {src(IRSDYE26, 'IRS, IR-2026-122')}.</p>
+  <ul>
+    <li><strong>The tax isn't forgiven yet.</strong> The IRS says it expects to issue guidance postponing payment of the tax, and will "explore avenues" to eliminate the deferred amount {src(IRSDYE26, 'IRS, IR-2026-122')}. Keep your own fuel records anyway.</li>
+    <li><strong>State rules still apply.</strong> The IRS relief "has no effect on state fuel taxes and penalties" {src(IRSDYE26, 'IRS, IR-2026-122')}.</li>
+  </ul>
+  <p><strong>Michigan:</strong> Executive Order 2026-15 lets motor vehicles with <strong>farm or wood harvester license plates</strong> use dyed diesel on public roads, by suspending the state Motor Fuel Tax Act provisions that prohibit it. It ends no later than December 31, 2026 {src(MIEO2615, 'Michigan Governor, EO 2026-15')}. Other vehicles aren't covered under Michigan law.</p>
+  <p>Other states have their own rules during this period; check your state revenue department. After December 31, the normal rules below apply again unless they're extended.</p>
+
+  <h2>Why diesel is dyed</h2>
+  <p><strong>The dye marks fuel that's exempt from the federal diesel tax.</strong> Diesel and kerosene destined for a nontaxable use can be sold tax-free if they're indelibly dyed {src(U4082, '26 U.S.C. 4082')}. The required dye is Solvent Red 164, at a set minimum concentration {src(C48_4082_1, '26 CFR 48.4082-1')}. The federal tax on undyed diesel is $0.244 a gallon; on dyed diesel, only the $0.001 leaking underground storage tank tax applies {src(P510, 'IRS Publication 510')}. States have their own fuel taxes and enforcement on top of that.</p>
+  <p>The fuel itself is the same. Red diesel isn't a different grade or quality. It's taxed differently.</p>
+
+  <h2>Who can legally use it</h2>
+  <p><strong>Dyed diesel is only for "nontaxable uses."</strong> For most readers here, that means one of these, from IRS Publication 510 {src(P510, 'IRS Publication 510')}:</p>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th scope="col">Use</th><th scope="col">What counts</th></tr></thead>
+    <tbody>
+      <tr><td>On a farm for farming purposes</td><td>Cultivating soil; raising or harvesting crops; raising, feeding, or caring for livestock; operating and maintaining the farm and its equipment; handling, drying, or storing crops you mostly grew yourself</td></tr>
+      <tr><td>Off-highway business use</td><td>Fuel used in a business or income-producing activity, other than in a highway vehicle registered or required to be registered for public roads. Includes stationary machines like generators and compressors, and forklifts, bulldozers, and earthmovers</td></tr>
+      <tr><td>Other than in a highway vehicle's engine</td><td>Such as home heating oil</td></tr>
+      <tr><td>Others</td><td>Exclusive use by state or local government, school buses, export, and a few other listed uses</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><strong>The line is the public road.</strong> A highway vehicle is any self-propelled vehicle designed to carry a load over public highways: cars, pickups, highway trucks, and buses {src(P510, 'IRS Publication 510')}. Fuel in one that's registered, or required to be registered, isn't an off-highway business use. Tractors, combines, skid steers, loaders, and generators are the usual legal uses.</p>
+  <p><strong>Farm trucks are where people get caught.</strong> A truck registered for the road isn't off-highway equipment just because it's on a farm. If you're not sure about a specific vehicle, ask your state's revenue department or a tax advisor before you fill it with dyed fuel.</p>
+
+  <h2>The penalty (outside the relief period)</h2>
+  <p><strong>The federal penalty is the greater of $1,000 or $10 for each gallon of dyed fuel involved</strong>, for each act, in addition to any tax {src(U6715, '26 U.S.C. 6715(b)')}. It applies to:</p>
+  <ul>
+    <li>Using dyed fuel, or holding it for use, for a taxable use when you knew or had reason to know it was dyed</li>
+    <li>Selling dyed fuel for a use the seller knows or has reason to know is taxable</li>
+    <li>Willfully altering, or trying to alter, the dye, such as filtering it out</li>
+  </ul>
+  <p class="source-line">Source: <a href="{U6715}" rel="noopener">26 U.S.C. 6715(a)</a>.</p>
+  <ul>
+    <li><strong>Repeat violations cost more.</strong> The $1,000 minimum goes up with each prior penalty {src(U6715, '26 U.S.C. 6715(b)(2)')}.</li>
+    <li><strong>Employees can be on the hook.</strong> If a business is penalized, officers, employees, or agents who willfully took part can be held jointly liable {src(U6715, '26 U.S.C. 6715(d)')}.</li>
+  </ul>
+  <p>States can add their own penalties.</p>
+
+  <h2>Storing dyed and clear diesel</h2>
+  <p><strong>Field note:</strong> Most of the farms I service have just one diesel tank.</p>
+  <ul>
+    <li><strong>If you keep both, use separate, labeled tanks and hoses.</strong> Dyed fuel is defined by the dye, whether or not it was dyed under the tax rules {src(U6715, '26 U.S.C. 6715(c)')}, so clear fuel that picks up dye from a shared tank or hose can look like dyed fuel in a road vehicle.</li>
+    <li><strong>Sellers have to post a notice.</strong> Any retail pump or delivery facility selling dyed diesel must post "DYED DIESEL FUEL, NONTAXABLE USE ONLY, PENALTY FOR TAXABLE USE." A seller without the notice is presumed to know the fuel won't be used for a nontaxable use {src(C48_4082_2, '26 CFR 48.4082-2')}. Many farms label their own tanks the same way.</li>
+    <li><strong>Everything else is the same as clear diesel:</strong> keep water out, watch for microbes, and treat it for winter. See <a href="{WATER_PATH}">water in your diesel tank</a> and <a href="{GEL_PATH}">diesel gelling</a>.</li>
+  </ul>
+
+  <section class="faq">
+  <h2>FAQ</h2>
+  {dye_faq_html}
+  </section>
+
+  <h2>Sources</h2>
+  <ul class="sources">
+    <li><a href="{P510}" rel="noopener">IRS Publication 510: Excise Taxes</a></li>
+    <li><a href="{IRSDYE26}" rel="noopener">IRS: Dyed diesel fuel relief, IR-2026-122 (October 14, 2026)</a></li>
+    <li><a href="{MIEO2615}" rel="noopener">Michigan Governor: Executive Order 2026-15 on dyed diesel (October 12, 2026)</a></li>
+    <li><a href="{U6715}" rel="noopener">26 U.S.C. 6715, dyed fuel sold for use or used in taxable use (Cornell LII)</a></li>
+    <li><a href="{U4082}" rel="noopener">26 U.S.C. 4082, exemptions for diesel fuel and kerosene (Cornell LII)</a></li>
+    <li><a href="{C48_4082_1}" rel="noopener">26 CFR 48.4082-1, dyeing requirements (Cornell LII)</a></li>
+    <li><a href="{C48_4082_2}" rel="noopener">26 CFR 48.4082-2, notice requirements for dyed fuel (Cornell LII)</a></li>
+  </ul>
+  <p class="note">This guide is general information, not tax or legal advice. State fuel taxes and rules differ; for a specific vehicle or use, check with your state revenue department or a tax advisor.</p>
+</article>
+"""
+
+dye_schema = [{"@context": "https://schema.org", "@type": "Article", "headline": DYE_TITLE, "description": DYE_DESC,
+               "datePublished": "2026-11-02", "dateModified": "2026-11-02", "mainEntityOfPage": DOMAIN + DYE_PATH}]
+page(DYE_PATH, DYE_TITLE, DYE_DESC, dye_body, schema=dye_schema, og_type="article")
+
 # ---------------- Fuel quality hub ----------------
 FQ_PATH = "/fuel-quality/"
 FQ_TITLE = "Fuel Quality Guides: Keeping Stored Diesel Clean, Dry, and Usable"
@@ -2530,6 +2642,7 @@ FQ_GUIDES = [
     (BIO_PATH, "Diesel bugs and biocides", "How to spot microbial growth, test for it, and treat a tank step by step without plugging every filter."),
     (STORE_PATH, "How long does diesel last in storage?", "Shelf life, what makes fuel go bad, how to tell if it's still good, and how to make it last."),
     (TEST_PATH, "How to test diesel fuel", "Taking a good bottom sample, the checks you can do yourself, and which lab tests to ask for."),
+    (DYE_PATH, "Red-dyed diesel", "Who can legally use off-road diesel, what counts as farm and off-highway use, and the federal penalty."),
     (STAB_PATH, "Diesel fuel stabilizer", "What a stabilizer does and doesn't do, when stored fuel needs one, and label treat rates for bulk tanks."),
     (CLEAN_PATH, "Tank cleaning and fuel polishing", "When to polish the fuel and when to clean the tank, how each works, and why nobody should climb inside."),
     (UNGEL_PATH, "How to un-gel diesel", "Find where it's plugged, warm it safely, use an emergency re-liquefier, and keep it from gelling again."),
@@ -3942,7 +4055,7 @@ for _args in PAGES:
 
 # ---------------- sitemap, robots, favicon ----------------
 # Legal and contact pages stay crawlable through the footer but are left out of the sitemap
-urls = ["/", NOZ_PATH, UST_PATH, WT_PATH, RD_PATH, SUMP_PATH, OFP_PATH, AST_PATH, SB_PATH, LLD_PATH, FQ_PATH, STORE_PATH, TEST_PATH, CLEAN_PATH, STAB_PATH, UNGEL_PATH, ASV_PATH, SPCC_PATH, SC_PATH, SETB_PATH, VENT_PATH, INSP_PATH, ADD_PATH, WATER_PATH, BIO_PATH, TT_PATH, PUMP_PATH, GEL_PATH, "/about/"]
+urls = ["/", NOZ_PATH, UST_PATH, WT_PATH, RD_PATH, SUMP_PATH, OFP_PATH, AST_PATH, SB_PATH, LLD_PATH, FQ_PATH, STORE_PATH, TEST_PATH, CLEAN_PATH, STAB_PATH, UNGEL_PATH, DYE_PATH, ASV_PATH, SPCC_PATH, SC_PATH, SETB_PATH, VENT_PATH, INSP_PATH, ADD_PATH, WATER_PATH, BIO_PATH, TT_PATH, PUMP_PATH, GEL_PATH, "/about/"]
 sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
 for u in urls:
     sitemap += f"  <url><loc>{DOMAIN}{u}</loc><lastmod>{DATES.get(u, (UPDATED,))[0]}</lastmod></url>\n"
