@@ -34,6 +34,7 @@ DATES = {
     "/fuel-tank-vent/": ("2026-10-31", "October 31, 2026"),
     "/aboveground-tank-inspection/": ("2026-10-31", "October 31, 2026"),
     "/red-dyed-diesel/": ("2026-11-02", "November 2, 2026"),
+    "/def-storage/": ("2026-11-02", "November 2, 2026"),
 }
 
 # Who gets credit in bylines and structured data. While this is None, guides are credited
@@ -2632,6 +2633,119 @@ dye_schema = [{"@context": "https://schema.org", "@type": "Article", "headline":
                "datePublished": "2026-11-02", "dateModified": "2026-11-02", "mainEntityOfPage": DOMAIN + DYE_PATH}]
 page(DYE_PATH, DYE_TITLE, DYE_DESC, dye_body, schema=dye_schema, og_type="article")
 
+
+# ---------------- Article: DEF storage ----------------
+DEF_PATH = "/def-storage/"
+APIDEF = "https://www.api.org/products-and-services/diesel-exhaust-fluid/def-consumer-guidance/def-news/how-to-purchase-store-and-handle-diesel-exhaust-fluid"
+APIDEFQ = "https://www.api.org/products-and-services/diesel-exhaust-fluid/def-consumer-guidance/def-news/handle-def-properly-to-maintain-quality"
+CUMDEF = "https://www.cummins.com/en-na/news/2016/01/04/6-answers-about-diesel-exhaust-fluid"
+NAVDEF = "https://static.nhtsa.gov/odi/tsbs/2013/SB-10051649-7535.pdf"
+DEEREDEF = "https://jdparts.deere.com/partsmkt/unsecured/document/english/featbene/DKE10113_DieselExhaustFluidProductSpecSheet.pdf"
+
+DEF_TITLE = "How to Store DEF: Shelf Life, Freezing, and Bulk Tanks"
+DEF_DESC = ("Diesel exhaust fluid shelf life by temperature, what happens when it freezes, which tank materials are safe, "
+            "and how to keep bulk DEF from going bad.")
+
+def_faq = [
+    ("Does DEF go bad?",
+     f"Yes, slowly, and faster when it's hot. API says properly stored DEF can last 12 months or longer, and about six months if stored at 86&deg;F or higher {src(APIDEFQ, 'API')}. Check the date on containers and use the oldest first."),
+    ("Can I add anything to keep DEF from freezing?",
+     f"No. Don't add anti-gel or anything else; it will keep DEF from working and can damage the system {src(CUMDEF, 'Cummins')}. DEF thaws at the right concentration, and equipment with SCR has heaters for the DEF tank {src(APIDEFQ, 'API')}."),
+    ("How do I know if DEF is bad?",
+     f"Good DEF is crystal clear with a light ammonia smell. Don't use it if it's cloudy, tinted, or smells strongly of ammonia {src(DEEREDEF, 'John Deere')}. A DEF refractometer checks the urea concentration."),
+    ("Can I rinse a DEF tank or funnel with the hose?",
+     f"No. Tap water contaminates DEF. Rinse with distilled or deionized water, or rinse with tap water and then with DEF {src(NAVDEF, 'Navistar')}."),
+]
+def_faq_html = "\n".join(f"<h3>{q}</h3>\n<p>{a}</p>" for q, a in def_faq)
+
+def_body = f"""
+<article class="wrap">
+  <p class="crumbs"><a href="/fuel-quality/">Fuel quality</a></p>
+  <h1>How to store DEF: shelf life, freezing, and bulk tanks</h1>
+  <p class="meta">Written by a fuel-system technician. Updated {UPDATED_HUMAN}.</p>
+  {AFF_NOTE}
+
+  <div class="answer">
+    <p><strong>Store diesel exhaust fluid (DEF) sealed, out of the sun, and between about 12&deg;F and 86&deg;F. Kept cool, it lasts a year or more; at 86&deg;F and up, figure on about six months.</strong> It freezes at 12&deg;F and expands about 7%, so don't let a full tank freeze, and keep it in a dedicated tank made of stainless steel or plastic (<a href="{CUMDEF}" rel="noopener">Cummins</a>; <a href="{APIDEFQ}" rel="noopener">API</a>).</p>
+  </div>
+
+  <h2>What DEF is</h2>
+  <p><strong>DEF is 32.5% urea and 67.5% deionized water</strong>, used by engines with selective catalytic reduction (SCR) to cut NOx emissions {src(CUMDEF, 'Cummins')}. It has to meet the ISO 22241 quality standard {src(NAVDEF, 'Navistar')}. It's nonflammable and nontoxic, weighs about 9.1 to 9.2 pounds per gallon, and has a light ammonia smell (<a href="{NAVDEF}" rel="noopener">Navistar</a>; <a href="{DEEREDEF}" rel="noopener">John Deere</a>).</p>
+  <p>Look for the API certification mark. For bulk deliveries, API suggests asking your supplier for a certificate of analysis with each shipment {src(APIDEF, 'API')}. Never put DEF in the diesel tank {src(DEEREDEF, 'John Deere')}.</p>
+
+  <h2>Shelf life by temperature</h2>
+  <p><strong>Heat is what shortens DEF's life.</strong> Navistar's service guidance gives the clearest numbers {src(NAVDEF, 'Navistar')}:</p>
+  <div class="table-wrap">
+  <table class="even">
+    <thead><tr><th scope="col">Storage temperature</th><th scope="col">Expected shelf life</th></tr></thead>
+    <tbody>
+      <tr><td>23&ndash;77&deg;F (&minus;5 to 25&deg;C), sealed, out of the sun</td><td>At least 18 months</td></tr>
+      <tr><td>86&deg;F (30&deg;C)</td><td>About 12 months</td></tr>
+      <tr><td>95&deg;F (35&deg;C)</td><td>About 6 months</td></tr>
+      <tr><td>Above 95&deg;F</td><td>Significant loss; check quality before every use</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>Other makers say much the same. Cummins recommends storing DEF between 12&deg;F and 86&deg;F, and says shelf life extends to 2 years below 65&deg;F {src(CUMDEF, 'Cummins')}. API is more conservative at the hot end: about six months at 86&deg;F or higher, and 12 months or longer stored properly {src(APIDEFQ, 'API')}. Sunlight shortens it too {src(APIDEFQ, 'API')}.</p>
+  <p><strong>Plan for the hot end if your storage gets hot.</strong> A tote in a sunny metal shed in July isn't stored at 65&deg;F.</p>
+
+  <h2>Freezing</h2>
+  <ul>
+    <li><strong>DEF freezes at 12&deg;F (&minus;11&deg;C).</strong> At its 32.5% concentration, the urea and water freeze and thaw together, so it comes back at the right mix {src(CUMDEF, 'Cummins')}.</li>
+    <li><strong>It expands about 7% when frozen</strong> and can damage a tank that's full or nearly full when it freezes. Keep storage tanks less than full in winter {src(APIDEFQ, 'API')}.</li>
+    <li><strong>Don't add anything to keep it from freezing.</strong> No anti-gel or freeze-point additive should ever go in DEF {src(CUMDEF, 'Cummins')}. Equipment DEF tanks have heaters that thaw it after startup {src(APIDEFQ, 'API')}.</li>
+  </ul>
+
+  <h2>Bulk tanks and totes</h2>
+  <ul>
+    <li><strong>Dedicate the tank to DEF.</strong> If you switch a tank to DEF, rinse it thoroughly with distilled or deionized water first {src(APIDEF, 'API')}.</li>
+    <li><strong>Use the right materials.</strong> Most plastics, highly alloyed steels, stainless steel, and titanium are fine. Mild iron and non-ferrous metals such as zinc, aluminum, magnesium, and nickel aren't {src(NAVDEF, 'Navistar')}. Hoses, fittings, and seals need to be DEF-approved, such as stainless, certain plastics, or EPDM rubber {src(CUMDEF, 'Cummins')}. Don't reuse a fuel pump or hose.</li>
+    <li><strong>Keep it sealed and out of the sun</strong> (<a href="{NAVDEF}" rel="noopener">Navistar</a>; <a href="{DEEREDEF}" rel="noopener">John Deere</a>).</li>
+    <li><strong>Use dedicated dispensing equipment.</strong> No funnels, pitchers, or hoses that have touched other fluids. Clean with distilled or deionized water, then a DEF rinse; never tap water {src(APIDEFQ, 'API')}.</li>
+    <li><strong>Rotate stock</strong> and use the oldest DEF first {src(APIDEF, 'API')}.</li>
+  </ul>
+  <p><strong>Field note:</strong> The problem I see most on DEF setups is crystallization at the dispensing nozzle, when the nozzle isn't kept in water between uses. If you keep the tip in water, use distilled or deionized water, since tap water contaminates DEF {src(NAVDEF, 'Navistar')}.</p>
+  <p>DEF transfer pumps and refractometers: {amz("DEF transfer pump", "DEF pumps on Amazon")}; {amz("DEF refractometer", "DEF refractometers on Amazon")}.</p>
+
+  <h2>Size your storage to your use</h2>
+  <p><strong>DEF use averages about 3 to 5% of diesel use</strong> {src(CUMDEF, 'Cummins')}. That's the key to sizing:</p>
+  <div class="table-wrap">
+  <table class="even">
+    <thead><tr><th scope="col">Diesel used per year</th><th scope="col">DEF used per year (3&ndash;5%)</th><th scope="col">A 330-gallon tote lasts about</th></tr></thead>
+    <tbody>
+      <tr><td>2,000 gallons</td><td>60&ndash;100 gallons</td><td>3+ years: longer than the shelf life</td></tr>
+      <tr><td>5,000 gallons</td><td>150&ndash;250 gallons</td><td>1&ndash;2 years</td></tr>
+      <tr><td>10,000 gallons</td><td>300&ndash;500 gallons</td><td>8 months to a year</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><strong>Field note:</strong> Most of the farms I service store DEF in totes.</p>
+  <p>A small farm can easily buy more DEF than it will use before it ages out. Deere's advice is simply to buy amounts you can use in a reasonable time {src(DEEREDEF, 'John Deere')}. Smaller containers or more frequent deliveries can beat a big tote.</p>
+
+  <h2>Spills</h2>
+  <p>DEF isn't flammable, but a spill left to dry leaves a white urea residue. Clean it up properly; left on equipment, it can be mistaken for a leak from the dosing system {src(NAVDEF, 'Navistar')}.</p>
+
+  <section class="faq">
+  <h2>FAQ</h2>
+  {def_faq_html}
+  </section>
+
+  <h2>Sources</h2>
+  <ul class="sources">
+    <li><a href="{APIDEF}" rel="noopener">American Petroleum Institute: How to purchase, store, and handle DEF</a></li>
+    <li><a href="{APIDEFQ}" rel="noopener">American Petroleum Institute: Handle DEF properly to maintain quality</a></li>
+    <li><a href="{CUMDEF}" rel="noopener">Cummins: 6 answers about diesel exhaust fluid</a></li>
+    <li><a href="{NAVDEF}" rel="noopener">Navistar: Diesel exhaust fluid tips (service bulletin, via NHTSA)</a></li>
+    <li><a href="{DEEREDEF}" rel="noopener">John Deere: Diesel exhaust fluid product spec sheet</a></li>
+  </ul>
+  <p class="note">This guide is general information. Follow your equipment maker's DEF requirements and the label on the DEF you buy.</p>
+</article>
+"""
+
+def_schema = [{"@context": "https://schema.org", "@type": "Article", "headline": DEF_TITLE, "description": DEF_DESC,
+               "datePublished": "2026-11-02", "dateModified": "2026-11-02", "mainEntityOfPage": DOMAIN + DEF_PATH}]
+page(DEF_PATH, DEF_TITLE, DEF_DESC, def_body, schema=def_schema, og_type="article")
+
 # ---------------- Fuel quality hub ----------------
 FQ_PATH = "/fuel-quality/"
 FQ_TITLE = "Fuel Quality Guides: Keeping Stored Diesel Clean, Dry, and Usable"
@@ -2642,6 +2756,7 @@ FQ_GUIDES = [
     (BIO_PATH, "Diesel bugs and biocides", "How to spot microbial growth, test for it, and treat a tank step by step without plugging every filter."),
     (STORE_PATH, "How long does diesel last in storage?", "Shelf life, what makes fuel go bad, how to tell if it's still good, and how to make it last."),
     (TEST_PATH, "How to test diesel fuel", "Taking a good bottom sample, the checks you can do yourself, and which lab tests to ask for."),
+    (DEF_PATH, "DEF storage", "Diesel exhaust fluid shelf life by temperature, freezing, safe tank materials, and sizing bulk storage."),
     (DYE_PATH, "Red-dyed diesel", "Who can legally use off-road diesel, what counts as farm and off-highway use, and the federal penalty."),
     (STAB_PATH, "Diesel fuel stabilizer", "What a stabilizer does and doesn't do, when stored fuel needs one, and label treat rates for bulk tanks."),
     (CLEAN_PATH, "Tank cleaning and fuel polishing", "When to polish the fuel and when to clean the tank, how each works, and why nobody should climb inside."),
@@ -4055,7 +4170,7 @@ for _args in PAGES:
 
 # ---------------- sitemap, robots, favicon ----------------
 # Legal and contact pages stay crawlable through the footer but are left out of the sitemap
-urls = ["/", NOZ_PATH, UST_PATH, WT_PATH, RD_PATH, SUMP_PATH, OFP_PATH, AST_PATH, SB_PATH, LLD_PATH, FQ_PATH, STORE_PATH, TEST_PATH, CLEAN_PATH, STAB_PATH, UNGEL_PATH, DYE_PATH, ASV_PATH, SPCC_PATH, SC_PATH, SETB_PATH, VENT_PATH, INSP_PATH, ADD_PATH, WATER_PATH, BIO_PATH, TT_PATH, PUMP_PATH, GEL_PATH, "/about/"]
+urls = ["/", NOZ_PATH, UST_PATH, WT_PATH, RD_PATH, SUMP_PATH, OFP_PATH, AST_PATH, SB_PATH, LLD_PATH, FQ_PATH, STORE_PATH, TEST_PATH, CLEAN_PATH, STAB_PATH, UNGEL_PATH, DYE_PATH, DEF_PATH, ASV_PATH, SPCC_PATH, SC_PATH, SETB_PATH, VENT_PATH, INSP_PATH, ADD_PATH, WATER_PATH, BIO_PATH, TT_PATH, PUMP_PATH, GEL_PATH, "/about/"]
 sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
 for u in urls:
     sitemap += f"  <url><loc>{DOMAIN}{u}</loc><lastmod>{DATES.get(u, (UPDATED,))[0]}</lastmod></url>\n"
