@@ -36,6 +36,7 @@ DATES = {
     "/red-dyed-diesel/": ("2026-11-02", "November 2, 2026"),
     "/def-storage/": ("2026-11-02", "November 2, 2026"),
     "/diesel-transfer-tanks-compared/": ("2026-11-02", "November 2, 2026"),
+    "/aviation-fuel-quality-control/": ("2026-11-02", "November 2, 2026"),
 }
 
 # Who gets credit in bylines and structured data. While this is None, guides are credited
@@ -2851,6 +2852,7 @@ def_body = f"""
 
   <h2>Spills</h2>
   <p>DEF isn't flammable, but a spill left to dry leaves a white urea residue. Clean it up properly; left on equipment, it can be mistaken for a leak from the dosing system {src(NAVDEF, 'Navistar')}.</p>
+  <p><strong>Around aircraft, DEF is a contamination hazard.</strong> DEF mistaken for a jet fuel additive has ended up in jet fuel and caused emergency landings. See <a href="/aviation-fuel-quality-control/">aviation fuel quality control</a>.</p>
 
   <section class="faq">
   <h2>FAQ</h2>
@@ -2873,6 +2875,137 @@ def_schema = [{"@context": "https://schema.org", "@type": "Article", "headline":
                "datePublished": "2026-11-02", "dateModified": "2026-11-02", "mainEntityOfPage": DOMAIN + DEF_PATH}]
 page(DEF_PATH, DEF_TITLE, DEF_DESC, def_body, schema=def_schema, og_type="article")
 
+
+# ---------------- Article: aviation fuel quality control ----------------
+AV_PATH = "/aviation-fuel-quality-control/"
+DOIFUEL = "https://www.doi.gov/sites/default/files/documents/2024-09/doi-aviation-fuel-management-handbook-sept-2024.pdf"
+FAAAC = "https://www.faa.gov/airports/resources/advisory_circulars/index.cfm/go/document.current/documentnumber/150_5230-4"
+FAACERT = "https://www.faa.gov/airports/airport_safety/certalerts/part_139_certalert_23_04"
+
+AV_TITLE = "Aviation Fuel Quality Control: Sumping, Filters, and DEF"
+AV_DESC = ("Daily sump checks, filter differential pressure limits, filter element life, and how to keep DEF out of jet "
+           "fuel, for airport and private aviation fuel systems.")
+
+av_faq = [
+    ("What color should aviation fuel be?",
+     f"100LL avgas is blue, grade 100 avgas is green, and Jet A is clear to straw {src(DOIFUEL, 'DOI handbook')}. Any of them should be clear and bright, with no haze, particles, or water."),
+    ("When do filter elements have to be changed?",
+     f"When differential pressure hits the limit, when the element reaches its service life, or both. The DOI handbook caps filter monitor and water barrier elements at 12 months and coalescer elements at 36 months {src(DOIFUEL, 'DOI handbook')}. Follow the element maker too."),
+    ("Can DEF-contaminated jet fuel be used in something else?",
+     f"No. The FAA says to remove it, discard it according to the regulations, and not repurpose it for other aircraft or vehicles {src(FAACERT, 'FAA CertAlert 23-04')}."),
+]
+av_faq_html = "\n".join(f"<h3>{q}</h3>\n<p>{a}</p>" for q, a in av_faq)
+
+av_body = f"""
+<article class="wrap">
+  <p class="crumbs"><a href="/fuel-quality/">Fuel quality</a></p>
+  <h1>Aviation fuel quality control: sumping, filters, and DEF</h1>
+  <p class="meta">Written by a fuel-system technician. Updated {UPDATED_HUMAN}.</p>
+
+  <div class="answer">
+    <p><strong>Aviation fuel quality control comes down to keeping water, dirt, and the wrong fluid out of the aircraft: sump and check samples every day, read and record filter differential pressure under flow, change filter elements at their pressure or age limit, and keep diesel exhaust fluid (DEF) far away from jet fuel additives.</strong> The detailed rules are industry standards such as ATA 103 and NFPA 407; this guide follows the U.S. Department of the Interior's 2024 fuel handbook, which applies them {src(DOIFUEL, 'DOI Aviation Fuel Management Handbook')}.</p>
+  </div>
+
+  <p><strong>Field note:</strong> I service every kind of aviation fuel system: FBO fuel farms, refuelers, self-serve 100LL tanks, and private strips.</p>
+
+  <h2>Know the fuel</h2>
+  <div class="table-wrap">
+  <table class="even">
+    <thead><tr><th scope="col">Fuel</th><th scope="col">Color</th><th scope="col">Used in</th></tr></thead>
+    <tbody>
+      <tr><td>100LL avgas</td><td>Blue</td><td>Piston engines</td></tr>
+      <tr><td>Grade 100 avgas</td><td>Green</td><td>Piston engines</td></tr>
+      <tr><td>Jet A</td><td>Clear to straw</td><td>Turbine engines</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="source-line">Source: <a href="{DOIFUEL}" rel="noopener">DOI Aviation Fuel Management Handbook (2024)</a>.</p>
+  <p><strong>"Clear and bright"</strong> means no visible solids, cloud, haze, emulsion, or free water, with the sparkle of clean, dry fuel in transmitted light {src(DOIFUEL, 'DOI handbook')}. It's the standard every sample is held to.</p>
+
+  <h2>Daily checks</h2>
+  <ul>
+    <li><strong>Sump samples:</strong> take samples from tanks, filter sumps, and nozzles and check them for clear and bright. If you can't get a clean, dry sample after three samples, take the unit out of service {src(DOIFUEL, 'DOI handbook')}.</li>
+    <li><strong>Filter differential pressure:</strong> check and record it under normal flow. A sudden rise or drop means a problem: stop fueling and take the unit out of service to investigate {src(DOIFUEL, 'DOI handbook')}.</li>
+    <li><strong>Nozzle pressure</strong> can't exceed 50 psig at constant flow {src(DOIFUEL, 'DOI handbook')}.</li>
+    <li><strong>Deadman controls and safety interlocks</strong> get a function check; a refueler shouldn't be able to move with a nozzle out of its stowed position {src(DOIFUEL, 'DOI handbook')}.</li>
+    <li><strong>Hoses, nozzles, and swivels:</strong> check for leaks, cracks, soft spots, blisters, and exposed reinforcement, and make sure dust caps are on {src(DOIFUEL, 'DOI handbook')}.</li>
+  </ul>
+  <p><strong>Field note:</strong> As long as people sump daily, I don't find much on inspections. Daily sumping is what keeps these systems clean.</p>
+
+  <h2>Filter differential pressure limits</h2>
+  <p><strong>Differential pressure across the filter tells you how loaded the elements are.</strong> Take the unit out of service if it's over these limits {src(DOIFUEL, 'DOI handbook')}:</p>
+  <div class="table-wrap">
+  <table class="even">
+    <thead><tr><th scope="col">Filter type</th><th scope="col">Maximum differential pressure</th></tr></thead>
+    <tbody>
+      <tr><td>Filter/separator</td><td>15 psi</td></tr>
+      <tr><td>Filter monitor (water-absorbent)</td><td>15 psi</td></tr>
+      <tr><td>Dirt defense filter</td><td>15 psi</td></tr>
+      <tr><td>Water barrier filter</td><td>22 psi</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <ul>
+    <li><strong>The limit scales with flow.</strong> The 15 psi limit is at rated flow; at 50% of rated flow, the limit is 7.5 psi {src(DOIFUEL, 'DOI handbook')}. Read it at the same flow each day, such as in recirculation, so readings compare.</li>
+    <li><strong>Watch the trend.</strong> A steady rise means elements are filling up. A sudden drop to zero means an element ruptured: shut the system down {src(DOIFUEL, 'DOI handbook')}.</li>
+    <li><strong>Use qualified filters.</strong> Aircraft refueling equipment needs filtration qualified to EI 1581 (filter/separators) or EI 1583 (filter monitors). EI-qualified spin-on filters are no longer made for aviation use {src(DOIFUEL, 'DOI handbook')}.</li>
+  </ul>
+
+  <h2>Filter element life and annual work</h2>
+  <div class="table-wrap">
+  <table class="even">
+    <thead><tr><th scope="col">Element</th><th scope="col">Maximum service life</th></tr></thead>
+    <tbody>
+      <tr><td>Filter monitor elements</td><td>12 months</td></tr>
+      <tr><td>Water barrier elements</td><td>12 months</td></tr>
+      <tr><td>Filter coalescer elements</td><td>36 months</td></tr>
+      <tr><td>Dirt defense elements</td><td>36 months</td></tr>
+      <tr><td>Teflon and synthetic separator elements</td><td>Reusable up to 36 months if cleaned and tested per the maker</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="source-line">Source: <a href="{DOIFUEL}" rel="noopener">DOI handbook</a>. Change at whichever comes first: the pressure limit or the age limit, and follow the element maker's instructions.</p>
+  <p><strong>Field note:</strong> On the systems I service, we change filters annually.</p>
+  <p><strong>Annually,</strong> the handbook also calls for opening filter vessels to check that the interior is clean and free of water, sediment, and microbial growth; checking pressure gauge accuracy to within &plusmn;2% of full scale; calibrating meters; and testing the water defense system {src(DOIFUEL, 'DOI handbook')}.</p>
+
+  <h2>Keep DEF out of jet fuel</h2>
+  <p><strong>This is a real, recent hazard.</strong> Between November 2017 and May 2023, there were multiple events where fueling staff put DEF into a refueling truck's fuel system icing inhibitor (FSII) reservoir by mistake, and it was injected into jet fuel. Mixed with jet fuel, DEF forms crystals that clog fuel filters and nozzles; several aircraft had to make emergency landings {src(FAACERT, 'FAA CertAlert 23-04')}.</p>
+  <p>Both fluids are clear and come in similar white plastic containers. The FAA recommends {src(FAACERT, 'FAA CertAlert 23-04')}:</p>
+  <ul>
+    <li>Don't store DEF and FSII near each other</li>
+    <li>Mark bulk containers with 4-inch or larger stenciled letters visible from all sides: "DIESEL DEF" and "JET FUEL SYSTEM ICING INHIBITOR"</li>
+    <li>Lock DEF in a separate shed or cabinet, with the key only for ground vehicle maintenance staff</li>
+    <li>Don't refill FSII containers on fueling vehicles; use replacement containers when possible</li>
+    <li>Remove and discard jet fuel suspected of DEF contamination; don't repurpose it</li>
+    <li>Only trained people add fluids to aviation equipment and aircraft</li>
+  </ul>
+  <p>The FAA's airport fueling advisory circular builds DEF contamination prevention into required fuel safety training topics {src(FAAAC, 'FAA AC 150/5230-4C')}. For storing DEF itself, see <a href="{DEF_PATH}">how to store DEF</a>.</p>
+
+  <h2>For pilots</h2>
+  <p>Before flight, pilots sump the aircraft per the manufacturer's instructions and FAA guidance, draining at least 10 ounces from each sump until it's clear and bright, and confirm the fuel source is marked with the right grade {src(DOIFUEL, 'DOI handbook')}.</p>
+
+  <h2>Records</h2>
+  <p><strong>Log differential pressure and flow rate every day.</strong> Reviewing past entries is how you spot a filter trending toward its limit {src(DOIFUEL, 'DOI handbook')}. Keep sump, filter change, and inspection records with the equipment.</p>
+
+  <section class="faq">
+  <h2>FAQ</h2>
+  {av_faq_html}
+  </section>
+
+  <h2>Sources</h2>
+  <ul class="sources">
+    <li><a href="{DOIFUEL}" rel="noopener">U.S. Department of the Interior: Aviation Fuel Management Handbook (September 2024)</a></li>
+    <li><a href="{FAACERT}" rel="noopener">FAA Part 139 CertAlert 23-04: Jet fuel contamination with diesel exhaust fluid (2023)</a></li>
+    <li><a href="{FAAAC}" rel="noopener">FAA AC 150/5230-4C: Aircraft fuel storage, handling, training, and dispensing on airports</a></li>
+  </ul>
+  <p class="note">This guide is general information. Airport and FBO fueling follows ATA 103, NFPA 407, the airport's procedures, and the equipment and filter makers' instructions; those govern at your facility.</p>
+</article>
+"""
+
+av_schema = [{"@context": "https://schema.org", "@type": "Article", "headline": AV_TITLE, "description": AV_DESC,
+              "datePublished": "2026-11-02", "dateModified": "2026-11-02", "mainEntityOfPage": DOMAIN + AV_PATH}]
+page(AV_PATH, AV_TITLE, AV_DESC, av_body, schema=av_schema, og_type="article")
+
 # ---------------- Fuel quality hub ----------------
 FQ_PATH = "/fuel-quality/"
 FQ_TITLE = "Fuel Quality Guides: Keeping Stored Diesel Clean, Dry, and Usable"
@@ -2883,6 +3016,7 @@ FQ_GUIDES = [
     (BIO_PATH, "Diesel bugs and biocides", "How to spot microbial growth, test for it, and treat a tank step by step without plugging every filter."),
     (STORE_PATH, "How long does diesel last in storage?", "Shelf life, what makes fuel go bad, how to tell if it's still good, and how to make it last."),
     (TEST_PATH, "How to test diesel fuel", "Taking a good bottom sample, the checks you can do yourself, and which lab tests to ask for."),
+    (AV_PATH, "Aviation fuel quality control", "Daily sump checks, filter differential pressure limits, element life, and keeping DEF out of jet fuel."),
     (DEF_PATH, "DEF storage", "Diesel exhaust fluid shelf life by temperature, freezing, safe tank materials, and sizing bulk storage."),
     (DYE_PATH, "Red-dyed diesel", "Who can legally use off-road diesel, what counts as farm and off-highway use, and the federal penalty."),
     (STAB_PATH, "Diesel fuel stabilizer", "What a stabilizer does and doesn't do, when stored fuel needs one, and label treat rates for bulk tanks."),
@@ -4298,7 +4432,7 @@ for _args in PAGES:
 
 # ---------------- sitemap, robots, favicon ----------------
 # Legal and contact pages stay crawlable through the footer but are left out of the sitemap
-urls = ["/", NOZ_PATH, UST_PATH, WT_PATH, RD_PATH, SUMP_PATH, OFP_PATH, AST_PATH, SB_PATH, LLD_PATH, FQ_PATH, STORE_PATH, TEST_PATH, CLEAN_PATH, STAB_PATH, UNGEL_PATH, DYE_PATH, DEF_PATH, ASV_PATH, SPCC_PATH, SC_PATH, SETB_PATH, VENT_PATH, INSP_PATH, ADD_PATH, WATER_PATH, BIO_PATH, TT_PATH, TTC_PATH, PUMP_PATH, GEL_PATH, "/about/"]
+urls = ["/", NOZ_PATH, UST_PATH, WT_PATH, RD_PATH, SUMP_PATH, OFP_PATH, AST_PATH, SB_PATH, LLD_PATH, FQ_PATH, STORE_PATH, TEST_PATH, CLEAN_PATH, STAB_PATH, UNGEL_PATH, DYE_PATH, DEF_PATH, AV_PATH, ASV_PATH, SPCC_PATH, SC_PATH, SETB_PATH, VENT_PATH, INSP_PATH, ADD_PATH, WATER_PATH, BIO_PATH, TT_PATH, TTC_PATH, PUMP_PATH, GEL_PATH, "/about/"]
 sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
 for u in urls:
     sitemap += f"  <url><loc>{DOMAIN}{u}</loc><lastmod>{DATES.get(u, (UPDATED,))[0]}</lastmod></url>\n"
